@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/Fonts/mspgothic_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Giko/Message.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="Message" type="PanelContainer"]
+margin_right = 50.0
+margin_bottom = 64.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 65.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "000000000"
+valign = 1
+autowrap = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 0, 60 )
+polygon = PoolVector2Array( -1, 0, -11, 11, 14, 3 )

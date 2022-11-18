@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/back-standing.png-0894c5ba5fe47aba0b299bf1823e51c8.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Characters/panda_naito/back-standing.png"
+dest_files=[ "res://.import/back-standing.png-0894c5ba5fe47aba0b299bf1823e51c8.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
