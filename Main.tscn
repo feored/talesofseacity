@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://fpscounter.gd" type="Script" id=1]
-[ext_resource path="res://Grid.gd" type="Script" id=2]
+[ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
-[ext_resource path="res://ZoomingCamera2D.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=9]
 [ext_resource path="res://UI/Fonts/arialbold_font.tres" type="DynamicFont" id=16]
 
 [node name="Main" type="Node2D"]
