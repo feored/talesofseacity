@@ -13,12 +13,12 @@ func updateRoomData(newRoomName : String) -> void:
 	currentRoomData = ROOMS[newRoomName]
 
 	if (currentRoomData.has("blockWidth")):
-		GRID_STEP_X = float(currentRoomData["blockWidth"])
+		GRID_STEP_X = float(currentRoomData["blockWidth"])/2
 	else:
 		GRID_STEP_X = Constants.DEFAULT_GRID_STEP_X
 
 	if (currentRoomData.has("blockHeight")):
-		GRID_STEP_Y = float(currentRoomData["blockHeight"])
+		GRID_STEP_Y = float(currentRoomData["blockHeight"])/2
 	else:
 		GRID_STEP_Y = Constants.DEFAULT_GRID_STEP_Y
 	
@@ -53,10 +53,19 @@ func updateCurrentRoomWalkableTiles() -> void:
 
 
 func getCurrentRoomOffset() -> Vector2:
-	return Vector2(
-		-currentRoomData["originCoordinates"].x - GRID_STEP_X * currentRoomScale,
-		-currentRoomData["originCoordinates"].y + GRID_STEP_Y * currentRoomScale
-	)
+	
+	match currentRoomData["id"]:
+		"seashore":
+			return Vector2(
+				-currentRoomData["originCoordinates"].x - GRID_STEP_X,
+				-currentRoomData["originCoordinates"].y + (GRID_STEP_Y * 4)
+			)
+		_:
+			return Vector2(
+				-currentRoomData["originCoordinates"].x - GRID_STEP_X,
+				-currentRoomData["originCoordinates"].y + (GRID_STEP_Y * 1.5)
+			)
+
 
 func isTileBlocked(tile : Vector2) -> bool:
 	if currentRoomData.has("blocked"):
@@ -563,10 +572,7 @@ var ROOMS = {
 			}
 		],
 		"blocked":[
-			{
-				"x":0,
-				"y":5
-			},
+			
 			{
 				"x":1,
 				"y":5
@@ -12840,12 +12846,6 @@ var ROOMS = {
 			
 		],
 		"doors":{
-			"spawn":{
-				"x":0,
-				"y":0,
-				"direction":"up",
-				"target":null
-			},
 			"bottom_left":{
 				"x":0,
 				"y":0,
@@ -12881,6 +12881,12 @@ var ROOMS = {
 					"roomId":"takadai",
 					"doorId":"right"
 				}
+			},
+			"spawn":{
+				"x":0,
+				"y":0,
+				"direction":"up",
+				"target":null
 			}
 		},
 		"streamSlotCount":0

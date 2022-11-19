@@ -35,9 +35,7 @@ config/icon="res://gikobox_logo.png"
 [autoload]
 
 Constants="*res://Scripts/Constants.gd"
-Upgrade="*res://Scripts/Upgrade.gd"
 Utils="*res://Scripts/Utils.gd"
-State="*res://Scripts/State.gd"
 Rooms="*res://rooms/Rooms.gd"
 
 [display]

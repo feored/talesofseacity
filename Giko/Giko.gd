@@ -38,46 +38,16 @@ const GHOST_COLOR = Color(1, 1, 1, 0.5)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#timeToNextMovement = Utils.rng.randf_range(MIN_NEXT_MOVE, MAX_NEXT_MOVE)
-	# currentTile = Vector2(
-	# 	Utils.rng.randi_range(-Constants.BASE_ROOM_SIZE.x, Constants.BASE_ROOM_SIZE.x),
-	# 	Utils.rng.randi_range(-Constants.BASE_ROOM_SIZE.y, Constants.BASE_ROOM_SIZE.y)
-	# )
-	# var spawnPointName = Rooms.currentRoomData["spawnPoint"]
-	# var spawnPoint = Rooms.currentRoomData["doors"][spawnPointName]
-
-	# ## get random walkable tile
-
-	# var validTile = false
-
-	# ## Naive approach to avoid getting tiles that are blocked on all sides, ie on walls
-	# ## Require at least one other non blocked tile nearby
-	# while !validTile:
-	# 	validTile = true
-	# 	currentTile = Vector2(
-	# 		Utils.rng.randi_range(0, Rooms.currentRoomData["size"]["x"]-1),
-	# 		-Utils.rng.randi_range(0, Rooms.currentRoomData["size"]["y"]-1)
-	# 	)
-	# 	if Rooms.currentRoomData.has("blocked"):
-	# 		print("Room has blocked tiles")
-	# 		for blockedTile in Rooms.currentRoomData["blocked"]:
-	# 			if (
-	# 				float(blockedTile["x"]) == currentTile.x
-	# 				&& float(blockedTile["y"]) == -currentTile.y
-	# 			):
-	# 				print("Tile not walkable, retrying")
-	# 				validTile = false
-	# 				break
 	currentTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
 
 	currentTilePos = Utils.getTilePosAtCoords(currentTile)
 	position = Utils.getTilePosAtCoords(currentTile)
 	currentDirection = getRandomDirection()
-
+	
+	checkSitting()
 	play(getRightAnimation())
 	setRightFlip()
 	setMood(pickMood())
-	#add_to_group(Constants.GROUP_GIKOS)
 
 
 func setCharacter(newChar: int) -> void:
@@ -113,6 +83,8 @@ func _process(delta):
 	#$tile.	text = String(currentTile)
 	timeElapsed += delta
 
+	z_index = position.y
+
 	process_movement(delta)
 
 	if canTakeAction.call_func():
@@ -135,17 +107,30 @@ func process_movement(delta) -> void:
 			position = nextTilePosition
 			currentTile = nextTile
 			currentTilePos = Utils.getTilePosAtCoords(currentTile)
-			var willSit = false
-			if Rooms.currentRoomData.has("sit"):
-				for sitTile in Rooms.currentRoomData["sit"]:
-					if sitTile["x"] == currentTile.x && sitTile["y"] == -currentTile.y:
-						willSit = true
-			isSitting = willSit
 			isMoving = false
 			play(getRightAnimation())
+			checkDoors()
 		else:
 			#play(getRightAnimation())
 			position += Utils.getDirectionPixels(currentDirection) * delta * Constants.GIKO_MOVESPEED
+
+
+func checkSitting() -> void:
+	var willSit = false
+	if Rooms.currentRoomData.has("sit"):
+		for sitTile in Rooms.currentRoomData["sit"]:
+			if sitTile["x"] == currentTile.x && sitTile["y"] == currentTile.y:
+				willSit = true
+				break
+	isSitting = willSit
+
+func checkDoors() -> void:
+	if Rooms.currentRoomData.has("doors"):
+		for door in Rooms.currentRoomData["doors"].keys():
+			var currentDoor = Rooms.currentRoomData["doors"][door]
+			if currentDoor["target"] != null && currentDoor["x"] == currentTile.x && currentDoor["y"] == currentTile.y:
+				## we are on a door
+				queue_free()
 
 
 func getRandomDirection() -> int:

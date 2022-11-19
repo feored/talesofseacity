@@ -6,7 +6,7 @@ func _ready():
 
 
 func _draw():
-	draw_grid()
+	#draw_grid()
 	pass
 
 

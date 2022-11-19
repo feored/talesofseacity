@@ -1,9 +1,12 @@
 extends Node
 
+## Default is actually 80/40 in rooms, this is fine
 const DEFAULT_GRID_STEP_X : float = 40.0
 const DEFAULT_GRID_STEP_Y : float = 20.0
 
 const DEFAULT_SCALE : float = 1.0
+
+const ACTION_TIMEOUT = 0.25
 
 const TIME_START = 1606777200
 const TIME_SCALE = 10000
@@ -28,195 +31,6 @@ const CAMERA_MAX_X = 3840
 const CAMERA_MIN_X = -CAMERA_MAX_X
 const CAMERA_MAX_Y = 2160
 const CAMERA_MIN_Y = -CAMERA_MAX_Y
-
-enum Building {
-    Bench,
-    GoTable,
-    GoChair,
-    BlueCushion,
-    LongTable,
-    Trashcan,
-    Cafe
-}
-
-
-var BuildData = {
-    Building.Bench : {
-        "objectName" : "Bench",
-        "path" : "Rooms/objects/bench.png",
-        "background" : false,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.SEAT
-            },
-            {
-                "x" : -1,
-                "y" : 0,
-                "status" : TileStatus.SEAT
-            },
-            {
-                "x" : 1,
-                "y" : 0,
-                "status" : TileStatus.SEAT
-            }
-        ]
-    },
-    Building.GoTable : {
-        "objectName" : "Go Table",
-        "path" : "Rooms/objects/go-table.png",
-        "background" : false,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            }
-        ]
-    },
-    Building.GoChair : {
-        "objectName" : "Go Chair",
-        "path" : "Rooms/objects/go-chair.png",
-        "background" : false,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.SEAT
-            }
-        ]
-    },
-    Building.BlueCushion : {
-        "objectName" : "Blue Cushion",
-        "path" : "Rooms/objects/cushion_blue.png",
-        "background" : true,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.SEAT
-            }
-        ]
-    },
-    Building.LongTable : {
-        "objectName" : "Long Table",
-        "path" : "Rooms/objects/long_table_left.png",
-        "background" : false,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            }
-        ]
-    },
-    Building.Trashcan : {
-        "objectName" : "Trashcan",
-        "path" : "Rooms/objects/trash.png",
-        "background" : false,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            }
-        ]
-    },
-    Building.Cafe : {
-        "objectName" : "Café de Giko",
-        "path" : "Rooms/objects/cafe.png",
-        "background" : false,
-        "tiles" : [
-            {
-                "x" : 0,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : -1,
-                "y" : 1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : -1,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : -1,
-                "y" : -1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 0,
-                "y" : 1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 0,
-                "y" : -1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 1,
-                "y" : 1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 1,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 1,
-                "y" : -1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : -1,
-                "y" : 2,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 0,
-                "y" : 2,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 1,
-                "y" : 2,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 2,
-                "y" : 2,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 2,
-                "y" : 1,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 2,
-                "y" : 0,
-                "status" : TileStatus.BLOCKED
-            },
-            {
-                "x" : 2,
-                "y" : -1,
-                "status" : TileStatus.BLOCKED
-            }
-        ]
-    }
-}
-
-enum TileStatus {
-    FREE,
-    SEAT,
-    BLOCKED
-}
 
 enum Mood {
     IDLE,
@@ -451,7 +265,7 @@ const GIKO_NAMES = [
 	"fattytan",
 	"pablo",
 	"Dumpster Dave",
-	"Dz",
+	"dz",
 	"ET",
 	"meltingwax",
 	"Desuno"

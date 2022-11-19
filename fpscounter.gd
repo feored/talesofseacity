@@ -11,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta: float) -> void:
-    set_text("FPS " + String(Engine.get_frames_per_second()))
+    set_text(String(Engine.get_frames_per_second()))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

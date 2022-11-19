@@ -17,8 +17,8 @@ static func getNearbyTiles(tile : Vector2) -> Array:
 
 static func getTilePosAtCoords(coords : Vector2) -> Vector2:
     return Vector2(
-        (coords.x + coords.y) * Rooms.GRID_STEP_X * Rooms.currentRoomScale,
-        (coords.x - coords.y) * Rooms.GRID_STEP_Y * Rooms.currentRoomScale
+        (coords.x + coords.y) * Rooms.GRID_STEP_X,
+        (coords.x - coords.y) * Rooms.GRID_STEP_Y
     )
 
 func canMoveInDirection(currentTile : Vector2, toDirection: int) -> bool:

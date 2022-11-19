@@ -7,7 +7,6 @@ const PlayerGiko = preload("res://Giko/PlayerGiko.gd")
 
 var gikoPrefab = preload("res://Giko/Giko.tscn")
 var playerGikoPrefab = preload("res://Giko/PlayerGiko.tscn")
-var gikoCoinPrefab = preload("res://FX/GikoCoin.tscn")
 
 var messages: Dictionary = {}
 
@@ -23,8 +22,8 @@ var playerGiko : PlayerGiko
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	loadRandomRoom()
-	#loadRoom("densha")
+	#loadRandomRoom()
+	loadRoom("admin_st")
 	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
@@ -36,15 +35,19 @@ func loadRandomRoom() -> void:
 
 
 func cleanRoom() -> void:
-	for n in $"%Gikos".get_children():
-		$"%Gikos".remove_child(n)
+	for n in $"%zObjects".get_children():
+		$"%zObjects".remove_child(n)
 		n.queue_free()
 
 
 func changeRoom(target):
+	$"%zObjects".remove_child(playerGiko)
 	cleanRoom()
+	print("target:")
+	print(target)
 	print("Going to : " + target["roomId"] + " (door : " + target["doorId"] + ")")
 	loadRoom(target["roomId"])
+	$"%zObjects".add_child(playerGiko)
 	for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	playerGiko.place(
@@ -63,15 +66,9 @@ func changeRoom(target):
 #	pass
 
 
-func spawnCoin(pos) -> void:
-	var newCoin = gikoCoinPrefab.instance()
-	newCoin.position = pos
-	$FX.add_child(newCoin)
-
 
 func spawnRandomGiko() -> void:
-	for _i in range(State.gikosSpawnedOnClick):
-		spawnGiko(Constants.Character.values()[randi() % Constants.Character.values().size()])
+	spawnGiko(Constants.Character.values()[randi() % Constants.Character.values().size()])
 
 
 func loadRoom(roomName: String) -> void:
@@ -92,17 +89,19 @@ func loadObjects() -> void:
 		objectSprite.texture = load(
 			"res://rooms/" + Rooms.currentRoomData["id"] + "/" + object["url"]
 		)
-		$"%Gikos".add_child(objectSprite)
+		$"%zObjects".add_child(objectSprite)
 		var roomOffset: Vector2 = Rooms.getCurrentRoomOffset()
 		objectSprite.position = Vector2(
 			roomOffset.x + object["offset"]["x"], roomOffset.y + object["offset"]["y"]
 		)
+		var coords = Vector2(object["x"], object["y"])
+		objectSprite.z_index = Utils.getTilePosAtCoords(coords).y
 
 
 func spawnPlayerGiko(door: String) -> void:
 	var newGiko = playerGikoPrefab.instance()
-	newGiko.setCharacter(Constants.Character.Giko_Hat)
-	newGiko.setName("Gunth")
+	newGiko.setCharacter(Constants.Character.Giko)
+	newGiko.setName("MONA")
 
 	## prepare callbacks
 	newGiko.changeRoom = funcref(self, "changeRoom")
@@ -114,13 +113,11 @@ func spawnPlayerGiko(door: String) -> void:
 		Utils.roomDirectionToEnum(Rooms.currentRoomData["doors"][door]["direction"])
 	)
 
-	$"%Gikos".add_child(newGiko)
+	$"%zObjects".add_child(newGiko)
 	playerGiko = newGiko
 
 
 func spawnGiko(character: int) -> void:
-	if State.serverSize <= totalGikos:
-		return
 	totalGikos += 1
 	var newGiko = gikoPrefab.instance()
 	newGiko.setCharacter(character)
@@ -128,10 +125,7 @@ func spawnGiko(character: int) -> void:
 
 	newGiko.connect("messaged", self, "_on_giko_messaged")
 	newGiko.connect("died", self, "_on_giko_died")
-	$"%Gikos".add_child(newGiko)
-	$UI/StatBar.updateGikos(totalGikos)
-	State.addActivity(1)
-
+	$"%zObjects".add_child(newGiko)
 
 func _on_spawn_pressed():
 	#spawnGiko(Constants.Character.Giko)
@@ -140,14 +134,11 @@ func _on_spawn_pressed():
 
 func _on_giko_messaged():
 	totalMessages += 1
-	State.addActivity(1)
 
 
 func _on_giko_died():
 	totalGikos -= 1
-	$UI/StatBar.updateGikos(totalGikos)
 
 
 func _on_giko_spawned():
 	totalGikos += 1
-	$UI/StatBar.updateGikos(totalGikos)

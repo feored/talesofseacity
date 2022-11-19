@@ -2,7 +2,6 @@ extends AnimatedSprite
 class_name PlayerGiko
 
 signal messaged
-signal died
 
 const messagePrefab = preload("res://Giko/Message.tscn")
 
@@ -11,14 +10,10 @@ const MAX_NEXT_MOVE = 10
 
 var character: int
 
-## Funcrefs
-var getTilePopulation: Object
-var getTileStatus: Object
-var removePosition: Object
-
 var changeRoom: Object
 
 var timeElapsed = 0
+var actionAvailable = true
 
 var currentTile = Vector2(5, 5)
 var currentTilePos: Vector2
@@ -29,19 +24,9 @@ var currentDirection = Constants.Directions.DIR_LEFT
 var timeToNextAction: int
 var isMoving = false
 var isSitting = false
-var isDead = false
 
 var currentMessage: Node
 
-var timeToNextMood: int
-var currentMood: int
-
-var execMood: Object
-var endMood: Object
-var canTakeAction: Object
-var currentMoodData = {}
-
-var life = 90
 
 const GHOST_COLOR = Color(1, 1, 1, 0.5)
 
@@ -74,23 +59,27 @@ func setName(gikoName: String) -> void:
 
 
 func _process(delta):
-	## Defines draw order
-	#$tile.	text = String(currentTile)
-	timeElapsed += delta
-	if !isDead:
-		handleInput()
-		process_movement(delta)
+	z_index = position.y
+	handleInput(delta)
+	process_movement(delta)
 
 
-func handleInput() -> void:
-	if Input.is_action_pressed("ui_up"):
-		move(Constants.Directions.DIR_UP)
-	elif Input.is_action_pressed("ui_down"):
-		move(Constants.Directions.DIR_DOWN)
-	elif Input.is_action_pressed("ui_left"):
-		move(Constants.Directions.DIR_LEFT)
-	elif Input.is_action_pressed("ui_right"):
-		move(Constants.Directions.DIR_RIGHT)
+func handleInput(delta : float) -> void:
+	if actionAvailable:
+		if Input.is_action_pressed("ui_up"):
+			move(Constants.Directions.DIR_UP)
+		elif Input.is_action_pressed("ui_down"):
+			move(Constants.Directions.DIR_DOWN)
+		elif Input.is_action_pressed("ui_left"):
+			move(Constants.Directions.DIR_LEFT)
+		elif Input.is_action_pressed("ui_right"):
+			move(Constants.Directions.DIR_RIGHT)
+	else:
+		if timeElapsed > Constants.ACTION_TIMEOUT:
+			actionAvailable = true
+			timeElapsed = 0
+		else:
+			timeElapsed += delta
 
 
 func try_message() -> void:
@@ -104,25 +93,12 @@ func process_movement(delta) -> void:
 			position = nextTilePosition
 			currentTile = nextTile
 			currentTilePos = Utils.getTilePosAtCoords(currentTile)
-			var willSit = false
-			if Rooms.currentRoomData.has("sit"):
-				for sitTile in Rooms.currentRoomData["sit"]:
-					if sitTile["x"] == currentTile.x && sitTile["y"] == -currentTile.y:
-						willSit = true
-			isSitting = willSit
+			
+			checkSitting()
 			isMoving = false
 			play(getRightAnimation())
 			## check if we should change room
-			if Rooms.currentRoomData.has("doors"):
-				for door in Rooms.currentRoomData["doors"].keys():
-					var currentDoor = Rooms.currentRoomData["doors"][door]
-					if currentDoor["x"] == currentTile.x && currentDoor["y"] == currentTile.y:
-						## we are on a door
-						changeRoom.call_func(currentDoor["target"])
-						isDead = true
-						queue_free()
-						break
-
+			checkDoors()
 		else:
 			#play(getRightAnimation())
 			position += (
@@ -131,8 +107,30 @@ func process_movement(delta) -> void:
 				* Constants.GIKO_MOVESPEED
 			)
 
+func checkSitting() -> void:
+	var willSit = false
+	if Rooms.currentRoomData.has("sit"):
+		for sitTile in Rooms.currentRoomData["sit"]:
+			if sitTile["x"] == currentTile.x && sitTile["y"] == currentTile.y:
+				willSit = true
+				break
+	isSitting = willSit
+
+func checkDoors() -> void:
+	if Rooms.currentRoomData.has("doors"):
+		for door in Rooms.currentRoomData["doors"].keys():
+			var currentDoor = Rooms.currentRoomData["doors"][door]
+			if currentDoor["target"] != null && currentDoor["x"] == currentTile.x && currentDoor["y"] == currentTile.y:
+				## we are on a door
+				changeRoom.call_func(currentDoor["target"])
+				break
+
+func fixHeightIfSitting() -> void:
+	if isSitting:
+		position = Vector2(currentTilePos.x, currentTilePos.y - 10)
 
 func getRightAnimation() -> String:
+	#fixHeightIfSitting()
 	if isMoving:
 		if (
 			currentDirection == Constants.Directions.DIR_LEFT
@@ -187,8 +185,8 @@ func destroyMessage() -> void:
 
 
 func move(toDirection: int) -> void:
-
 	if !isMoving:
+		actionAvailable = false
 		if currentDirection != toDirection:
 			currentDirection = toDirection
 			play(getRightAnimation())
