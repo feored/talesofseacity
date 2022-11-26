@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=2]
+
+[ext_resource path="res://UI/Fonts/mspgothic_font.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.752941, 0.752941, 0.752941, 1 )
+
+[resource]
+default_font = ExtResource( 1 )
+Panel/styles/panel = SubResource( 1 )

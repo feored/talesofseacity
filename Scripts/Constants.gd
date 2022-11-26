@@ -8,13 +8,10 @@ const DEFAULT_SCALE : float = 1.0
 
 const ACTION_TIMEOUT = 0.25
 
-const TIME_START = 1606777200
-const TIME_SCALE = 10000
-
 const GROUP_GIKOS = "gikos"
 const POSITION_EPSILON = 2.5
 
-const GIKO_MOVESPEED = 75
+const GIKO_MOVESPEED = 85
 const GIKO_MOOD_LENGTH = 5
 const GIKO_MESSAGE_LENGTH = 5
 
@@ -32,12 +29,19 @@ const CAMERA_MIN_X = -CAMERA_MAX_X
 const CAMERA_MAX_Y = 2160
 const CAMERA_MIN_Y = -CAMERA_MAX_Y
 
-enum Mood {
-    IDLE,
-    EXPLORE,
-    TALK,
-    SIT
+const TIME_TO_GHOST = 30.0
+const GHOST_COLOR = Color(1, 1, 1, 0.5)
+const NORMAL_COLOR = Color(1, 1, 1, 1)
+
+
+const GIKO_MIN_SPEED = 5
+
+
+enum PERSONALITIES {
+    Explorer,
+    Afk
 }
+
 
 enum Directions {
 	DIR_LEFT,
@@ -59,18 +63,6 @@ const DIRECTION_VECTOR = {
 	Directions.DIR_RIGHT : Vector2(1, 0),
 	Directions.DIR_DOWN : Vector2(0, -1)
 }
-
-const ACTIVITY_BREAKPOINTS = [
-#	1,
-	50,
-	200,
-	500,
-	1000,
-	2000,
-	5000,
-	10000,
-	25000  
-]
 
 enum Character {
 	Baba_Shobon,

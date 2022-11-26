@@ -9,9 +9,16 @@ const messagePrefab = preload("res://Giko/Message.tscn")
 const MIN_NEXT_MOVE = 5
 const MAX_NEXT_MOVE = 10
 
+var currentPersonality : int = Constants.PERSONALITIES.values()[Utils.rng.randi() % Constants.PERSONALITIES.values().size()]
+
 var character: int
 
-var timeElapsed = 0
+
+
+var timeToNextAction = 0
+
+var timeToNextDecision = 0
+var timeSinceDecision = 0
 
 var currentTile = Vector2(5, 5)
 var currentTilePos: Vector2
@@ -19,21 +26,21 @@ var nextTile = Vector2(0, 0)
 var nextTilePosition = Vector2(0, 0)
 var currentDirection = Constants.Directions.DIR_LEFT
 
-var timeToNextAction: int
+var isGhost = true if Utils.rng.randf() > 0.8 else false
 var isMoving = false
 var isSitting = false
 
+var timeElapsed = 0
+var timeSinceAction = Constants.TIME_TO_GHOST if isGhost else Utils.rng.randf() * Constants.TIME_TO_GHOST/2
+
 var currentMessage: Node
 
-var timeToNextMood: int
-var currentMood: int
 
-var execMood: Object
-var endMood: Object
-var canTakeAction: Object
-var currentMoodData = {}
 
-const GHOST_COLOR = Color(1, 1, 1, 0.5)
+var speed = Utils.rng.randfn(Constants.GIKO_MIN_SPEED/2,  Constants.GIKO_MIN_SPEED/5)
+var talkativeness = Utils.rng.randfn(50,  25)
+var wanderlust = Utils.rng.randfn(50, 25)
+#var 
 
 
 # Called when the node enters the scene tree for the first time.
@@ -47,8 +54,62 @@ func _ready():
 	checkSitting()
 	play(getRightAnimation())
 	setRightFlip()
-	setMood(pickMood())
+	print("Speed : %s, Talkativeness : %s, Wanderlust : %s" % [speed, talkativeness, wanderlust])
 
+
+func takeDecision() -> void:
+	if !isMoving && timeSinceDecision > timeToNextDecision:
+		# pick between moving, talking, and doing nothing
+		var nextAction = Utils.rng.randi() % (int(talkativeness+wanderlust)*5)
+		print("next action result = %s" % nextAction)
+		if nextAction < wanderlust:
+				var validNearbyDirections = Utils.getValidNearbyDirections(currentTile)
+				var nextDirection = validNearbyDirections[Utils.rng.randi() % validNearbyDirections.size()]
+				move(nextDirection)
+		elif nextAction < wanderlust + talkativeness:
+				destroyMessage()
+				if (Utils.rng.randf() > 0.5):
+					try_message()
+		else:
+			timeSinceDecision = 0
+		timeToNextDecision = Utils.rng.randfn(Constants.GIKO_MIN_SPEED - speed)
+		print("Time to next Decision %s" %  timeToNextDecision)
+
+
+
+
+
+
+# ### personalities
+
+# func takeDecision() -> void:
+# 	match currentPersonality:
+# 		Constants.PERSONALITIES.Explorer:
+# 			explorer()
+# 		Constants.PERSONALITIES.Afk:
+# 			afk()
+# 		_:
+# 			afk()
+
+# func afk() -> void:
+# 	pass # lol
+
+# func explorer() -> void:
+# 	if !isMoving && timeSinceAction > timeToNextAction:
+# 		var nextDecision = Utils.rng.randi() % 100
+# 		if nextDecision > 60:
+# 			var validNearbyDirections = Utils.getValidNearbyDirections(currentTile)
+# 			var nextDirection = validNearbyDirections[Utils.rng.randi() % validNearbyDirections.size()]
+# 			move(nextDirection)
+# 		elif nextDecision > 55:
+# 			if Utils.rng.randf() < 0.5:
+# 				destroyMessage()
+# 			else:
+# 				destroyMessage()
+# 				try_message()
+# 		else:
+# 			pass
+# 		timeToNextAction = Utils.rng.randf()*3
 
 func setCharacter(newChar: int) -> void:
 	character = newChar
@@ -58,42 +119,19 @@ func setCharacter(newChar: int) -> void:
 func setName(gikoName: String) -> void:
 	$ColorRect/Name.text = gikoName
 
-
-func setMood(nextMood: int) -> void:
-	currentMood = nextMood
-	currentMoodData.clear()
-	#print("Init new mood")
-	match currentMood:
-		Constants.Mood.IDLE:
-			initMoodIdle()
-		Constants.Mood.EXPLORE:
-			initMoodExplore()
-		Constants.Mood.TALK:
-			initMoodTalk()
-	timeToNextMood = timeElapsed + Constants.GIKO_MOOD_LENGTH
-
-
-func pickMood() -> int:
-	return [Constants.Mood.EXPLORE, Constants.Mood.IDLE, Constants.Mood.TALK][randi() % 3]
-	#return Constants.Mood.values()[Utils.rng.randi() % Constants.Mood.values().size()]
-
-
 func _process(delta):
 	## Defines draw order
 	#$tile.	text = String(currentTile)
 	timeElapsed += delta
+	timeSinceAction += delta
+	timeSinceDecision += delta
+
+	takeDecision()
 
 	z_index = position.y
 
 	process_movement(delta)
-
-	if canTakeAction.call_func():
-		if timeElapsed > timeToNextMood:
-			#print("Ending mood")
-			endMood.call_func()
-			setMood(pickMood())
-		else:
-			execMood.call_func()
+	checkGhost()
 
 
 func try_message() -> void:
@@ -108,12 +146,22 @@ func process_movement(delta) -> void:
 			currentTile = nextTile
 			currentTilePos = Utils.getTilePosAtCoords(currentTile)
 			isMoving = false
+			checkSitting()
 			play(getRightAnimation())
 			checkDoors()
 		else:
 			#play(getRightAnimation())
 			position += Utils.getDirectionPixels(currentDirection) * delta * Constants.GIKO_MOVESPEED
 
+
+
+func checkGhost() -> void:
+	if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:
+		isGhost = true
+		self_modulate = Constants.GHOST_COLOR
+	elif isGhost && timeSinceAction < Constants.TIME_TO_GHOST:
+		isGhost = false
+		self_modulate = Constants.NORMAL_COLOR
 
 func checkSitting() -> void:
 	var willSit = false
@@ -134,7 +182,7 @@ func checkDoors() -> void:
 
 
 func getRandomDirection() -> int:
-	return Constants.Directions.values()[randi() % Constants.Directions.size()]
+	return Constants.Directions.values()[Utils.rng.randi() % Constants.Directions.size()]
 
 
 func getRightAnimation() -> String:
@@ -179,12 +227,14 @@ func message(text) -> void:
 
 
 func spawnMessage(text) -> void:
+	timeSinceAction = 0
 	currentMessage = messagePrefab.instance()
 	currentMessage.setMessage(text)
 	$MessageRoot.add_child(currentMessage)
 
 
 func destroyMessage() -> void:
+	timeSinceAction = 0
 	if currentMessage != null:
 		currentMessage.delete()
 		currentMessage = null
@@ -192,6 +242,7 @@ func destroyMessage() -> void:
 
 func move(toDirection: int) -> void:
 	if Utils.canMoveInDirection(currentTile, toDirection):
+		timeSinceAction = 0
 		nextTile = Utils.getTileCoordsInDirection(currentTile, toDirection)
 
 		currentDirection = toDirection
@@ -200,86 +251,6 @@ func move(toDirection: int) -> void:
 		isMoving = true
 		play(getRightAnimation())
 		setRightFlip()
-
-func isMoveFinished() -> bool:
-	return not isMoving and currentMoodData["start"] != currentTile
-
-
-func isTimeToMove() -> bool:
-	return timeElapsed > timeToNextAction
-
-
-func setActionTimer(nextTime: float) -> void:
-	timeToNextAction = timeElapsed + nextTime
-
-
-### Every mood has 3 funcs necessary:
-### init, exec, and end
-### init sets the necessary parameters
-### and sets the funcrefs that will be called
-### for exec and end
-### you can pass pass() as funcref to do nothing
-### since lambdas are not supported in godot3
-
-## MOOD IDLE
-
-
-func initMoodIdle() -> void:
-	self_modulate = GHOST_COLOR
-	setActionTimer(Constants.GIKO_MOOD_LENGTH)
-	canTakeAction = funcref(self, "isTimeToMove")
-	execMood = funcref(self, "pass")
-	endMood = funcref(self, "endMoodIdle")
-
-
-func endMoodIdle() -> void:
-	self_modulate = Color(1, 1, 1, 1)
-
-
-## MOOD EXPLORE
-
-
-func initMoodExplore() -> void:
-	currentMoodData["direction"] = getRandomDirection()
-	currentMoodData["start"] = currentTile
-	canTakeAction = funcref(self, "isMoveFinished")
-	execMood = funcref(self, "execMoodExplore")
-	endMood = funcref(self, "pass")
-	move(currentMoodData["direction"])
-
-
-func execMoodExplore() -> void:
-	##yield(get_tree().create_timer(0.1), "timeout")
-
-	if Utils.rng.randi() % 100 == 0:
-		currentMoodData["direction"] = getRandomDirection()
-		currentMoodData["start"] = currentTile
-	move(currentMoodData["direction"])
-
-
-## MOOD TALK
-
-
-func initMoodTalk() -> void:
-	setActionTimer(2)
-	canTakeAction = funcref(self, "isTimeToMove")
-	execMood = funcref(self, "execMoodTalk")
-	endMood = funcref(self, "endMoodTalk")
-
-
-func execMoodTalk() -> void:
-	setActionTimer(Utils.rng.randf_range(5, 15))
-	destroyMessage()
-	if Utils.rng.randi() % 2 == 0:
-		message(Constants.POSSIBLE_MESSAGES[Utils.rng.randi() % Constants.POSSIBLE_MESSAGES.size()])
-
-
-func endMoodTalk() -> void:
-	destroyMessage()
-
-
-func pass() -> void:
-	pass
 
 
 func setCharacterTexture(newCharacter) -> void:

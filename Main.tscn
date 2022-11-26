@@ -1,16 +1,48 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://UI/default_theme.tres" type="Theme" id=4]
+[ext_resource path="res://InventoryDisplay.gd" type="Script" id=5]
+[ext_resource path="res://Items/images/mahjong_red_dragon.png" type="Texture" id=6]
+[ext_resource path="res://UI/Fonts/mspgothic_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Items/InventoryPopup.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=9]
 [ext_resource path="res://UI/Fonts/arialbold_font.tres" type="DynamicFont" id=16]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.160784, 0.239216, 0.286275, 0.972549 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0, 0, 0.392157 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.317647, 0.317647, 0.317647, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.121569, 0.121569, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.686275, 0.686275, 0.686275, 1 )
 
 [node name="Main" type="Node2D"]
 position = Vector2( 1, 1 )
 script = ExtResource( 3 )
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryBtn" type="Button" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -50.0
+theme = ExtResource( 4 )
+toggle_mode = true
+text = "Inventory"
+icon_align = 1
 
 [node name="FPS" type="Label" parent="UI"]
 margin_right = 50.0
@@ -22,9 +54,170 @@ align = 1
 valign = 1
 script = ExtResource( 1 )
 
+[node name="Inventory" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 1280, 720 )
+mouse_filter = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory"]
+margin_right = 1280.0
+margin_bottom = 720.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/Inventory/VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_styles/normal = SubResource( 7 )
+text = "Inventory"
+align = 1
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Inventory/VBoxContainer"]
+margin_top = 54.0
+margin_right = 1280.0
+margin_bottom = 720.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer/ScrollContainer"]
+margin_right = 1280.0
+margin_bottom = 666.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 50
+custom_constants/margin_left = 50
+
+[node name="InvItems" type="HFlowContainer" parent="UI/Inventory/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+margin_left = 50.0
+margin_right = 1230.0
+margin_bottom = 666.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 25
+custom_constants/hseparation = 25
+
+[node name="InventoryPopup" type="Panel" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -240.0
+margin_right = 240.0
+margin_bottom = 240.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 8 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -240.0
+margin_right = 240.0
+margin_bottom = 240.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InventoryPopupItemName" type="Label" parent="UI/InventoryPopup/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 480.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_vertical = 5
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 16 )
+text = "test"
+align = 1
+valign = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryPopup/VBoxContainer"]
+margin_top = 54.0
+margin_right = 480.0
+margin_bottom = 194.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InventoryPopup/VBoxContainer/PanelContainer"]
+margin_right = 480.0
+margin_bottom = 140.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 20
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 20
+
+[node name="InventoryPopupImage" type="TextureRect" parent="UI/InventoryPopup/VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+margin_top = 20.0
+margin_right = 480.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 100, 100 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="PanelContainer2" type="PanelContainer" parent="UI/InventoryPopup/VBoxContainer"]
+margin_top = 198.0
+margin_right = 480.0
+margin_bottom = 480.0
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InventoryPopup/VBoxContainer/PanelContainer2"]
+margin_right = 480.0
+margin_bottom = 282.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="InventoryPopupDescription" type="Label" parent="UI/InventoryPopup/VBoxContainer/PanelContainer2/MarginContainer"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 470.0
+margin_bottom = 272.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_colors/font_color = Color( 0.27451, 0.27451, 0.27451, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "Blablablalba who gives a fuck"
+align = 1
+valign = 1
+autowrap = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 current = true
+zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
 smoothing_speed = 15.0
 drag_margin_left = 0.78
@@ -32,11 +225,12 @@ drag_margin_top = 0.93
 drag_margin_right = 0.82
 drag_margin_bottom = 0.72
 script = ExtResource( 9 )
-minZoom = 0.35
+minZoom = 0.25
 zoomDuration = 0.25
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 43, -268 )
+unique_name_in_owner = true
+position = Vector2( 44, -268 )
 z_index = -4096
 centered = false
 
@@ -54,3 +248,5 @@ unique_name_in_owner = true
 
 [node name="zObjects" type="Node2D" parent="Objects"]
 unique_name_in_owner = true
+
+[connection signal="toggled" from="UI/InventoryBtn" to="UI/Inventory" method="showInventory"]

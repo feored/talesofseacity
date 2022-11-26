@@ -49,8 +49,6 @@ func updateCurrentRoomWalkableTiles() -> void:
 				checkingTiles.append(potentialTile)
 			checkedTiles.append(potentialTile)
 	currentRoomWalkableTiles = walkableTiles
-	
-
 
 func getCurrentRoomOffset() -> Vector2:
 	

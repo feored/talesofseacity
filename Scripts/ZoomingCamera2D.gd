@@ -3,13 +3,15 @@ extends Camera2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var minZoom = 0.5
-export var maxZoom = 2
-export var zoomFactor = 0.1
-export var zoomDuration := 0.2
+export var minZoom : float = 0.5
+export var maxZoom : float = 2
+export var zoomFactor : float = 0.1
+export var zoomDuration : float = 0.2
 
 var _previousPosition: Vector2 = Vector2(0, 0)
-var _moveCamera: bool = false
+var _moveCamera : bool = false
+
+var player
 
 var tween
 
@@ -55,7 +57,9 @@ func _unhandled_input(event):
 		_previousPosition = event.position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(delta):
+func _process(delta):
+	if player != null:
+		position = player.position
 
 # 	if Input.is_action_just_released("zoom_in"):
 # 		# Inside a given class, we need to either write `self._zoom_level = ...` or explicitly
