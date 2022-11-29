@@ -15,7 +15,7 @@ var timeElapsed = 0
 var timeSinceAction = 0
 var actionAvailable = true
 
-var currentTile = Vector2(5, 5)
+var currentTile = Vector2(0, 0)
 var currentTilePos: Vector2
 var nextTile = Vector2(0, 0)
 var nextTilePosition = Vector2(0, 0)

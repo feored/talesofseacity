@@ -1,21 +1,17 @@
 extends Node
 
-## Default is actually 80/40 in rooms, this is fine
+## Default is actually 80/40 in rooms, but we use the halved version as
+## it's the number we actually use in calculations
 const DEFAULT_GRID_STEP_X : float = 40.0
 const DEFAULT_GRID_STEP_Y : float = 20.0
 
 const DEFAULT_SCALE : float = 1.0
 
+const NULL_VECTOR : Vector2 = Vector2(-999, -999)
+
 const ACTION_TIMEOUT = 0.25
 
-const GROUP_GIKOS = "gikos"
-const POSITION_EPSILON = 2.5
-
 const GIKO_MOVESPEED = 85
-const GIKO_MOOD_LENGTH = 5
-const GIKO_MESSAGE_LENGTH = 5
-
-const MESSAGE_Z_INDEX = 9999
 
 const GIKOANIM_BACK_STANDING = "back-standing"
 const GIKOANIM_BACK_WALKING = "back-walking"
@@ -34,12 +30,16 @@ const GHOST_COLOR = Color(1, 1, 1, 0.5)
 const NORMAL_COLOR = Color(1, 1, 1, 1)
 
 
-const GIKO_MIN_SPEED = 5
+#const GIKO_MIN_SPEED = 5
 
-
-enum PERSONALITIES {
-    Explorer,
-    Afk
+enum Decisions {
+    FINDSEAT,
+    IDLE,
+    CHANGEDIRECTION,
+    TALK,
+    WALKUPTOGIKO,
+    SPIN,
+    MOVESOMEWHERE
 }
 
 
@@ -260,7 +260,8 @@ const GIKO_NAMES = [
 	"dz",
 	"ET",
 	"meltingwax",
-	"Desuno"
+	"Desuno",
+    "Caribear"
 ]
 
 

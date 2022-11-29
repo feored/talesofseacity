@@ -101,7 +101,7 @@ func loadObjects() -> void:
 		objectSprite.z_index = Utils.getTilePosAtCoords(coords).y
 
 func loadItems() -> void:
-	activeItems = {}
+	activeItems.clear()
 	if Items.ACTIVE_ITEMS.has(Rooms.currentRoomData["id"]):
 		for item in Items.ACTIVE_ITEMS[Rooms.currentRoomData["id"]]:
 			var itemSprite = Sprite.new()

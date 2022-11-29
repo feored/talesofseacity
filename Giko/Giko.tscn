@@ -16,17 +16,15 @@ margin_left = -130.0
 margin_top = -150.0
 margin_right = -30.0
 margin_bottom = -130.0
+size_flags_horizontal = 7
 
 [node name="Name" type="Label" parent="ColorRect"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.804
-margin_left = -34.0
-margin_top = -9.5
-margin_right = 34.0
-margin_bottom = 4.42
+margin_left = 5.5
+margin_top = 0.5
+margin_right = 94.5
+margin_bottom = 21.5
 grow_horizontal = 2
+size_flags_horizontal = 7
 custom_colors/font_color = Color( 0, 0.0431373, 0.717647, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "feor.cMejo"

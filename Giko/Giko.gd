@@ -9,18 +9,12 @@ const messagePrefab = preload("res://Giko/Message.tscn")
 const MIN_NEXT_MOVE = 5
 const MAX_NEXT_MOVE = 10
 
-var currentPersonality : int = Constants.PERSONALITIES.values()[Utils.rng.randi() % Constants.PERSONALITIES.values().size()]
-
 var character: int
-
-
-
-var timeToNextAction = 0
 
 var timeToNextDecision = 0
 var timeSinceDecision = 0
 
-var currentTile = Vector2(5, 5)
+var currentTile = Vector2(0, 0)
 var currentTilePos: Vector2
 var nextTile = Vector2(0, 0)
 var nextTilePosition = Vector2(0, 0)
@@ -33,19 +27,23 @@ var isSitting = false
 var timeElapsed = 0
 var timeSinceAction = Constants.TIME_TO_GHOST if isGhost else Utils.rng.randf() * Constants.TIME_TO_GHOST/2
 
+var currentAction = Constants.Decisions.values() [randi() % Constants.Decisions.size()]
+
 var currentMessage: Node
-
-
-
-var speed = Utils.rng.randfn(Constants.GIKO_MIN_SPEED/2,  Constants.GIKO_MIN_SPEED/5)
-var talkativeness = Utils.rng.randfn(50,  25)
-var wanderlust = Utils.rng.randfn(50, 25)
-#var 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	currentTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
+
+	var isAlreadySeated = true if Utils.rng.randf() > 0.4 else false
+
+	if (isAlreadySeated && Rooms.currentRoomData.has("sit") && Rooms.currentRoomData["sit"].size() > 0):
+		var randomSeat = Rooms.currentRoomData["sit"][Utils.rng.randi() % Rooms.currentRoomData["sit"].size()]
+		currentTile = Vector2(randomSeat["x"], randomSeat["y"])
+	else:
+		currentTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
+
+	Rooms.updateGikoPosition(self, currentTile)
 
 	currentTilePos = Utils.getTilePosAtCoords(currentTile)
 	position = Utils.getTilePosAtCoords(currentTile)
@@ -54,62 +52,162 @@ func _ready():
 	checkSitting()
 	play(getRightAnimation())
 	setRightFlip()
-	print("Speed : %s, Talkativeness : %s, Wanderlust : %s" % [speed, talkativeness, wanderlust])
+
+
+
+func findEmptySeat(nearest = false) -> Vector2:
+	if (!Rooms.currentRoomData.has("sit") or Rooms.currentRoomData["sit"].size() < 1):
+		return currentTile
+
+	var emptySeats = []
+	for seat in Rooms.currentRoomData["sit"]:
+		var currentSeat = Vector2(seat["x"], seat["y"])
+		if (Rooms.getTilePopulation(currentSeat) == 0):
+			emptySeats.push_back(currentSeat)
+	
+	if emptySeats.size() == 0:
+		return currentTile
+	
+	if nearest:
+		var closestEmptySeat = emptySeats[0]
+		var closestDiff = Utils.getTileDistance(currentTile, closestEmptySeat)
+		for currentSeat in emptySeats:
+			if (Rooms.getTilePopulation(currentSeat) == 0):
+				var diff = Utils.getTileDistance(currentTile, currentSeat)
+				if diff < closestDiff:
+					closestEmptySeat = currentSeat
+					closestDiff = diff
+		return closestEmptySeat
+	else:
+		return emptySeats[Utils.rng.randi() % emptySeats.size()]
+
+func findPathToTile(destination : Vector2) -> Array:
+	##A*
+	var openTiles = {}
+
+	var cameFrom = {}
+	var costSoFar = {}
+
+	cameFrom[currentTile] = null
+	costSoFar[currentTile] = 0
+
+	openTiles[currentTile] = 0
+
+	while openTiles.size() > 0:
+		var examiningTile = openTiles.keys()[0]
+		for tileData in openTiles.keys():
+			if openTiles[tileData] < openTiles[examiningTile]:
+				examiningTile = tileData
+
+		openTiles.erase(examiningTile)
+
+		if examiningTile == destination:
+			break
+
+		for nextTile in Utils.getValidNearbyTiles(examiningTile):
+			var newCost = costSoFar[examiningTile] + 1
+			if (!(costSoFar.has(nextTile)) or newCost < costSoFar[nextTile]):
+				costSoFar[nextTile] = newCost
+				var f = newCost + Utils.getTileDistance(nextTile, destination)
+				openTiles[nextTile] = f
+				cameFrom[nextTile] = examiningTile
+
+	
+	## reconstruct path
+
+	if ( !(cameFrom.has(destination))):
+		return []
+	var path = []
+	var current = destination
+	while current != currentTile:
+		path.push_back(current)
+		current = cameFrom[current]
+	path.invert()
+
+	return path
+		
+
+
 
 
 func takeDecision() -> void:
 	if !isMoving && timeSinceDecision > timeToNextDecision:
-		# pick between moving, talking, and doing nothing
-		var nextAction = Utils.rng.randi() % (int(talkativeness+wanderlust)*5)
-		print("next action result = %s" % nextAction)
-		if nextAction < wanderlust:
-				var validNearbyDirections = Utils.getValidNearbyDirections(currentTile)
-				var nextDirection = validNearbyDirections[Utils.rng.randi() % validNearbyDirections.size()]
-				move(nextDirection)
-		elif nextAction < wanderlust + talkativeness:
-				destroyMessage()
-				if (Utils.rng.randf() > 0.5):
-					try_message()
-		else:
-			timeSinceDecision = 0
-		timeToNextDecision = Utils.rng.randfn(Constants.GIKO_MIN_SPEED - speed)
-		print("Time to next Decision %s" %  timeToNextDecision)
+		destroyMessage()
+		match currentAction:
+			Constants.Decisions.IDLE:
+				idle()
+			Constants.Decisions.FINDSEAT:
+				findSeat()
+			Constants.Decisions.CHANGEDIRECTION:
+				changeDirection()
+			Constants.Decisions.TALK:
+				talk()
+			Constants.Decisions.MOVESOMEWHERE:
+				moveRandom()
+		## random chance to change action
+		if Utils.rng.randf() > 0.75:
+			currentAction = Constants.Decisions.values()[Utils.rng.randi() % Constants.Decisions.values().size()]
+	return
 
 
 
+func idle() -> void:
+	timeSinceDecision = 0
+	timeToNextDecision = Utils.rng.randfn(5)
+	return
+
+func talk() -> void:
+	timeSinceDecision = 0
+	timeToNextDecision = Utils.rng.randfn(5)
+	try_message()
+
+func moveRandom() -> void:
+	timeSinceDecision = 0
+	timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
+
+	var randomWalkableTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
+	var pathToSeat = findPathToTile(randomWalkableTile)
+
+	if (pathToSeat.size() < 1):
+		return
+
+	var firstTile = pathToSeat[0]
+	var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
+	var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+	move(directionToTake)
+	return
 
 
+func changeDirection() -> void:
+	timeSinceDecision = 0
+	timeToNextDecision = Utils.rng.randfn(5)
 
-# ### personalities
+	var possibleDirections = Constants.Directions.values()
+	possibleDirections.erase(currentDirection)
+	currentDirection = possibleDirections[Utils.rng.randi() % possibleDirections.size()]
+	
+	checkSitting()
+	play(getRightAnimation())
+	setRightFlip()
+	return
 
-# func takeDecision() -> void:
-# 	match currentPersonality:
-# 		Constants.PERSONALITIES.Explorer:
-# 			explorer()
-# 		Constants.PERSONALITIES.Afk:
-# 			afk()
-# 		_:
-# 			afk()
+func findSeat() -> void:
+	timeSinceDecision = 0
+	timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
 
-# func afk() -> void:
-# 	pass # lol
+	var randomSeat = findEmptySeat()
+	var pathToSeat = findPathToTile(randomSeat)
 
-# func explorer() -> void:
-# 	if !isMoving && timeSinceAction > timeToNextAction:
-# 		var nextDecision = Utils.rng.randi() % 100
-# 		if nextDecision > 60:
-# 			var validNearbyDirections = Utils.getValidNearbyDirections(currentTile)
-# 			var nextDirection = validNearbyDirections[Utils.rng.randi() % validNearbyDirections.size()]
-# 			move(nextDirection)
-# 		elif nextDecision > 55:
-# 			if Utils.rng.randf() < 0.5:
-# 				destroyMessage()
-# 			else:
-# 				destroyMessage()
-# 				try_message()
-# 		else:
-# 			pass
-# 		timeToNextAction = Utils.rng.randf()*3
+	if (pathToSeat.size() < 1):
+		return
+
+	var firstTile = pathToSeat[0]
+	var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
+	var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+	move(directionToTake)
+	return
+
+
 
 func setCharacter(newChar: int) -> void:
 	character = newChar
@@ -118,6 +216,10 @@ func setCharacter(newChar: int) -> void:
 
 func setName(gikoName: String) -> void:
 	$ColorRect/Name.text = gikoName
+	#$ColorRect/Name.rect_size = $ColorRect/Name.get_font("font").get_string_size($ColorRect/Name.text)
+	#$ColorRect.rect_size = $ColorRect/Name.rect_size + Vector2(10,0)
+	#$ColorRect.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
+
 
 func _process(delta):
 	## Defines draw order
@@ -251,6 +353,8 @@ func move(toDirection: int) -> void:
 		isMoving = true
 		play(getRightAnimation())
 		setRightFlip()
+		Rooms.updateGikoPosition(self, nextTile, currentTile)
+
 
 
 func setCharacterTexture(newCharacter) -> void:

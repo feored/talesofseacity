@@ -14,6 +14,23 @@ static func getNearbyTiles(tile : Vector2) -> Array:
 		getTileCoordsInDirection(tile, Constants.Directions.DIR_DOWN),
 	]
 
+static func getTileDistance(tile : Vector2, secondTile : Vector2) -> float:
+		return abs(secondTile.x - tile.x) + abs(secondTile.y - tile.y)
+
+static func getDirectionFromVector(diff : Vector2) -> int:
+	match diff:
+		Vector2(-1, 0):
+			return Constants.Directions.DIR_LEFT
+		Vector2(1, 0):
+			return Constants.Directions.DIR_RIGHT
+		Vector2(0, -1):
+			return Constants.Directions.DIR_DOWN
+		Vector2(0, 1):
+			return Constants.Directions.DIR_UP
+		_:
+			return Constants.Directions.DIR_UP
+	return Constants.Directions.DIR_UP
+		
 
 func getValidNearbyDirections(tile : Vector2) -> Array:
 	var validDirections = []
@@ -22,6 +39,11 @@ func getValidNearbyDirections(tile : Vector2) -> Array:
 			validDirections.push_back(dir)
 	return validDirections
 
+func getValidNearbyTiles(tile : Vector2) -> Array:
+	var validTiles = []
+	for dir in getValidNearbyDirections(tile):
+		validTiles.push_back(getTileCoordsInDirection(tile, dir))
+	return validTiles
 
 static func getTilePosAtCoords(coords : Vector2) -> Vector2:
 	return Vector2(
