@@ -215,10 +215,12 @@ func setCharacter(newChar: int) -> void:
 
 
 func setName(gikoName: String) -> void:
-	$ColorRect/Name.text = gikoName
-	#$ColorRect/Name.rect_size = $ColorRect/Name.get_font("font").get_string_size($ColorRect/Name.text)
-	#$ColorRect.rect_size = $ColorRect/Name.rect_size + Vector2(10,0)
-	#$ColorRect.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
+	$Control/ColorRect/Name.text = gikoName
+	$Control/ColorRect/Name.rect_size = $Control/ColorRect/Name.get_font("font").get_string_size($Control/ColorRect/Name.text)
+	$Control/ColorRect.rect_size = $Control/ColorRect/Name.rect_size + Vector2(10,0)
+	#$Control/ColorRect.set_anchors_and_margins_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE)
+	$Control/ColorRect.rect_position = (Vector2((-$Control/ColorRect.rect_size.x/2), 0))
+	$Control/ColorRect/Name.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
 
 
 func _process(delta):
@@ -372,8 +374,8 @@ func setCharacterTexture(newCharacter) -> void:
 	var frontWalking1 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-1" + ".png")
 	var frontWalking2 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-2" + ".png")
 
-	if frames != null:
-		frames.free()
+	# if frames != null:
+	# 	frames.free()
 	frames = SpriteFrames.new()
 	for anim in [
 		Constants.GIKOANIM_BACK_STANDING,
