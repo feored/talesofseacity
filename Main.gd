@@ -25,7 +25,7 @@ var activeItems : Dictionary = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("bar")
+	loadRoom("admin_st")
 	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
@@ -45,9 +45,6 @@ func cleanRoom() -> void:
 func changeRoom(target):
 	$"%zObjects".remove_child(playerGiko)
 	cleanRoom()
-	print("target:")
-	print(target)
-	print("Going to : " + target["roomId"] + " (door : " + target["doorId"] + ")")
 	loadRoom(target["roomId"])
 	$"%zObjects".add_child(playerGiko)
 	for _i in range(Utils.rng.randi() % 15):
@@ -129,8 +126,8 @@ func removeActiveItem(item : Dictionary) -> void:
 
 func spawnPlayerGiko(door: String) -> void:
 	var newGiko = playerGikoPrefab.instance()
-	newGiko.setCharacter(Constants.Character.Giko)
-	newGiko.setName("feor")
+	newGiko.setCharacter(Constants.Character.Furoshiki)
+	newGiko.setName("dinghy")
 
 	## prepare callbacks
 	newGiko.changeRoom = funcref(self, "changeRoom")
@@ -146,7 +143,7 @@ func spawnPlayerGiko(door: String) -> void:
 	$"%zObjects".add_child(newGiko)
 	playerGiko = newGiko
 	$Camera2D.player = playerGiko
-	playerGiko.message("Everyone I don't know is Tokiko.")
+	playerGiko.message("I miss Mona.")
 
 
 func spawnGiko(character: int) -> void:
