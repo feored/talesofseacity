@@ -1,15 +1,15 @@
 extends AnimatedSprite
 class_name Giko
 
-signal messaged
-signal died
-
 const messagePrefab = preload("res://Giko/Message.tscn")
 
 const MIN_NEXT_MOVE = 5
 const MAX_NEXT_MOVE = 10
 
 var character: int
+
+var isNPC : bool = false
+var NPCID : String = ""
 
 var timeToNextDecision = 0
 var timeSinceDecision = 0
@@ -19,6 +19,7 @@ var currentTilePos: Vector2
 var nextTile = Vector2(0, 0)
 var nextTilePosition = Vector2(0, 0)
 var currentDirection = Constants.Directions.DIR_LEFT
+var reactionTime = Utils.rng.randfn(3, 1.5)
 
 var isGhost = true if Utils.rng.randf() > 0.8 else false
 var isMoving = false
@@ -34,7 +35,11 @@ var currentMessage: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pass
 
+func initializeRandom() -> void:
+	setCharacter(Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
+	setName(Constants.GIKO_NAMES[Utils.rng.randi() % Constants.GIKO_NAMES.size()])
 	var isAlreadySeated = true if Utils.rng.randf() > 0.4 else false
 
 	if (isAlreadySeated && Rooms.currentRoomData.has("sit") && Rooms.currentRoomData["sit"].size() > 0):
@@ -52,6 +57,27 @@ func _ready():
 	checkSitting()
 	play(getRightAnimation())
 	setRightFlip()
+
+func initializeNPC(activeNPCData) -> void:
+	isNPC = true
+	NPCID = activeNPCData["id"]
+
+	var NPCData = NPCs.NPCs[NPCID]
+	setCharacter(NPCData["character"])
+	setName(NPCData["name"])
+
+	currentTile = Vector2(float(activeNPCData["x"]), float(activeNPCData["y"]))
+
+	Rooms.updateGikoPosition(self, currentTile)
+	
+	currentTilePos = Utils.getTilePosAtCoords(currentTile)
+	position = Utils.getTilePosAtCoords(currentTile)
+	currentDirection = activeNPCData["direction"]
+
+	checkSitting()
+	play(getRightAnimation())
+	setRightFlip()
+
 
 
 
@@ -127,12 +153,32 @@ func findPathToTile(destination : Vector2) -> Array:
 	return path
 		
 
+func checkReactions() -> void:
+	## check for reactions eg. facing someone
+	## staring at us
+	if !isMoving && !isGhost:
+		for tile in Utils.getNearbyTiles(currentTile):
+			if (Rooms.getTilePopulation(tile) > 0):
+				for giko in Rooms.getGikosOnTile(tile):
+					if (Constants.DIRECTION_VECTOR[giko.currentDirection]) == (currentTile - giko.currentTile):
+						## we are facing another giko
+						var newDirVector = (giko.currentTile - currentTile)
+						faceDirection(Utils.getDirectionFromVector(newDirVector))
+						break
 
 
+func faceDirection(newDirection : int) -> void:
+	currentDirection = newDirection
+	play(getRightAnimation())
+	setRightFlip()
+	timeSinceAction = 0
 
 func takeDecision() -> void:
 	if !isMoving && timeSinceDecision > timeToNextDecision:
 		destroyMessage()
+		if isNPC:
+			idle()
+			return
 		match currentAction:
 			Constants.Decisions.IDLE:
 				idle()
@@ -184,11 +230,7 @@ func changeDirection() -> void:
 
 	var possibleDirections = Constants.Directions.values()
 	possibleDirections.erase(currentDirection)
-	currentDirection = possibleDirections[Utils.rng.randi() % possibleDirections.size()]
-	
-	checkSitting()
-	play(getRightAnimation())
-	setRightFlip()
+	faceDirection(possibleDirections[Utils.rng.randi() % possibleDirections.size()])
 	return
 
 func findSeat() -> void:
@@ -229,6 +271,10 @@ func _process(delta):
 	timeElapsed += delta
 	timeSinceAction += delta
 	timeSinceDecision += delta
+
+	if timeElapsed > reactionTime:
+		checkReactions()
+		timeElapsed = 0
 
 	takeDecision()
 
@@ -326,7 +372,6 @@ func setRightFlip() -> void:
 		flip_h = false
 
 func message(text) -> void:
-	emit_signal("messaged")
 	spawnMessage(text)
 
 

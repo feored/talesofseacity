@@ -10,6 +10,7 @@ var character: int
 ## funcrefs
 var changeRoom: Object
 var removeActiveItem: Object
+var talkToNPC : Object
 
 var timeElapsed = 0
 var timeSinceAction = 0
@@ -45,6 +46,7 @@ func place(startingTile: Vector2, direction: int) -> void:
 	currentDirection = direction
 	play(getRightAnimation())
 	setRightFlip()
+	Rooms.updateGikoPosition(self, nextTile)
 
 
 func setCharacter(newChar: int) -> void:
@@ -74,6 +76,8 @@ func pickUpItem() -> void:
 				Items.addItemInventory(activeItem["id"])
 				Items.removeActiveItem(currentRoom, activeItem)
 				removeActiveItem.call_func(activeItem)
+
+
 
 
 # func handleInput(delta: float) -> void:
@@ -232,6 +236,7 @@ func move(toDirection: int) -> void:
 			isMoving = true
 			play(getRightAnimation())
 			setRightFlip()
+			Rooms.updateGikoPosition(self, nextTile, currentTile)
 
 
 func _input(event):
@@ -244,7 +249,18 @@ func _input(event):
 	elif event.is_action_pressed("ui_right"):
 		move(Constants.Directions.DIR_RIGHT)
 	elif event.is_action_pressed("pick_up"):
-		pickUpItem()
+		## priority is talk to NPC, then try to pick up item
+		var frontTile = Utils.getTileCoordsInDirection(currentTile, currentDirection)
+		var gikosOnTile = Rooms.getGikosOnTile(frontTile)
+		var gikoNPC = null
+		for giko in gikosOnTile:
+			if giko != self && giko.isNPC:
+				gikoNPC = giko
+				break
+		if gikoNPC != null:
+			talkToNPC.call_func(gikoNPC.NPCID)
+		else:
+			pickUpItem()
 
 
 func setCharacterTexture(newCharacter) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -6,31 +6,33 @@
 [ext_resource path="res://UI/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://InventoryDisplay.gd" type="Script" id=5]
 [ext_resource path="res://Items/images/mahjong_red_dragon.png" type="Texture" id=6]
-[ext_resource path="res://UI/Fonts/mspgothic_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://UI/Dialogue.gd" type="Script" id=7]
 [ext_resource path="res://Items/InventoryPopup.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=9]
 [ext_resource path="res://UI/UI.gd" type="Script" id=10]
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=11]
 [ext_resource path="res://UI/Rula.gd" type="Script" id=12]
+[ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=13]
+[ext_resource path="res://UI/Fonts/mspgothic_font_big.tres" type="DynamicFont" id=14]
+[ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
 [ext_resource path="res://UI/Fonts/arialbold_font.tres" type="DynamicFont" id=16]
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.137255, 0.133333, 0.12549, 0.960784 )
+[sub_resource type="StyleBoxLine" id=9]
+color = Color( 0, 0, 0, 0.92549 )
+grow_begin = -10.0
+grow_end = -10.0
+vertical = true
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0, 0, 0, 0.392157 )
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0, 0, 0 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.317647, 0.317647, 0.317647, 1 )
+[sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.121569, 0.121569, 0.141176, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.686275, 0.686275, 0.686275, 1 )
+[sub_resource type="StyleBoxEmpty" id=12]
 
 [node name="Main" type="Node2D"]
 position = Vector2( 1, 1 )
@@ -49,6 +51,165 @@ align = 1
 valign = 1
 script = ExtResource( 1 )
 
+[node name="Buttons" type="MarginContainer" parent="UI"]
+margin_top = 972.0
+margin_right = 1920.0
+margin_bottom = 1052.0
+rect_min_size = Vector2( 0, 80 )
+custom_constants/margin_right = 100
+custom_constants/margin_top = 10
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Buttons"]
+margin_left = 100.0
+margin_top = 10.0
+margin_right = 1820.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InventoryBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 50 )
+theme = ExtResource( 4 )
+text = "Inventory"
+icon_align = 1
+
+[node name="RulaBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 50 )
+theme = ExtResource( 4 )
+text = "#rula"
+icon_align = 1
+
+[node name="Dialogue" type="MarginContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+margin_top = 708.0
+margin_right = 1920.0
+margin_bottom = 968.0
+rect_min_size = Vector2( 0, 80 )
+custom_constants/margin_right = 100
+custom_constants/margin_top = 10
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 10
+script = ExtResource( 7 )
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/Dialogue"]
+margin_left = 100.0
+margin_top = 10.0
+margin_right = 1820.0
+margin_bottom = 250.0
+
+[node name="DialogueContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer"]
+margin_left = 500.0
+margin_right = 1220.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 720, 240 )
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer"]
+margin_left = 1.0
+margin_top = 5.0
+margin_right = 719.0
+margin_bottom = 235.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
+margin_right = 718.0
+margin_bottom = 230.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+margin_right = 554.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 240, 0 )
+size_flags_horizontal = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 534.0
+margin_bottom = 210.0
+
+[node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 514.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_colors/font_color = Color( 0.554992, 0.394714, 0.871094, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 16 )
+text = "CATARP!"
+valign = 1
+
+[node name="DialogueText" type="RichTextLabel" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 44.0
+margin_right = 514.0
+margin_bottom = 190.0
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 14 )
+bbcode_enabled = true
+bbcode_text = "yeah taken pictures of everything else in this town, just looking around finding things that could be interesting pictures now. kinda hard"
+text = "yeah taken pictures of everything else in this town, just looking around finding things that could be interesting pictures now. kinda hard"
+custom_effects = [ null ]
+
+[node name="VSeparator" type="VSeparator" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 534.0
+margin_right = 554.0
+margin_bottom = 230.0
+custom_constants/separation = 20
+custom_styles/separator = SubResource( 9 )
+
+[node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+margin_left = 558.0
+margin_right = 718.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_horizontal = 7
+size_flags_stretch_ratio = 0.15
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 220.0
+custom_styles/panel = SubResource( 13 )
+
+[node name="DialogueImage" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer/PanelContainer"]
+unique_name_in_owner = true
+margin_right = 140.0
+margin_bottom = 210.0
+size_flags_vertical = 3
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+flip_h = true
+
+[node name="Button" type="Button" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
+visible = false
+margin_top = 211.0
+margin_right = 718.0
+margin_bottom = 234.0
+text = "Skip"
+
 [node name="Rula" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
 visible = false
@@ -64,21 +225,23 @@ rect_min_size = Vector2( 720, 480 )
 mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-custom_styles/panel = SubResource( 5 )
+theme = ExtResource( 4 )
 script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula"]
-margin_right = 720.0
-margin_bottom = 480.0
+margin_left = 1.0
+margin_top = 10.0
+margin_right = 719.0
+margin_bottom = 470.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="UI/Rula/VBoxContainer"]
-margin_right = 720.0
+margin_right = 718.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Rula/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
@@ -98,6 +261,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 14 )
 custom_styles/normal = SubResource( 7 )
 text = "Rula"
 align = 1
@@ -115,16 +279,16 @@ expand_icon = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/VBoxContainer"]
 margin_top = 54.0
-margin_right = 720.0
-margin_bottom = 480.0
+margin_right = 718.0
+margin_bottom = 460.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Rula/VBoxContainer/ScrollContainer"]
-margin_right = 720.0
-margin_bottom = 426.0
+margin_right = 718.0
+margin_bottom = 406.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -136,14 +300,14 @@ custom_constants/margin_bottom = 10
 [node name="CenterContainer" type="CenterContainer" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 710.0
-margin_bottom = 416.0
+margin_right = 708.0
+margin_bottom = 396.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
-margin_left = 250.0
-margin_top = 103.0
-margin_right = 450.0
-margin_bottom = 303.0
+margin_left = 249.0
+margin_top = 93.0
+margin_right = 449.0
+margin_bottom = 293.0
 custom_constants/separation = 25
 alignment = 1
 
@@ -151,6 +315,7 @@ alignment = 1
 margin_right = 200.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 16 )
 text = "Room Name"
 align = 1
 valign = 1
@@ -187,21 +352,23 @@ rect_min_size = Vector2( 1280, 720 )
 mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-custom_styles/panel = SubResource( 5 )
+theme = ExtResource( 4 )
 script = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory"]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_left = 1.0
+margin_top = 10.0
+margin_right = 1279.0
+margin_bottom = 710.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="UI/Inventory/VBoxContainer"]
-margin_right = 1280.0
+margin_right = 1278.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 11 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Inventory/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
@@ -221,6 +388,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 14 )
 custom_styles/normal = SubResource( 7 )
 text = "Inventory"
 align = 1
@@ -238,16 +406,16 @@ expand_icon = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Inventory/VBoxContainer"]
 margin_top = 54.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1278.0
+margin_bottom = 700.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer/ScrollContainer"]
-margin_right = 1280.0
-margin_bottom = 666.0
+margin_right = 1278.0
+margin_bottom = 646.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -257,8 +425,8 @@ custom_constants/margin_left = 50
 [node name="InvItems" type="HFlowContainer" parent="UI/Inventory/VBoxContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 margin_left = 50.0
-margin_right = 1230.0
-margin_bottom = 666.0
+margin_right = 1228.0
+margin_bottom = 646.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -277,7 +445,7 @@ margin_top = -240.0
 margin_right = 240.0
 margin_bottom = 240.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = ExtResource( 15 )
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryPopup"]
@@ -301,7 +469,7 @@ rect_min_size = Vector2( 0, 50 )
 size_flags_vertical = 5
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 14 )
 text = "test"
 align = 1
 valign = 1
@@ -310,7 +478,7 @@ valign = 1
 margin_top = 54.0
 margin_right = 480.0
 margin_bottom = 194.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/InventoryPopup/VBoxContainer/PanelContainer"]
 margin_right = 480.0
@@ -335,7 +503,7 @@ margin_top = 198.0
 margin_right = 480.0
 margin_bottom = 480.0
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/InventoryPopup/VBoxContainer/PanelContainer2"]
 margin_right = 480.0
@@ -353,49 +521,12 @@ margin_right = 470.0
 margin_bottom = 272.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-custom_colors/font_color = Color( 0.27451, 0.27451, 0.27451, 1 )
-custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.819608, 0.819608, 0.819608, 1 )
+custom_fonts/font = ExtResource( 16 )
 text = "Blablablalba who gives a fuck"
 align = 1
 valign = 1
 autowrap = true
-
-[node name="Buttons" type="MarginContainer" parent="UI"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -80.0
-margin_bottom = -5.0
-rect_min_size = Vector2( 0, 80 )
-custom_constants/margin_right = 50
-custom_constants/margin_top = 10
-custom_constants/margin_left = 50
-custom_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Buttons"]
-margin_left = 50.0
-margin_top = 10.0
-margin_right = 1870.0
-margin_bottom = 70.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="InventoryBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_right = 100.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 100, 50 )
-theme = ExtResource( 4 )
-text = "Inventory"
-icon_align = 1
-
-[node name="RulaBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_left = 104.0
-margin_right = 204.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 100, 50 )
-theme = ExtResource( 4 )
-text = "#rula"
-icon_align = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -432,8 +563,8 @@ unique_name_in_owner = true
 [node name="zObjects" type="Node2D" parent="Objects"]
 unique_name_in_owner = true
 
+[connection signal="pressed" from="UI/Buttons/HBoxContainer/InventoryBtn" to="UI" method="_on_InventoryBtn_pressed"]
+[connection signal="pressed" from="UI/Buttons/HBoxContainer/RulaBtn" to="UI" method="_on_RulaBtn_pressed"]
 [connection signal="pressed" from="UI/Rula/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
 [connection signal="pressed" from="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
 [connection signal="pressed" from="UI/Inventory/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Inventory" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Buttons/HBoxContainer/InventoryBtn" to="UI" method="_on_InventoryBtn_pressed"]
-[connection signal="pressed" from="UI/Buttons/HBoxContainer/RulaBtn" to="UI" method="_on_RulaBtn_pressed"]

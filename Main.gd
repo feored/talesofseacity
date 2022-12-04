@@ -11,12 +11,13 @@ var playerGikoPrefab = preload("res://Giko/PlayerGiko.tscn")
 var messages: Dictionary = {}
 
 var totalMessages = 0
-var totalGikos = 0
 
 var playerGiko : PlayerGiko
 
 var activeItems : Dictionary = {}
+var activeNPCs : Dictionary = {}
 
+onready var dialogueManager = $"%Dialogue"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -29,6 +30,13 @@ func _ready():
 	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
+	dialogueManager.setLines([
+		"Welcome to Giko Story!",
+		"This server is an amalgamation of the international and Japanese servers.",
+		"Go explore, talk to everyone, pick up items and have fun!"
+	])
+	dialogueManager.setAuthor("")
+	dialogueManager.show()
 
 
 func loadRandomRoom() -> void:
@@ -47,7 +55,7 @@ func changeRoom(target):
 	cleanRoom()
 	loadRoom(target["roomId"])
 	$"%zObjects".add_child(playerGiko)
-	for _i in range(Utils.rng.randi() % 15):
+	for _i in range(Utils.rng.randi() % 10):
 		spawnRandomGiko()
 	playerGiko.place(
 		Vector2(
@@ -65,11 +73,6 @@ func changeRoom(target):
 #	pass
 
 
-
-func spawnRandomGiko() -> void:
-	spawnGiko(Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
-
-
 func loadRoom(roomName: String) -> void:
 	Rooms.updateRoomData(roomName)
 	var newRoomTexture = load("res://" + Rooms.ROOMS[roomName]["backgroundImageUrl"])
@@ -79,6 +82,7 @@ func loadRoom(roomName: String) -> void:
 	
 	loadObjects()
 	loadItems()
+	loadNPCs()
 	return
 
 
@@ -116,6 +120,13 @@ func loadItems() -> void:
 			itemSprite.z_index = itemSprite.position.y
 			activeItems[coords] = itemSprite
 
+func loadNPCs() -> void:
+	activeNPCs.clear()
+	if NPCs.ACTIVE_NPCs.has(Rooms.currentRoomData["id"]):
+		for npcData in NPCs.ACTIVE_NPCs[Rooms.currentRoomData["id"]]:
+			spawnNPCGiko(npcData)
+
+
 func removeActiveItem(item : Dictionary) -> void:
 	print(activeItems)
 	var tile = Vector2(item["x"], item["y"])
@@ -123,6 +134,10 @@ func removeActiveItem(item : Dictionary) -> void:
 		activeItems[tile].queue_free()
 		activeItems.erase(tile)
 
+func talkToNPC(NPC : String) -> void:
+	dialogueManager.setAuthor(NPC)
+	dialogueManager.setLines(NPCs.NPCs[NPC].lines[ Utils.rng.randi() % NPCs.NPCs[NPC].lines.size()].duplicate())
+	dialogueManager.show()
 
 func spawnPlayerGiko(door: String) -> void:
 	var newGiko = playerGikoPrefab.instance()
@@ -132,6 +147,7 @@ func spawnPlayerGiko(door: String) -> void:
 	## prepare callbacks
 	newGiko.changeRoom = funcref(self, "changeRoom")
 	newGiko.removeActiveItem = funcref(self, "removeActiveItem")
+	newGiko.talkToNPC = funcref(self, "talkToNPC")
 	newGiko.place(
 		Vector2(
 			Rooms.currentRoomData["doors"][door]["x"],
@@ -146,14 +162,14 @@ func spawnPlayerGiko(door: String) -> void:
 	playerGiko.message("I miss Mona.")
 
 
-func spawnGiko(character: int) -> void:
-	totalGikos += 1
+func spawnNPCGiko(NPCData : Dictionary) -> void:
 	var newGiko = gikoPrefab.instance()
-	newGiko.setCharacter(character)
-	newGiko.setName(Constants.GIKO_NAMES[rng.randi() % Constants.GIKO_NAMES.size()])
+	newGiko.initializeNPC(NPCData)
+	$"%zObjects".add_child(newGiko)
 
-	newGiko.connect("messaged", self, "_on_giko_messaged")
-	newGiko.connect("died", self, "_on_giko_died")
+func spawnRandomGiko() -> void:
+	var newGiko = gikoPrefab.instance()
+	newGiko.initializeRandom()
 	$"%zObjects".add_child(newGiko)
 
 func _on_spawn_pressed():
@@ -163,11 +179,3 @@ func _on_spawn_pressed():
 
 func _on_giko_messaged():
 	totalMessages += 1
-
-
-func _on_giko_died():
-	totalGikos -= 1
-
-
-func _on_giko_spawned():
-	totalGikos += 1

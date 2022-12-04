@@ -11,7 +11,7 @@ var currentRoomWalkableTiles : Array = []
 var currentRoomScale : float = 1.0
 var currentRoomGikos : Dictionary = {}
 
-func updateGikoPosition(giko : Giko, newPosition : Vector2, oldPosition : Vector2 = Constants.NULL_VECTOR) -> void:
+func updateGikoPosition(giko : Node, newPosition : Vector2, oldPosition : Vector2 = Constants.NULL_VECTOR) -> void:
 	## Remove old position
 	if (oldPosition != null && currentRoomGikos.has(oldPosition)):
 		currentRoomGikos[oldPosition].erase(giko)
