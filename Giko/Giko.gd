@@ -10,6 +10,7 @@ var character: int
 
 var isNPC : bool = false
 var NPCID : String = ""
+var displayName : String = ""
 
 var timeToNextDecision = 0
 var timeSinceDecision = 0
@@ -257,6 +258,7 @@ func setCharacter(newChar: int) -> void:
 
 
 func setName(gikoName: String) -> void:
+	displayName = gikoName
 	$Control/ColorRect/Name.text = gikoName
 	$Control/ColorRect/Name.rect_size = $Control/ColorRect/Name.get_font("font").get_string_size($Control/ColorRect/Name.text)
 	$Control/ColorRect.rect_size = $Control/ColorRect/Name.rect_size + Vector2(10,0)
@@ -379,6 +381,7 @@ func spawnMessage(text) -> void:
 	timeSinceAction = 0
 	currentMessage = messagePrefab.instance()
 	currentMessage.setMessage(text)
+	Log.addLog(displayName, text)
 	$MessageRoot.add_child(currentMessage)
 
 

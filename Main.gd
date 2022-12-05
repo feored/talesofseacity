@@ -34,7 +34,7 @@ func _ready():
 		"Welcome to Giko Story!",
 		"This server is an amalgamation of the international and Japanese servers.",
 		"Go explore, talk to everyone, pick up items and have fun!"
-	])
+	], "")
 	dialogueManager.setAuthor("")
 	dialogueManager.show()
 
@@ -135,8 +135,7 @@ func removeActiveItem(item : Dictionary) -> void:
 		activeItems.erase(tile)
 
 func talkToNPC(NPC : String) -> void:
-	dialogueManager.setAuthor(NPC)
-	dialogueManager.setLines(NPCs.NPCs[NPC].lines[ Utils.rng.randi() % NPCs.NPCs[NPC].lines.size()].duplicate())
+	dialogueManager.setLines(NPCs.NPCs[NPC].lines[ Utils.rng.randi() % NPCs.NPCs[NPC].lines.size()].duplicate(), NPC)
 	dialogueManager.show()
 
 func spawnPlayerGiko(door: String) -> void:

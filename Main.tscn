@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -16,6 +16,17 @@
 [ext_resource path="res://UI/Fonts/mspgothic_font_big.tres" type="DynamicFont" id=14]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
 [ext_resource path="res://UI/Fonts/arialbold_font.tres" type="DynamicFont" id=16]
+[ext_resource path="res://addons/teeb.text_effects/resources/Nervous.tres" type="RichTextEffect" id=17]
+[ext_resource path="res://addons/teeb.text_effects/resources/ColorMod.tres" type="RichTextEffect" id=18]
+[ext_resource path="res://addons/teeb.text_effects/resources/Jump.tres" type="RichTextEffect" id=19]
+[ext_resource path="res://addons/teeb.text_effects/resources/Number.tres" type="RichTextEffect" id=20]
+[ext_resource path="res://addons/teeb.text_effects/resources/Heart.tres" type="RichTextEffect" id=21]
+[ext_resource path="res://addons/teeb.text_effects/resources/Woo.tres" type="RichTextEffect" id=22]
+[ext_resource path="res://addons/teeb.text_effects/resources/Cuss.tres" type="RichTextEffect" id=23]
+[ext_resource path="res://addons/teeb.text_effects/resources/Sparkle.tres" type="RichTextEffect" id=24]
+[ext_resource path="res://addons/teeb.text_effects/resources/Rain.tres" type="RichTextEffect" id=25]
+[ext_resource path="res://addons/teeb.text_effects/resources/UwU.tres" type="RichTextEffect" id=26]
+[ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 
 [sub_resource type="StyleBoxLine" id=9]
 color = Color( 0, 0, 0, 0.92549 )
@@ -68,9 +79,12 @@ margin_right = 1820.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
 
 [node name="InventoryBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_right = 100.0
+margin_left = 660.0
+margin_right = 760.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 50 )
 theme = ExtResource( 4 )
@@ -78,20 +92,34 @@ text = "Inventory"
 icon_align = 1
 
 [node name="RulaBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_left = 104.0
-margin_right = 204.0
+margin_left = 810.0
+margin_right = 910.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 50 )
 theme = ExtResource( 4 )
 text = "#rula"
 icon_align = 1
 
+[node name="LogBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
+margin_left = 960.0
+margin_right = 1060.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 50 )
+theme = ExtResource( 4 )
+text = "Log"
+icon_align = 1
+
 [node name="Dialogue" type="MarginContainer" parent="UI"]
 unique_name_in_owner = true
 visible = false
-margin_top = 708.0
-margin_right = 1920.0
-margin_bottom = 968.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -960.0
+margin_top = -380.0
+margin_right = 960.0
+margin_bottom = -120.0
 rect_min_size = Vector2( 0, 80 )
 custom_constants/margin_right = 100
 custom_constants/margin_top = 10
@@ -114,20 +142,19 @@ size_flags_horizontal = 3
 theme = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer"]
-margin_left = 1.0
 margin_top = 5.0
-margin_right = 719.0
+margin_right = 720.0
 margin_bottom = 235.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
-margin_right = 718.0
+margin_right = 720.0
 margin_bottom = 230.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-margin_right = 554.0
+margin_right = 556.0
 margin_bottom = 230.0
 rect_min_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
@@ -139,12 +166,12 @@ custom_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 534.0
+margin_right = 536.0
 margin_bottom = 210.0
 
 [node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 514.0
+margin_right = 516.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 custom_colors/font_color = Color( 0.554992, 0.394714, 0.871094, 1 )
@@ -157,26 +184,27 @@ valign = 1
 [node name="DialogueText" type="RichTextLabel" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 44.0
-margin_right = 514.0
+margin_right = 516.0
 margin_bottom = 190.0
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
-bbcode_text = "yeah taken pictures of everything else in this town, just looking around finding things that could be interesting pictures now. kinda hard"
+bbcode_text = "yeah [colormod color=#fffff000 freq=2]taken pictures of everything else[/colormod] in this town, [nervous]just looking around finding things that could be[/nervous] interesting pictures now. kinda hard"
 text = "yeah taken pictures of everything else in this town, just looking around finding things that could be interesting pictures now. kinda hard"
-custom_effects = [ null ]
+custom_effects = [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 25 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 22 ) ]
 
 [node name="VSeparator" type="VSeparator" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 534.0
-margin_right = 554.0
+margin_left = 536.0
+margin_right = 556.0
 margin_bottom = 230.0
 custom_constants/separation = 20
 custom_styles/separator = SubResource( 9 )
 
 [node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-margin_left = 558.0
-margin_right = 718.0
+unique_name_in_owner = true
+margin_left = 560.0
+margin_right = 720.0
 margin_bottom = 230.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 7
@@ -336,6 +364,100 @@ margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 100, 50 )
 text = "#rula"
+
+[node name="Log" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -360.0
+margin_right = 360.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 720, 720 )
+mouse_filter = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme = ExtResource( 4 )
+script = ExtResource( 28 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Log"]
+margin_top = 5.0
+margin_right = 720.0
+margin_bottom = 715.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="UI/Log/VBoxContainer"]
+margin_right = 720.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/panel = SubResource( 10 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Log/VBoxContainer/Panel"]
+self_modulate = Color( 1, 1, 1, 0.392157 )
+margin_right = 720.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="Control" type="Control" parent="UI/Log/VBoxContainer/Panel/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="Label" type="Label" parent="UI/Log/VBoxContainer/Panel/HBoxContainer"]
+margin_left = 54.0
+margin_right = 666.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 14 )
+custom_styles/normal = SubResource( 7 )
+text = "Log"
+align = 1
+valign = 1
+
+[node name="CloseBtn" type="Button" parent="UI/Log/VBoxContainer/Panel/HBoxContainer"]
+margin_left = 670.0
+margin_right = 720.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 0 )
+icon = ExtResource( 11 )
+flat = true
+icon_align = 1
+expand_icon = true
+
+[node name="LogScroll" type="ScrollContainer" parent="UI/Log/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 54.0
+margin_right = 720.0
+margin_bottom = 710.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Log/VBoxContainer/LogScroll"]
+margin_right = 720.0
+margin_bottom = 656.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="LogsVBox" type="VBoxContainer" parent="UI/Log/VBoxContainer/LogScroll/MarginContainer"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 710.0
+margin_bottom = 646.0
 
 [node name="Inventory" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
@@ -565,6 +687,8 @@ unique_name_in_owner = true
 
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/InventoryBtn" to="UI" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/RulaBtn" to="UI" method="_on_RulaBtn_pressed"]
+[connection signal="pressed" from="UI/Buttons/HBoxContainer/LogBtn" to="UI" method="_on_LogBtn_pressed"]
 [connection signal="pressed" from="UI/Rula/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
 [connection signal="pressed" from="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
+[connection signal="pressed" from="UI/Log/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Log" method="_on_CloseBtn_pressed"]
 [connection signal="pressed" from="UI/Inventory/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Inventory" method="_on_CloseBtn_pressed"]

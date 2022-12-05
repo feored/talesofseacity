@@ -39,6 +39,8 @@ Utils="*res://Scripts/Utils.gd"
 NPCs="*res://NPC/NPCs.gd"
 Rooms="*res://rooms/Rooms.gd"
 Items="*res://Items/Items.gd"
+Quests="*res://Quests/Quests.gd"
+Log="*res://Scripts/Log.gd"
 
 [display]
 

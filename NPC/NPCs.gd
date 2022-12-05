@@ -4,7 +4,7 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var refresh = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,14 +38,34 @@ var NPCs = {
 		"character" : Constants.Character.Shii_Pianica,
 		"lines" : [
 			[
-				"I could either propose marriage or take a dump on the floor in front of you.",
-				"For you? I give you a sweet little kiss on the forehead!",
+				"I could either [nervous]propose marriage[/nervous] or take a dump on the floor in front of you.",
+				"[heart]For you? I give you a sweet little kiss on the forehead![/heart]",
 				"Good luck on thy travels. Return here to restore your hp by getting your dink sunked."
 			],
 			[
 				"Just heat some oil of your choice in a pan, grit your teeth, man up, and put your hands in the oil.",
 				"Leave to crisp, then crunch: battered fingers!"
 			]
+		]
+	},
+	"Muryoku" : {
+		"id" : "Muryoku",
+		"name" : "Muryoku",
+		"character" : Constants.Character.FunkyNaito,
+		"lines" : [
+			[
+				"[jump]I hope Japan wins the world cup this time![/jump]"
+			]
+		]
+	},
+	"Shaddox" : {
+		"id" : "Shaddox",
+		"name" : "Shaddox",
+		"character" : Constants.Character.Hentai_Giko,
+		"lines" : [
+			[
+				"Hello! Do you know how to play Mahjong?"
+			],
 		]
 	},
 }
@@ -69,8 +89,37 @@ var ACTIVE_NPCs = {
 		{
 			"id" : "zzazzachu",
 			"direction" : Constants.Directions.DIR_RIGHT,
-			"x" : 7,
-			"y" : 3
+			"x" : 3,
+			"y" : 2
+		}
+	],
+	"izakaya774" : [
+		{
+			"id" : "Muryoku",
+			"direction" : Constants.Directions.DIR_UP,
+			"x" : 3,
+			"y": 1
 		}
 	]
 }
+
+func removeActiveNPC(roomId : String, NPCId : String) -> void:
+	if ACTIVE_NPCs.has(roomId):
+		for npc in ACTIVE_NPCs[roomId]:
+			if npc["id"] == NPCId:
+				ACTIVE_NPCs.erase(npc)
+				refresh = true
+				break
+
+func addActiveNPC(roomId : String, NPCId : String, direction : int, position : Vector2) -> void:
+	if (!ACTIVE_NPCs.has(roomId)):
+		ACTIVE_NPCs[roomId] = []
+	ACTIVE_NPCs[roomId].push_back(
+		{
+			"id" : NPCId,
+			"direction" : direction,
+			"x" : position.x,
+			"y" : position.y
+		}
+	)
+	refresh = true
