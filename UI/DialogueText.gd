@@ -24,6 +24,6 @@ func _process(delta):
 			lineOverCallback.call_func()
 			queue_free()
 	else :
-		self.set_visible_characters(int(elapsedTime*50))
+		self.set_visible_characters(int(elapsedTime*30))
 		if self.visible_characters >= self.get_total_character_count():
 			shouldHang = true

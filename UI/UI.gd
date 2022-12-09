@@ -8,52 +8,55 @@ var panels : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    set_process_input(true)
-    panels = [
-        $"%Rula",
-        $"%Inventory",
-        $"%Log"
-    ]
+	set_process_input(true)
+	panels = [
+		$"%Rula",
+		$"%Inventory",
+		$"%Log"
+	]
 
 
 func _input(event):
-    if event.is_action_pressed("inventory"):
-        $"%Inventory".show() if !$"%Inventory".visible else $"%Inventory".hide()
-
+	if event.is_action_pressed("inventory"):
+		$"%Inventory".show() if !$"%Inventory".visible else $"%Inventory".hide()
+	elif event.is_action_pressed("rula"):
+		$"%Rula".show() if !$"%Rula".visible else $"%Rula".hide()
+	elif event.is_action_pressed("log"):
+		$"%Log".show() if !$"%Log".visible else $"%Log".hide()
 func hideAllPanels():
-    for panel in panels:
-        panel.hide()
+	for panel in panels:
+		panel.hide()
 
 
 func _on_RulaBtn_pressed():
-    hideAllPanels()
-    $"%Rula".show()
+	hideAllPanels()
+	$"%Rula".show()
 
 func _on_InventoryBtn_pressed():
-    hideAllPanels()
-    $"%Inventory".show()
+	hideAllPanels()
+	$"%Inventory".show()
 
 
 func _on_LogBtn_pressed():
-    hideAllPanels()
-    $"%Log".show()
-    
+	hideAllPanels()
+	$"%Log".show()
+	
 
 func _on_RulaGoBtn_pressed():
-    var newRoomNumber = $"%RulaRooms".get_selected_id()
-    var newRoomName = $"%RulaRooms".get_item_text(newRoomNumber)
-    var newRoomID = Rooms.DISPLAY_NAMES.keys()[0]
-    for i in Rooms.DISPLAY_NAMES.size():
-        if Rooms.DISPLAY_NAMES.values()[i] == newRoomName:
-            newRoomID = Rooms.DISPLAY_NAMES.keys()[i]
-            break
+	var newRoomNumber = $"%RulaRooms".get_selected_id()
+	var newRoomName = $"%RulaRooms".get_item_text(newRoomNumber)
+	var newRoomID = Rooms.DISPLAY_NAMES.keys()[0]
+	for i in Rooms.DISPLAY_NAMES.size():
+		if Rooms.DISPLAY_NAMES.values()[i] == newRoomName:
+			newRoomID = Rooms.DISPLAY_NAMES.keys()[i]
+			break
 
-    var spawnPoint = Rooms.ROOMS[newRoomID]["spawnPoint"]
-    var target = {
-        "roomId" : newRoomID,
-        "doorId" : spawnPoint
-        }
-    hideAllPanels()
-    get_node("/root/Main").changeRoom(target)
-    
+	var spawnPoint = Rooms.ROOMS[newRoomID]["spawnPoint"]
+	var target = {
+		"roomId" : newRoomID,
+		"doorId" : spawnPoint
+		}
+	hideAllPanels()
+	get_node("/root/Main").changeRoom(target)
+	
 

@@ -126,7 +126,6 @@ func setText(newLine : Dictionary) -> void:
 	else:
 		for i in range(newLine["choices"].size()):
 			spawnChoice(newLine["choices"][i]["text"], i)
-			Log.addLog(lastAuthor, currentDialogueLine.text)
 
 
 
