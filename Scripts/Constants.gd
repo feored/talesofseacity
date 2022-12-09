@@ -30,6 +30,12 @@ const GHOST_COLOR = Color(1, 1, 1, 0.5)
 const NORMAL_COLOR = Color(1, 1, 1, 1)
 
 
+enum LineType {
+    Text,
+    Choice
+}
+
+
 #const GIKO_MIN_SPEED = 5
 
 enum Decisions {

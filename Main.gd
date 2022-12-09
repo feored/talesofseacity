@@ -26,17 +26,17 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("admin_st")
+	loadRoom("takadai")
 	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
-	dialogueManager.setLines([
-		"Welcome to Giko Story!",
-		"This server is an amalgamation of the international and Japanese servers.",
-		"Go explore, talk to everyone, pick up items and have fun!"
-	], "")
-	dialogueManager.setAuthor("")
-	dialogueManager.show()
+	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
+	# 	"Welcome to Giko Story!",
+	# 	"This server is an amalgamation of the international and Japanese servers.",
+	# 	"Go explore, talk to everyone, pick up items and have fun!"
+	# ]), "")
+	# dialogueManager.setAuthor("")
+	# dialogueManager.show()
 
 
 func loadRandomRoom() -> void:
@@ -91,7 +91,7 @@ func loadObjects() -> void:
 		var objectSprite = Sprite.new()
 		objectSprite.centered = false
 		objectSprite.texture = load(
-			"res://rooms/" + Rooms.currentRoomData["id"] + "/" + object["url"]
+			"res://rooms/" + Rooms.currentRoomId + "/" + object["url"]
 		)
 		$"%zObjects".add_child(objectSprite)
 		var roomOffset: Vector2 = Rooms.getCurrentRoomOffset()
@@ -103,8 +103,8 @@ func loadObjects() -> void:
 
 func loadItems() -> void:
 	activeItems.clear()
-	if Items.ACTIVE_ITEMS.has(Rooms.currentRoomData["id"]):
-		for item in Items.ACTIVE_ITEMS[Rooms.currentRoomData["id"]]:
+	if Items.ACTIVE_ITEMS.has(Rooms.currentRoomId):
+		for item in Items.ACTIVE_ITEMS[Rooms.currentRoomId]:
 			var itemSprite = Sprite.new()
 			var itemData = Items.ITEMS[item["id"]]
 			#itemSprite.centered = false
@@ -122,8 +122,8 @@ func loadItems() -> void:
 
 func loadNPCs() -> void:
 	activeNPCs.clear()
-	if NPCs.ACTIVE_NPCs.has(Rooms.currentRoomData["id"]):
-		for npcData in NPCs.ACTIVE_NPCs[Rooms.currentRoomData["id"]]:
+	if NPCs.ACTIVE_NPCs.has(Rooms.currentRoomId):
+		for npcData in NPCs.ACTIVE_NPCs[Rooms.currentRoomId].values():
 			spawnNPCGiko(npcData)
 
 
@@ -134,9 +134,20 @@ func removeActiveItem(item : Dictionary) -> void:
 		activeItems[tile].queue_free()
 		activeItems.erase(tile)
 
-func talkToNPC(NPC : String) -> void:
-	dialogueManager.setLines(NPCs.NPCs[NPC].lines[ Utils.rng.randi() % NPCs.NPCs[NPC].lines.size()].duplicate(), NPC)
-	dialogueManager.show()
+func talkToNPC(NPCId : String) -> void:
+	if (dialogueManager.isDialoguing):
+		dialogueManager.skipToNext()
+		return
+	else:
+		if (NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId].has("lines") && NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].size() > 0):
+			var qLine = NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].pop_front()
+			dialogueManager.setLineSet(qLine, NPCId)
+			dialogueManager.show()
+			if qLine["info"]["requeue"]:
+				NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].push_back(qLine)
+		else:
+			dialogueManager.setLineSet(NPCs.NPCs[NPCId].lines[Utils.rng.randi() % NPCs.NPCs[NPCId].lines.size()].duplicate(), NPCId)
+			dialogueManager.show()
 
 func spawnPlayerGiko(door: String) -> void:
 	var newGiko = playerGikoPrefab.instance()
@@ -158,7 +169,7 @@ func spawnPlayerGiko(door: String) -> void:
 	$"%zObjects".add_child(newGiko)
 	playerGiko = newGiko
 	$Camera2D.player = playerGiko
-	playerGiko.message("I miss Mona.")
+	#playerGiko.message("I miss Mona.")
 
 
 func spawnNPCGiko(NPCData : Dictionary) -> void:

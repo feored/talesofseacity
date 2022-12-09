@@ -1,17 +1,22 @@
 extends MarginContainer
 
+var dialogueTextPrefab = preload("res://UI/DialogueText.tscn")
+var dialogueChoicePrefab = preload("res://UI/DialogueChoice.tscn")
 
-onready var dialogueText = $"%DialogueText"
 onready var dialogueAuthor = $"%DialogueAuthor"
 onready var dialogueImage = $"%DialogueImage"
 
-const DEFAULT_DELAY = 2
 
-var elapsedTime = 0
-var showingText = false
-var timeToNext = DEFAULT_DELAY
-var shouldHang = false
-var currentLines = []
+var isDialoguing = false
+
+var currentType : int
+var currentDialogueLine
+var currentChoiceLines = []
+
+
+var currentLineSet : Dictionary
+var currentStage : String
+
 var lastAuthor = ""
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +28,39 @@ func hide() -> void:
 
 func show() -> void:
 	visible = true
+
+func spawnLine(text : String) -> void:
+	var newDialogueLine = dialogueTextPrefab.instance()
+	newDialogueLine.lineOverCallback = funcref(self, "lineOver")
+	newDialogueLine.setText(text)
+	currentDialogueLine = newDialogueLine
+	$"%DialogueVBox".add_child(newDialogueLine)
+
+func spawnChoice(text : String, id : int) -> void:
+	var newDialogueLine = dialogueChoicePrefab.instance()
+	newDialogueLine.setChoice(text, id)
+	newDialogueLine.choicePickedCallback = funcref(self, "choicePicked")
+	currentChoiceLines.push_back(newDialogueLine)
+	$"%DialogueVBox".add_child(newDialogueLine)
+
+
+func lineOver() -> void:
+	cleanUpLines()
+	setNextLineInSet()
+
+func choicePicked(choiceId : int) -> void:
+	cleanUpLines()
+	setNextLineInSetFromChoice(choiceId)
+	
+func cleanUpLines() -> void:
+	if currentType == Constants.LineType.Text && is_instance_valid(currentDialogueLine):
+		currentDialogueLine.queue_free()
+	else:
+		for obj in currentChoiceLines:
+			if is_instance_valid(obj):
+				obj.queue_free()
+		currentChoiceLines.clear()
+
 
 func setAuthor(NPC : String) -> void:
 	if NPC == "":
@@ -38,37 +76,58 @@ func setAuthor(NPC : String) -> void:
 	var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[npcData["character"]] + "/"
 	dialogueImage.texture = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
 
+func applyNodeFlagActions(line : Dictionary) -> void:
+	print(line)
+	if line.has("flags"):
+		for flagAction in line["flags"]:
+			print(flagAction)
+			match flagAction["type"]:
+				"set":
+					Quests.QUEST_FLAGS[flagAction["flag"]] = flagAction["value"]
+				"add":
+					Quests.QUEST_FLAGS[flagAction["flag"]] += flagAction["value"]
 
-func setLines(newLines : Array, NPC: String) -> void:
-	if currentLines.size() > 0:
-		setText(currentLines.pop_front())
-		return
+func setLineSet(newLineSet : Dictionary, NPC: String) -> void:
+	isDialoguing = true
+	currentLineSet = newLineSet
+	currentStage = newLineSet["info"]["start"]
 	setAuthor(NPC)
-	currentLines = newLines
-	setText(currentLines.pop_front())
+	setText(currentLineSet[currentStage])
 
-func setText(newLine : String) -> void:
-	dialogueText.bbcode_text = newLine
-	dialogueText.set_visible_characters(0)
-	elapsedTime = 0
-	showingText = true
-	timeToNext = DEFAULT_DELAY
-	Log.addLog(lastAuthor, dialogueText.text)
+func setNextLineInSet() -> void:
+	applyNodeFlagActions(currentLineSet[currentStage])
+	if (currentLineSet[currentStage].has("nextId")):
+		currentStage = currentLineSet[currentStage]["nextId"]
+		setText(currentLineSet[currentStage])
+	else:
+		hide()
+		isDialoguing = false
 
-func _process(delta):
-	if showingText:
-		elapsedTime += delta
-		dialogueText.set_visible_characters(int(elapsedTime*30))
-		if dialogueText.visible_characters >= dialogueText.get_total_character_count():
-			showingText = false
-			shouldHang = true
-			timeToNext = DEFAULT_DELAY
-	if shouldHang:
-		timeToNext -= delta
-		if timeToNext <= 0:
-			shouldHang = false
-			if currentLines.size() > 0:
-				setText(currentLines.pop_front())
-			else:
-				hide()
+func setNextLineInSetFromChoice(choicePicked : int = 0) -> void:
+	applyNodeFlagActions(currentLineSet[currentStage]["choices"][choicePicked])
+	if (currentLineSet[currentStage]["choices"][choicePicked].has("nextId")):
+		currentStage = currentLineSet[currentStage]["choices"][choicePicked]["nextId"]
+		setText(currentLineSet[currentStage])
+	else:
+		hide()
+		isDialoguing = false
+	
+func skipToNext() -> void:
+	if (currentType == Constants.LineType.Text):
+		cleanUpLines()
+		setNextLineInSet()
+
+func setText(newLine : Dictionary) -> void:
+	#cleanUpLines()
+	currentType = newLine["type"]
+	if newLine["type"] == Constants.LineType.Text:
+		spawnLine(newLine["text"])
+		Log.addLog(lastAuthor, currentDialogueLine.text)
+	else:
+		for i in range(newLine["choices"].size()):
+			spawnChoice(newLine["choices"][i]["text"], i)
+			Log.addLog(lastAuthor, currentDialogueLine.text)
+
+
+
 

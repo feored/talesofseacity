@@ -129,3 +129,22 @@ func roomDirectionToEnum(direction : String) -> int:
 			resultDirection = Constants.Directions.DIR_LEFT
 	
 	return resultDirection
+
+
+static func makeSimpleDialogue(lines : Array) -> Dictionary:
+    var template = {
+        "info" : {
+            "requeue" : true,
+            "start" : "line0"
+        }
+    }
+    for i in range(lines.size()):
+        var id = "line" + String(i)
+        template[id] = {
+            "id" : id,
+            "type" : Constants.LineType.Text,
+            "text": lines[i],
+        }
+        if i != (lines.size() - 1):
+            template[id]["nextId"] = "line" + String(i+1)
+    return template
