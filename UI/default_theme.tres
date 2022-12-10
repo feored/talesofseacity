@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=2]
 
-[ext_resource path="res://UI/Fonts/mspgothic_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=2]
 
 [sub_resource type="StyleBoxFlat" id=4]

@@ -77,10 +77,8 @@ func setAuthor(NPC : String) -> void:
 	dialogueImage.texture = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
 
 func applyNodeFlagActions(line : Dictionary) -> void:
-	print(line)
 	if line.has("flags"):
 		for flagAction in line["flags"]:
-			print(flagAction)
 			match flagAction["type"]:
 				"set":
 					Quests.QUEST_FLAGS[flagAction["flag"]] = flagAction["value"]

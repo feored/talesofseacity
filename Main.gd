@@ -26,7 +26,7 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("takadai")
+	loadRoom("konbini")
 	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
@@ -145,8 +145,10 @@ func talkToNPC(NPCId : String) -> void:
 			dialogueManager.show()
 			if qLine["info"]["requeue"]:
 				NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].push_back(qLine)
-		else:
-			dialogueManager.setLineSet(NPCs.NPCs[NPCId].lines[Utils.rng.randi() % NPCs.NPCs[NPCId].lines.size()].duplicate(), NPCId)
+		elif NPCs.NPCs[NPCId].lines.size() > 0:
+			var dialogueLine = NPCs.NPCs[NPCId].lines.pop_front()
+			NPCs.NPCs[NPCId].lines.push_back(dialogueLine)
+			dialogueManager.setLineSet(dialogueLine, NPCId)
 			dialogueManager.show()
 
 func spawnPlayerGiko(door: String) -> void:

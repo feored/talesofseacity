@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -13,9 +13,10 @@
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=11]
 [ext_resource path="res://UI/Rula.gd" type="Script" id=12]
 [ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=13]
-[ext_resource path="res://UI/Fonts/mspgothic_font_big.tres" type="DynamicFont" id=14]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=14]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
-[ext_resource path="res://UI/Fonts/arialbold_font.tres" type="DynamicFont" id=16]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=16]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=17]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 
 [sub_resource type="StyleBoxLine" id=9]
@@ -101,7 +102,6 @@ icon_align = 1
 
 [node name="Dialogue" type="MarginContainer" parent="UI"]
 unique_name_in_owner = true
-visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -168,7 +168,7 @@ rect_min_size = Vector2( 0, 40 )
 custom_colors/font_color = Color( 0.554992, 0.394714, 0.871094, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 17 )
 text = "CATARP!"
 valign = 1
 

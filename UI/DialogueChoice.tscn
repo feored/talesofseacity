@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://UI/Fonts/mspgothic_font_big.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/teeb.text_effects/resources/Jump.tres" type="RichTextEffect" id=2]
 [ext_resource path="res://addons/teeb.text_effects/resources/Number.tres" type="RichTextEffect" id=3]
 [ext_resource path="res://addons/teeb.text_effects/resources/Heart.tres" type="RichTextEffect" id=4]

@@ -1,6 +1,6 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[ext_resource path="res://UI/Fonts/mspgothic_fontdata.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_fontdata.tres" type="DynamicFontData" id=1]
 
 [resource]
 use_mipmaps = true

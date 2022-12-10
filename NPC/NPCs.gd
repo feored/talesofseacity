@@ -30,8 +30,8 @@ var NPCs = {
 		"name": "caribear",
 		"character": Constants.Character.Wild_Panda_Naito,
 		"lines": [
-            Utils.makeSimpleDialogue(["Let's listen to something on my turntable!"])
-        ]
+			Utils.makeSimpleDialogue(["Let's listen to something on my turntable!"])
+		]
 	},
 	"zzazzachu":
 	{
@@ -66,10 +66,51 @@ var NPCs = {
 		"lines":
 		[
 			Utils.makeSimpleDialogue([
-					"Hello! Do you know how to play Mahjong?"
+				"Hello! Do you know how to play Mahjong?"
 			])
 		]
 	},
+	"KonbiniNPCBathroom" : {
+		"id" : "KonbiniNPCBathroom",
+		"name" : "IBS-kun",
+		"character" : Constants.Character.Hungry_Giko,
+		"lines" : [
+			Utils.makeSimpleDialogue([
+				"Do you mind? I'm trying to wash my hands."
+			]),
+			Utils.makeSimpleDialogue([
+				"Go bother someone else."
+			]),
+			Utils.makeSimpleDialogue([
+				"...Are you a pervert?"
+			])
+		]
+	},
+	"KonbiniClerk" : {
+		"id" : "KonbiniClerk",
+		"name" : "Clerk",
+		"character" : Constants.Character.Hotsuma_Giko,
+		"lines" : [
+			Utils.makeSimpleDialogue([
+				"How much money do you want to send to the orphanage?"
+			]),
+			Utils.makeSimpleDialogue([
+				"I'm saving up until I can quit this job and become a NEET forever."
+			]),
+			Utils.makeSimpleDialogue([
+				"Are you gonna buy anything?"
+			])
+		]
+	},
+	"HungryShobon" : {
+		"id" : "HungryShobon",
+		"name" : "Hungry Shobon",
+		"character" : Constants.Character.Shobon,
+		"lines" : [
+
+		]
+	}
+
 }
 
 var ACTIVE_NPCs = {
@@ -83,7 +124,7 @@ var ACTIVE_NPCs = {
 			"direction": Constants.Directions.DIR_LEFT,
 			"x": 10,
 			"y": 3,
-			"qLines": []
+			"lines": []
 		}
 	},
 	"bar":
@@ -94,7 +135,7 @@ var ACTIVE_NPCs = {
 			"direction": Constants.Directions.DIR_RIGHT,
 			"x": 3,
 			"y": 2,
-			"qLines": []
+			"lines": []
 		}
 	},
 	"izakaya774":
@@ -105,7 +146,7 @@ var ACTIVE_NPCs = {
 			"direction": Constants.Directions.DIR_UP,
 			 "x": 3, 
 			 "y": 1, 
-			 "qLines": []
+			 "lines": []
 		}
 	},
 	"takadai":
@@ -116,61 +157,37 @@ var ACTIVE_NPCs = {
 			"direction": Constants.Directions.DIR_LEFT,
 			"x": 0,
 			"y": 9,
-			"lines":
-			[
-				{
-					"info" : {
-                        "name" : "shaddoxTilesIntro",
-						"requeue" : true,
-                        "start" : "start"
-					},
-					"start" : {
-						"id" : "start",
-						"type" : Constants.LineType.Text,
-						"text": "Hello there! I enjoy playing Mahjong, but I seem to have lost my mahjong tiles. I've looked everywhere...I don't know where I dropped them.",
-						"nextId" : "ShaddoxTile2"
-					},
-					"ShaddoxTile2" : {
-						"id" : "ShaddoxTile2",
-						"type" : Constants.LineType.Text,
-						"text" : "Specifically, I'm missing all three of the dragon tiles. The Red, White and Green Dragons. Could you help me look for them?",
-						"nextId" : "ShaddoxTile3"
-					},
-					"ShaddoxTile3" : {
-						"id" : "ShaddoxTile3",
-						"type" : Constants.LineType.Choice,
-						"choices" : [
-							{
-								"text" : "Sure!",
-								"flags" : [
-									{
-										"flag": "qHelpShaddoxLookForTiles",
-										"type": "set",
-										"value": true
-									}
-								],
-								"nextId" : "ShaddoxTile4"
-							},
-							{
-								"text" : "Sorry, maybe later.",
-								"flags" : [
-									{
-										"flag": "qHelpShaddoxLookForTiles",
-										"type": "set",
-										"value": false
-									}
-								]
-							}
-						   
-						]
-					},
-					"ShaddoxTile4" :{
-						"id" : "ShaddoxTile4",
-						"type" : Constants.LineType.Text,
-						"text" : "God bless you!"
-					}
-				}
-			]
+			"lines": []
+		}
+	},
+	"konbini" :
+	{
+		"KonbiniNPCBathroom" : 
+		{
+			"id" : "KonbiniNPCBathroom",
+			"direction" : Constants.Directions.DIR_UP,
+			"x" : 0,
+			"y" : 3,
+			"lines": []
+		},
+		"KonbiniClerk": 
+		{
+			"id" : "KonbiniClerk",
+			"direction" : Constants.Directions.DIR_DOWN,
+			"x" : 6,
+			"y" : 7,
+			"lines": []
+		}
+	},
+	"bar_giko_square" :
+	{
+		"HungryShobon" : 
+		{
+			"id" : "HungryShobon",
+			"direction" : Constants.Directions.DIR_RIGHT,
+			"x" : 13,
+			"y" : 11,
+			"lines" : []
 		}
 	}
 }
@@ -189,6 +206,26 @@ func addActiveNPC(roomId: String, NPCId: String, direction: int, position: Vecto
 	if !ACTIVE_NPCs.has(roomId):
 		ACTIVE_NPCs[roomId] = {}
 	ACTIVE_NPCs[roomId][NPCId] = ({
-		"id": NPCId, "direction": direction, "x": position.x, "y": position.y, "qLines": []
+		"id": NPCId, "direction": direction, "x": position.x, "y": position.y, "lines": []
 	})
 	refresh = true
+
+func removeQuestDialogueByName(roomId : String, NPCId : String, dialogueName : String) -> void:
+	## remove old dialogue from active lines
+	var dialogueIndex = 0
+	var foundDialogue = false
+	for i in range(ACTIVE_NPCs[roomId][NPCId]["lines"].size()):
+		if (ACTIVE_NPCs[roomId][NPCId]["lines"][i]["info"]["name"] == dialogueName):
+			dialogueIndex = i
+			foundDialogue = true
+	if foundDialogue:
+		ACTIVE_NPCs[roomId][NPCId]["lines"].remove(dialogueIndex)
+	else:
+		print("Failed to remove dialogue %s by %s in %s." % [dialogueName, NPCId, roomId])
+
+
+func addQuestDialogue(roomId : String, NPCId : String, dialogue : Dictionary) -> void:
+	if (ACTIVE_NPCs.has(roomId) && ACTIVE_NPCs[roomId].has(NPCId)):
+		ACTIVE_NPCs[roomId][NPCId]["lines"].push_back(dialogue)
+	else:
+		print("Could not add dialogue to %s in %s because ACTIVENPC was not added yet, use addActiveNPC first." % [roomId, NPCId])

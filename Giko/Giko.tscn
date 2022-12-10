@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Giko/Giko.gd" type="Script" id=1]
-[ext_resource path="res://UI/Fonts/arialbold_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Giko/GikoAnimation.tres" type="SpriteFrames" id=3]
 
 [node name="Giko" type="AnimatedSprite"]

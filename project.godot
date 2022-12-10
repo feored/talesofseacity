@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "PlayerGiko",
 "language": "GDScript",
 "path": "res://Giko/PlayerGiko.gd"
+}, {
+"base": "Reference",
+"class": "Quest",
+"language": "GDScript",
+"path": "res://Quests/Quest.gd"
 } ]
 _global_script_class_icons={
 "Giko": "",
-"PlayerGiko": ""
+"PlayerGiko": "",
+"Quest": ""
 }
 
 [application]
@@ -53,7 +59,7 @@ window/stretch/aspect="keep_height"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
-theme/custom_font="res://UI/Fonts/arial.tres"
+theme/custom_font="res://UI/Fonts/Arial/arial.tres"
 
 [input]
 
