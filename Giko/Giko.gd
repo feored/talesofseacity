@@ -51,6 +51,10 @@ func initializeRandom() -> void:
 
 	Rooms.updateGikoPosition(self, currentTile)
 
+	var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+	z_index = zFixedPosition.y
+
+
 	currentTilePos = Utils.getTilePosAtCoords(currentTile)
 	position = Utils.getTilePosAtCoords(currentTile)
 	currentDirection = getRandomDirection()
@@ -71,6 +75,9 @@ func initializeNPC(activeNPCData) -> void:
 
 	Rooms.updateGikoPosition(self, currentTile)
 	
+	var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+	z_index = zFixedPosition.y
+	
 	currentTilePos = Utils.getTilePosAtCoords(currentTile)
 	position = Utils.getTilePosAtCoords(currentTile)
 	currentDirection = activeNPCData["direction"]
@@ -78,7 +85,6 @@ func initializeNPC(activeNPCData) -> void:
 	checkSitting()
 	play(getRightAnimation())
 	setRightFlip()
-
 
 
 
@@ -280,8 +286,6 @@ func _process(delta):
 
 	takeDecision()
 
-	z_index = position.y
-
 	process_movement(delta)
 	checkGhost()
 
@@ -294,10 +298,15 @@ func process_movement(delta) -> void:
 	if isMoving:
 		if Utils.isPositionTooFar(position, nextTilePosition, currentDirection):
 			# we have arrived at the tile
+			
 			position = nextTilePosition
 			currentTile = nextTile
 			currentTilePos = Utils.getTilePosAtCoords(currentTile)
 			isMoving = false
+
+			var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+			z_index = zFixedPosition.y
+
 			checkSitting()
 			play(getRightAnimation())
 			checkDoors()

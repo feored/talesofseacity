@@ -102,6 +102,7 @@ icon_align = 1
 
 [node name="Dialogue" type="MarginContainer" parent="UI"]
 unique_name_in_owner = true
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -653,15 +654,7 @@ centered = false
 unique_name_in_owner = true
 script = ExtResource( 2 )
 
-[node name="Objects" type="Node2D" parent="."]
-
-[node name="Gikos" type="YSort" parent="Objects"]
-unique_name_in_owner = true
-
-[node name="Buildings" type="YSort" parent="Objects"]
-unique_name_in_owner = true
-
-[node name="zObjects" type="Node2D" parent="Objects"]
+[node name="zObjects" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/InventoryBtn" to="UI" method="_on_InventoryBtn_pressed"]

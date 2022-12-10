@@ -99,6 +99,15 @@ func isTileBlocked(tile : Vector2) -> bool:
 				return true
 	return false
 
+	
+func getZFix(currentTile : Vector2) -> Vector2:
+	if (currentRoomData.has("zFix")):
+		for tileData in currentRoomData["zFix"]:
+			if Vector2(tileData["position"]["x"], tileData["position"]["y"]) == currentTile:
+				return Vector2(tileData["fix"]["x"], tileData["fix"]["y"])
+	return Vector2(0, 0)
+
+
 func getCurrentRoomBounds() -> Vector2:
 	var bounds : Vector2  = Vector2(0, 0)
 	bounds.x = currentRoomData["size"]["x"]
@@ -15566,10 +15575,84 @@ var ROOMS = {
 				{ "xFrom": 0, "yFrom": 2, "xTo": 1, "yTo": 2 },
 				{ "xFrom": 1, "yFrom": 2, "xTo": 0, "yTo": 2 },
 			],
+			"zFix" : [
+				{
+					"position" : {
+						"x" : 5, "y" : 7
+					},
+					"fix" : {
+						"x" : -1, "y" : 0 
+					}
+				},
+				{
+					"position" : {
+						"x" : 5, "y" : 7
+					},
+					"fix" : {
+						"x" : -1, "y" : 0 
+					}
+				},
+				{
+					"position" : {
+						"x" : 6, "y" : 7
+					},
+					"fix" : {
+						"x" : -2, "y" : 0 
+					}
+				},
+				{
+					"position" : {
+						"x" : 7, "y" : 7
+					},
+					"fix" : {
+						"x" : -3, "y" : 0 
+					}
+				},
+				{
+					"position" : {
+						"x" : 8, "y" : 7
+					},
+					"fix" : {
+						"x" : -4, "y" : 0 
+					}
+				},
+				{
+					"position" : {
+						"x" : 0, "y" : 0
+					},
+					"fix" : {
+						"x" : -1, "y" : 0 
+					}
+				},
+				{
+					"position" : {
+						"x" : 2, "y" : 2
+					},
+					"fix" : {
+						"x" : 0, "y" : 2
+					}
+				},
+				{
+					"position" : {
+						"x" : 5, "y" : 1
+					},
+					"fix" : {
+						"x" : 0, "y" : 1
+					}
+				},
+				{
+					"position" : {
+						"x" : 7, "y" : 3
+					},
+					"fix" : {
+						"x" : 0, "y" : 1
+					}
+				}
+			],
 			"doors": {
 				"door": { "x": 0, "y": 6, "direction": "right", "target": { "roomId": "bar_giko_square", "doorId": "right" } },
 			},
-			"streamSlotCount": 1,
+			"streamSlotCount": 1
 		}
 }
 
