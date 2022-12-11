@@ -54,7 +54,7 @@ func shaddoxThanksAgain() -> void:
 	## dont need to remove previous dialogue as it is not requeued
 	NPCs.NPCs["Shaddox"]["lines"].push_back(
 		Utils.makeSimpleDialogue(
-			["Thanks again for finding the tiles! We should play Mahjong sometimes."]
+			["Thanks again for finding the tiles! We should play Mahjong some time."]
 		)
 	)
 

@@ -23,4 +23,4 @@ func initialize(currentStage : String):
 
 
 func _init(questStages : Dictionary):
-    self.stages = questStages
+	self.stages = questStages

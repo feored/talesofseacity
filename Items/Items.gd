@@ -64,11 +64,20 @@ var ITEMS = {
 		It has some white marks on the handle which could be either cocaine or cum.
 		It would probably best to give it back to him next time he's around.""",
 		"scale" : 0.25
-	}
+	},
+    "sunscreen" : {
+        "url" : "res://Items/images/sunscreen.png",
+		"id" : "sunscreen",
+		"name" : "Sunscreen",
+		"description" : """A tube of sunscreen.
+        Use it to protect your pale Giko skin from the sun.
+        Rated SPF 100.""",
+		"scale" : 0.2
+    }
 }
 
 var INVENTORY = [
-	
+	"sunscreen"
 ]
 
 func removeActiveItem(roomId : String, itemData : Dictionary) -> void:

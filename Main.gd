@@ -26,7 +26,7 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("konbini")
+	loadRoom("densha")
 	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])

@@ -2,6 +2,8 @@ extends Node
 
 const Quest = preload("res://Quests/Quest.gd")
 var shaddoxMahjongQuest = preload("res://Quests/ShaddoxMahjong.gd")
+var feedThePoorQuest = preload("res://Quests/FeedThePoor.gd")
+var findSunCreamQuest = preload("res://Quests/FindSunCream.gd")
 
 var SETUP_QUESTS = true
 
@@ -9,7 +11,9 @@ var elapsedTime = 0
 
 var QUEST_FLAGS = {
 	"qHelpShaddoxLookForTiles" : false,
-	"qGaveShaddoxBackHisTiles" : false
+	"qGaveShaddoxBackHisTiles" : false,
+	"qHungryCorndogTalked" : false,
+	"qTalkedToTanningShii" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -18,8 +22,18 @@ var COMPLETED_QUESTS = [
 
 var QUESTS = [
 	{
-		"id" : "test",
+		"id" : "Shaddox_Mahjong",
 		"script" : shaddoxMahjongQuest,
+		"stage" : "initial"
+	},
+	{
+		"id" : "Feed_The_Poor",
+		"script" : feedThePoorQuest,
+		"stage" : "initial"
+	},
+	{
+		"id" : "Find_Sun_Cream",
+		"script" : findSunCreamQuest,
 		"stage" : "initial"
 	}
 ]

@@ -1,142 +1,114 @@
 extends Quest
 
 var quest_stages = {
-	"initial":
-	{
-		"id": "initial",
-		"condition": "talkedToShaddox",
-		"next": "startedLookingForTiles",
-		"completed": "shaddoxDialogueStillLooking"
-	},
-	"startedLookingForTiles":
-	{
-		"id": "talkedToShaddox",
-		"condition": "pickedUpTiles",
-		"next": "foundTiles",
-		"completed": "shaddoxDialogueFoundTiles"
-	},
-	"foundTiles":
-	{
-		"id": "next",
-		"condition": "gaveShaddoxBackTiles",
-		"next": "final",
-		"completed": "shaddoxThanksAgain"
-	},
-	"final": {"id": "final"}
+    "initial":
+    {
+        "id": "initial",
+        "condition": "talkedToHungryShobon",
+        "completed": "addClerkCorndogDialogue",
+        "next" : "final"
+    },
+    "final": {"id": "final"}
 }
 
 
 func _init().(quest_stages):
-	pass
+    pass
 
 
 ## CONDITIONS
 
 
-func talkedToShaddox() -> bool:
-	return Quests.QUEST_FLAGS["qHelpShaddoxLookForTiles"]
+func talkedToHungryShobon() -> bool:
+    return Quests.QUEST_FLAGS["qHungryCorndogTalked"]
 
-
-func pickedUpTiles() -> bool:
-	return Items.INVENTORY.has("mahjong_red_dragon")
-
-
-func gaveShaddoxBackTiles() -> bool:
-	return Quests.QUEST_FLAGS["qGaveShaddoxBackHisTiles"]
 
 
 ## COMPLETED
 
+func addClerkCorndogDialogue() -> void:
+    NPCs.addQuestDialogue(
+        "konbini",
+        "KonbiniClerk",
+        {
+            "info": {"name": "KonbiniClerkCantBuyCorndog", "requeue": true, "start": "start"},
+            "start":
+            {
+                "id": "start",
+                "type": Constants.LineType.Text,
+                "text":
+                "Welcome! Can I get you anything?",
+                "nextId": "HungryShobonCorndog"
+            },
+            "HungryShobonCorndog":
+            {
+                "id": "HungryShobonCorndog",
+                "type": Constants.LineType.Choice,
+                "choices":
+                [
+                    {
+                        "text": "I'd like a corndog, please.",
+                        "nextId": "HungryShobonPay"
+                    },
+                    {
+                        "text": "No, thanks."
+                    }
+                ],
+                "nextId": "HungryShobonCorndog2"
+            },
+            "HungryShobonPay" : {
+                "id": "HungryShobonPay",
+                "type": Constants.LineType.Text,
+                "text":
+                "That'll be 1 gikocoin, sir.",
+                "nextId" : "HungryShobonNoMoney1"
+            },
+            "HungryShobonNoMoney1":
+            {
+                "id": "HungryShobonNoMoney1",
+                "type": Constants.LineType.Text,
+                "text" : "...",
+                "nextId" : "HungryShobonNoMoney2"
+            },
+            "HungryShobonNoMoney2":
+            {
+                "id": "HungryShobonNoMoney2",
+                "type": Constants.LineType.Text,
+                "text" : "Feel free to come back when you have some money!",
+            },
+        })
 
-func shaddoxThanksAgain() -> void:
-	## remove tiles
-	Items.removeItemInventory("mahjong_red_dragon")
-	## dont need to remove previous dialogue as it is not requeued
-	NPCs.NPCs["Shaddox"]["lines"].push_back(
-		Utils.makeSimpleDialogue(
-			["Thanks again for finding the tiles! We should play Mahjong sometimes."]
-		)
-	)
-
-
-func shaddoxDialogueStillLooking() -> void:
-	NPCs.removeQuestDialogueByName("takadai", "Shaddox", "shaddoxTilesIntro")
-
-	## add new dialogue
-	NPCs.ACTIVE_NPCs["takadai"]["Shaddox"]["lines"].push_back(
-		{
-			"info": {"name": "shaddoxStillLooking", "requeue": true, "start": "start"},
-			"start":
-			{
-				"id": "start",
-				"type": Constants.LineType.Text,
-				"text": "Still looking for the tiles, huh? So am I!",
-			}
-		}
-	)
-
-
-func shaddoxDialogueFoundTiles() -> void:
-	NPCs.removeQuestDialogueByName("takadai", "Shaddox", "shaddoxStillLooking")
-	## add new dialogue
-	NPCs.ACTIVE_NPCs["takadai"]["Shaddox"]["lines"].push_back(
-		{
-			"info": {"name": "shaddoxFoundTiles", "requeue": false, "start": "start"},
-			"start":
-			{
-				"id": "start",
-				"type": Constants.LineType.Text,
-				"text":
-				"You found the dragon tiles! How could I ever repay you? Let me give you a Christian blessing from the salt mines.",
-				"flags": [{"flag": "qGaveShaddoxBackHisTiles", "type": "set", "value": true}]
-			}
-		}
-	)
 
 ## SETUP
 
 func setup() -> void:
-	NPCs.addQuestDialogue(
-		"takadai",
-		"Shaddox",
-		{
-			"info": {"name": "shaddoxTilesIntro", "requeue": true, "start": "start"},
-			"start":
-			{
-				"id": "start",
-				"type": Constants.LineType.Text,
-				"text":
-				"Hello there! I enjoy playing Mahjong, but I seem to have lost my mahjong tiles. I've looked everywhere...I don't know where I dropped them.",
-				"nextId": "ShaddoxTile2"
-			},
-			"ShaddoxTile2":
-			{
-				"id": "ShaddoxTile2",
-				"type": Constants.LineType.Text,
-				"text":
-				"Specifically, I'm missing all three of the dragon tiles. The Red, White and Green Dragons. Could you help me look for them?",
-				"nextId": "ShaddoxTile3"
-			},
-			"ShaddoxTile3":
-			{
-				"id": "ShaddoxTile3",
-				"type": Constants.LineType.Choice,
-				"choices":
-				[
-					{
-						"text": "Sure!",
-						"flags":
-						[{"flag": "qHelpShaddoxLookForTiles", "type": "set", "value": true}],
-						"nextId": "ShaddoxTile4"
-					},
-					{
-						"text": "Sorry, maybe later.",
-						"flags":
-						[{"flag": "qHelpShaddoxLookForTiles", "type": "set", "value": false}]
-					}
-				]
-			},
-			"ShaddoxTile4":
-			{"id": "ShaddoxTile4", "type": Constants.LineType.Text, "text": "God bless you!"}
-		}
-	)
+    NPCs.addQuestDialogue(
+        "bar_giko_square",
+        "HungryShobon",
+        {
+            "info": {"name": "HungryShobonIntro", "requeue": true, "start": "start"},
+            "start":
+            {
+                "id": "start",
+                "type": Constants.LineType.Text,
+                "text":
+                "[nervous scale=1.0 freq=8.0]I'm so hungry...My stomach has been rumbling for days..[/nervous]",
+                "nextId": "HungryShobonCorndog"
+            },
+            "HungryShobonCorndog":
+            {
+                "id": "HungryShobonCorndog",
+                "type": Constants.LineType.Text,
+                "text":
+                "Oh...My friend sent me a photo of herself eating a corndog on route 66...",
+                "nextId": "HungryShobonCorndog2"
+            },
+            "HungryShobonCorndog2":
+            {
+                "id": "HungryShobonCorndog2",
+                "type": Constants.LineType.Text,
+                "text" : "What I wouldn't give for a corndog right now...",
+                "flags": [{"flag": "qHungryCorndogTalked", "type": "set", "value": true}]
+            }
+        }
+    )
