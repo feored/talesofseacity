@@ -65,19 +65,28 @@ var ITEMS = {
 		It would probably best to give it back to him next time he's around.""",
 		"scale" : 0.25
 	},
-    "sunscreen" : {
-        "url" : "res://Items/images/sunscreen.png",
+	"sunscreen" : {
+		"url" : "res://Items/images/gikoscreen.png",
 		"id" : "sunscreen",
 		"name" : "Sunscreen",
-		"description" : """A tube of sunscreen.
-        Use it to protect your pale Giko skin from the sun.
-        Rated SPF 100.""",
+		"description" : """A tube of GIKOSCREEN™ sunscreen, the most reputable brand of sunscreen in Sea City.
+		Use it to protect your pale Giko skin from the sun.
+		Rated SPF 100.""",
 		"scale" : 0.2
-    }
+	},
+	"gikoburger":{
+		"url" : "res://Items/Images/gikoburger2.png",
+		"id" : "gikoburger",
+		"name" : "Giko Burger (Giko Sando)",
+		"description" :"""The Giko Sando is a classic item on the Giko Burger Menu.
+		No one knows what it's really made out of.""",
+		"scale": 0.2
+	}
 }
 
 var INVENTORY = [
-	"sunscreen"
+	"sunscreen",
+	"gikoburger"
 ]
 
 func removeActiveItem(roomId : String, itemData : Dictionary) -> void:

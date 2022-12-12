@@ -15389,6 +15389,56 @@ var ROOMS = {
 				"url":"cushion_blue.png"
 			}
 		],
+        "zFix" : [
+                {
+					"position" : {
+						"x" : 7, "y" : 3
+					},
+					"fix" : {
+						"x" : -4, "y" : 1 
+					}
+				},
+				{
+					"position" : {
+						"x" : 6, "y" : 3
+					},
+					"fix" : {
+						"x" : -3, "y" : 1 
+					}
+				},
+                {
+					"position" : {
+						"x" : 5, "y" : 3
+					},
+					"fix" : {
+						"x" : -2, "y" : 1 
+					}
+				},
+                {
+					"position" : {
+						"x" : 4, "y" : 3
+					},
+					"fix" : {
+						"x" : 0, "y" : 1 
+					}
+				},
+                {
+					"position" : {
+						"x" : 3, "y" : 3
+					},
+					"fix" : {
+						"x" : 0, "y" : 1 
+					}
+				},
+                {
+					"position" : {
+						"x" : 2, "y" : 3
+					},
+					"fix" : {
+						"x" : 0, "y" : 1 
+					}
+				}
+        ],
 		"objectRenderSortMethod":"diagonal_scan",
 		"sit":[
 			{

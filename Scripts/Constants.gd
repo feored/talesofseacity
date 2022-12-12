@@ -31,21 +31,26 @@ const NORMAL_COLOR = Color(1, 1, 1, 1)
 
 
 enum LineType {
-    Text,
-    Choice
+	Text,
+	Choice
+}
+
+enum ConditionType {
+    Flag,
+    Item
 }
 
 
 #const GIKO_MIN_SPEED = 5
 
 enum Decisions {
-    FINDSEAT,
-    IDLE,
-    CHANGEDIRECTION,
-    TALK,
-    WALKUPTOGIKO,
-    SPIN,
-    MOVESOMEWHERE
+	FINDSEAT,
+	IDLE,
+	CHANGEDIRECTION,
+	TALK,
+	WALKUPTOGIKO,
+	SPIN,
+	MOVESOMEWHERE
 }
 
 
@@ -64,7 +69,7 @@ const DIRECTIONS_STRING = {
 }
 
 const DIRECTION_VECTOR = {
-    Directions.DIR_LEFT : Vector2(-1, 0),
+	Directions.DIR_LEFT : Vector2(-1, 0),
 	Directions.DIR_UP : Vector2(0, 1),
 	Directions.DIR_RIGHT : Vector2(1, 0),
 	Directions.DIR_DOWN : Vector2(0, -1)
@@ -106,7 +111,7 @@ enum Character {
 	Shii_Hat,
 	Shii_Pianica,
 	Shii_Uniform,
-	#Shiinigami,
+	Shiinigami,
 	Shobon,
 	Tabako_Dokuo,
 	Takenoko,
@@ -156,7 +161,7 @@ const CHARACTERS = {
 	Character.Shii_Hat : "shii_hat",
 	Character.Shii_Pianica : "shii_pianica",
 	Character.Shii_Uniform : "shii_uniform",
-	#Character.Shiinigami : "shiinigami",
+	Character.Shiinigami : "shiinigami",
 	Character.Shobon : "shobon",
 	Character.Tabako_Dokuo : "tabako_dokuo",
 	Character.Takenoko : "takenoko",
@@ -267,7 +272,7 @@ const GIKO_NAMES = [
 	"ET",
 	"meltingwax",
 	"Desuno",
-    "Caribear"
+	"Caribear"
 ]
 
 
@@ -333,5 +338,5 @@ const POSSIBLE_MESSAGES = [
 	"I'm having Jägerschnitzel for dinner.",
 	"Honestly, the FFVII Remake isn't that bad.",
 	"Gaming",
-    "(´・ω・`)"
+	"(´・ω・`)"
 ]

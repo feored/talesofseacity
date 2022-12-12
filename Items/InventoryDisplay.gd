@@ -12,56 +12,56 @@ var ItemDisplayPrefab = preload("res://Items/ItemDisplay.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    reloadInventory()
-    
+	reloadInventory()
+	
 
 func show() -> void:
-    if (Items.inventoryRefreshNeeded):
-        reloadInventory()
-    visible = true
+	if (Items.inventoryRefreshNeeded):
+		reloadInventory()
+	visible = true
 
 func hide() ->void:
-    hidePopup()
-    visible = false
+	hidePopup()
+	visible = false
 
 func showPopup(item : Dictionary) -> void:
-    ## calc where to show popup
-    $"%InventoryPopup".setItem(item)
-    $"%InventoryPopup".show()
-    var mousePos = get_global_mouse_position()
-    var windowSize = OS.window_size
-    var rectSize = $"%InventoryPopup".rect_size
-    
-    var finalPos = Vector2()
+	## calc where to show popup
+	$"%InventoryPopup".setItem(item)
+	$"%InventoryPopup".show()
+	var mousePos = get_global_mouse_position()
+	var windowSize = OS.window_size
+	var rectSize = $"%InventoryPopup".rect_size
+	
+	var finalPos = Vector2()
 
-    if (mousePos.x < windowSize.x/2):
-        finalPos.x = mousePos.x + spacer
-    else:
-        finalPos.x = mousePos.x - rectSize.x - spacer
+	if (mousePos.x < windowSize.x/2):
+		finalPos.x = mousePos.x + spacer
+	else:
+		finalPos.x = mousePos.x - rectSize.x - spacer
 
-    if (mousePos.y < windowSize.y/2):
-        finalPos.y = mousePos.y + spacer * 2
-    else:
-        finalPos.y = mousePos.y - rectSize.y - spacer * 2
+	if (mousePos.y < windowSize.y/2):
+		finalPos.y = mousePos.y + spacer * 2
+	else:
+		finalPos.y = mousePos.y - rectSize.y - spacer * 2
 
-    
-    $"%InventoryPopup".rect_global_position = finalPos
+	
+	$"%InventoryPopup".rect_global_position = finalPos
 
 
 func hidePopup() -> void:
-    $"%InventoryPopup".hide()
+	$"%InventoryPopup".hide()
 
 func reloadInventory() -> void:
-    ## clear current inv first
-    for node in $"%InvItems".get_children():
-        node.queue_free()
-    for itemInv in Items.INVENTORY:
-        var itemDisplay = ItemDisplayPrefab.instance()
-        itemDisplay.setItem(Items.ITEMS[itemInv])
-        itemDisplay.showPopup = funcref(self, "showPopup")
-        itemDisplay.hidePopup = funcref(self, "hidePopup")
-        $"%InvItems".add_child(itemDisplay)
-    Items.inventoryRefreshNeeded = false
+	## clear current inv first
+	for node in $"%InvItems".get_children():
+		node.queue_free()
+	for itemInv in Items.INVENTORY:
+		var itemDisplay = ItemDisplayPrefab.instance()
+		itemDisplay.setItem(Items.ITEMS[itemInv])
+		itemDisplay.showPopup = funcref(self, "showPopup")
+		itemDisplay.hidePopup = funcref(self, "hidePopup")
+		$"%InvItems".add_child(itemDisplay)
+	Items.inventoryRefreshNeeded = false
 
 
 func _on_CloseBtn_pressed():

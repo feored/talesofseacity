@@ -210,7 +210,61 @@ var NPCs = {
 		"name" : "Tanning Shii",
 		"character" : Constants.Character.Shii,
 		"lines" : []
-	}
+	},
+	"HilltopPervertedKid" :
+	{
+		"id" : "HilltopPervertedKid",
+		"name" : "Perverted Kid",
+		"character" : Constants.Character.Furoshiki_Shobon,
+		"lines" : [Utils.makeSimpleDialogue(["Shhh! I'm gonna get caught!"])]
+	},
+	"HilltopBoilingSalmon" :
+	{
+		"id" : "HilltopBoilingSalmon",
+		"name": "Boiling Salmon",
+		"character" : Constants.Character.Salmon,
+		"lines" : [Utils.makeSimpleDialogue(["..."])]
+	},
+	"Bathgoer":
+	{
+		"id": "Bathgoer",
+		"name" : "Bathgoer",
+		"character" : Constants.Character.Shii,
+		"lines" : [Utils.makeSimpleDialogue(["[nervous]Ahh..nothing like a bath...[/nervous]"]),
+				Utils.makeSimpleDialogue(["Did you know this used to be a way to regen MP?",
+				"Apparently it was abandoned because PONOS IN VAGOO is so much more effective."])]
+	},
+	"SushiCustomer" : 
+	{
+		"id" : "SushiCustomer",
+		"name" : "Customer",
+		"character": Constants.Character.Onigiri,
+		"lines" : [
+			Utils.makeSimpleDialogue(["This is delicious."])
+		]
+	},
+	"SushiChef":{
+		"id" : "SushiChef",
+		"name" : "Sushi Chef",
+		"character": Constants.Character.Tinpopo,
+		"lines" : [
+			Utils.makeSimpleDialogue(["♫ Show you, show me...Kikkoman...♪"])
+		]
+	},
+	"SushiTiredSalaryman" : 
+	{
+		"id" : "SushiTiredSalaryman",
+		"name" : "Tired Salaryman",
+		"character": Constants.Character.Tabako_Dokuo,
+		"lines" : []
+	},
+    "BoredHostess" : 
+    {
+        "id" : "BoredHostess",
+        "name" : "Bored Hostess",
+        "character" : Constants.Character.Shiinigami,
+        "lines" : [Utils.makeSimpleDialogue(["This town ain't no fun anymore!"])]
+    }
 
 }
 
@@ -239,6 +293,17 @@ var ACTIVE_NPCs = {
 			"lines": []
 		}
 	},
+    "bar_st" :
+    {
+        "BoredHostess":
+        {
+            "id": "BoredHostess",
+            "direction" : Constants.Directions.DIR_RIGHT,
+            "x" : 9,
+            "y": 4,
+            "lines" : []
+        }
+    },
 	"izakaya774":
 	{
 		"Muryoku":
@@ -259,6 +324,28 @@ var ACTIVE_NPCs = {
 			"x": 0,
 			"y": 9,
 			"lines": []
+		},
+		"HilltopPervertedKid" :
+		{
+			"id" : "HilltopPervertedKid",
+			"direction": Constants.Directions.DIR_RIGHT,
+			"x" :  5,
+			"y" : 10
+		},
+		"HilltopBoilingSalmon":
+		{
+			"id" : "HilltopBoilingSalmon",
+			"direction": Constants.Directions.DIR_UP,
+			"x":8,
+			"y":9,
+			"lines": []
+		},
+		"Bathgoer" :
+		{
+			"id" : "Bathgoer",
+			"direction": Constants.Directions.DIR_LEFT,
+			"x":7,
+			"y":9
 		}
 	},
 	"konbini" :
@@ -364,6 +451,32 @@ var ACTIVE_NPCs = {
 			"direction" : Constants.Directions.DIR_LEFT,
 			"x": 2,
 			"y": 9,
+			"lines" : []
+		}
+	},
+	"yatai" : 
+	{
+		"SushiCustomer":
+		{
+			"id" : "SushiCustomer",
+			"direction": Constants.Directions.DIR_UP,
+			"x": 5,
+			"y": 1,
+			"lines" : []
+		},
+		"SushiTiredSalaryman":
+		{
+			"id": "SushiTiredSalaryman",
+			"direction": Constants.Directions.DIR_UP,
+			"x": 1,
+			"y": 1,
+			"lines" : []
+		},
+		"SushiChef":{
+			"id" : "SushiChef",
+			"direction": Constants.Directions.DIR_DOWN,
+			"x": 4,
+			"y": 3,
 			"lines" : []
 		}
 	}

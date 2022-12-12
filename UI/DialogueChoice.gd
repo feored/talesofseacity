@@ -6,13 +6,19 @@ var choiceId : int
 
 var baseText = ""
 
+const availableColor : String = "42c5f5"
+const hoverColor : String = "ff0000"
+
 var choicePickedCallback : Object
 
+func colorText(text: String, color : String):
+    return "[color=#%s]%s[/color]" % [color, text]
 
 func setChoice(text : String, id : int) -> void:
 	self.baseText = text
-	self.bbcode_text = text
+	self.bbcode_text = colorText(baseText, availableColor)
 	self.choiceId = id
+
 
 func _on_DialogueChoice_gui_input(event:InputEvent):
 	## choice picked
@@ -23,8 +29,8 @@ func _on_DialogueChoice_gui_input(event:InputEvent):
 
 
 func _on_DialogueChoice_mouse_entered():
-	self.bbcode_text = "[color=#ff0000]%s[/color]" % baseText
+	self.bbcode_text = colorText(baseText, hoverColor)
 
 
 func _on_DialogueChoice_mouse_exited():
-	self.bbcode_text = baseText
+	self.bbcode_text = colorText(baseText, availableColor)

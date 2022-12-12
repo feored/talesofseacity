@@ -167,7 +167,7 @@ func checkReactions() -> void:
 		for tile in Utils.getNearbyTiles(currentTile):
 			if (Rooms.getTilePopulation(tile) > 0):
 				for giko in Rooms.getGikosOnTile(tile):
-					if (Constants.DIRECTION_VECTOR[giko.currentDirection]) == (currentTile - giko.currentTile):
+					if (is_instance_valid(giko) && (Constants.DIRECTION_VECTOR[giko.currentDirection]) == (currentTile - giko.currentTile)):
 						## we are facing another giko
 						var newDirVector = (giko.currentTile - currentTile)
 						faceDirection(Utils.getDirectionFromVector(newDirVector))

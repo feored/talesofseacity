@@ -19,6 +19,7 @@ margin_top = 44.0
 margin_right = 516.0
 margin_bottom = 190.0
 size_flags_vertical = 3
+custom_fonts/italics_font = ExtResource( 1 )
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "yeah [colormod color=#fffff000 freq=2]taken pictures of everything else[/colormod] in this town, [nervous]just looking around finding things that could be[/nervous] interesting pictures now. kinda hard"

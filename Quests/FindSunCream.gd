@@ -18,7 +18,7 @@ func _init().(quest_stages):
 ## CONDITIONS
 
 
-func talkedTotanningShii() -> bool:
+func talkedToTanningShii() -> bool:
     return Quests.QUEST_FLAGS["qTalkedToTanningShii"]
 
 
@@ -40,19 +40,19 @@ func setup() -> void:
                 "type": Constants.LineType.Text,
                 "text":
                 "Such a lovely day! So warm and sunny!",
-                "nextId": "HungryShobonCorndog"
+                "nextId": "TanningShii2"
             },
-            "HungryShobonCorndog":
+            "TanningShii2":
             {
                 "id": "HungryShobonCorndog",
                 "type": Constants.LineType.Text,
                 "text":
                 "I just hope I don't get a sunburn...",
-                "nextId": "HungryShobonCorndog2"
+                "nextId": "TanningShii3"
             },
-            "HungryShobonCorndog2":
+            "TanningShii3":
             {
-                "id": "HungryShobonCorndog2",
+                "id": "TanningShii3",
                 "type": Constants.LineType.Text,
                 "text" : "You wouldn't happen to have any sun cream on you?",
                 "flags": [{"flag": "qTalkedToTanningShii", "type": "set", "value": true}]

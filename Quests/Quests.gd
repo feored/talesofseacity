@@ -4,16 +4,26 @@ const Quest = preload("res://Quests/Quest.gd")
 var shaddoxMahjongQuest = preload("res://Quests/ShaddoxMahjong.gd")
 var feedThePoorQuest = preload("res://Quests/FeedThePoor.gd")
 var findSunCreamQuest = preload("res://Quests/FindSunCream.gd")
+var bringHostessSushiQuest = preload("res://Quests/BringHostessSushi.gd")
 
 var SETUP_QUESTS = true
 
 var elapsedTime = 0
 
 var QUEST_FLAGS = {
+	##ShaddoxMahjong
 	"qHelpShaddoxLookForTiles" : false,
 	"qGaveShaddoxBackHisTiles" : false,
+	##FeedThePoor
 	"qHungryCorndogTalked" : false,
-	"qTalkedToTanningShii" : false
+	##FindSunCream
+	"qTalkedToTanningShii" : false,
+	##CrazyTrashBoon
+	"qTalkedToCrazyBoon" : false,
+	##BringHostessSushi
+	"qTalkedToSushiSalaryman" : false,
+    "qTalkedToHostess" : false,
+    "qSushiNewChef" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -34,6 +44,11 @@ var QUESTS = [
 	{
 		"id" : "Find_Sun_Cream",
 		"script" : findSunCreamQuest,
+		"stage" : "initial"
+	},
+	{
+		"id" : "Bring_Hostess_Sushi",
+		"script" : bringHostessSushiQuest,
 		"stage" : "initial"
 	}
 ]
