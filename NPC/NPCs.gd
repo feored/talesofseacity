@@ -237,7 +237,7 @@ var NPCs = {
 	"SushiCustomer" : 
 	{
 		"id" : "SushiCustomer",
-		"name" : "Customer",
+		"name" : "Old Customer",
 		"character": Constants.Character.Onigiri,
 		"lines" : [
 			Utils.makeSimpleDialogue(["This is delicious."])
@@ -264,6 +264,13 @@ var NPCs = {
         "name" : "Bored Hostess",
         "character" : Constants.Character.Shiinigami,
         "lines" : [Utils.makeSimpleDialogue(["This town ain't no fun anymore!"])]
+    },
+    "CrazyTrashBoon":
+    {
+        "id": "CrazyTrashBoon",
+        "name": "Trash Boon",
+        "character": Constants.Character.Naito,
+        "lines": []
     }
 
 }
@@ -479,7 +486,18 @@ var ACTIVE_NPCs = {
 			"y": 3,
 			"lines" : []
 		}
-	}
+	},
+    "busstop":
+    {
+        "CrazyTrashBoon":
+        {
+            "id" : "CrazyTrashBoon",
+			"direction": Constants.Directions.DIR_RIGHT,
+			"x": 0,
+			"y": 4,
+			"lines" : [Utils.makeSimpleDialogue(["[jump angle=3.141]NOW I'VE LOST IT[/jump]", "[jump angle=3.141]I KNOW I CAN KILL[/jump]", "[jump angle=3.141]DOES TRUTH EXIST BEYOND THE GATE?[/jump]"], "Crazy")]
+        }
+    }
 }
 
 

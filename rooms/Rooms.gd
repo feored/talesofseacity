@@ -119,6 +119,34 @@ func isTileInBounds(tile : Vector2) -> bool:
 	return tile.x >= 0 && tile.y >= 0 && tile.x < currentBounds.x && tile.y < currentBounds.y
 
 var ROOMS = {
+	"gym" : {
+		"id" : "gym",
+		"scale":1,
+		"size":{
+			"x":30,
+			"y":30
+		},
+		"originCoordinates":{
+			"x":100,
+			"y":620
+		},
+		"spawnPoint":"bottom",
+		"backgroundImageUrl":"rooms/gym/background.png",
+		"objects":[],
+		"sit" : [],
+		"blocked" : [],
+		"forbiddenMovements" : [],
+		"doors":{
+			"bottom":{
+				"x":0,
+				"y":0,
+				"direction":"up",
+				"target":null
+			}
+		},
+		"streamSlotCount":0,
+		"secret":true
+	},
 	"bar":{
 		"id":"bar",
 		"group":"gikopoi",
@@ -4676,662 +4704,101 @@ var ROOMS = {
 			"x":0,
 			"y":267
 		},
+		"backgroundImageUrl": "rooms/cafe_st/background.png",
 		"spawnPoint":"water",
-		"backgroundImageUrl":"rooms/cafe_st/background_with_chairs.png",
-		"objects":[
-			{
-				"x":3,
-				"y":4,
-				"offset":{
-					"x":25,
-					"y":-19
-				},
-				"url":"cafe.png"
-			},
-			{
-				"x":4,
-				"y":1,
-				"offset":{
-					"x":198,
-					"y":92
-				},
-				"url":"sunroof.png"
-			},
-			{
-				"x":0,
-				"y":0,
-				"offset":{
-					"x":18,
-					"y":217
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":0,
-				"y":1,
-				"offset":{
-					"x":44,
-					"y":192
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":1,
-				"y":0,
-				"offset":{
-					"x":58,
-					"y":237
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":1,
-				"y":1,
-				"offset":{
-					"x":84,
-					"y":212
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":2,
-				"y":0,
-				"offset":{
-					"x":98,
-					"y":257
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":2,
-				"y":1,
-				"offset":{
-					"x":124,
-					"y":232
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":5,
-				"y":3,
-				"offset":{
-					"x":326,
-					"y":233
-				},
-				"url":"table_without_shadow.png"
-			},
-			{
-				"x":5,
-				"y":2,
-				"offset":{
-					"x":294,
-					"y":274
-				},
-				"url":"chair_up.png"
-			},
-			{
-				"x":5,
-				"y":1,
-				"offset":{
-					"x":293,
-					"y":258
-				},
-				"url":"chair_up_back.png"
-			},
-			{
-				"x":6,
-				"y":3,
-				"offset":{
-					"x":376,
-					"y":276
-				},
-				"url":"chair_left.png"
-			},
-			{
-				"x":7,
-				"y":3,
-				"offset":{
-					"x":396,
-					"y":260
-				},
-				"url":"chair_left_back.png"
-			},
-			{
-				"x":5,
-				"y":4,
-				"offset":{
-					"x":378,
-					"y":237
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":5,
-				"y":4,
-				"offset":{
-					"x":404,
-					"y":212
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":8,
-				"y":2,
-				"offset":{
-					"x":407,
-					"y":313
-				},
-				"url":"table_without_shadow.png"
-			},
-			{
-				"x":8,
-				"y":1,
-				"offset":{
-					"x":374,
-					"y":354
-				},
-				"url":"chair_up.png"
-			},
-			{
-				"x":8,
-				"y":0,
-				"offset":{
-					"x":373,
-					"y":338
-				},
-				"url":"chair_up_back.png"
-			},
-			{
-				"x":8,
-				"y":3,
-				"offset":{
-					"x":458,
-					"y":317
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":8,
-				"y":3,
-				"offset":{
-					"x":484,
-					"y":292
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":6,
-				"y":9,
-				"offset":{
-					"x":607,
-					"y":133
-				},
-				"url":"table_without_shadow.png"
-			},
-			{
-				"x":6,
-				"y":8,
-				"offset":{
-					"x":575,
-					"y":174
-				},
-				"url":"chair_up.png"
-			},
-			{
-				"x":6,
-				"y":7,
-				"offset":{
-					"x":574,
-					"y":158
-				},
-				"url":"chair_up_back.png"
-			},
-			{
-				"x":7,
-				"y":9,
-				"offset":{
-					"x":656,
-					"y":176
-				},
-				"url":"chair_left.png"
-			},
-			{
-				"x":8,
-				"y":9,
-				"offset":{
-					"x":676,
-					"y":160
-				},
-				"url":"chair_left_back.png"
-			},
-			{
-				"x":6,
-				"y":10,
-				"offset":{
-					"x":658,
-					"y":137
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":6,
-				"y":10,
-				"offset":{
-					"x":684,
-					"y":112
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":5,
-				"y":9,
-				"offset":{
-					"x":578,
-					"y":137
-				},
-				"url":"chair_right.png"
-			},
-			{
-				"x":5,
-				"y":9,
-				"offset":{
-					"x":570,
-					"y":112
-				},
-				"url":"chair_right_back.png"
-			},
-			{
-				"x":1,
-				"y":11,
-				"offset":{
-					"x":498,
-					"y":17
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":1,
-				"y":12,
-				"offset":{
-					"x":524,
-					"y":-8
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":2,
-				"y":11,
-				"offset":{
-					"x":538,
-					"y":37
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":2,
-				"y":12,
-				"offset":{
-					"x":564,
-					"y":12
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":3,
-				"y":11,
-				"offset":{
-					"x":578,
-					"y":57
-				},
-				"url":"chair_down.png"
-			},
-			{
-				"x":3,
-				"y":12,
-				"offset":{
-					"x":604,
-					"y":32
-				},
-				"url":"chair_down_back.png"
-			},
-			{
-				"x":10,
-				"y":6,
-				"offset":{
-					"x":517,
-					"y":314
-				},
-				"url":"bench.png"
-			},
-			{
-				"x":11,
-				"y":2,
-				"offset":{
-					"x":558,
-					"y":296
-				},
-				"url":"bench_back.png"
-			},
-			{
-				"x":10,
-				"y":10,
-				"offset":{
-					"x":677,
-					"y":234
-				},
-				"url":"bench.png"
-			},
-			{
-				"x":11,
-				"y":7,
-				"offset":{
-					"x":718,
-					"y":216
-				},
-				"url":"bench_back.png"
-			},
-			{
-				"x":2,
-				"y":7,
-				"offset":{
-					"x":366,
-					"y":93
-				},
-				"url":"polish.png"
-			},
-			{
-				"x":2,
-				"y":9,
-				"offset":{
-					"x":446,
-					"y":53
-				},
-				"url":"polish.png"
-			},
-			{
-				"x":7,
-				"y":6,
-				"offset":{
-					"x":531,
-					"y":219
-				},
-				"url":"fountain.png"
-			},
-			{
-				"x":6,
-				"y":7,
-				"offset":{
-					"x":514,
-					"y":241
-				},
-				"url":"fountain_water_surface.png"
-			}
+		"objects": [
+			{ "x":  3, "y":  4, "offset": { "x":  25, "y": -19 }, "url": "cafe.png" },
+			{ "x":  4, "y":  1, "offset": { "x": 198, "y":  92 }, "url": "sunroof.png" },
+			
+			{ "x":  0, "y":  0, "offset": { "x":  18, "y":  217 }, "url": "chair_down.png" },
+			{ "x":  0, "y":  1, "offset": { "x":  44, "y":  192 }, "url": "chair_down_back.png" },
+			{ "x":  1, "y":  0, "offset": { "x":  58, "y":  237 }, "url": "chair_down.png" },
+			{ "x":  1, "y":  1, "offset": { "x":  84, "y":  212 }, "url": "chair_down_back.png" },
+			{ "x":  2, "y":  0, "offset": { "x":  98, "y":  257 }, "url": "chair_down.png" },
+			{ "x":  2, "y":  1, "offset": { "x": 124, "y":  232 }, "url": "chair_down_back.png" },
+			
+			{ "x":  5, "y":  3, "offset": { "x": 326, "y":  233 }, "url": "table.png" },
+			{ "x":  5, "y":  2, "offset": { "x": 294, "y":  274 }, "url": "chair_up.png" },
+			{ "x":  5, "y":  1, "offset": { "x": 293, "y":  258 }, "url": "chair_up_back.png" },
+			{ "x":  6, "y":  3, "offset": { "x": 376, "y":  276 }, "url": "chair_left.png" },
+			{ "x":  7, "y":  3, "offset": { "x": 396, "y":  260 }, "url": "chair_left_back.png" },
+			{ "x":  5, "y":  4, "offset": { "x": 378, "y":  237 }, "url": "chair_down.png" },
+			{ "x":  5, "y":  4, "offset": { "x": 404, "y":  212 }, "url": "chair_down_back.png" },
+			
+			{ "x":  8, "y":  2, "offset": { "x": 407, "y":  313 }, "url": "table.png" },
+			{ "x":  8, "y":  1, "offset": { "x": 374, "y":  354 }, "url": "chair_up.png" },
+			{ "x":  8, "y":  0, "offset": { "x": 373, "y":  338 }, "url": "chair_up_back.png" },
+			{ "x":  8, "y":  3, "offset": { "x": 458, "y":  317 }, "url": "chair_down.png" },
+			{ "x":  8, "y":  3, "offset": { "x": 484, "y":  292 }, "url": "chair_down_back.png" },
+			
+			{ "x":  6, "y":  9, "offset": { "x": 607, "y":  133 }, "url": "table.png" },
+			{ "x":  6, "y":  8, "offset": { "x": 575, "y":  174 }, "url": "chair_up.png" },
+			{ "x":  6, "y":  7, "offset": { "x": 574, "y":  158 }, "url": "chair_up_back.png" },
+			{ "x":  7, "y":  9, "offset": { "x": 656, "y":  176 }, "url": "chair_left.png" },
+			{ "x":  8, "y":  9, "offset": { "x": 676, "y":  160 }, "url": "chair_left_back.png" },
+			{ "x":  6, "y": 10, "offset": { "x": 658, "y":  137 }, "url": "chair_down.png" },
+			{ "x":  6, "y": 10, "offset": { "x": 684, "y":  112 }, "url": "chair_down_back.png" },
+			{ "x":  5, "y":  9, "offset": { "x": 578, "y":  137 }, "url": "chair_right.png" },
+			{ "x":  5, "y":  9, "offset": { "x": 570, "y":  112 }, "url": "chair_right_back.png" },
+			
+			{ "x":  1, "y": 11, "offset": { "x": 498, "y":   17 }, "url": "chair_down.png" },
+			{ "x":  1, "y": 12, "offset": { "x": 524, "y":   -8 }, "url": "chair_down_back.png" },
+			{ "x":  2, "y": 11, "offset": { "x": 538, "y":   37 }, "url": "chair_down.png" },
+			{ "x":  2, "y": 12, "offset": { "x": 564, "y":   12 }, "url": "chair_down_back.png" },
+			{ "x":  3, "y": 11, "offset": { "x": 578, "y":   57 }, "url": "chair_down.png" },
+			{ "x":  3, "y": 12, "offset": { "x": 604, "y":   32 }, "url": "chair_down_back.png" },
+			
+			{ "x": 10, "y":  6, "offset": { "x": 517, "y":  314 }, "url": "bench.png" },
+			{ "x": 11, "y":  2, "offset": { "x": 558, "y":  296 }, "url": "bench_back.png" },
+			
+			{ "x": 10, "y": 10, "offset": { "x": 677, "y":  234 }, "url": "bench.png" },
+			{ "x": 11, "y":  7, "offset": { "x": 718, "y":  216 }, "url": "bench_back.png" },
+			
+			{ "x":  2, "y":  7, "offset": { "x": 366, "y":   93 }, "url": "polish.png" },
+			{ "x":  2, "y":  9, "offset": { "x": 446, "y":   53 }, "url": "polish.png" },
+			{ "x":  7, "y":  6, "offset": { "x": 531, "y":  219 }, "url": "fountain.png" },
 		],
-		"sit":[
-			{
-				"x":0,
-				"y":0
-			},
-			{
-				"x":1,
-				"y":0
-			},
-			{
-				"x":2,
-				"y":0
-			},
-			{
-				"x":5,
-				"y":2
-			},
-			{
-				"x":6,
-				"y":3
-			},
-			{
-				"x":5,
-				"y":4
-			},
-			{
-				"x":8,
-				"y":1
-			},
-			{
-				"x":8,
-				"y":3
-			},
-			{
-				"x":6,
-				"y":8
-			},
-			{
-				"x":7,
-				"y":9
-			},
-			{
-				"x":6,
-				"y":10
-			},
-			{
-				"x":5,
-				"y":9
-			},
-			{
-				"x":1,
-				"y":11
-			},
-			{
-				"x":2,
-				"y":11
-			},
-			{
-				"x":3,
-				"y":11
-			},
-			{
-				"x":10,
-				"y":3
-			},
-			{
-				"x":10,
-				"y":4
-			},
-			{
-				"x":10,
-				"y":5
-			},
-			{
-				"x":10,
-				"y":7
-			},
-			{
-				"x":10,
-				"y":8
-			},
-			{
-				"x":10,
-				"y":9
-			}
+		"sit": [
+			{ "x":  0, "y":  0 },
+			{ "x":  1, "y":  0 },
+			{ "x":  2, "y":  0 },
+			{ "x":  5, "y":  2 },
+			{ "x":  6, "y":  3 },
+			{ "x":  5, "y":  4 },
+			{ "x":  8, "y":  1 },
+			{ "x":  8, "y":  3 },
+			{ "x":  6, "y":  8 },
+			{ "x":  7, "y":  9 },
+			{ "x":  6, "y": 10 },
+			{ "x":  5, "y":  9 },
+			{ "x":  1, "y": 11 },
+			{ "x":  2, "y": 11 },
+			{ "x":  3, "y": 11 },     
+			{ "x": 10, "y":  3 },
+			{ "x": 10, "y":  4 },
+			{ "x": 10, "y":  5 },
+			{ "x": 10, "y":  7 },
+			{ "x": 10, "y":  8 },
+			{ "x": 10, "y":  9 },
 		],
-		"blocked":[
-			{
-				"x":0,
-				"y":1
-			},
-			{
-				"x":1,
-				"y":1
-			},
-			{
-				"x":2,
-				"y":1
-			},
-			{
-				"x":3,
-				"y":1
-			},
-			{
-				"x":3,
-				"y":2
-			},
-			{
-				"x":3,
-				"y":3
-			},
-			{
-				"x":3,
-				"y":4
-			},
-			{
-				"x":2,
-				"y":5
-			},
-			{
-				"x":1,
-				"y":6
-			},
-			{
-				"x":0,
-				"y":6
-			},
-			{
-				"x":4,
-				"y":1
-			},
-			{
-				"x":5,
-				"y":3
-			},
-			{
-				"x":8,
-				"y":2
-			},
-			{
-				"x":6,
-				"y":9
-			},
-			{
-				"x":2,
-				"y":7
-			},
-			{
-				"x":2,
-				"y":9
-			},
-			{
-				"x":7,
-				"y":6
-			}
-		],
-		"forbiddenMovements":[
-			{
-				"xFrom":5,
-				"yFrom":1,
-				"xTo":5,
-				"yTo":2
-			},
-			{
-				"xFrom":5,
-				"yFrom":2,
-				"xTo":5,
-				"yTo":1
-			},
-			{
-				"xFrom":6,
-				"yFrom":3,
-				"xTo":7,
-				"yTo":3
-			},
-			{
-				"xFrom":7,
-				"yFrom":3,
-				"xTo":6,
-				"yTo":3
-			},
-			{
-				"xFrom":5,
-				"yFrom":4,
-				"xTo":5,
-				"yTo":5
-			},
-			{
-				"xFrom":5,
-				"yFrom":5,
-				"xTo":5,
-				"yTo":4
-			},
-			{
-				"xFrom":8,
-				"yFrom":1,
-				"xTo":8,
-				"yTo":0
-			},
-			{
-				"xFrom":8,
-				"yFrom":0,
-				"xTo":8,
-				"yTo":1
-			},
-			{
-				"xFrom":8,
-				"yFrom":3,
-				"xTo":8,
-				"yTo":4
-			},
-			{
-				"xFrom":8,
-				"yFrom":4,
-				"xTo":8,
-				"yTo":3
-			},
-			{
-				"xFrom":6,
-				"yFrom":7,
-				"xTo":6,
-				"yTo":8
-			},
-			{
-				"xFrom":6,
-				"yFrom":8,
-				"xTo":6,
-				"yTo":7
-			},
-			{
-				"xFrom":7,
-				"yFrom":9,
-				"xTo":8,
-				"yTo":9
-			},
-			{
-				"xFrom":8,
-				"yFrom":9,
-				"xTo":7,
-				"yTo":9
-			},
-			{
-				"xFrom":6,
-				"yFrom":10,
-				"xTo":6,
-				"yTo":11
-			},
-			{
-				"xFrom":6,
-				"yFrom":11,
-				"xTo":6,
-				"yTo":10
-			},
-			{
-				"xFrom":4,
-				"yFrom":9,
-				"xTo":5,
-				"yTo":9
-			},
-			{
-				"xFrom":5,
-				"yFrom":9,
-				"xTo":4,
-				"yTo":9
-			}
+		"blocked": [
+			{ "x":  0, "y":  1 },
+			{ "x":  1, "y":  1 },
+			{ "x":  2, "y":  1 },
+			{ "x":  3, "y":  1 },
+			{ "x":  3, "y":  2 },
+			{ "x":  3, "y":  3 },
+			{ "x":  3, "y":  4 },
+			{ "x":  2, "y":  5 },
+			{ "x":  1, "y":  6 },
+			{ "x":  0, "y":  6 },
+			{ "x":  4, "y":  1 },
+			{ "x":  5, "y":  3 },
+			{ "x":  8, "y":  2 },
+			{ "x":  6, "y":  9 },
+			{ "x":  2, "y":  7 },
+			{ "x":  2, "y":  9 },
+			{ "x":  7, "y":  6 },
 		],
 		"doors":{
 			"water":{
@@ -10789,203 +10256,83 @@ var ROOMS = {
 		"streamSlotCount":0,
 		"forcedAnonymous":true
 	},
-	"yatai":{
-		"id":"yatai",
-		"group":"gikopoi",
-		"scale":1,
-		"size":{
-			"x":8,
-			"y":8
-		},
-		"originCoordinates":{
-			"x":-1,
-			"y":417
-		},
-		"spawnPoint":"down",
-		"backgroundImageUrl":"rooms/yatai/background.png",
-		"objects":[
-			{
-				"x":7,
-				"y":0,
-				"offset":{
-					"x":64,
-					"y":106
-				},
-				"url":"roof.png"
-			},
-			{
-				"x":1,
-				"y":5,
-				"offset":{
-					"x":264,
-					"y":120
-				},
-				"url":"pole.png"
-			},
-			{
-				"x":1,
-				"y":3,
-				"offset":{
-					"x":151,
-					"y":194
-				},
-				"url":"bucket_squid.png"
-			},
-			{
-				"x":6,
-				"y":5,
-				"offset":{
-					"x":460,
-					"y":218
-				},
-				"url":"pole.png"
-			},
-			{
-				"x":6,
-				"y":3,
-				"offset":{
-					"x":348,
-					"y":225
-				},
-				"url":"panel.png"
-			},
-			{
-				"x":1,
-				"y":2,
-				"offset":{
-					"x":133,
-					"y":310
-				},
-				"url":"yatai-counter.png"
-			},
-			{
-				"x":2,
-				"y":2,
-				"offset":{
-					"x":174,
-					"y":325
-				},
-				"url":"counter_bowl.png"
-			},
-			{
-				"x":3,
-				"y":2,
-				"offset":{
-					"x":206,
-					"y":341
-				},
-				"url":"counter_drinks.png"
-			},
-			{
-				"x":4,
-				"y":2,
-				"offset":{
-					"x":246,
-					"y":365
-				},
-				"url":"counter_squid.png"
-			},
-			{
-				"x":5,
-				"y":2,
-				"offset":{
-					"x":288,
-					"y":385
-				},
-				"url":"counter_chopsticks.png"
-			},
-			{
-				"x":1,
-				"y":0,
-				"offset":{
-					"x":49,
-					"y":201
-				},
-				"url":"sign.png"
-			}
+	"yatai" : {
+		"id": "yatai",
+		"group": "gikopoi",
+		"scale": 1,
+		"size": { "x": 8, "y": 8 },
+		"originCoordinates": { "x": -1, "y": 417 },
+		"spawnPoint": "down",
+		"backgroundImageUrl": "rooms/yatai/background.png",
+		"objectRenderSortMethod": "diagonal_scan",
+		"objects": [
+			{ "x":  7, "y":  0, "offset": { "x":   64, "y":  106 }, "url": 'roof.png' },
+			{ "x":  1, "y":  5, "offset": { "x":  264, "y":  120 }, "url": 'pole.png' },
+			{ "x":  1, "y":  3, "offset": { "x":  151, "y":  194 }, "url": 'bucket_squid.png' },
+			{ "x":  6, "y":  5, "offset": { "x":  460, "y":  218 }, "url": 'pole.png' },
+			{ "x":  6, "y":  3, "offset": { "x":  348, "y":  225 }, "url": 'panel.png' },
+			{ "x":  1, "y":  2, "width": 5, "offset": { "x":  133, "y":  310 }, "url": 'vendor_counter.png' },
+			{ "x":  1, "y":  0, "offset": { "x":   49, "y":  201 }, "url": 'sign.png' },
+			{ "x":  7, "y":  3, "offset": { "x":  413, "y":  444 }, "url": 'seat_with_bottle.png' },
 		],
-		"sit":[
-			{
-				"x":1,
-				"y":1
-			},
-			{
-				"x":2,
-				"y":1
-			},
-			{
-				"x":3,
-				"y":1
-			},
-			{
-				"x":4,
-				"y":1
-			},
-			{
-				"x":5,
-				"y":1
-			},
-			{
-				"x":7,
-				"y":3
-			}
+		"sit": [
+			{ "x":  1, "y":  1 },
+			{ "x":  2, "y":  1 },
+			{ "x":  3, "y":  1 },
+			{ "x":  4, "y":  1 },
+			{ "x":  5, "y":  1 }, 
+			{ "x":  7, "y":  3 },
 		],
-		"blocked":[
-			{
-				"x":1,
-				"y":3
-			},
-			{
-				"x":1,
-				"y":2
-			},
-			{
-				"x":2,
-				"y":2
-			},
-			{
-				"x":3,
-				"y":2
-			},
-			{
-				"x":4,
-				"y":2
-			},
-			{
-				"x":5,
-				"y":2
-			},
-			{
-				"x":7,
-				"y":7
-			}
+		"blocked": [
+			{ "x":  1, "y":  3 },
+			{ "x":  1, "y":  2 },
+			{ "x":  2, "y":  2 },
+			{ "x":  3, "y":  2 },
+			{ "x":  4, "y":  2 },
+			{ "x":  5, "y":  2 },
+			{ "x":  7, "y":  7 },
 		],
-		"forbiddenMovements":[
+		"zFix": 
+		[
 			{
-				"xFrom":5,
-				"yFrom":3,
-				"xTo":6,
-				"yTo":3
+				"position" : {
+					"x" : 5, "y" : 3
+				},
+				"fix" : {
+					"x" : 0, "y" : 4 
+				}
 			},
 			{
-				"xFrom":6,
-				"yFrom":3,
-				"xTo":5,
-				"yTo":3
-			}
-		],
-		"doors":{
-			"down":{
-				"x":7,
-				"y":0,
-				"direction":"up",
-				"target":{
-					"roomId":"bar_st",
-					"doorId":"up_right"
+				"position" : {
+					"x" : 4, "y" : 3
+				},
+				"fix" : {
+					"x" : 0, "y" : 3
+				}
+			},
+			{
+				"position" : {
+					"x" : 3, "y" : 3
+				},
+				"fix" : {
+					"x" : 0, "y" : 2
+				}
+			},
+			{
+				"position" : {
+					"x" : 2, "y" : 3
+				},
+				"fix" : {
+					"x" : 0, "y" : 1 
 				}
 			}
-		},
-		"streamSlotCount":0
+		],
+		"forbiddenMovements": [
+			{ "xFrom":  5, "yFrom":  3, "xTo":  6, "yTo":  3 }, { "xFrom":  6, "yFrom":  3, "xTo":  5, "yTo":  3 },
+		],
+		"doors": {
+			"down": { "x": 7, "y": 0, "direction": "up", "target": { "roomId": "bar_st", "doorId": "up_right" } },
+		}
 	},
 	"school_rouka":{
 		"id":"school_rouka",
@@ -15389,8 +14736,8 @@ var ROOMS = {
 				"url":"cushion_blue.png"
 			}
 		],
-        "zFix" : [
-                {
+		"zFix" : [
+				{
 					"position" : {
 						"x" : 7, "y" : 3
 					},
@@ -15406,7 +14753,7 @@ var ROOMS = {
 						"x" : -3, "y" : 1 
 					}
 				},
-                {
+				{
 					"position" : {
 						"x" : 5, "y" : 3
 					},
@@ -15414,7 +14761,7 @@ var ROOMS = {
 						"x" : -2, "y" : 1 
 					}
 				},
-                {
+				{
 					"position" : {
 						"x" : 4, "y" : 3
 					},
@@ -15422,7 +14769,7 @@ var ROOMS = {
 						"x" : 0, "y" : 1 
 					}
 				},
-                {
+				{
 					"position" : {
 						"x" : 3, "y" : 3
 					},
@@ -15430,7 +14777,7 @@ var ROOMS = {
 						"x" : 0, "y" : 1 
 					}
 				},
-                {
+				{
 					"position" : {
 						"x" : 2, "y" : 3
 					},
@@ -15438,7 +14785,7 @@ var ROOMS = {
 						"x" : 0, "y" : 1 
 					}
 				}
-        ],
+		],
 		"objectRenderSortMethod":"diagonal_scan",
 		"sit":[
 			{
@@ -15753,5 +15100,6 @@ var DISPLAY_NAMES = {
 	"admin_old": "Lost Lounge",
 	"river": "River",
 	"irori": "Fireplace",
-	"labyrinth": "Labyrinth"
+	"labyrinth": "Labyrinth",
+	"gym" : "Gym"
 }

@@ -11,6 +11,7 @@ var character: int
 var changeRoom: Object
 var removeActiveItem: Object
 var talkToNPC : Object
+var talkToEnvironment : Object
 
 var timeElapsed = 0
 var timeSinceAction = 0
@@ -66,17 +67,20 @@ func _process(delta):
     checkGhost()
 
 
-func pickUpItem() -> void:
-    timeSinceAction = 0
+func tryPickUpItem() -> bool:
     ## check that we are standing on a tile containing an item
+    var successPickedUp = false
     var currentRoom = Rooms.currentRoomData["id"]
     if Items.ACTIVE_ITEMS.has(currentRoom):
         for activeItem in Items.ACTIVE_ITEMS[currentRoom]:
             if float(activeItem["x"]) == currentTile.x && float(activeItem["y"]) == currentTile.y:
+                timeSinceAction = 0
+                successPickedUp = true
                 ## successfully picked up item
                 Items.addItemInventory(activeItem["id"])
-                Items.removeActiveItem(currentRoom, activeItem)
+                Items.removeActiveItemAtPosition(currentRoom, activeItem, currentTile)
                 removeActiveItem.call_func(activeItem)
+    return successPickedUp
 
 
 
@@ -251,7 +255,7 @@ func _input(event):
     elif event.is_action_pressed("ui_right"):
         move(Constants.Directions.DIR_RIGHT)
     elif event.is_action_pressed("pick_up"):
-        ## priority is talk to NPC, then try to pick up item
+        ## priority is talk to NPC, then try to pick up item, then interact with environment
         var frontTile = Utils.getTileCoordsInDirection(currentTile, currentDirection)
         var gikosOnTile = Rooms.getGikosOnTile(frontTile)
         var gikoNPC = null
@@ -262,7 +266,10 @@ func _input(event):
         if gikoNPC != null:
             talkToNPC.call_func(gikoNPC.NPCID)
         else:
-            pickUpItem()
+            var pickedUp = tryPickUpItem()
+            if !pickedUp:
+                talkToEnvironment.call_func(frontTile)
+
 
 
 func setCharacterTexture(newCharacter) -> void:

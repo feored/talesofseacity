@@ -131,7 +131,7 @@ func roomDirectionToEnum(direction : String) -> int:
 	return resultDirection
 
 
-static func makeSimpleDialogue(lines : Array) -> Dictionary:
+static func makeSimpleDialogue(lines : Array, name : String = "default") -> Dictionary:
     var template = {
         "info" : {
             "requeue" : true,
@@ -148,3 +148,27 @@ static func makeSimpleDialogue(lines : Array) -> Dictionary:
         if i != (lines.size() - 1):
             template[id]["nextId"] = "line" + String(i+1)
     return template
+
+
+static func makeSimpleEnvironmentDialogue(description : Array, canPickup : bool = false, itemId: String = "") -> Dictionary:
+    var baseDialogue = makeSimpleDialogue(description)
+    if canPickup:
+        var lastChoice = {
+            "id" : "pickupChoice",
+            "type" : Constants.LineType.Text,
+            "choices": 
+            [
+                {
+                    "text": "Pick it up.",
+                    "rewards" : [itemId]
+                },
+                {
+                    "text" : "Leave it there."
+                }
+
+            ]
+        }
+        var lastLineId = "line" + String(description.size() - 1)
+        baseDialogue[lastLineId]["nextId"] = lastChoice["id"]
+        baseDialogue[lastChoice["id"]] = lastChoice
+    return baseDialogue

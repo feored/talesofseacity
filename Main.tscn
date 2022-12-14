@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=16]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=17]
+[ext_resource path="res://UI/Fonts/Arial/arial.tres" type="DynamicFont" id=18]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 
 [sub_resource type="StyleBoxLine" id=9]
@@ -571,7 +572,7 @@ rect_min_size = Vector2( 0, 50 )
 size_flags_vertical = 5
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 17 )
 text = "test"
 align = 1
 valign = 1
@@ -625,7 +626,7 @@ margin_bottom = 201.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 0.819608, 0.819608, 0.819608, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 18 )
 text = "Blablablalba who gives a fuck"
 align = 1
 valign = 1
@@ -648,7 +649,7 @@ zoomDuration = 0.25
 
 [node name="Background" type="Sprite" parent="."]
 unique_name_in_owner = true
-position = Vector2( 44, -268 )
+position = Vector2( 44, -268.005 )
 scale = Vector2( 0.25, 0.25 )
 z_index = -4096
 centered = false

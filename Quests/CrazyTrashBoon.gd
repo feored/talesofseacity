@@ -31,7 +31,7 @@ func talkedToCrazyBoon() -> bool:
 func setup() -> void:
     NPCs.addQuestDialogue(
         "seashore",
-        "TanningShii",
+        "",
         {
             "info": {"name": "TanningShiiIntro", "requeue": true, "start": "start"},
             "start":

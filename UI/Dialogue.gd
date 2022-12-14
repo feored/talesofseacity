@@ -77,7 +77,7 @@ func setAuthor(NPC : String) -> void:
     var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[npcData["character"]] + "/"
     dialogueImage.texture = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
 
-func applyNodeFlagActions(line : Dictionary) -> void:
+func applyNodeActions(line : Dictionary) -> void:
     if line.has("flags"):
         for flagAction in line["flags"]:
             match flagAction["type"]:
@@ -85,6 +85,12 @@ func applyNodeFlagActions(line : Dictionary) -> void:
                     Quests.QUEST_FLAGS[flagAction["flag"]] = flagAction["value"]
                 "add":
                     Quests.QUEST_FLAGS[flagAction["flag"]] += flagAction["value"]
+    if line.has("rewards"):
+        for reward in line["rewards"]:
+            Items.addItemInventory(reward)
+    if line.has("costs"):
+        for cost in line["cost"]:
+            Items.removeItemInventory(cost)
 
 
 func canShowChoice(choiceLine : Dictionary) -> bool:
@@ -108,7 +114,7 @@ func setLineSet(newLineSet : Dictionary, NPC: String) -> void:
     setText(currentLineSet[currentStage])
 
 func setNextLineInSet() -> void:
-    applyNodeFlagActions(currentLineSet[currentStage])
+    applyNodeActions(currentLineSet[currentStage])
     if (currentLineSet[currentStage].has("nextId")):
         currentStage = currentLineSet[currentStage]["nextId"]
         setText(currentLineSet[currentStage])
@@ -117,7 +123,7 @@ func setNextLineInSet() -> void:
         isDialoguing = false
 
 func setNextLineInSetFromChoice(choicePicked : int = 0) -> void:
-    applyNodeFlagActions(currentLineSet[currentStage]["choices"][choicePicked])
+    applyNodeActions(currentLineSet[currentStage]["choices"][choicePicked])
     if (currentLineSet[currentStage]["choices"][choicePicked].has("nextId")):
         currentStage = currentLineSet[currentStage]["choices"][choicePicked]["nextId"]
         setText(currentLineSet[currentStage])

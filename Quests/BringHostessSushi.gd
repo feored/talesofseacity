@@ -150,6 +150,14 @@ func setup() -> void:
                     }
                 ],
             },
+            "BoredHostess8":
+            {
+                "id": "BoredHostess8",
+                "type": Constants.LineType.Text,
+                "text":
+                "Oh ho! In that case, why not whore ourselves? I'll be right there. ",
+                "nextId" : "BoredHostess7"
+            }
 
         })
 
@@ -157,7 +165,7 @@ func setup() -> void:
         "yatai",
         "SushiCustomer",
         {
-        "info": {"name" : "SushiCustomerMemories", "requeue" : true, "start": "start"},
+        "info": {"name" : "SushiCustomerMemories", "requeue" : false, "start": "start"},
         "start":
         {
             "id": "start",
@@ -171,8 +179,15 @@ func setup() -> void:
             "id" : "SushiCustomerMemories2",
             "type": Constants.LineType.Text,
             "text":
-            "They had a Japanese chef who was world famous for his Spaghetti.",
+            "They had a Japanese chef who was world famous for his spaghetti. Everyone came here to see how he cooked it!",
+            "nextId" : "SushiCustomerMemories3"
+        },
+        "SushiCustomerMemories3" :{
+            "id" : "SushiCustomerMemories3",
+            "type": Constants.LineType.Text,
+            "text":
+            "You know you were the only one who's spoken to me all night? I'd like you to have this picture of the old chef, as thanks for entertaining this old man.",
+            "rewards" : [ "japanese_bird_portrait"]
         }
-
         }
     )
