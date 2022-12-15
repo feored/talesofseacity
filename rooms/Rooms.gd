@@ -5,6 +5,7 @@ const Giko = preload("res://Giko/Giko.gd")
 var GRID_STEP_X : float = Constants.DEFAULT_GRID_STEP_X
 var GRID_STEP_Y : float = Constants.DEFAULT_GRID_STEP_Y
 
+## All rooms assets must be rasterized at 4x scale
 
 var currentRoomData : Dictionary = {}
 var currentRoomId : String
@@ -21,6 +22,14 @@ func updateGikoPosition(giko : Node, newPosition : Vector2, oldPosition : Vector
 	else:
 		currentRoomGikos[newPosition] = [giko]
 
+func removeGiko(giko : Node, position : Vector2) -> void:
+	if (currentRoomGikos.has(position)):
+		if currentRoomGikos[position].size() < 2:
+			currentRoomGikos[position].clear()
+		else:
+			currentRoomGikos[position].erase(giko)
+	giko.queue_free()
+
 func getTilePopulation(tile : Vector2) -> int:
 	if currentRoomGikos.has(tile):
 		return currentRoomGikos[tile].size()
@@ -32,6 +41,13 @@ func getGikosOnTile(tile : Vector2) -> Array:
 		return currentRoomGikos[tile]
 	else:
 		return []
+
+func getGikoByNpcId(NPCId : String):
+	for tileGikos in currentRoomGikos.values():
+		for giko in tileGikos:
+			if giko.isNPC && giko.NPCID == NPCId:
+				return giko
+	return null
 
 func updateRoomData(newRoomName : String) -> void:
 	currentRoomData = ROOMS[newRoomName]
@@ -121,20 +137,146 @@ func isTileInBounds(tile : Vector2) -> bool:
 var ROOMS = {
 	"gym" : {
 		"id" : "gym",
-		"scale":1,
+		"scale":0.75,
 		"size":{
-			"x":30,
-			"y":30
+			"x":12,
+			"y":18
 		},
 		"originCoordinates":{
 			"x":100,
-			"y":620
+			"y":730
 		},
 		"spawnPoint":"bottom",
 		"backgroundImageUrl":"rooms/gym/background.png",
 		"objects":[],
-		"sit" : [],
-		"blocked" : [],
+		"sit" : [
+			{
+				"x":0,
+				"y":0
+			},
+			{
+				"x":0,
+				"y":1
+			},
+			{
+				"x":0,
+				"y":2
+			},
+			{
+				"x":0,
+				"y":3
+			}
+		],
+		"blocked" : [
+			{
+				"x": 0,
+				"y": 4
+			},
+			{
+				"x": 0,
+				"y": 5
+			},
+			{
+				"x": 0,
+				"y": 6
+			},
+			{
+				"x": 0,
+				"y": 7
+			},
+			{
+				"x": 0,
+				"y": 8
+			},
+			{
+				"x": 0,
+				"y": 9
+			},
+			{
+				"x": 0,
+				"y": 10
+			},
+			{
+				"x": 0,
+				"y": 11
+			},
+			{
+				"x": 0,
+				"y": 12
+			},
+			{
+				"x": 1,
+				"y": 12
+			},
+			{
+				"x": 2,
+				"y": 12
+			},
+			{
+				"x": 3,
+				"y": 12
+			},
+			{
+				"x": 4,
+				"y": 12
+			},
+			{
+				"x": 5,
+				"y": 12
+			},
+			{
+				"x": 5,
+				"y": 13
+			},
+			{
+				"x": 6,
+				"y": 14
+			},
+			{
+				"x": 7,
+				"y": 14
+			},
+			{
+				"x": 6,
+				"y": 14
+			},
+			{
+				"x": 6,
+				"y": 14
+			},
+			{
+				"x": 6,
+				"y": 14
+			},
+			{
+				"x": 8,
+				"y": 14
+			},
+			{
+				"x": 8,
+				"y": 15
+			},
+			{
+				"x": 8,
+				"y": 16
+			},
+			{
+				"x":8,
+				"y":17
+			},
+			{
+				"x":9,
+				"y":17
+			},
+			{
+				"x":10,
+				"y":17
+			},
+			{
+				"x":11,
+				"y":17
+			}
+		],
 		"forbiddenMovements" : [],
 		"doors":{
 			"bottom":{

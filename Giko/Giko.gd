@@ -12,6 +12,10 @@ var isNPC : bool = false
 var NPCID : String = ""
 var displayName : String = ""
 
+var isFollowing = false
+var isTargeting = false
+var targetTile : Vector2
+
 var timeToNextDecision = 0
 var timeSinceDecision = 0
 
@@ -36,424 +40,459 @@ var currentMessage: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+    pass
 
 func initializeRandom() -> void:
-	setCharacter(Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
-	setName(Constants.GIKO_NAMES[Utils.rng.randi() % Constants.GIKO_NAMES.size()])
-	var isAlreadySeated = true if Utils.rng.randf() > 0.4 else false
+    setCharacter(Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
+    setName("Anonymous" if Utils.rng.randf() > 0.4 else Constants.GIKO_NAMES[Utils.rng.randi() % Constants.GIKO_NAMES.size()])
+    var isAlreadySeated = true if Utils.rng.randf() > 0.4 else false
 
-	if (isAlreadySeated && Rooms.currentRoomData.has("sit") && Rooms.currentRoomData["sit"].size() > 0):
-		var randomSeat = Rooms.currentRoomData["sit"][Utils.rng.randi() % Rooms.currentRoomData["sit"].size()]
-		currentTile = Vector2(randomSeat["x"], randomSeat["y"])
-	else:
-		currentTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
+    var foundSeat = false
+    if (isAlreadySeated && Rooms.currentRoomData.has("sit") && Rooms.currentRoomData["sit"].size() > 0):
+        for seat in Rooms.currentRoomData["sit"]:
+            if (Rooms.getTilePopulation(Vector2(seat["x"], seat["y"]))) < 1:
+                currentTile = Vector2(seat["x"], seat["y"])
+                foundSeat = true
+        
+    if !foundSeat:
+        currentTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
 
-	Rooms.updateGikoPosition(self, currentTile)
+    Rooms.updateGikoPosition(self, currentTile)
 
-	var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
-	z_index = zFixedPosition.y
+    var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+    z_index = zFixedPosition.y
 
 
-	currentTilePos = Utils.getTilePosAtCoords(currentTile)
-	position = Utils.getTilePosAtCoords(currentTile)
-	currentDirection = getRandomDirection()
-	
-	checkSitting()
-	play(getRightAnimation())
-	setRightFlip()
+    currentTilePos = Utils.getTilePosAtCoords(currentTile)
+    position = Utils.getTilePosAtCoords(currentTile)
+    currentDirection = getRandomDirection()
+    
+    checkSitting()
+    play(getRightAnimation())
+    setRightFlip()
 
 func initializeNPC(activeNPCData) -> void:
-	isNPC = true
-	NPCID = activeNPCData["id"]
+    isNPC = true
+    NPCID = activeNPCData["id"]
 
-	var NPCData = NPCs.NPCs[NPCID]
-	setCharacter(NPCData["character"])
-	setName(NPCData["name"])
+    var NPCData = NPCs.NPCs[NPCID]
+    setCharacter(NPCData["character"])
+    setName(NPCData["name"])
 
-	currentTile = Vector2(float(activeNPCData["x"]), float(activeNPCData["y"]))
+    currentTile = Vector2(float(activeNPCData["x"]), float(activeNPCData["y"]))
 
-	Rooms.updateGikoPosition(self, currentTile)
-	
-	var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
-	z_index = zFixedPosition.y
-	
-	currentTilePos = Utils.getTilePosAtCoords(currentTile)
-	position = Utils.getTilePosAtCoords(currentTile)
-	currentDirection = activeNPCData["direction"]
+    Rooms.updateGikoPosition(self, currentTile)
+    
+    var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+    z_index = zFixedPosition.y
+    
+    currentTilePos = Utils.getTilePosAtCoords(currentTile)
+    position = Utils.getTilePosAtCoords(currentTile)
+    currentDirection = activeNPCData["direction"]
 
-	checkSitting()
-	play(getRightAnimation())
-	setRightFlip()
+    checkSitting()
+    play(getRightAnimation())
+    setRightFlip()
 
 
 
 func findEmptySeat(nearest = false) -> Vector2:
-	if (!Rooms.currentRoomData.has("sit") or Rooms.currentRoomData["sit"].size() < 1):
-		return currentTile
+    if (!Rooms.currentRoomData.has("sit") or Rooms.currentRoomData["sit"].size() < 1):
+        return currentTile
 
-	var emptySeats = []
-	for seat in Rooms.currentRoomData["sit"]:
-		var currentSeat = Vector2(seat["x"], seat["y"])
-		if (Rooms.getTilePopulation(currentSeat) == 0):
-			emptySeats.push_back(currentSeat)
-	
-	if emptySeats.size() == 0:
-		return currentTile
-	
-	if nearest:
-		var closestEmptySeat = emptySeats[0]
-		var closestDiff = Utils.getTileDistance(currentTile, closestEmptySeat)
-		for currentSeat in emptySeats:
-			if (Rooms.getTilePopulation(currentSeat) == 0):
-				var diff = Utils.getTileDistance(currentTile, currentSeat)
-				if diff < closestDiff:
-					closestEmptySeat = currentSeat
-					closestDiff = diff
-		return closestEmptySeat
-	else:
-		return emptySeats[Utils.rng.randi() % emptySeats.size()]
+    var emptySeats = []
+    for seat in Rooms.currentRoomData["sit"]:
+        var currentSeat = Vector2(seat["x"], seat["y"])
+        if (Rooms.getTilePopulation(currentSeat) == 0):
+            emptySeats.push_back(currentSeat)
+    
+    if emptySeats.size() == 0:
+        return currentTile
+    
+    if nearest:
+        var closestEmptySeat = emptySeats[0]
+        var closestDiff = Utils.getTileDistance(currentTile, closestEmptySeat)
+        for currentSeat in emptySeats:
+            if (Rooms.getTilePopulation(currentSeat) == 0):
+                var diff = Utils.getTileDistance(currentTile, currentSeat)
+                if diff < closestDiff:
+                    closestEmptySeat = currentSeat
+                    closestDiff = diff
+        return closestEmptySeat
+    else:
+        return emptySeats[Utils.rng.randi() % emptySeats.size()]
 
 func findPathToTile(destination : Vector2) -> Array:
-	##A*
-	var openTiles = {}
+    ##A*
+    var openTiles = {}
 
-	var cameFrom = {}
-	var costSoFar = {}
+    var cameFrom = {}
+    var costSoFar = {}
 
-	cameFrom[currentTile] = null
-	costSoFar[currentTile] = 0
+    cameFrom[currentTile] = null
+    costSoFar[currentTile] = 0
 
-	openTiles[currentTile] = 0
+    openTiles[currentTile] = 0
 
-	while openTiles.size() > 0:
-		var examiningTile = openTiles.keys()[0]
-		for tileData in openTiles.keys():
-			if openTiles[tileData] < openTiles[examiningTile]:
-				examiningTile = tileData
+    while openTiles.size() > 0:
+        var examiningTile = openTiles.keys()[0]
+        for tileData in openTiles.keys():
+            if openTiles[tileData] < openTiles[examiningTile]:
+                examiningTile = tileData
 
-		openTiles.erase(examiningTile)
+        openTiles.erase(examiningTile)
 
-		if examiningTile == destination:
-			break
+        if examiningTile == destination:
+            break
 
-		for nextTile in Utils.getValidNearbyTiles(examiningTile):
-			var newCost = costSoFar[examiningTile] + 1
-			if (!(costSoFar.has(nextTile)) or newCost < costSoFar[nextTile]):
-				costSoFar[nextTile] = newCost
-				var f = newCost + Utils.getTileDistance(nextTile, destination)
-				openTiles[nextTile] = f
-				cameFrom[nextTile] = examiningTile
+        for nextTile in Utils.getValidNearbyTiles(examiningTile):
+            var newCost = costSoFar[examiningTile] + 1
+            if (!(costSoFar.has(nextTile)) or newCost < costSoFar[nextTile]):
+                costSoFar[nextTile] = newCost
+                var f = newCost + Utils.getTileDistance(nextTile, destination)
+                openTiles[nextTile] = f
+                cameFrom[nextTile] = examiningTile
 
-	
-	## reconstruct path
+    
+    ## reconstruct path
 
-	if ( !(cameFrom.has(destination))):
-		return []
-	var path = []
-	var current = destination
-	while current != currentTile:
-		path.push_back(current)
-		current = cameFrom[current]
-	path.invert()
+    if ( !(cameFrom.has(destination))):
+        return []
+    var path = []
+    var current = destination
+    while current != currentTile:
+        path.push_back(current)
+        current = cameFrom[current]
+    path.invert()
 
-	return path
-		
+    return path
+        
 
 func checkReactions() -> void:
-	## check for reactions eg. facing someone
-	## staring at us
-	if !isMoving && !isGhost:
-		for tile in Utils.getNearbyTiles(currentTile):
-			if (Rooms.getTilePopulation(tile) > 0):
-				for giko in Rooms.getGikosOnTile(tile):
-					if (is_instance_valid(giko) && (Constants.DIRECTION_VECTOR[giko.currentDirection]) == (currentTile - giko.currentTile)):
-						## we are facing another giko
-						var newDirVector = (giko.currentTile - currentTile)
-						faceDirection(Utils.getDirectionFromVector(newDirVector))
-						break
+    ## check for reactions eg. facing someone
+    ## staring at us
+    if !isMoving && !isGhost:
+        for tile in Utils.getNearbyTiles(currentTile):
+            if (Rooms.getTilePopulation(tile) > 0):
+                for giko in Rooms.getGikosOnTile(tile):
+                    if (is_instance_valid(giko) && (Constants.DIRECTION_VECTOR[giko.currentDirection]) == (currentTile - giko.currentTile)):
+                        ## we are facing another giko
+                        var newDirVector = (giko.currentTile - currentTile)
+                        faceDirection(Utils.getDirectionFromVector(newDirVector))
+                        break
 
 
 func faceDirection(newDirection : int) -> void:
-	currentDirection = newDirection
-	play(getRightAnimation())
-	setRightFlip()
-	timeSinceAction = 0
+    currentDirection = newDirection
+    play(getRightAnimation())
+    setRightFlip()
+    timeSinceAction = 0
+
+func follow() -> void:
+    pass
+
+func goToTarget() -> void:
+    var pathToTarget = findPathToTile(targetTile)
+
+    if (pathToTarget.size() < 1):
+        return
+
+    var firstTile = pathToTarget[0]
+    var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
+    var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+    move(directionToTake)
 
 func takeDecision() -> void:
-	if !isMoving && timeSinceDecision > timeToNextDecision:
-		destroyMessage()
-		if isNPC:
-			idle()
-			return
-		match currentAction:
-			Constants.Decisions.IDLE:
-				idle()
-			Constants.Decisions.FINDSEAT:
-				findSeat()
-			Constants.Decisions.CHANGEDIRECTION:
-				changeDirection()
-			Constants.Decisions.TALK:
-				talk()
-			Constants.Decisions.MOVESOMEWHERE:
-				moveRandom()
-		## random chance to change action
-		if Utils.rng.randf() > 0.75:
-			currentAction = Constants.Decisions.values()[Utils.rng.randi() % Constants.Decisions.values().size()]
-	return
+    if !isMoving && timeSinceDecision > timeToNextDecision:
+        destroyMessage()
+        if isNPC:
+            if isFollowing:
+                follow()
+            elif isTargeting:
+                goToTarget()
+            else:
+                idle()
+            return
+        match currentAction:
+            Constants.Decisions.IDLE:
+                idle()
+            Constants.Decisions.FINDSEAT:
+                findSeat()
+            Constants.Decisions.CHANGEDIRECTION:
+                changeDirection()
+            Constants.Decisions.TALK:
+                talk()
+            Constants.Decisions.MOVESOMEWHERE:
+                moveRandom()
+        ## random chance to change action
+        if Utils.rng.randf() > 0.75:
+            currentAction = Constants.Decisions.values()[Utils.rng.randi() % Constants.Decisions.values().size()]
+    return
 
 
 
 func idle() -> void:
-	timeSinceDecision = 0
-	timeToNextDecision = Utils.rng.randfn(5)
-	return
+    timeSinceDecision = 0
+    timeToNextDecision = Utils.rng.randfn(5)
+    return
 
 func talk() -> void:
-	timeSinceDecision = 0
-	timeToNextDecision = Utils.rng.randfn(5)
-	try_message()
+    timeSinceDecision = 0
+    timeToNextDecision = Utils.rng.randfn(5)
+    try_message()
 
 func moveRandom() -> void:
-	timeSinceDecision = 0
-	timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
+    timeSinceDecision = 0
+    timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
 
-	var randomWalkableTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
-	var pathToSeat = findPathToTile(randomWalkableTile)
+    var randomWalkableTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
+    var pathToSeat = findPathToTile(randomWalkableTile)
 
-	if (pathToSeat.size() < 1):
-		return
+    if (pathToSeat.size() < 1):
+        return
 
-	var firstTile = pathToSeat[0]
-	var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
-	var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
-	move(directionToTake)
-	return
+    var firstTile = pathToSeat[0]
+    var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
+    var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+    move(directionToTake)
+    return
 
 
 func changeDirection() -> void:
-	timeSinceDecision = 0
-	timeToNextDecision = Utils.rng.randfn(5)
+    timeSinceDecision = 0
+    timeToNextDecision = Utils.rng.randfn(5)
 
-	var possibleDirections = Constants.Directions.values()
-	possibleDirections.erase(currentDirection)
-	faceDirection(possibleDirections[Utils.rng.randi() % possibleDirections.size()])
-	return
+    var possibleDirections = Constants.Directions.values()
+    possibleDirections.erase(currentDirection)
+    faceDirection(possibleDirections[Utils.rng.randi() % possibleDirections.size()])
+    return
 
 func findSeat() -> void:
-	timeSinceDecision = 0
-	timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
+    timeSinceDecision = 0
+    timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
 
-	var randomSeat = findEmptySeat()
-	var pathToSeat = findPathToTile(randomSeat)
+    var randomSeat = findEmptySeat()
+    var pathToSeat = findPathToTile(randomSeat)
 
-	if (pathToSeat.size() < 1):
-		return
+    if (pathToSeat.size() < 1):
+        return
 
-	var firstTile = pathToSeat[0]
-	var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
-	var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
-	move(directionToTake)
-	return
+    var firstTile = pathToSeat[0]
+    var firstTileDirection = Vector2(firstTile.x - currentTile.x, firstTile.y - currentTile.y)
+    var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+    move(directionToTake)
+    return
 
 
 
 func setCharacter(newChar: int) -> void:
-	character = newChar
-	setCharacterTexture(newChar)
+    character = newChar
+    setCharacterTexture(newChar)
 
 
 func setName(gikoName: String) -> void:
-	displayName = gikoName
-	$Control/ColorRect/Name.text = gikoName
-	$Control/ColorRect/Name.rect_size = $Control/ColorRect/Name.get_font("font").get_string_size($Control/ColorRect/Name.text)
-	$Control/ColorRect.rect_size = $Control/ColorRect/Name.rect_size + Vector2(10,0)
-	#$Control/ColorRect.set_anchors_and_margins_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE)
-	$Control/ColorRect.rect_position = (Vector2((-$Control/ColorRect.rect_size.x/2), 0))
-	$Control/ColorRect/Name.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
+    displayName = gikoName
+    $Control/ColorRect/Name.text = gikoName
+    $Control/ColorRect/Name.rect_size = $Control/ColorRect/Name.get_font("font").get_string_size($Control/ColorRect/Name.text)
+    $Control/ColorRect.rect_size = $Control/ColorRect/Name.rect_size + Vector2(10,0)
+    #$Control/ColorRect.set_anchors_and_margins_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE)
+    $Control/ColorRect.rect_position = (Vector2((-$Control/ColorRect.rect_size.x/2), 0))
+    $Control/ColorRect/Name.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
 
 
 func _process(delta):
-	## Defines draw order
-	#$tile.	text = String(currentTile)
-	timeElapsed += delta
-	timeSinceAction += delta
-	timeSinceDecision += delta
+    ## Defines draw order
+    #$tile.	text = String(currentTile)
+    timeElapsed += delta
+    timeSinceAction += delta
+    timeSinceDecision += delta
 
-	if timeElapsed > reactionTime:
-		checkReactions()
-		timeElapsed = 0
+    if timeElapsed > reactionTime:
+        checkReactions()
+        timeElapsed = 0
 
-	takeDecision()
+    takeDecision()
 
-	process_movement(delta)
-	checkGhost()
+    process_movement(delta)
+    checkGhost()
 
 
 func try_message() -> void:
-	message(Constants.POSSIBLE_MESSAGES[Utils.rng.randi() % Constants.POSSIBLE_MESSAGES.size()])
+    message(Constants.POSSIBLE_MESSAGES[Utils.rng.randi() % Constants.POSSIBLE_MESSAGES.size()])
 
 
 func process_movement(delta) -> void:
-	if isMoving:
-		if Utils.isPositionTooFar(position, nextTilePosition, currentDirection):
-			# we have arrived at the tile
-			
-			position = nextTilePosition
-			currentTile = nextTile
-			currentTilePos = Utils.getTilePosAtCoords(currentTile)
-			isMoving = false
+    if isMoving:
+        if Utils.isPositionTooFar(position, nextTilePosition, currentDirection):
+            # we have arrived at the tile
+            
+            position = nextTilePosition
+            currentTile = nextTile
+            currentTilePos = Utils.getTilePosAtCoords(currentTile)
+            isMoving = false
 
-			var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
-			z_index = zFixedPosition.y
+            var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+            z_index = zFixedPosition.y
 
-			checkSitting()
-			play(getRightAnimation())
-			checkDoors()
-		else:
-			#play(getRightAnimation())
-			position += Utils.getDirectionPixels(currentDirection) * delta * Constants.GIKO_MOVESPEED
-
+            checkSitting()
+            play(getRightAnimation())
+            checkDoors()
+        else:
+            #play(getRightAnimation())
+            position += Utils.getDirectionPixels(currentDirection) * delta * Constants.GIKO_MOVESPEED
 
 
 func checkGhost() -> void:
-	if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:
-		isGhost = true
-		self_modulate = Constants.GHOST_COLOR
-	elif isGhost && timeSinceAction < Constants.TIME_TO_GHOST:
-		isGhost = false
-		self_modulate = Constants.NORMAL_COLOR
+    if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:
+        isGhost = true
+        self_modulate = Constants.GHOST_COLOR
+    elif isGhost && timeSinceAction < Constants.TIME_TO_GHOST:
+        isGhost = false
+        self_modulate = Constants.NORMAL_COLOR
 
 func checkSitting() -> void:
-	var willSit = false
-	if Rooms.currentRoomData.has("sit"):
-		for sitTile in Rooms.currentRoomData["sit"]:
-			if sitTile["x"] == currentTile.x && sitTile["y"] == currentTile.y:
-				willSit = true
-				break
-	isSitting = willSit
+    var willSit = false
+    if Rooms.currentRoomData.has("sit"):
+        for sitTile in Rooms.currentRoomData["sit"]:
+            if sitTile["x"] == currentTile.x && sitTile["y"] == currentTile.y:
+                willSit = true
+                break
+    isSitting = willSit
 
 func checkDoors() -> void:
-	if Rooms.currentRoomData.has("doors"):
-		for door in Rooms.currentRoomData["doors"].keys():
-			var currentDoor = Rooms.currentRoomData["doors"][door]
-			if currentDoor["target"] != null && currentDoor["x"] == currentTile.x && currentDoor["y"] == currentTile.y:
-				## we are on a door
-				queue_free()
+    if Rooms.currentRoomData.has("doors"):
+        for door in Rooms.currentRoomData["doors"].keys():
+            var currentDoor = Rooms.currentRoomData["doors"][door]
+            if currentDoor["target"] != null && currentDoor["x"] == currentTile.x && currentDoor["y"] == currentTile.y:
+                ## we are on a door
+                if currentDoor["target"]["roomId"] == Rooms.currentRoomId:
+                    var newDoor = currentDoor["target"]["doorId"]
+                    currentTile = Vector2(Rooms.currentRoomData["doors"][newDoor]["x"], Rooms.currentRoomData["doors"][newDoor]["y"])
+                    currentTilePos = Utils.getTilePosAtCoords(currentTile)
+                    position = currentTilePos
+                    isMoving = false
+
+                    var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+                    z_index = zFixedPosition.y
+
+                    checkSitting()
+                    play(getRightAnimation())
+                else:
+                    Rooms.removeGiko(self, currentTile)
 
 
 func getRandomDirection() -> int:
-	return Constants.Directions.values()[Utils.rng.randi() % Constants.Directions.size()]
+    return Constants.Directions.values()[Utils.rng.randi() % Constants.Directions.size()]
 
 
 func getRightAnimation() -> String:
-	if isMoving:
-		if (
-			currentDirection == Constants.Directions.DIR_LEFT
-			or currentDirection == Constants.Directions.DIR_UP
-		):
-			return Constants.GIKOANIM_BACK_WALKING
-		else:
-			return Constants.GIKOANIM_FRONT_WALKING
-	else:
-		if (
-			currentDirection == Constants.Directions.DIR_LEFT
-			or currentDirection == Constants.Directions.DIR_UP
-		):
-			return (
-				Constants.GIKOANIM_BACK_SITTING
-				if isSitting
-				else Constants.GIKOANIM_BACK_STANDING
-			)
-		else:
-			return (
-				Constants.GIKOANIM_FRONT_SITTING
-				if isSitting
-				else Constants.GIKOANIM_FRONT_STANDING
-			)
+    if isMoving:
+        if (
+            currentDirection == Constants.Directions.DIR_LEFT
+            or currentDirection == Constants.Directions.DIR_UP
+        ):
+            return Constants.GIKOANIM_BACK_WALKING
+        else:
+            return Constants.GIKOANIM_FRONT_WALKING
+    else:
+        if (
+            currentDirection == Constants.Directions.DIR_LEFT
+            or currentDirection == Constants.Directions.DIR_UP
+        ):
+            return (
+                Constants.GIKOANIM_BACK_SITTING
+                if isSitting
+                else Constants.GIKOANIM_BACK_STANDING
+            )
+        else:
+            return (
+                Constants.GIKOANIM_FRONT_SITTING
+                if isSitting
+                else Constants.GIKOANIM_FRONT_STANDING
+            )
 
 
 func setRightFlip() -> void:
-	if (
-		currentDirection == Constants.Directions.DIR_LEFT
-		or currentDirection == Constants.Directions.DIR_DOWN
-	):
-		flip_h = true
-	else:
-		flip_h = false
+    if (
+        currentDirection == Constants.Directions.DIR_LEFT
+        or currentDirection == Constants.Directions.DIR_DOWN
+    ):
+        flip_h = true
+    else:
+        flip_h = false
 
 func message(text) -> void:
-	spawnMessage(text)
+    spawnMessage(text)
 
 
 func spawnMessage(text) -> void:
-	timeSinceAction = 0
-	currentMessage = messagePrefab.instance()
-	currentMessage.setMessage(text)
-	Log.addLog(displayName, text)
-	$MessageRoot.add_child(currentMessage)
+    timeSinceAction = 0
+    currentMessage = messagePrefab.instance()
+    currentMessage.setMessage(text)
+    Log.addLog(displayName, text)
+    $MessageRoot.add_child(currentMessage)
 
 
 func destroyMessage() -> void:
-	timeSinceAction = 0
-	if currentMessage != null:
-		currentMessage.delete()
-		currentMessage = null
+    timeSinceAction = 0
+    if currentMessage != null:
+        currentMessage.delete()
+        currentMessage = null
 
 
 func move(toDirection: int) -> void:
-	if Utils.canMoveInDirection(currentTile, toDirection):
-		timeSinceAction = 0
-		nextTile = Utils.getTileCoordsInDirection(currentTile, toDirection)
+    if Utils.canMoveInDirection(currentTile, toDirection):
+        timeSinceAction = 0
+        nextTile = Utils.getTileCoordsInDirection(currentTile, toDirection)
 
-		currentDirection = toDirection
-		nextTilePosition = Utils.getTilePosAtCoords(nextTile)
+        currentDirection = toDirection
+        nextTilePosition = Utils.getTilePosAtCoords(nextTile)
 
-		isMoving = true
-		play(getRightAnimation())
-		setRightFlip()
-		Rooms.updateGikoPosition(self, nextTile, currentTile)
+        isMoving = true
+        play(getRightAnimation())
+        setRightFlip()
+        Rooms.updateGikoPosition(self, nextTile, currentTile)
 
 
 
 func setCharacterTexture(newCharacter) -> void:
-	var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[newCharacter] + "/"
+    var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[newCharacter] + "/"
 
-	var backStanding = load(newCharacterPath + Constants.GIKOANIM_BACK_STANDING + ".png")
-	var frontStanding = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
+    var backStanding = load(newCharacterPath + Constants.GIKOANIM_BACK_STANDING + ".png")
+    var frontStanding = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
 
-	var backSitting = load(newCharacterPath + Constants.GIKOANIM_BACK_SITTING + ".png")
-	var frontSitting = load(newCharacterPath + Constants.GIKOANIM_FRONT_SITTING + ".png")
+    var backSitting = load(newCharacterPath + Constants.GIKOANIM_BACK_SITTING + ".png")
+    var frontSitting = load(newCharacterPath + Constants.GIKOANIM_FRONT_SITTING + ".png")
 
-	var backWalking1 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-1" + ".png")
-	var backWalking2 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-2" + ".png")
+    var backWalking1 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-1" + ".png")
+    var backWalking2 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-2" + ".png")
 
-	var frontWalking1 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-1" + ".png")
-	var frontWalking2 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-2" + ".png")
+    var frontWalking1 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-1" + ".png")
+    var frontWalking2 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-2" + ".png")
 
-	# if frames != null:
-	# 	frames.free()
-	frames = SpriteFrames.new()
-	for anim in [
-		Constants.GIKOANIM_BACK_STANDING,
-		Constants.GIKOANIM_FRONT_STANDING,
-		Constants.GIKOANIM_BACK_WALKING,
-		Constants.GIKOANIM_FRONT_WALKING,
-		Constants.GIKOANIM_BACK_SITTING,
-		Constants.GIKOANIM_FRONT_SITTING
-	]:
-		frames.add_animation(anim)
-		frames.set_animation_speed(anim, 16)
-		frames.set_animation_loop(anim, true)
+    # if frames != null:
+    # 	frames.free()
+    frames = SpriteFrames.new()
+    for anim in [
+        Constants.GIKOANIM_BACK_STANDING,
+        Constants.GIKOANIM_FRONT_STANDING,
+        Constants.GIKOANIM_BACK_WALKING,
+        Constants.GIKOANIM_FRONT_WALKING,
+        Constants.GIKOANIM_BACK_SITTING,
+        Constants.GIKOANIM_FRONT_SITTING
+    ]:
+        frames.add_animation(anim)
+        frames.set_animation_speed(anim, 16)
+        frames.set_animation_loop(anim, true)
 
-	frames.add_frame(Constants.GIKOANIM_BACK_STANDING, backStanding)
-	frames.add_frame(Constants.GIKOANIM_FRONT_STANDING, frontStanding)
+    frames.add_frame(Constants.GIKOANIM_BACK_STANDING, backStanding)
+    frames.add_frame(Constants.GIKOANIM_FRONT_STANDING, frontStanding)
 
-	frames.add_frame(Constants.GIKOANIM_BACK_SITTING, backSitting)
-	frames.add_frame(Constants.GIKOANIM_FRONT_SITTING, frontSitting)
+    frames.add_frame(Constants.GIKOANIM_BACK_SITTING, backSitting)
+    frames.add_frame(Constants.GIKOANIM_FRONT_SITTING, frontSitting)
 
-	frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking1)
-	frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking2)
+    frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking1)
+    frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking2)
 
-	frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking1)
-	frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking2)
+    frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking1)
+    frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking2)

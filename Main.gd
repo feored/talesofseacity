@@ -26,8 +26,8 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("konbini")
-	for _i in range(1):  #for _i in range(Utils.rng.randi() % 15):
+	loadRoom("bar_giko_square")
+	for _i in range(Utils.rng.randi() % 10):  #for _i in range(Utils.rng.randi() % 15):
 		spawnRandomGiko()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
 	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
@@ -101,26 +101,32 @@ func loadObjects() -> void:
 		)
 		var coords = Vector2(object["x"], object["y"])
 		objectSprite.z_index = Utils.getTilePosAtCoords(coords).y
+		
 
 func loadItems() -> void:
 	activeItems.clear()
 	if Items.ACTIVE_ITEMS.has(Rooms.currentRoomId):
 		for item in Items.ACTIVE_ITEMS[Rooms.currentRoomId]:
-			var itemSprite = Sprite.new()
-			var itemData = Items.ITEMS[item["id"]]
-			#itemSprite.centered = false
-			itemSprite.texture = load(itemData["url"])
-			itemSprite.scale = Vector2(item["world_scale"], item["world_scale"])
-			itemSprite.rotation_degrees = item["rotation"]
-			$"%zObjects".add_child(itemSprite)
-			#var roomOffset: Vector2 = Rooms.getCurrentRoomOffset()
-			#objectSprite.position = Vector2(
-			#	roomOffset.x + item["x"], roomOffset.y + object["offset"]["y"]
-			#)
-			var coords = Vector2(item["x"], item["y"])
-			itemSprite.position = Utils.getTilePosAtCoords(coords)
-			itemSprite.z_index = itemSprite.position.y
-			activeItems[coords] = itemSprite
+			loadItem(item)
+			
+			
+
+func loadItem(item : Dictionary) -> void:
+	var itemSprite = Sprite.new()
+	var itemData = Items.ITEMS[item["id"]]
+	#itemSprite.centered = false
+	itemSprite.texture = load(itemData["url"])
+	itemSprite.scale = Vector2(item["world_scale"], item["world_scale"])
+	itemSprite.rotation_degrees = item["rotation"]
+	$"%zObjects".add_child(itemSprite)
+	#var roomOffset: Vector2 = Rooms.getCurrentRoomOffset()
+	#objectSprite.position = Vector2(
+	#	roomOffset.x + item["x"], roomOffset.y + object["offset"]["y"]
+	#)
+	var coords = Vector2(item["x"], item["y"])
+	itemSprite.position = Utils.getTilePosAtCoords(coords)
+	itemSprite.z_index = itemSprite.position.y
+	activeItems[coords] = itemSprite
 
 func loadNPCs() -> void:
 	activeNPCs.clear()

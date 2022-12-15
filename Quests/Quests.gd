@@ -5,6 +5,7 @@ var shaddoxMahjongQuest = preload("res://Quests/ShaddoxMahjong.gd")
 var feedThePoorQuest = preload("res://Quests/FeedThePoor.gd")
 var findSunCreamQuest = preload("res://Quests/FindSunCream.gd")
 var bringHostessSushiQuest = preload("res://Quests/BringHostessSushi.gd")
+var schoolyardDogsQuest = preload("res://Quests/SchoolyardDogs.gd")
 
 var currentQuestIndex = 0
 
@@ -26,7 +27,10 @@ var QUEST_FLAGS = {
     ##BringHostessSushi
     "qTalkedToSushiSalaryman" : false,
     "qTalkedToHostess" : false,
-    "qSushiNewChef" : false
+    "qSushiNewChef" : false,
+    ##SchoolyardDogs
+    "qSetSchoolyardTrap" : false,
+    "qFinishedSchoolyardDogs" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -52,6 +56,11 @@ var QUESTS = [
     {
         "id" : "Bring_Hostess_Sushi",
         "script" : bringHostessSushiQuest,
+        "stage" : "initial"
+    },
+    {
+        "id" : "Schoolyards_Dogs",
+        "script": schoolyardDogsQuest,
         "stage" : "initial"
     }
 ]

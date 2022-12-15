@@ -18,8 +18,8 @@ var ACTIVE_ITEMS = {
 			"x" : 0,
 			"y" : 1,
 			"id" : "mahjong_red_dragon",
-            "world_scale": 0.1,
-            "rotation" : 30
+			"world_scale": 0.1,
+			"rotation" : 30
 		}
 	],
 	"bar" : [
@@ -27,8 +27,8 @@ var ACTIVE_ITEMS = {
 			"x" : 0,
 			"y" : 3,
 			"id" : "zachu_guitar",
-            "world_scale": 0.25,
-            "rotation" : 0
+			"world_scale": 0.25,
+			"rotation" : 0
 		}
 	]
 }
@@ -72,15 +72,23 @@ var ITEMS = {
 		"name" : "Giko Burger (Giko Sando)",
 		"description" :"""The Giko Sando is a classic item on the Giko Burger Menu.
 		No one knows what it's really made out of.""",
-		"default_world_scale": 0.2
+		"default_world_scale": 0.02
 	},
-    "japanese_bird_portrait" : {
-        "url" : "res://Items/Images/japanesebird.jpg",
+	"japanese_bird_portrait" : {
+		"url" : "res://Items/Images/japanesebird.jpg",
 		"id" : "japanese_bird_portrait",
 		"name" : "Japanese Chef Portrait",
 		"description" :"""This is a portrait of a Japanese Chef who was apparently famous for his spaghetti.""",
 		"default_world_scale": 1
-    }
+	},
+	"bunny_comic" : {
+		"url" : "res://Items/Images/bunnyseries.jpg",
+		"id" : "bunny_comic",
+		"name" : "Bunnyseries comic",
+		"description" :"""A comic book called Bunnyseries, following the lives of anthropomorphic bunnies.
+		The description on the back says it's a 'slice of life 4koma' and that the target audience is depressed people with no friends.""",
+		"default_world_scale": 0.2
+	}
 }
 
 var INVENTORY = [
@@ -89,31 +97,67 @@ var INVENTORY = [
 ]
 
 var ACTIVE_ENVIRONMENT = {
-    "bar_st" :
-    {
-        Vector2(3, 3) : Utils.makeSimpleEnvironmentDialogue(["A vending machine. It sells Coco Cola and other refreshing beverages. It appears to be out of Dr. Pepper, however."])
-    },
-    "busstop" :
-    {
-        Vector2(1,1) : Utils.makeSimpleEnvironmentDialogue(["This sign shows the time table for the next bus. It seems that no bus is coming, because this is a train station and not a bus stop."])
-    }
+	"bar_st" :
+	{
+		Vector2(3, 3) : Utils.makeSimpleEnvironmentDialogue(["A vending machine. It sells Coco Cola and other refreshing beverages. It appears to be out of Dr. Pepper, however."])
+	},
+	"busstop" :
+	{
+		Vector2(1,1) : Utils.makeSimpleEnvironmentDialogue(["This sign shows the time table for the next bus. It seems that no bus is coming, because this is a train station and not a bus stop."])
+	},
+	"school_international":
+	{
+		Vector2(1,3) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(3,3) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(5,3) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(7,3) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(1,6) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(3,6) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(5,6) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(7,6) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. A student appears to have forgotten a comic book in the drawer."], true, "bunny_comic"),
+		Vector2(1,9) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(3,9) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(5,9) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."]),
+		Vector2(7,9) : Utils.makeSimpleEnvironmentDialogue(["A typical classroom desk, slightly worn out after being used by generations of school-aged gikos. There's nothing in the drawer."])
+	},
+	"gym":
+	{
+		Vector2(9,17): Utils.makeSimpleEnvironmentDialogue(["A picture of the most muscular Giko of all time, the mighty Buffolini, drawn by a local grade schooler."])
+	},
+	"school_ground":
+	{
+		Vector2(1,2): Utils.makeSimpleEnvironmentDialogue(["A jungle gym used by the local kids. The openings are too small for you to get inside."])
+	}
 }
 
+func addEnvironmentDialogue(roomId: String, position: Vector2, dialogue: Dictionary) -> void:
+	if (ACTIVE_ENVIRONMENT.has(roomId)):
+		ACTIVE_ENVIRONMENT[roomId][position] = dialogue
+	else:
+		ACTIVE_ENVIRONMENT[roomId] = {position : dialogue}
+
+func removeEnvironmentDialogue(roomId: String, position: Vector2) -> void:
+	ACTIVE_ENVIRONMENT[roomId].erase(position)
+
 func removeActiveItemAtPosition(roomId : String, itemId: String, position: Vector2) -> void:
-    for item in ACTIVE_ITEMS[roomId]:
-        if (item["id"] == itemId && Vector2(item["x"], item["y"]) == position):
-            ACTIVE_ITEMS[roomId].erase(item)
-    
+	for item in ACTIVE_ITEMS[roomId]:
+		if (item["id"] == itemId && Vector2(item["x"], item["y"]) == position):
+			ACTIVE_ITEMS[roomId].erase(item)
+	
 func addActiveItem(roomId: String, itemId: String, position: Vector2, scale: float, rotation : float = 0) -> void:
-    ACTIVE_ITEMS[roomId].push_back(
-        {
-            "id": itemId,
-            "x" : position.x,
-            "y" : position.y,
-            "world_scale" : scale,
-            "rotation" : 0
-        }
-    )
+	var newActiveItem = {
+		"id": itemId,
+		"x" : position.x,
+		"y" : position.y,
+		"world_scale" : scale,
+		"rotation" : 0
+	}
+	if ACTIVE_ITEMS.has(roomId):
+		ACTIVE_ITEMS[roomId].push_back(newActiveItem)
+	else:
+		ACTIVE_ITEMS[roomId] = [newActiveItem]
+	if Rooms.currentRoomId == roomId:
+		get_node("/root/Main").loadItem(newActiveItem)
 
 func addItemInventory(itemId : String) -> void:
 	inventoryRefreshNeeded = true

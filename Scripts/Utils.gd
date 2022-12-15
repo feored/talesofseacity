@@ -155,7 +155,7 @@ static func makeSimpleEnvironmentDialogue(description : Array, canPickup : bool 
     if canPickup:
         var lastChoice = {
             "id" : "pickupChoice",
-            "type" : Constants.LineType.Text,
+            "type" : Constants.LineType.Choice,
             "choices": 
             [
                 {

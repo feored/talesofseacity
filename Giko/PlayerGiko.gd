@@ -26,6 +26,7 @@ var currentDirection = Constants.Directions.DIR_LEFT
 var isGhost = false
 var isMoving = false
 var isSitting = false
+var isNPC = false
 
 var currentMessage: Node
 

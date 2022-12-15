@@ -10,7 +10,18 @@ var quest_stages = {
     "talkToHostess" :{
        "id" : "talkToHostess",
        "condition" : "talkedToHostess",
-       "next" : "final"
+       "next" : "talkToOldCustomer"
+    },
+    "talkToOldCustomer" :{
+        "id": "talkToOldCustomer",
+        "condition" : "gotJapaneseBirdPortrait",
+        "completed" :"addSushiChefDialogue",
+        "next" : "bringBackDisciple"
+    },
+    "bringBackDisciple" : {
+        "id" : "bringBackDisciple",
+        "condition" : "broughtBackDisciple",
+        "next" : "final"
     },
     "final": {"id": "final"}
 }
@@ -29,9 +40,101 @@ func talkedToSushiSalaryman() -> bool:
 func talkedToHostess() -> bool:
     return Quests.QUEST_FLAGS["qTalkedToHostess"]
 
+func gotJapaneseBirdPortrait() -> bool:
+    return Items.INVENTORY.has("japanese_bird_portrait")
+
+
+func broughtBackDisciple() -> bool:
+    return false
+
 
 ## COMPLETED
 
+func addSushiChefDialogue() -> void:
+    NPCs.addQuestDialogue(
+        "yatai",
+        "SushiChef",
+        {
+            "info": {"name": "SushiChefIntro", "requeue": true, "start": "start"},
+            "start":
+            {
+                "id": "start",
+                "type": Constants.LineType.Text,
+                "text":
+                "Can I help you sir?",
+                "nextId": "SushiChef2"
+            },
+            "SushiChef2":
+            {
+                "id": "SushiChef2",
+                "type": Constants.LineType.Choice,
+                "choices":
+                [
+                    {
+                        "text": "The old customer told me a famous Chef used to work here.",
+                        "nextId": "SushiChef4"
+                    },
+                    {
+                        "text": "I'm hungry. Hurry up!",
+                        "nextId": "SushiChef3"
+                    }
+                ]
+            },
+            "SushiChef3":
+            {
+                "id": "SushiChef3",
+                "type": Constants.LineType.Text,
+                "text":
+                "I'm doing my best! Please wait for your turn. The salmon this year is really tough."
+            },
+            "SushiChef4":
+            {
+                "id": "SushiChef4",
+                "type": Constants.LineType.Text,
+                "text":
+                "Ah, you must be talking about the great Bird. He unfortunately passed away in 2012, after eating some rotten spam. His health had been declining for a few years.",
+                "nextId": "SushiChef5"
+            },
+            "SushiChef5":
+            {
+                "id": "SushiChef5",
+                "type": Constants.LineType.Text,
+                "text":
+                "He was teaching his Spaghetti-cooking techniques to another employee, but the poor guy didn't take the master's death well and quit the same day. All of this was before my time, but I hear he went a bit crazy..."            },
+        })
+    
+    # NPCs.removeAllQuestDialogue("busstop", "CrazyTrashBoon")
+
+    # NPCs.addQuestDialogue(
+    # "busstop",
+    # "CrazyTrashBoon",
+    # {
+    #     "info": {"name": "CrazyTrashBoonIntro", "requeue": true, "start": "start"},
+    #     "start":
+    #     {
+    #         "id": "start",
+    #         "type": Constants.LineType.Text,
+    #         "text":
+    #         "",
+    #         "nextId": "CrazyTrashBoon2"
+    #     },
+    #     "CrazyTrashBoon2":
+    #     {
+    #         "id": "SushiChef2",
+    #         "type": Constants.LineType.Choice,
+    #         "choices":
+    #         [
+    #             {
+    #                 "text": "The old customer told me a famous Chef used to work here.",
+    #                 "nextId": "SushiChef4"
+    #             },
+    #             {
+    #                 "text": "I'm hungry. Hurry up!",
+    #                 "nextId": "SushiChef3"
+    #             }
+    #         ]
+    #     }
+    # })
 
 ## SETUP
 

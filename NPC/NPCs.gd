@@ -3,7 +3,6 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var refresh = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,9 +18,7 @@ var NPCs = {
 		"character": Constants.Character.Uzukumari,
 		"lines":
 		[
-			Utils.makeSimpleDialogue(["Hey, wanna see a picture of my food?"]),
-			Utils.makeSimpleDialogue(["It's going to be time for basho.", "Here comes the old Armenian."]),
-			Utils.makeSimpleDialogue(["Remind me to clock out in 50 minutes!"])
+			Utils.makeSimpleDialogue(["TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER"])
 		]
 	},
 	"caribear":
@@ -258,20 +255,62 @@ var NPCs = {
 		"character": Constants.Character.Tabako_Dokuo,
 		"lines" : []
 	},
-    "BoredHostess" : 
-    {
-        "id" : "BoredHostess",
-        "name" : "Bored Hostess",
-        "character" : Constants.Character.Shiinigami,
-        "lines" : [Utils.makeSimpleDialogue(["This town ain't no fun anymore!"])]
-    },
-    "CrazyTrashBoon":
-    {
-        "id": "CrazyTrashBoon",
-        "name": "Trash Boon",
-        "character": Constants.Character.Naito,
-        "lines": []
-    }
+	"BoredHostess" : 
+	{
+		"id" : "BoredHostess",
+		"name" : "Bored Hostess",
+		"character" : Constants.Character.Shiinigami,
+		"lines" : [Utils.makeSimpleDialogue(["This town ain't no fun anymore!"])]
+	},
+	"CrazyTrashBoon":
+	{
+		"id": "CrazyTrashBoon",
+		"name": "Trash Boon",
+		"character": Constants.Character.Naito,
+		"lines": []
+	},
+	"WildZonu1":
+	{
+		"id" : "WildZonu1",
+		"name": "Wild Zonu",
+		"character": Constants.Character.Zonu,
+		"lines" : [Utils.makeSimpleDialogue(["[nervous]Grrr...[/nervous]"])]
+	},
+	"WildZonu2":
+	{
+		"id" : "WildZonu2",
+		"name": "Wild Zonu",
+		"character": Constants.Character.Zonu,
+		"lines" : [Utils.makeSimpleDialogue(["[nervous]Grrr...[/nervous]"])]
+	},
+	"WildZonu3":
+	{
+		"id" : "WildZonu3",
+		"name": "Wild Zonu",
+		"character": Constants.Character.Zonu,
+		"lines" :[Utils.makeSimpleDialogue([ "[nervous]Grrr...[/nervous]"])]
+	},
+	"WildZonu4":
+	{
+		"id" : "WildZonu4",
+		"name": "Wild Zonu",
+		"character": Constants.Character.Zonu,
+		"lines" : [Utils.makeSimpleDialogue(["[nervous]Grrr...[/nervous]"])]
+	},
+	"WildZonu5":
+	{
+		"id" : "WildZonu5",
+		"name": "Wild Zonu",
+		"character": Constants.Character.Zonu,
+		"lines" : [Utils.makeSimpleDialogue(["[nervous]Grrr...[/nervous]"])]
+	},
+	"ScaredShobon":
+	{
+		"id" : "ScardShobon",
+		"name": "Scared Shobon",
+		"character": Constants.Character.Shobon,
+		"lines" : []
+	}
 
 }
 
@@ -300,17 +339,17 @@ var ACTIVE_NPCs = {
 			"lines": []
 		}
 	},
-    "bar_st" :
-    {
-        "BoredHostess":
-        {
-            "id": "BoredHostess",
-            "direction" : Constants.Directions.DIR_RIGHT,
-            "x" : 9,
-            "y": 4,
-            "lines" : []
-        }
-    },
+	"bar_st" :
+	{
+		"BoredHostess":
+		{
+			"id": "BoredHostess",
+			"direction" : Constants.Directions.DIR_RIGHT,
+			"x" : 9,
+			"y": 4,
+			"lines" : []
+		}
+	},
 	"izakaya774":
 	{
 		"Muryoku":
@@ -487,27 +526,75 @@ var ACTIVE_NPCs = {
 			"lines" : []
 		}
 	},
-    "busstop":
-    {
-        "CrazyTrashBoon":
-        {
-            "id" : "CrazyTrashBoon",
+	"busstop":
+	{
+		"CrazyTrashBoon":
+		{
+			"id" : "CrazyTrashBoon",
 			"direction": Constants.Directions.DIR_RIGHT,
 			"x": 0,
 			"y": 4,
-			"lines" : [Utils.makeSimpleDialogue(["[jump angle=3.141]NOW I'VE LOST IT[/jump]", "[jump angle=3.141]I KNOW I CAN KILL[/jump]", "[jump angle=3.141]DOES TRUTH EXIST BEYOND THE GATE?[/jump]"], "Crazy")]
-        }
-    }
+			"lines" : [Utils.makeSimpleDialogue(["[jump angle=3.141]NOW I'VE LOST IT[/jump]", "[jump angle=3.141]I KNOW I CAN KILL[/jump]", "[jump angle=3.141]DOES TRUTH EXIST BEYOND THE GATE?[/jump]"], "Crazy"),
+				Utils.makeSimpleDialogue(["[jump angle=3.141]HAVE YOU READ YOUR DAILY FORCED JAPANESE FLANFLY JUMPING THROUGH HOOPS TODAY?!![/jump]"], "CrazyForced")]
+		}
+	},
+	"school_ground":
+	{
+		"WildZonu1":
+		{
+			"id": "WildZonu1",
+			"x": 4,
+			"y": 3,
+			"direction": Constants.Directions.DIR_UP,
+			"lines" : []
+		},
+		"WildZonu2":
+		{
+			"id": "WildZonu2",
+			"x": 3,
+			"y": 4,
+			"direction": Constants.Directions.DIR_RIGHT,
+			"lines" : []
+		},
+		"WildZonu3":
+		{
+			"id": "WildZonu3",
+			"x": 3,
+			"y": 5,
+			"direction": Constants.Directions.DIR_DOWN,
+			"lines" : []
+		},
+		"WildZonu4":
+		{
+			"id": "WildZonu4",
+			"x": 4,
+			"y": 5,
+			"direction": Constants.Directions.DIR_DOWN,
+			"lines" : []
+		},
+		"WildZonu5":
+		{
+			"id": "WildZonu5",
+			"x": 5,
+			"y": 4,
+			"direction": Constants.Directions.DIR_LEFT,
+			"lines" : []
+		},
+		"ScaredShobon":
+		{
+			"id": "ScaredShobon",
+			"x": 4,
+			"y": 4,
+			"direction":  Constants.Directions.DIR_DOWN,
+			"lines" : []
+		}
+	}
 }
 
 
 func removeActiveNPC(roomId: String, NPCId: String) -> void:
-	if ACTIVE_NPCs.has(roomId):
-		for npc in ACTIVE_NPCs[roomId]:
-			if npc["id"] == NPCId:
-				ACTIVE_NPCs.erase(npc)
-				refresh = true
-				break
+	ACTIVE_NPCs[roomId].erase(NPCId)
+
 
 
 func addActiveNPC(roomId: String, NPCId: String, direction: int, position: Vector2) -> void:
@@ -516,7 +603,10 @@ func addActiveNPC(roomId: String, NPCId: String, direction: int, position: Vecto
 	ACTIVE_NPCs[roomId][NPCId] = ({
 		"id": NPCId, "direction": direction, "x": position.x, "y": position.y, "lines": []
 	})
-	refresh = true
+
+func updateNPCPosition(roomId: String, NPCId: String, newPosition : Vector2) -> void:
+	ACTIVE_NPCs[roomId][NPCId]["x"] = newPosition.x
+	ACTIVE_NPCs[roomId][NPCId]["y"] = newPosition.y
 
 func removeQuestDialogueByName(roomId : String, NPCId : String, dialogueName : String) -> void:
 	## remove old dialogue from active lines
@@ -530,6 +620,10 @@ func removeQuestDialogueByName(roomId : String, NPCId : String, dialogueName : S
 		ACTIVE_NPCs[roomId][NPCId]["lines"].remove(dialogueIndex)
 	else:
 		print("Failed to remove dialogue %s by %s in %s." % [dialogueName, NPCId, roomId])
+
+	
+func removeAllQuestDialogue(roomId: String, NPCId : String) -> void:
+	ACTIVE_NPCs[roomId][NPCId]["lines"].clear()
 
 
 func addQuestDialogue(roomId : String, NPCId : String, dialogue : Dictionary) -> void:
