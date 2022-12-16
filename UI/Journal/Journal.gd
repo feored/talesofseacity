@@ -3,14 +3,9 @@ extends PanelContainer
 var journalEntryPrefab = preload("res://UI/Journal/JournalEntry.tscn")
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+func hide() -> void:
+	visible = false
 
 func showJournalEntry(entry : Dictionary) -> void:
 	var newJournalEntry = journalEntryPrefab.instance()

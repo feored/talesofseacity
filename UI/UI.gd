@@ -19,36 +19,33 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("inventory"):
-		$"%Inventory".show() if !$"%Inventory".visible else $"%Inventory".hide()
+		showPanel($"%Inventory") if !$"%Inventory".visible else $"%Inventory".hide()
 	elif event.is_action_pressed("rula"):
-		$"%Rula".show() if !$"%Rula".visible else $"%Rula".hide()
+		showPanel($"%Rula") if !$"%Rula".visible else $"%Rula".hide()
 	elif event.is_action_pressed("log"):
-		$"%Log".show() if !$"%Log".visible else $"%Log".hide()
+		showPanel($"%Log") if !$"%Log".visible else $"%Log".hide()
 	elif event.is_action_pressed("journal"):
-		$"%Journal".show() if !$"%Journal".visible else $"%Journal".hide()
+		showPanel($"%Journal") if !$"%Journal".visible else $"%Journal".hide()
 	
 func hideAllPanels():
 	for panel in panels:
 		panel.hide()
 
+func showPanel(panel : Node) -> void:
+    hideAllPanels()
+    panel.show()
 
 func _on_RulaBtn_pressed():
-	hideAllPanels()
-	$"%Rula".show()
+	showPanel($"%Rula")
 
 func _on_InventoryBtn_pressed():
-	hideAllPanels()
-	$"%Inventory".show()
-
+	showPanel($"%Inventory")
 
 func _on_LogBtn_pressed():
-	hideAllPanels()
-	$"%Log".show()
-
+	showPanel($"%Log")
 	
 func _on_JournalBtn_pressed():
-	hideAllPanels()
-	$"%Journal".show()
+	showPanel($"%Journal")
 	
 
 func _on_RulaGoBtn_pressed():
