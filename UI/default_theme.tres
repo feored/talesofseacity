@@ -1,27 +1,25 @@
-[gd_resource type="Theme" load_steps=6 format=2]
+[gd_resource type="Theme" load_steps=5 format=2]
 
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=2]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=3]
 
-[sub_resource type="StyleBoxFlat" id=4]
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.752941, 0.752941, 0.752941, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.0509804, 0.113725, 0.909804 )
+border_width_top = 5
 border_width_bottom = 5
-border_color = Color( 0.121569, 0.121569, 0.121569, 1 )
-shadow_offset = Vector2( 1, 1 )
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.32549, 0.34902, 0.4, 1 )
+border_color = Color( 0.313726, 0.0313726, 0.870588, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
 
 [resource]
 default_font = ExtResource( 1 )
-Button/colors/font_color = Color( 0, 0, 0, 1 )
-Button/styles/hover = SubResource( 4 )
-Button/styles/normal = SubResource( 2 )
-Button/styles/pressed = SubResource( 5 )
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/fonts/font = ExtResource( 3 )
+Button/styles/hover = SubResource( 1 )
+Button/styles/normal = ExtResource( 2 )
 Panel/styles/panel = ExtResource( 2 )
 PanelContainer/styles/panel = ExtResource( 2 )

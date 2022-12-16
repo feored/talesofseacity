@@ -12,7 +12,8 @@ func _ready():
 	panels = [
 		$"%Rula",
 		$"%Inventory",
-		$"%Log"
+		$"%Log",
+		$"%Journal"
 	]
 
 
@@ -23,6 +24,9 @@ func _input(event):
 		$"%Rula".show() if !$"%Rula".visible else $"%Rula".hide()
 	elif event.is_action_pressed("log"):
 		$"%Log".show() if !$"%Log".visible else $"%Log".hide()
+	elif event.is_action_pressed("journal"):
+		$"%Journal".show() if !$"%Journal".visible else $"%Journal".hide()
+	
 func hideAllPanels():
 	for panel in panels:
 		panel.hide()
@@ -40,6 +44,11 @@ func _on_InventoryBtn_pressed():
 func _on_LogBtn_pressed():
 	hideAllPanels()
 	$"%Log".show()
+
+	
+func _on_JournalBtn_pressed():
+	hideAllPanels()
+	$"%Journal".show()
 	
 
 func _on_RulaGoBtn_pressed():

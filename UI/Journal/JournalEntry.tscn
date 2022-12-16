@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/Journal/JournalEntry.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.827451, 0.815686, 0.815686, 0 )
+
+[node name="JournalEntry" type="PanelContainer"]
+margin_right = 700.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 650, 50 )
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 700.0
+margin_bottom = 94.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="QuestTitle" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 700.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 0, 20 )
+custom_colors/font_color = Color( 0.45098, 0.529412, 0.964706, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Schoolyard Bullies"
+valign = 1
+uppercase = true
+
+[node name="QuestEntry" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 41.0
+margin_right = 700.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 0, 20 )
+custom_colors/font_color = Color( 0.768627, 0.768627, 0.768627, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "I saved the crazy boon from the trash bin and he thanked me with a can of Dr Pepper."
+valign = 1
+autowrap = true

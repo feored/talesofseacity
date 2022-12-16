@@ -33,55 +33,55 @@ var currentMessage: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    currentDirection = Constants.Directions.DIR_UP
+	currentDirection = Constants.Directions.DIR_UP
 
-    play(getRightAnimation())
-    setRightFlip()
-    set_process_input(true)
-    #add_to_group(Constants.GROUP_GIKOS)
+	play(getRightAnimation())
+	setRightFlip()
+	set_process_input(true)
+	#add_to_group(Constants.GROUP_GIKOS)
 
 
 func place(startingTile: Vector2, direction: int) -> void:
-    currentTile = startingTile
-    currentTilePos = Utils.getTilePosAtCoords(currentTile)
-    position = Utils.getTilePosAtCoords(currentTile)
-    currentDirection = direction
-    var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
-    z_index = zFixedPosition.y
-    play(getRightAnimation())
-    setRightFlip()
-    Rooms.updateGikoPosition(self, nextTile)
+	currentTile = startingTile
+	currentTilePos = Utils.getTilePosAtCoords(currentTile)
+	position = Utils.getTilePosAtCoords(currentTile)
+	currentDirection = direction
+	var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+	z_index = zFixedPosition.y
+	play(getRightAnimation())
+	setRightFlip()
+	Rooms.updateGikoPosition(self, nextTile)
 
 
 func setCharacter(newChar: int) -> void:
-    character = newChar
-    setCharacterTexture(newChar)
+	character = newChar
+	setCharacterTexture(newChar)
 
 
 func setName(gikoName: String) -> void:
-    $ColorRect/Name.text = gikoName
+	$ColorRect/Name.text = gikoName
 
 
 func _process(delta):
-    process_movement(delta)
-    timeSinceAction += delta
-    checkGhost()
+	process_movement(delta)
+	timeSinceAction += delta
+	checkGhost()
 
 
 func tryPickUpItem() -> bool:
-    ## check that we are standing on a tile containing an item
-    var successPickedUp = false
-    var currentRoom = Rooms.currentRoomData["id"]
-    if Items.ACTIVE_ITEMS.has(currentRoom):
-        for activeItem in Items.ACTIVE_ITEMS[currentRoom]:
-            if float(activeItem["x"]) == currentTile.x && float(activeItem["y"]) == currentTile.y:
-                timeSinceAction = 0
-                successPickedUp = true
-                ## successfully picked up item
-                Items.addItemInventory(activeItem["id"])
-                Items.removeActiveItemAtPosition(currentRoom, activeItem, currentTile)
-                removeActiveItem.call_func(activeItem)
-    return successPickedUp
+	## check that we are standing on a tile containing an item
+	var successPickedUp = false
+	var currentRoom = Rooms.currentRoomData["id"]
+	if Items.ACTIVE_ITEMS.has(currentRoom):
+		for activeItem in Items.ACTIVE_ITEMS[currentRoom]:
+			if float(activeItem["x"]) == currentTile.x && float(activeItem["y"]) == currentTile.y:
+				timeSinceAction = 0
+				successPickedUp = true
+				## successfully picked up item
+				Items.addItemInventory(activeItem["id"])
+				Items.removeActiveItemAtPosition(currentRoom, activeItem["id"], currentTile)
+				removeActiveItem.call_func(activeItem)
+	return successPickedUp
 
 
 
@@ -108,209 +108,209 @@ func tryPickUpItem() -> bool:
 
 
 func try_message() -> void:
-    message(Constants.POSSIBLE_MESSAGES[Utils.rng.randi() % Constants.POSSIBLE_MESSAGES.size()])
+	message(Constants.POSSIBLE_MESSAGES[Utils.rng.randi() % Constants.POSSIBLE_MESSAGES.size()])
 
 
 func process_movement(delta) -> void:
-    if isMoving:
-        if Utils.isPositionTooFar(position, nextTilePosition, currentDirection):
-            # we have arrived at the tile
-            position = nextTilePosition
-            currentTile = nextTile
-            currentTilePos = Utils.getTilePosAtCoords(currentTile)
-            var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
-            z_index = zFixedPosition.y
+	if isMoving:
+		if Utils.isPositionTooFar(position, nextTilePosition, currentDirection):
+			# we have arrived at the tile
+			position = nextTilePosition
+			currentTile = nextTile
+			currentTilePos = Utils.getTilePosAtCoords(currentTile)
+			var zFixedPosition = Utils.getTilePosAtCoords(currentTile + Rooms.getZFix(currentTile))
+			z_index = zFixedPosition.y
 
-            checkSitting()
-            isMoving = false
-            play(getRightAnimation())
-            ## check if we should change room
-            checkDoors()
-        else:
-            position += (
-                Utils.getDirectionPixels(currentDirection)
-                * delta
-                * Constants.GIKO_MOVESPEED
-            )
+			checkSitting()
+			isMoving = false
+			play(getRightAnimation())
+			## check if we should change room
+			checkDoors()
+		else:
+			position += (
+				Utils.getDirectionPixels(currentDirection)
+				* delta
+				* Constants.GIKO_MOVESPEED
+			)
 
 func checkGhost() -> void:
-    if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:
-        isGhost = true
-        self_modulate = Constants.GHOST_COLOR
-    elif isGhost && timeSinceAction < Constants.TIME_TO_GHOST:
-        isGhost = false
-        self_modulate = Constants.NORMAL_COLOR
+	if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:
+		isGhost = true
+		self_modulate = Constants.GHOST_COLOR
+	elif isGhost && timeSinceAction < Constants.TIME_TO_GHOST:
+		isGhost = false
+		self_modulate = Constants.NORMAL_COLOR
 
 func checkSitting() -> void:
-    var willSit = false
-    if Rooms.currentRoomData.has("sit"):
-        for sitTile in Rooms.currentRoomData["sit"]:
-            if sitTile["x"] == currentTile.x && sitTile["y"] == currentTile.y:
-                willSit = true
-                break
-    isSitting = willSit
+	var willSit = false
+	if Rooms.currentRoomData.has("sit"):
+		for sitTile in Rooms.currentRoomData["sit"]:
+			if sitTile["x"] == currentTile.x && sitTile["y"] == currentTile.y:
+				willSit = true
+				break
+	isSitting = willSit
 
 
 func checkDoors() -> void:
-    if Rooms.currentRoomData.has("doors"):
-        for door in Rooms.currentRoomData["doors"].keys():
-            var currentDoor = Rooms.currentRoomData["doors"][door]
-            if (
-                currentDoor["target"] != null
-                && currentDoor["x"] == currentTile.x
-                && currentDoor["y"] == currentTile.y
-            ):
-                ## we are on a door
-                changeRoom.call_func(currentDoor["target"])
-                destroyMessage()
-                break
+	if Rooms.currentRoomData.has("doors"):
+		for door in Rooms.currentRoomData["doors"].keys():
+			var currentDoor = Rooms.currentRoomData["doors"][door]
+			if (
+				currentDoor["target"] != null
+				&& currentDoor["x"] == currentTile.x
+				&& currentDoor["y"] == currentTile.y
+			):
+				## we are on a door
+				changeRoom.call_func(currentDoor["target"])
+				destroyMessage()
+				break
 
 
 func fixHeightIfSitting() -> void:
-    if isSitting:
-        position = Vector2(currentTilePos.x, currentTilePos.y - 10)
+	if isSitting:
+		position = Vector2(currentTilePos.x, currentTilePos.y - 10)
 
 
 func getRightAnimation() -> String:
-    #fixHeightIfSitting()
-    if isMoving:
-        if (
-            currentDirection == Constants.Directions.DIR_LEFT
-            or currentDirection == Constants.Directions.DIR_UP
-        ):
-            return Constants.GIKOANIM_BACK_WALKING
-        else:
-            return Constants.GIKOANIM_FRONT_WALKING
-    else:
-        if (
-            currentDirection == Constants.Directions.DIR_LEFT
-            or currentDirection == Constants.Directions.DIR_UP
-        ):
-            return (
-                Constants.GIKOANIM_BACK_SITTING
-                if isSitting
-                else Constants.GIKOANIM_BACK_STANDING
-            )
-        else:
-            return (
-                Constants.GIKOANIM_FRONT_SITTING
-                if isSitting
-                else Constants.GIKOANIM_FRONT_STANDING
-            )
+	#fixHeightIfSitting()
+	if isMoving:
+		if (
+			currentDirection == Constants.Directions.DIR_LEFT
+			or currentDirection == Constants.Directions.DIR_UP
+		):
+			return Constants.GIKOANIM_BACK_WALKING
+		else:
+			return Constants.GIKOANIM_FRONT_WALKING
+	else:
+		if (
+			currentDirection == Constants.Directions.DIR_LEFT
+			or currentDirection == Constants.Directions.DIR_UP
+		):
+			return (
+				Constants.GIKOANIM_BACK_SITTING
+				if isSitting
+				else Constants.GIKOANIM_BACK_STANDING
+			)
+		else:
+			return (
+				Constants.GIKOANIM_FRONT_SITTING
+				if isSitting
+				else Constants.GIKOANIM_FRONT_STANDING
+			)
 
 
 func setRightFlip() -> void:
-    if (
-        currentDirection == Constants.Directions.DIR_LEFT
-        or currentDirection == Constants.Directions.DIR_DOWN
-    ):
-        flip_h = true
-    else:
-        flip_h = false
+	if (
+		currentDirection == Constants.Directions.DIR_LEFT
+		or currentDirection == Constants.Directions.DIR_DOWN
+	):
+		flip_h = true
+	else:
+		flip_h = false
 
 
 func message(text) -> void:
-    emit_signal("messaged")
-    spawnMessage(text)
+	emit_signal("messaged")
+	spawnMessage(text)
 
 
 func spawnMessage(text) -> void:
-    currentMessage = messagePrefab.instance()
-    currentMessage.setMessage(text)
-    $MessageRoot.add_child(currentMessage)
+	currentMessage = messagePrefab.instance()
+	currentMessage.setMessage(text)
+	$MessageRoot.add_child(currentMessage)
 
 
 func destroyMessage() -> void:
-    if currentMessage != null:
-        currentMessage.delete()
-        currentMessage = null
+	if currentMessage != null:
+		currentMessage.delete()
+		currentMessage = null
 
 
 func move(toDirection: int) -> void:
-    timeSinceAction = 0
-    if !isMoving:
-        actionAvailable = false
-        if currentDirection != toDirection:
-            currentDirection = toDirection
-            play(getRightAnimation())
-            setRightFlip()
-        elif Utils.canMoveInDirection(currentTile, toDirection):
-            nextTile = Utils.getTileCoordsInDirection(currentTile, toDirection)
+	timeSinceAction = 0
+	if !isMoving:
+		actionAvailable = false
+		if currentDirection != toDirection:
+			currentDirection = toDirection
+			play(getRightAnimation())
+			setRightFlip()
+		elif Utils.canMoveInDirection(currentTile, toDirection):
+			nextTile = Utils.getTileCoordsInDirection(currentTile, toDirection)
 
-            currentDirection = toDirection
-            nextTilePosition = Utils.getTilePosAtCoords(nextTile)
+			currentDirection = toDirection
+			nextTilePosition = Utils.getTilePosAtCoords(nextTile)
 
-            isMoving = true
-            play(getRightAnimation())
-            setRightFlip()
-            Rooms.updateGikoPosition(self, nextTile, currentTile)
+			isMoving = true
+			play(getRightAnimation())
+			setRightFlip()
+			Rooms.updateGikoPosition(self, nextTile, currentTile)
 
 
 func _input(event):
-    if event.is_action_pressed("ui_up"):
-        move(Constants.Directions.DIR_UP)
-    elif event.is_action_pressed("ui_down"):
-        move(Constants.Directions.DIR_DOWN)
-    elif event.is_action_pressed("ui_left"):
-        move(Constants.Directions.DIR_LEFT)
-    elif event.is_action_pressed("ui_right"):
-        move(Constants.Directions.DIR_RIGHT)
-    elif event.is_action_pressed("pick_up"):
-        ## priority is talk to NPC, then try to pick up item, then interact with environment
-        var frontTile = Utils.getTileCoordsInDirection(currentTile, currentDirection)
-        var gikosOnTile = Rooms.getGikosOnTile(frontTile)
-        var gikoNPC = null
-        for giko in gikosOnTile:
-            if giko != self && giko.isNPC:
-                gikoNPC = giko
-                break
-        if gikoNPC != null:
-            talkToNPC.call_func(gikoNPC.NPCID)
-        else:
-            var pickedUp = tryPickUpItem()
-            if !pickedUp:
-                talkToEnvironment.call_func(frontTile)
+	if event.is_action_pressed("ui_up"):
+		move(Constants.Directions.DIR_UP)
+	elif event.is_action_pressed("ui_down"):
+		move(Constants.Directions.DIR_DOWN)
+	elif event.is_action_pressed("ui_left"):
+		move(Constants.Directions.DIR_LEFT)
+	elif event.is_action_pressed("ui_right"):
+		move(Constants.Directions.DIR_RIGHT)
+	elif event.is_action_pressed("pick_up"):
+		## priority is talk to NPC, then try to pick up item, then interact with environment
+		var frontTile = Utils.getTileCoordsInDirection(currentTile, currentDirection)
+		var gikosOnTile = Rooms.getGikosOnTile(frontTile)
+		var gikoNPC = null
+		for giko in gikosOnTile:
+			if giko != self && giko.isNPC:
+				gikoNPC = giko
+				break
+		if gikoNPC != null:
+			talkToNPC.call_func(gikoNPC.NPCID)
+		else:
+			var pickedUp = tryPickUpItem()
+			if !pickedUp:
+				talkToEnvironment.call_func(frontTile)
 
 
 
 func setCharacterTexture(newCharacter) -> void:
-    var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[newCharacter] + "/"
+	var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[newCharacter] + "/"
 
-    var backStanding = load(newCharacterPath + Constants.GIKOANIM_BACK_STANDING + ".png")
-    var frontStanding = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
+	var backStanding = load(newCharacterPath + Constants.GIKOANIM_BACK_STANDING + ".png")
+	var frontStanding = load(newCharacterPath + Constants.GIKOANIM_FRONT_STANDING + ".png")
 
-    var backSitting = load(newCharacterPath + Constants.GIKOANIM_BACK_SITTING + ".png")
-    var frontSitting = load(newCharacterPath + Constants.GIKOANIM_FRONT_SITTING + ".png")
+	var backSitting = load(newCharacterPath + Constants.GIKOANIM_BACK_SITTING + ".png")
+	var frontSitting = load(newCharacterPath + Constants.GIKOANIM_FRONT_SITTING + ".png")
 
-    var backWalking1 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-1" + ".png")
-    var backWalking2 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-2" + ".png")
+	var backWalking1 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-1" + ".png")
+	var backWalking2 = load(newCharacterPath + Constants.GIKOANIM_BACK_WALKING + "-2" + ".png")
 
-    var frontWalking1 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-1" + ".png")
-    var frontWalking2 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-2" + ".png")
+	var frontWalking1 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-1" + ".png")
+	var frontWalking2 = load(newCharacterPath + Constants.GIKOANIM_FRONT_WALKING + "-2" + ".png")
 
-    if frames != null:
-        frames.free()
-    frames = SpriteFrames.new()
-    for anim in [
-        Constants.GIKOANIM_BACK_STANDING,
-        Constants.GIKOANIM_FRONT_STANDING,
-        Constants.GIKOANIM_BACK_WALKING,
-        Constants.GIKOANIM_FRONT_WALKING,
-        Constants.GIKOANIM_BACK_SITTING,
-        Constants.GIKOANIM_FRONT_SITTING
-    ]:
-        frames.add_animation(anim)
-        frames.set_animation_speed(anim, 16)
-        frames.set_animation_loop(anim, true)
+	if frames != null:
+		frames.free()
+	frames = SpriteFrames.new()
+	for anim in [
+		Constants.GIKOANIM_BACK_STANDING,
+		Constants.GIKOANIM_FRONT_STANDING,
+		Constants.GIKOANIM_BACK_WALKING,
+		Constants.GIKOANIM_FRONT_WALKING,
+		Constants.GIKOANIM_BACK_SITTING,
+		Constants.GIKOANIM_FRONT_SITTING
+	]:
+		frames.add_animation(anim)
+		frames.set_animation_speed(anim, 16)
+		frames.set_animation_loop(anim, true)
 
-    frames.add_frame(Constants.GIKOANIM_BACK_STANDING, backStanding)
-    frames.add_frame(Constants.GIKOANIM_FRONT_STANDING, frontStanding)
+	frames.add_frame(Constants.GIKOANIM_BACK_STANDING, backStanding)
+	frames.add_frame(Constants.GIKOANIM_FRONT_STANDING, frontStanding)
 
-    frames.add_frame(Constants.GIKOANIM_BACK_SITTING, backSitting)
-    frames.add_frame(Constants.GIKOANIM_FRONT_SITTING, frontSitting)
+	frames.add_frame(Constants.GIKOANIM_BACK_SITTING, backSitting)
+	frames.add_frame(Constants.GIKOANIM_FRONT_SITTING, frontSitting)
 
-    frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking1)
-    frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking2)
+	frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking1)
+	frames.add_frame(Constants.GIKOANIM_BACK_WALKING, backWalking2)
 
-    frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking1)
-    frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking2)
+	frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking1)
+	frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking2)

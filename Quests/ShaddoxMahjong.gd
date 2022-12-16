@@ -5,6 +5,7 @@ var quest_stages = {
 	{
 		"id": "initial",
 		"condition": "talkedToShaddox",
+        "entry": "The Mahjong Enthusiast has asked me to look for three missing tiles in his set: the Green, Red and White Dragons.",
 		"next": "startedLookingForTiles",
 		"completed": "shaddoxDialogueStillLooking"
 	},
@@ -12,6 +13,7 @@ var quest_stages = {
 	{
 		"id": "talkedToShaddox",
 		"condition": "pickedUpTiles",
+        "entry": "I've found some of the missing tiles that the Mahjong Enthusiast asked me to look for. I should bring them back to him..",
 		"next": "foundTiles",
 		"completed": "shaddoxDialogueFoundTiles"
 	},
@@ -19,6 +21,7 @@ var quest_stages = {
 	{
 		"id": "next",
 		"condition": "gaveShaddoxBackTiles",
+        "entry": "I've returned all the missing tiles to the Mahjong Enthusiast. He thanked me profusely!",
 		"next": "final",
 		"completed": "shaddoxThanksAgain"
 	},
