@@ -49,8 +49,17 @@ func cleanRoom() -> void:
 		n.queue_free()
 
 func spawnRandomGikos() -> void:
+	var spawnedGikos = []
 	for _i in range(Utils.rng.randi() % 10):
-		spawnRandomGiko()
+		if Utils.rng.randf() > 0.6:
+			spawnRandomGiko("Anonymous", Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
+		else:
+			var randomGiko = Constants.RANDOM_GIKOS[Utils.rng.randi() % Constants.RANDOM_GIKOS.size()]
+			if randomGiko["name"] in spawnedGikos:
+				spawnRandomGiko("Anonymous", Constants.Character.Giko)
+			else:
+				spawnedGikos.push_back(randomGiko["name"])
+				spawnRandomGiko(randomGiko["name"], randomGiko["character"])
 
 func changeRoom(target):
 	$"%zObjects".remove_child(playerGiko)
@@ -202,15 +211,7 @@ func spawnNPCGiko(NPCData : Dictionary) -> void:
 	newGiko.initializeNPC(NPCData)
 	$"%zObjects".add_child(newGiko)
 
-func spawnRandomGiko() -> void:
+func spawnRandomGiko(name : String, character : int) -> void:
 	var newGiko = gikoPrefab.instance()
-	newGiko.initializeRandom()
+	newGiko.initializeRandom(name, character)
 	$"%zObjects".add_child(newGiko)
-
-func _on_spawn_pressed():
-	#spawnGiko(Constants.Character.Giko)
-	spawnRandomGiko()
-
-
-func _on_giko_messaged():
-	totalMessages += 1

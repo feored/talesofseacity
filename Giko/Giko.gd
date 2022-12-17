@@ -43,9 +43,9 @@ var currentAction = Constants.Decisions.values() [randi() % Constants.Decisions.
 func _ready():
 	pass
 
-func initializeRandom() -> void:
-	.setCharacter(Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
-	.setName("Anonymous" if Utils.rng.randf() > 0.4 else Constants.GIKO_NAMES[Utils.rng.randi() % Constants.GIKO_NAMES.size()])
+func initializeRandom(name, character) -> void:
+	.setCharacter(character)
+	.setName(name)
 	var isAlreadySeated = true if Utils.rng.randf() > 0.4 else false
 
 	var foundSeat = false

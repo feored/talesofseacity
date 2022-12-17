@@ -172,105 +172,36 @@ const CHARACTERS = {
 	Character.Zonu : "zonu"
 }
 
+
+const RANDOM_GIKOS = [
+	{
+        "name" : "maf",
+        "character": Character.Zonu
+    },
+	{
+        "name" : "fkn",
+        "character": Character.Giko
+    },
+	{
+        "name" : "MONA",
+        "character": Character.Giko
+    },
+	{
+        "name" : "Bubs",
+        "character": Character.Uzukumari
+    },
+	{
+        "name" : "dinghy",
+        "character": Character.Furoshiki
+    },
+	{
+        "name" : "ChibiDenpachuLonely",
+        "character": Character.Furoshiki_Shobon
+    }
+]
 const GIKO_NAMES = [
 	"Anonymous",
-	"Bipedal Octopus",
-	"BigTF",
-	"maf",
-	"dinghy",
-	"iccanobif",
-	"ChibiDenpachu",
-	"E P H E M E R A L",
-	"lin",
-	"Kaiichi",
-	"Gaming",
-	"Kaomoji",
-	"◆feor.cMejo",
-	"bonbon",
-	"bonkerz",
-	"MONA",
-	"CATARP!",
-	"Moon",
-	"indigo",
-	"Tokiko",
-	"Arch",
-	"oboron",
-	"issue maker",
-	"JaLo",
-	"little_mac",
-	"puffy",
-	"NiceBird",
-	"mugi",
-	"mouse",
-	"Nameless",
-	"Nameless Rumia",
-	".orgman",
-	"PINTO",
-	"pyon",
-	"rifur",
-	"roris",
-	"rosuto",
-	"rosuphone",
-	"badpanda",
-	"lil badshit",
-	"uhh-kun",
-	"wen◆wenyeahVM2",
-	"Wooly",
-	"姜太K◆Hentai.kRI",
-	"Blank",
-	"andypeach",
-	"ssz",
-	"capey",
-	"piano",
-	"that fkn cat",
-	"tanami",
-	"BLANK8x6Po",
-	"killsushi",
-	"polilla",
-	"Knoxy",
-	"TOM_HANKS",
-	"Frost",
-	"ponzu",
-	"Red",
-	"Skyzzerz",
-	"Gunth",
-	"o_o",
-	"♥",
-	"Nerg-kun",
-	"unknown",
-	"rokoo",
-	"cate",
-	"Santana",
-	"American Fatty",
-	"K",
-	"wiiaboo",
-	"Shewi",
-	"bawkbawkBAWK",
-	"gizmogal",
-	"natachan",
-	"manman",
-	"etf",
-	"clair",
-	"Redmage",
-	"grobda",
-	"LSpark",
-	"Cocoron",
-	"balls",
-	"shotakid",
-	"xeffu",
-	"kia",
-	"zerostarchan",
-	"pineappleman",
-	"dqn",
-	"felixhoffman",
-	"fattytan",
-	"pablo",
-	"Dumpster Dave",
-	"dz",
-	"ET",
-	"meltingwax",
-	"Desuno",
-	"Caribear"
+	
 ]
 
 
@@ -336,7 +267,10 @@ const POSSIBLE_MESSAGES = [
 	"I'm having Jägerschnitzel for dinner.",
 	"Honestly, the FFVII Remake isn't that bad.",
 	"Gaming",
-	"(´・ω・`)"
+	"(´・ω・`)",
+    "THE FORCED INDENTATION OF CODE",
+    "Is the tofu in that supposed to be soft and slippery?",
+    "The last time I was in Japan was for C96."
 ]
 
 
