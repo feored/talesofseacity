@@ -245,7 +245,7 @@ const GIKO_NAMES = [
 	"K",
 	"wiiaboo",
 	"Shewi",
-	"Bawk",
+	"bawkbawkBAWK",
 	"gizmogal",
 	"natachan",
 	"manman",

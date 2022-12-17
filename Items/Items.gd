@@ -30,6 +30,15 @@ var ACTIVE_ITEMS = {
 			"world_scale": 0.25,
 			"rotation" : 0
 		}
+	],
+	"yoshinoya": [
+		{
+			"x": 10,
+			"y": 11,
+			"id":"gikoburger",
+			"world_scale":0.02,
+			"rotation":0
+		}
 	]
 }
 
@@ -93,7 +102,6 @@ var ITEMS = {
 
 var INVENTORY = [
 	"sunscreen",
-	"gikoburger"
 ]
 
 var ACTIVE_ENVIRONMENT = {

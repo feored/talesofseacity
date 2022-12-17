@@ -10,11 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "AnimatedSprite",
+"class": "BaseGiko",
+"language": "GDScript",
+"path": "res://Giko/BaseGiko.gd"
+}, {
+"base": "BaseGiko",
 "class": "Giko",
 "language": "GDScript",
 "path": "res://Giko/Giko.gd"
 }, {
-"base": "AnimatedSprite",
+"base": "BaseGiko",
 "class": "PlayerGiko",
 "language": "GDScript",
 "path": "res://Giko/PlayerGiko.gd"
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://Quests/Quest.gd"
 } ]
 _global_script_class_icons={
+"BaseGiko": "",
 "Giko": "",
 "PlayerGiko": "",
 "Quest": ""

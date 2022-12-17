@@ -15,7 +15,7 @@ func _ready():
 
 func addNotification(text : String) -> void:
     var newNotification = notificationPrefab.instance()
-    newNotification.init(text)
+    newNotification.init("[center]%s[/center]" % text)
     add_child(newNotification)
 
 func colorSpecial(text: String, color : String) -> String:

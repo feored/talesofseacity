@@ -1,7 +1,5 @@
 extends Node
 
-const Giko = preload("res://Giko/Giko.gd")
-
 var GRID_STEP_X : float = Constants.DEFAULT_GRID_STEP_X
 var GRID_STEP_Y : float = Constants.DEFAULT_GRID_STEP_Y
 
