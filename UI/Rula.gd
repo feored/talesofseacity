@@ -8,15 +8,19 @@ extends PanelContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for room in Rooms.ROOMS.keys():
-		$"%RulaRooms".add_item(Rooms.DISPLAY_NAMES[room])
+    var displayRooms = []
+    for room in Rooms.ROOMS.keys():
+        displayRooms.push_back(Rooms.DISPLAY_NAMES[room])
+    displayRooms.sort()
+    for displayRoom in displayRooms:
+        $"%RulaRooms".add_item(displayRoom)
 
 
 func show() -> void:
-	visible = true
+    visible = true
 
 func hide() -> void:
-	visible = false
+    visible = false
 
 func _on_CloseBtn_pressed():
-	visible = false
+    visible = false

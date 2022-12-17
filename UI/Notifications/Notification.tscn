@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Notifications/Notification.gd" type="Script" id=2]
+
+[node name="Notification" type="PanelContainer"]
+margin_right = 300.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 293.0
+margin_bottom = 33.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "Acquired [color=#ffc000]Giko Sando[/color]!"
+text = "Acquired Giko Sando!"
+fit_content_height = true

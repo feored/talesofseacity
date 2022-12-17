@@ -87,7 +87,7 @@ var ITEMS = {
 		"name" : "Bunnyseries comic",
 		"description" :"""A comic book called Bunnyseries, following the lives of anthropomorphic bunnies.
 		The description on the back says it's a 'slice of life 4koma' and that the target audience is depressed people with no friends.""",
-		"default_world_scale": 0.2
+		"default_world_scale": 0.03
 	}
 }
 
@@ -150,7 +150,7 @@ func addActiveItem(roomId: String, itemId: String, position: Vector2, scale: flo
 		"x" : position.x,
 		"y" : position.y,
 		"world_scale" : scale,
-		"rotation" : 0
+		"rotation" : rotation
 	}
 	if ACTIVE_ITEMS.has(roomId):
 		ACTIVE_ITEMS[roomId].push_back(newActiveItem)
@@ -162,11 +162,12 @@ func addActiveItem(roomId: String, itemId: String, position: Vector2, scale: flo
 func addItemInventory(itemId : String) -> void:
 	inventoryRefreshNeeded = true
 	INVENTORY.push_back(itemId)
+	get_node(Constants.NOTIFICATIONS_PATH).addItemNotification(itemId, true)
 
 func removeItemInventory(itemId : String) -> void:
 	inventoryRefreshNeeded = true
 	INVENTORY.erase(itemId)
-	
+	get_node(Constants.NOTIFICATIONS_PATH).addItemNotification(itemId, false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

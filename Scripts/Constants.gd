@@ -338,3 +338,7 @@ const POSSIBLE_MESSAGES = [
 	"Gaming",
 	"(´・ω・`)"
 ]
+
+
+
+const NOTIFICATIONS_PATH = "/root/Main/UI/Notifications"
