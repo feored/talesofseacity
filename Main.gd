@@ -26,7 +26,7 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("admin")
+	loadRoom("admin_st")
 	spawnRandomGikos()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
 	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
@@ -182,9 +182,10 @@ func talkToEnvironment(tile : Vector2) -> void:
 			dialogueManager.show()
 
 func spawnPlayerGiko(door: String) -> void:
-	var newGiko = playerGikoPrefab.instance()
-	newGiko.setCharacter(Constants.Character.Giko)
-	newGiko.setName("Anonymous")
+	var newGiko = gikoPrefab.instance()
+	newGiko.set_script(PlayerGiko)
+	newGiko.character = Constants.Character.Giko
+	newGiko.displayName = "Anonymous"
 
 	## prepare callbacks
 	newGiko.changeRoom = funcref(self, "changeRoom")
@@ -208,10 +209,12 @@ func spawnPlayerGiko(door: String) -> void:
 
 func spawnNPCGiko(NPCData : Dictionary) -> void:
 	var newGiko = gikoPrefab.instance()
+	newGiko.set_script(Giko)
 	newGiko.initializeNPC(NPCData)
 	$"%zObjects".add_child(newGiko)
 
 func spawnRandomGiko(name : String, character : int) -> void:
 	var newGiko = gikoPrefab.instance()
+	newGiko.set_script(Giko)
 	newGiko.initializeRandom(name, character)
 	$"%zObjects".add_child(newGiko)

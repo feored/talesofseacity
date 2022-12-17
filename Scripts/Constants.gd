@@ -36,8 +36,8 @@ enum LineType {
 }
 
 enum ConditionType {
-    Flag,
-    Item
+	Flag,
+	Item
 }
 
 
@@ -175,33 +175,553 @@ const CHARACTERS = {
 
 const RANDOM_GIKOS = [
 	{
-        "name" : "maf",
-        "character": Character.Zonu
-    },
+		"name" : "maf",
+		"character": Character.Zonu
+	},
 	{
-        "name" : "fkn",
-        "character": Character.Giko
-    },
+		"name" : "Kaomoji",
+		"character": Character.Salmon
+	},
 	{
-        "name" : "MONA",
-        "character": Character.Giko
-    },
+		"name" : "Gaming",
+		"character": Character.Dokuo
+	},
 	{
-        "name" : "Bubs",
-        "character": Character.Uzukumari
-    },
+		"name" : "Kaiichi",
+		"character": Character.Salmon
+	},
 	{
-        "name" : "dinghy",
-        "character": Character.Furoshiki
-    },
+		"name" : "lin",
+		"character": Character.Shii_Uniform
+	},
 	{
-        "name" : "ChibiDenpachuLonely",
-        "character": Character.Furoshiki_Shobon
-    }
-]
-const GIKO_NAMES = [
-	"Anonymous",
-	
+		"name" : "E P H E M E R A L",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "ChibiDenpachu",
+		"character": Character.Furoshiki_Shobon
+	},
+	{
+		"name" : "iccanobif",
+		"character": Character.Chotto_Toorimasu_Yo
+	},
+	{
+		"name" : "Bubz",
+		"character": Character.Uzukumari
+	},
+	{
+		"name" : "Bun",
+		"character": Character.Naito
+	},
+	{
+		"name" : "dinghy",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "PINTO◆PINYEXSs8w",
+		"character": Character.Himawari
+	},
+	{
+		"name" : "pyon",
+		"character": Character.Shii_Uniform
+	},
+	{
+		"name" : ".orgman",
+		"character": Character.Hikki
+	},
+	{
+		"name" : "Nameless Rumia",
+		"character": Character.Tinpopo
+	},
+	{
+		"name" : "Nameless",
+		"character": Character.Salmon
+	},
+	{
+		"name" : "mouse",
+		"character": Character.Shii
+	},
+	{
+		"name" : "mugi",
+		"character": Character.Furoshiki_Shobon
+	},
+	{
+		"name" : "NiceBird",
+		"character": Character.Salmon
+	},
+	{
+		"name" : "puffy",
+		"character": Character.Molgiko
+	},
+	{
+		"name" : "little_mac",
+		"character": Character.Baba_Shobon
+	},
+	{
+		"name" : "JaLo",
+		"character": Character.Giko
+	},
+	{
+		"name" : "issuemaker",
+		"character": Character.Nida
+	},
+	{
+		"name" : "oboron",
+		"character": Character.Baba_Shobon
+	},
+	{
+		"name" : "Tokiko",
+		"character": Character.Nida
+	},
+	{
+		"name" : "indigo",
+		"character": Character.Hotsuma_Giko
+	},
+	{
+		"name" : "archduke",
+		"character": Character.Nida
+	},
+	{
+		"name" : "Moon",
+		"character": Character.Shii_Hat
+	},
+	{
+		"name" : "CATARP!",
+		"character": Character.Sakura_Furoshiki_Shii
+	},
+	{
+		"name" : "MONA",
+		"character": Character.Giko
+	},
+	{
+		"name" : "bonbon",
+		"character": Character.Furoshiki_Shobon
+	},
+	{
+		"name" : "◆feor.cMejo",
+		"character": Character.Golden_Furoshiki
+	},
+	{
+		"name" : "Skyzzerz",
+		"character": Character.Tinpopo
+	},
+	{
+		"name" : "unknown",
+		"character": Character.Hotsuma_Giko
+	},
+	{
+		"name" : "Nerg-kun",
+		"character": Character.Giko_Hat
+	},
+	{
+		"name" : "Gunth",
+		"character": Character.Giko_Hat
+	},
+	{
+		"name" : "Red",
+		"character": Character.Giko_Hat
+	},
+	{
+		"name" : "♥",
+		"character": Character.Shii
+	},
+	{
+		"name" : "o_o",
+		"character": Character.Salmon
+	},
+	{
+		"name" : "ponzu",
+		"character": Character.Shii
+	},
+	{
+		"name" : "Frost",
+		"character": Character.Giko
+	},
+	{
+		"name" : "TOM_HANKS",
+		"character": Character.Giko_Hat
+	},
+	{
+		"name" : "Knoxy",
+		"character": Character.Giko
+	},
+	{
+		"name" : "polilla",
+		"character": Character.Himawari
+	},
+	{
+		"name" : "killsushi",
+		"character": Character.NaitoApple
+	},
+	{
+		"name" : "◆BLANK8x6Po",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "tanami",
+		"character": Character.FunkyNaito
+	},
+	{
+		"name" : "that fkn cat",
+		"character": Character.Giko
+	},
+	{
+		"name" : "piano",
+		"character": Character.Naito
+	},
+	{
+		"name" : "capey",
+		"character": Character.Giko
+	},
+	{
+		"name" : "ssz",
+		"character": Character.Naito
+	},
+	{
+		"name" : "andypeach",
+		"character": Character.Shii
+	},
+	{
+		"name" : "Blank",
+		"character": Character.Tikan_Giko
+	},
+	{
+		"name" : "姜太K◆Hentai.kRI",
+		"character": Character.Salmon
+	},
+	{
+		"name" : "Wooly",
+		"character": Character.Shobon
+	},
+	{
+		"name" : "wen◆wenyeahVM2",
+		"character": Character.Shii_Hat
+	},
+	{
+		"name" : "uhh-kun",
+		"character": Character.Shobon
+	},
+	{
+		"name" : "lil badshit",
+		"character": Character.Shobon
+	},
+	{
+		"name" : "badpanda",
+		"character": Character.Panda_Naito
+	},
+	{
+		"name" : "rosuphone",
+		"character": Character.Tabako_Dokuo
+	},
+	{
+		"name" : "rosuto",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "roris",
+		"character": Character.Uzukumari
+	},
+	{
+		"name" : "rifur",
+		"character": Character.Hotsuma_Giko
+	},
+	{
+		"name" : "Big-TF",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "Bipedal Octopus",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Redmage",
+		"character": Character.Shii_Hat
+	},
+	{
+		"name" : "Grobda",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "clair",
+		"character": Character.Naito
+	},
+	{
+		"name" : "ETF",
+		"character": Character.Giko
+	},
+	{
+		"name" : "manman",
+		"character": Character.Naito
+	},
+	{
+		"name" : "natachan",
+		"character": Character.Shii_Hat
+	},
+	{
+		"name" : "gizmogal",
+		"character": Character.Shii
+	},
+	{
+		"name" : "bawkbawkBAWK",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Shewi",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "wiiaboo",
+		"character": Character.Giko_Hat
+	},
+	{
+		"name" : "K",
+		"character": Character.Giko
+	},
+	{
+		"name" : "American Fatty",
+		"character": Character.Giko_Hat
+	},
+	{
+		"name" : "Santana",
+		"character": Character.Hikki
+	},
+	{
+		"name" : "cate",
+		"character": Character.Tabako_Dokuo
+	},
+	{
+		"name" : "rokoo",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "LSpark",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Cocoron",
+		"character": Character.Shii
+	},
+	{
+		"name" : "balls",
+		"character": Character.Naito
+	},
+	{
+		"name" : "shotakid",
+		"character": Character.Shobon
+	},
+	{
+		"name" : "xeffu",
+		"character": Character.Hotsuma_Giko
+	},
+	{
+		"name" : "Kya!",
+		"character": Character.Shii
+	},
+	{
+		"name" : "zerostarchan",
+		"character": Character.Sakura_Furoshiki_Shii
+	},
+	{
+		"name" : "pineappleman",
+		"character": Character.Naito
+	},
+	{
+		"name" : "dqn",
+		"character": Character.Giko
+	},
+	{
+		"name" : "felixhoffman",
+		"character": Character.Giko
+	},
+	{
+		"name" : "fattytan",
+		"character": Character.Hungry_Giko
+	},
+	{
+		"name" : "pablo",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Caribear",
+		"character": Character.Panda_Naito
+	},
+	{
+		"name" : "Desuno",
+		"character": Character.Giko
+	},
+	{
+		"name" : "meltingwax",
+		"character": Character.Shii_Uniform
+	},
+	{
+		"name" : "E.T.",
+		"character": Character.Hotsuma_Giko
+	},
+	{
+		"name" : "dz",
+		"character": Character.Naito
+	},
+	{
+		"name" : "Dumpster Dave",
+		"character": Character.Giko
+	},
+	{
+		"name" : "roguyen",
+		"character": Character.Shii
+	},
+	{
+		"name" : "◆SON/uKUBu2",
+		"character": Character.Shobon
+	},
+	{
+		"name" : "LONGCAT",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Rufio",
+		"character": Character.Giko
+	},
+	{
+		"name" : "otacon_",
+		"character": Character.Naito
+	},
+	{
+		"name" : "Breadspace",
+		"character": Character.Giko
+	},
+	{
+		"name" : "cF",
+		"character": Character.Giko
+	},
+	{
+		"name" : "AKIBAjBrak",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Sparky4",
+		"character": Character.Giko
+	},
+	{
+		"name" : "◆Hide/fvE.2",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "◆EBI/44onYM",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "島民◆MVKPd8lXxA",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name": "鬼大◆raWgvxkpl2",
+		"character": Character.Furoshiki_Shobon
+	},
+	{
+		"name" : "E. Superstructure",
+		"character": Character.Naito
+	},
+	{
+		"name" : "Phy",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "Mr. B",
+		"character": Character.Giko
+	},
+	{
+		"name" : "THE DR IS A FAG",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "Das Igloo",
+		"character": Character.Naito
+	},
+	{
+		"name" : "Enigma",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "||||",
+		"character": Character.Giko
+	},
+	{
+		"name" : "aibo",
+		"character": Character.Giko
+	},
+	{
+		"name" : "oxba",
+		"character": Character.Furoshiki
+	},
+	{
+		"name" : "Rar",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Van Giko",
+		"character": Character.Shii_Pianica
+	},
+	{
+		"name" : "Uru",
+		"character": Character.Giko
+	},
+	{
+		"name" : "NeoZero",
+		"character": Character.Giko
+	},
+	{
+		"name" : "grimmy",
+		"character": Character.Shii
+	},
+	{
+		"name" : "afro-tan",
+		"character": Character.Dark_Naito_Walking
+	},
+	{
+		"name" : "markavu",
+		"character": Character.Dark_Naito_Walking
+	},
+	{
+		"name" : "maffew",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Y-W-S",
+		"character": Character.Giko
+	},
+	{
+		"name" : "vipper",
+		"character": Character.Naito
+	},
+	{
+		"name" : "muryokU",
+		"character": Character.Salmon
+	},
+	{
+		"name" : "Macbeth",
+		"character": Character.Hikki
+	},
+	{
+		"name" : "Shaddox",
+		"character": Character.Hentai_Giko
+	},
+	{
+		"name" : "MEOW",
+		"character": Character.Shii
+	},
+	{
+		"name" : "HARBL DESU",
+		"character": Character.Shii
+	},
+	{
+		"name" : "42GeeFUN42",
+		"character": Character.Giko
+	},
+	{
+		"name" : "Sarahsuke",
+		"character": Character.Shii
+	}
 ]
 
 
@@ -268,9 +788,9 @@ const POSSIBLE_MESSAGES = [
 	"Honestly, the FFVII Remake isn't that bad.",
 	"Gaming",
 	"(´・ω・`)",
-    "THE FORCED INDENTATION OF CODE",
-    "Is the tofu in that supposed to be soft and slippery?",
-    "The last time I was in Japan was for C96."
+	"THE FORCED INDENTATION OF CODE",
+	"Is the tofu in that supposed to be soft and slippery?",
+	"The last time I was in Japan was for C96."
 ]
 
 

@@ -44,8 +44,8 @@ func _ready():
 	pass
 
 func initializeRandom(name, character) -> void:
-	.setCharacter(character)
-	.setName(name)
+	self.character = character
+	self.displayName = name
 	var isAlreadySeated = true if Utils.rng.randf() > 0.4 else false
 
 	var foundSeat = false
@@ -69,8 +69,8 @@ func initializeNPC(activeNPCData) -> void:
 	NPCID = activeNPCData["id"]
 
 	var NPCData = NPCs.NPCs[NPCID]
-	.setCharacter(NPCData["character"])
-	.setName(NPCData["name"])
+	self.character = NPCData["character"]
+	self.displayName = NPCData["name"]
 
 	var startingTile = Vector2(float(activeNPCData["x"]), float(activeNPCData["y"]))
 	.place(startingTile, activeNPCData["direction"])

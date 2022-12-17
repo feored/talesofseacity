@@ -18,5 +18,5 @@ margin_bottom = 29.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]Acquired [color=#ffc000]Giko Sando[/color]![/center]"
-text = "Acquired Giko Sando!"
+text = "[center]Acquired [color=#ffc000]Giko Sando[/color]![/center]"
 fit_content_height = true

@@ -23,6 +23,10 @@ var isNPC : bool        = false
 
 var currentMessage: Node
 
+func _ready():
+	setCharacter(character)
+	setName(displayName)
+	reanimate()
 
 func setCharacter(newChar: int) -> void:
 	character = newChar
@@ -30,13 +34,14 @@ func setCharacter(newChar: int) -> void:
 
 
 func setName(gikoName: String) -> void:
-	displayName = gikoName
-	$Control/ColorRect/Name.text = gikoName
-	$Control/ColorRect/Name.rect_size = $Control/ColorRect/Name.get_font("font").get_string_size($Control/ColorRect/Name.text)
-	$Control/ColorRect.rect_size = $Control/ColorRect/Name.rect_size + Vector2(10,0)
-	#$Control/ColorRect.set_anchors_and_margins_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE)
-	$Control/ColorRect.rect_position = (Vector2((-$Control/ColorRect.rect_size.x/2), 0))
-	$Control/ColorRect/Name.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
+	if "◆" in displayName:
+		var nameSplit = displayName.split("◆")
+		$"%Name".text = nameSplit[0]
+		$"%TripSymbol".visible = true
+		$"%TripCode".text = nameSplit[1]
+		$"%TripCode".visible = true
+	else:
+		$"%Name".text = displayName
 
 func checkGhost() -> void:
 	if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:
@@ -161,7 +166,6 @@ func place(startingTile: Vector2, direction: int) -> void:
 	currentTilePos = Utils.getTilePosAtCoords(currentTile)
 	position = Utils.getTilePosAtCoords(currentTile)
 	currentDirection = direction
-	reanimate()
 	Rooms.updateGikoPosition(self, startingTile)
 
 func message(text) -> void:
