@@ -7,19 +7,17 @@ var journalEntryPrefab = preload("res://UI/Journal/JournalEntry.tscn")
 func hide() -> void:
 	visible = false
 
-func showJournalEntry(entry : Dictionary) -> void:
+func addJournalEntry(questTitle: String, questEntries : Array) -> void:
 	var newJournalEntry = journalEntryPrefab.instance()
-	newJournalEntry.setEntryData(entry["title"], entry["entry"])
-	$"%JournalEntries".add_child(newJournalEntry)
-	$"%JournalEntries".move_child(newJournalEntry, 0)
+	newJournalEntry.setEntryData(questTitle, questEntries)
+	$"%Quests".add_child(newJournalEntry)
 
 func show() -> void:
 	if Quests.journalRefreshNeeded:
-		for entry in $"%JournalEntries".get_children():
-			$"%JournalEntries".remove_child(entry)
-			entry.queue_free()
-		for entry in Quests.JOURNAL:
-			showJournalEntry(entry)
+		for quest in $"%Quests".get_children():
+			quest.queue_free()
+		for questName in Quests.JOURNAL:
+			addJournalEntry(questName, Quests.JOURNAL[questName])
 	visible = true
 
 func _on_CloseBtn_pressed():

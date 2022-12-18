@@ -70,8 +70,13 @@ func checkDoors() -> void:
 				&& currentDoor["y"] == self.currentTile.y
 			):
 				## we are on a door
-				changeRoom.call_func(currentDoor["target"])
-				self.destroyMessage()
+				if (currentDoor["target"]["roomId"] == Rooms.currentRoomId):
+					var newDoor = Rooms.currentRoomData["doors"][currentDoor["target"]["doorId"]]
+					.place(Vector2(newDoor["x"], newDoor["y"]), Utils.roomDirectionToEnum(newDoor["direction"]))
+					.reanimate()
+				else:
+					changeRoom.call_func(currentDoor["target"])
+					self.destroyMessage()
 				break
 
 

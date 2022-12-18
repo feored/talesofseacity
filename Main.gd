@@ -29,12 +29,13 @@ func _ready():
 	loadRoom("admin_st")
 	spawnRandomGikos()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
+	
+
 	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
 	# 	"Welcome to Giko Story!",
 	# 	"This server is an amalgamation of the international and Japanese servers.",
 	# 	"Go explore, talk to everyone, pick up items and have fun!"
 	# ]), "")
-	# dialogueManager.setAuthor("")
 	# dialogueManager.show()
 
 
@@ -75,7 +76,7 @@ func changeRoom(target):
 		),
 		Utils.roomDirectionToEnum(Rooms.currentRoomData["doors"][target["doorId"]]["direction"])
 	)
-	#spawnPlayerGiko(target["doorId"])
+
 
 
 
@@ -94,6 +95,7 @@ func loadRoom(roomName: String) -> void:
 	loadObjects()
 	loadItems()
 	loadNPCs()
+	$"%Grid".draw_grid()
 	return
 
 
@@ -130,10 +132,7 @@ func loadItem(item : Dictionary) -> void:
 	itemSprite.scale = Vector2(item["world_scale"], item["world_scale"])
 	itemSprite.rotation_degrees = item["rotation"]
 	$"%zObjects".add_child(itemSprite)
-	#var roomOffset: Vector2 = Rooms.getCurrentRoomOffset()
-	#objectSprite.position = Vector2(
-	#	roomOffset.x + item["x"], roomOffset.y + object["offset"]["y"]
-	#)
+	
 	var coords = Vector2(item["x"], item["y"])
 	itemSprite.position = Utils.getTilePosAtCoords(coords)
 	itemSprite.z_index = itemSprite.position.y

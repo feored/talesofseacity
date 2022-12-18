@@ -383,15 +383,16 @@ theme = ExtResource( 4 )
 script = ExtResource( 20 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Journal"]
-margin_top = 5.0
-margin_right = 720.0
-margin_bottom = 475.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 719.0
+margin_bottom = 479.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="UI/Journal/VBoxContainer"]
-margin_right = 720.0
+margin_right = 718.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 10 )
@@ -432,16 +433,16 @@ expand_icon = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Journal/VBoxContainer"]
 margin_top = 54.0
-margin_right = 720.0
-margin_bottom = 470.0
+margin_right = 718.0
+margin_bottom = 478.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Journal/VBoxContainer/ScrollContainer"]
-margin_right = 720.0
-margin_bottom = 416.0
+margin_right = 718.0
+margin_bottom = 424.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -450,12 +451,12 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="JournalEntries" type="VBoxContainer" parent="UI/Journal/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="Quests" type="VBoxContainer" parent="UI/Journal/VBoxContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 710.0
-margin_bottom = 406.0
+margin_right = 708.0
+margin_bottom = 414.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 25

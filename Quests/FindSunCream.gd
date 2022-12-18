@@ -54,7 +54,7 @@ func setup() -> void:
             {
                 "id": "TanningShii3",
                 "type": Constants.LineType.Text,
-                "text" : "You wouldn't happen to have any sun cream on you?",
+                "text" : "You wouldn't happen to have any sunscreen on you?",
                 "flags": [{"flag": "qTalkedToTanningShii", "type": "set", "value": true}]
             }
         }

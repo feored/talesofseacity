@@ -11,7 +11,7 @@ const NULL_VECTOR : Vector2 = Vector2(-999, -999)
 
 const ACTION_TIMEOUT = 0.25
 
-const GIKO_MOVESPEED = 85
+var GIKO_MOVESPEED = 85
 
 const GIKOANIM_BACK_STANDING = "back-standing"
 const GIKOANIM_BACK_WALKING = "back-walking"
@@ -231,7 +231,7 @@ const RANDOM_GIKOS = [
 		"character": Character.Hikki
 	},
 	{
-		"name" : "Nameless Rumia",
+		"name" : "Nameless◆RUMIA.l2hM",
 		"character": Character.Tinpopo
 	},
 	{
@@ -320,11 +320,15 @@ const RANDOM_GIKOS = [
 	},
 	{
 		"name" : "Red",
-		"character": Character.Giko_Hat
+		"character": Character.Shii_Pianica
 	},
 	{
 		"name" : "♥",
 		"character": Character.Shii
+	},
+	{
+		"name" : "Zzazzachu",
+		"character": Character.Shii_Pianica
 	},
 	{
 		"name" : "o_o",
@@ -415,7 +419,7 @@ const RANDOM_GIKOS = [
 		"character": Character.Tabako_Dokuo
 	},
 	{
-		"name" : "rosuto",
+		"name" : "Rosuto",
 		"character": Character.Furoshiki
 	},
 	{
@@ -423,7 +427,7 @@ const RANDOM_GIKOS = [
 		"character": Character.Uzukumari
 	},
 	{
-		"name" : "rifur",
+		"name" : "Rifur",
 		"character": Character.Hotsuma_Giko
 	},
 	{
@@ -721,6 +725,14 @@ const RANDOM_GIKOS = [
 	{
 		"name" : "Sarahsuke",
 		"character": Character.Shii
+	},
+	{
+		"name": "◆N/oGYAHAHA",
+		"character": Character.Giko
+	},
+	{
+		"name": "Kouko",
+		"character": Character.Shii_Uniform
 	}
 ]
 
@@ -790,7 +802,9 @@ const POSSIBLE_MESSAGES = [
 	"(´・ω・`)",
 	"THE FORCED INDENTATION OF CODE",
 	"Is the tofu in that supposed to be soft and slippery?",
-	"The last time I was in Japan was for C96."
+	"The last time I was in Japan was for C96.",
+	"hows it goin",
+	"Hold shit for focused movement."
 ]
 
 

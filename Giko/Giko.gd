@@ -14,6 +14,7 @@ var NPCID : String = ""
 var isFollowing = false
 var isTargeting = false
 var targetTile : Vector2
+var followTarget : Object
 
 var timeToNextDecision = 0
 var timeSinceDecision = 0
@@ -104,7 +105,7 @@ func findEmptySeat(nearest = false) -> Vector2:
 		return emptySeats[Utils.rng.randi() % emptySeats.size()]
 
 func findPathToTile(destination : Vector2) -> Array:
-	##A*
+	##A* pathfinding
 	var openTiles = {}
 
 	var cameFrom = {}
@@ -168,13 +169,34 @@ func faceDirection(newDirection : int) -> void:
 	self.timeSinceAction = 0
 	.reanimate()
 
+func startFollowing(giko : Object) -> void:
+	self.isFollowing = true
+	followTarget = giko
+
+func stopFollowing() -> void:
+	self.isFollowing = false
+
+func target(tile: Vector2):
+	self.isTargeting = true
+	targetTile = tile
+
 func follow() -> void:
-	pass
+	var pathToTarget = findPathToTile(followTarget.currentTile)
+
+	if (pathToTarget.size() < 1):
+		#self.isFollowing = false
+		return
+
+	var firstTile = pathToTarget[0]
+	var firstTileDirection = Vector2(firstTile.x - self.currentTile.x, firstTile.y - self.currentTile.y)
+	var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+	.move(directionToTake)
 
 func goToTarget() -> void:
 	var pathToTarget = findPathToTile(targetTile)
 
 	if (pathToTarget.size() < 1):
+		self.isTargeting = false
 		return
 
 	var firstTile = pathToTarget[0]
@@ -185,13 +207,14 @@ func goToTarget() -> void:
 func takeDecision() -> void:
 	if !self.isMoving && timeSinceDecision > timeToNextDecision:
 		self.destroyMessage()
-		if self.isNPC:
-			if isFollowing:
-				follow()
-			elif isTargeting:
-				goToTarget()
-			else:
-				idle()
+		if isFollowing:
+			follow()
+			return
+		elif isTargeting:
+			goToTarget()
+			return
+		elif self.isNPC:
+			idle()
 			return
 		match currentAction:
 			Constants.Decisions.IDLE:

@@ -310,7 +310,68 @@ var NPCs = {
 		"name": "Scared Shobon",
 		"character": Constants.Character.Shobon,
 		"lines" : []
-	}
+	},
+    "outOfShapeGiko": 
+    {
+        "id": "outOfShapeGiko",
+        "name": "Out of Shape Giko",
+		"character": Constants.Character.Hungry_Giko,
+		"lines" : [
+            Utils.makeSimpleDialogue(["Huff...huff...just catching my breath."]),
+            Utils.makeSimpleDialogue(["Why are these stairs so steep?", "Even the perspective in this room is completely different."]),
+        ]
+    },
+    "Philosopher" : 
+    {
+        "id": "Philosopher",
+        "name": "Philosopher",
+        "character": Constants.Character.FunkyNaito,
+        "lines" : [
+            Utils.makeSimpleDialogue(["When the giko stares into the abyss, the abyss stares back into the giko."]),
+            Utils.makeSimpleDialogue(["Gikos are like hedgehogs looking to huddle together for warmth on a cold day around an interesting stream.",
+            "As they begin to prick one another with their quills, they are obliged to disperse."])
+        ]
+    },
+    "SwimmingSalmon" :
+    {
+        "id": "SwimmingSalmon",
+        "name": "Confused Salmon",
+        "character": Constants.Character.Salmon,
+        "lines": [Utils.makeSimpleDialogue(["Blub blub."])]
+    },
+    "SwimmingIka" :
+    {
+        "id": "SwimmingIka",
+        "name": "Ika",
+        "character": Constants.Character.Ika,
+        "lines": [Utils.makeSimpleDialogue(["Why can't I go any further than this?", "I want to go back to my people..."])]
+    },
+    "Commuter":
+    {
+        "id": "Commuter",
+        "name": "Commuter",
+        "character": Constants.Character.Tabako_Dokuo,
+        "lines" : [Utils.makeSimpleDialogue(["Getting around Sea City is a breeze since they added this train.", "Well, it will be when they add more stations, anyway."])]
+    },
+    "NewcomerGiko":
+    {
+        "id": "NewcomerGiko",
+        "name": "Lost Newcomer",
+        "character": Constants.Character.Giko,
+        "lines": [
+            Utils.makeSimpleDialogue(["What is this place?"]),
+            Utils.makeSimpleDialogue(["I think I missed the button to register an account."]),
+            Utils.makeSimpleDialogue(["How do I erase my chat bubble?"])
+        ]
+    },
+    "Scientist":
+    {
+        "id": "Scientist",
+        "name": "Scientist",
+        "character": Constants.Character.Tikan_Giko,
+        "lines": []
+    }
+
 
 }
 
@@ -328,6 +389,17 @@ var ACTIVE_NPCs = {
 			"lines": []
 		}
 	},
+    "admin_st":
+    {
+        "NewcomerGiko":
+        {
+            "id": "NewcomerGiko",
+            "direction": Constants.Directions.DIR_UP,
+            "x": 1,
+            "y": 0,
+            "lines": []
+        }
+    },
 	"bar":
 	{
 		"zzazzachu":
@@ -488,6 +560,14 @@ var ACTIVE_NPCs = {
 			"y": 6,
 			"lines" : []
 		},
+        "Commuter":
+        {
+            "id":"Commuter",
+            "direction": Constants.Directions.DIR_RIGHT,
+            "x": 0,
+            "y": 10,
+            "lines": []
+        }
 	},
 	"seashore" : 
 	{
@@ -498,7 +578,23 @@ var ACTIVE_NPCs = {
 			"x": 2,
 			"y": 9,
 			"lines" : []
-		}
+		},
+        "SwimmingSalmon":
+        {
+            "id": "SwimmingSalmon",
+            "direction" : Constants.Directions.DIR_DOWN,
+            "x": 0,
+            "y": 9,
+            "lines" : []
+        },
+        "SwimmingIka":
+        {
+            "id":"SwimmingIka",
+            "direction": Constants.Directions.DIR_LEFT,
+            "x":0,
+            "y":4,
+            "lines":[]
+        }
 	},
 	"yatai" : 
 	{
@@ -588,7 +684,38 @@ var ACTIVE_NPCs = {
 			"direction":  Constants.Directions.DIR_DOWN,
 			"lines" : []
 		}
-	}
+	},
+    "kaidan" : {
+        "outOfShapeGiko" :
+        {
+            "id": "outOfShapeGiko",
+			"x": 0,
+			"y": 5,
+			"direction":  Constants.Directions.DIR_UP,
+			"lines" : []
+        }
+    },
+    "silo" : 
+    {
+        "Philosopher":{
+            "id": "Philosopher",
+            "x": 8,
+            "y": 10,
+            "direction": Constants.Directions.DIR_UP,
+            "lines": []
+        }
+    },
+    "school":
+    {
+        "Scientist":
+        {
+            "id": "Scientist",
+            "x": 0,
+            "y": 2,
+            "direction": Constants.Directions.DIR_LEFT,
+            "lines": []
+        }
+    }
 }
 
 

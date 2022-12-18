@@ -97,6 +97,14 @@ var ITEMS = {
 		"description" :"""A comic book called Bunnyseries, following the lives of anthropomorphic bunnies.
 		The description on the back says it's a 'slice of life 4koma' and that the target audience is depressed people with no friends.""",
 		"default_world_scale": 0.03
+	},
+	"data_chip" : {
+		"url" : "res://Items/Images/bunnyseries.jpg",
+		"id" : "data_chip",
+		"name" : "Data Chip",
+		"description" :"""A comic book called Bunnyseries, following the lives of anthropomorphic bunnies.
+		The description on the back says it's a 'slice of life 4koma' and that the target audience is depressed people with no friends.""",
+		"default_world_scale": 0.03
 	}
 }
 

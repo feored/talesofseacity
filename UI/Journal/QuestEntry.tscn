@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=1]
+
+[node name="QuestEntry" type="Label"]
+unique_name_in_owner = true
+margin_top = 40.0
+margin_right = 700.0
+margin_bottom = 93.0
+rect_min_size = Vector2( 0, 20 )
+custom_colors/font_color = Color( 0.768627, 0.768627, 0.768627, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "I saved the crazy boon from the trash bin and he thanked me with a can of Dr Pepper."
+valign = 1
+autowrap = true

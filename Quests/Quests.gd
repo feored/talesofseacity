@@ -6,6 +6,7 @@ var feedThePoorQuest = preload("res://Quests/FeedThePoor.gd")
 var findSunCreamQuest = preload("res://Quests/FindSunCream.gd")
 var bringHostessSushiQuest = preload("res://Quests/BringHostessSushi.gd")
 var schoolyardDogsQuest = preload("res://Quests/SchoolyardDogs.gd")
+var scienceExperimentQuest = preload("res://Quests/ScienceExperiment.gd")
 
 var currentQuestIndex = 0
 
@@ -30,7 +31,9 @@ var QUEST_FLAGS = {
     "qSushiNewChef" : false,
     ##SchoolyardDogs
     "qSetSchoolyardTrap" : false,
-    "qFinishedSchoolyardDogs" : false
+    "qFinishedSchoolyardDogs" : false,
+    ## science experiment
+    "qTalkedToScientist" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -67,12 +70,18 @@ var QUESTS = [
         "script": schoolyardDogsQuest,
         "title" : "Schoolyard Bullies",
         "stage" : "initial"
+    },
+    {
+        "id": "Science_Experiment",
+        "script": scienceExperimentQuest,
+        "title": "The Experiment",
+        "stage": "initial"
     }
 ]
 
-var JOURNAL = [
-
-]
+var JOURNAL = {
+    
+}
 
 var journalRefreshNeeded = false
 
@@ -104,7 +113,10 @@ func checkConditions():
         currentQuestIndex += 1
 
 func addJournalEntry(questTitle : String, questEntry: String) -> void:
-    JOURNAL.push_back({"title" : questTitle, "entry": questEntry})
+    if JOURNAL.has(questTitle):
+        JOURNAL[questTitle].push_back(questEntry)
+    else:
+        JOURNAL[questTitle] = [questEntry]
     journalRefreshNeeded = true
     get_node(Constants.NOTIFICATIONS_PATH).addNotification("Journal updated.")
 
