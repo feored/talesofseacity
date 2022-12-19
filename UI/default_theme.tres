@@ -1,25 +1,53 @@
-[gd_resource type="Theme" load_steps=5 format=2]
+[gd_resource type="Theme" load_steps=7 format=2]
 
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=2]
-[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=3]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=3]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
+[sub_resource type="DynamicFont" id=5]
+outline_color = Color( 0.0313726, 0.0313726, 0.0313726, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.635294, 0.635294, 0.635294, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.4, 0.4, 0.4, 1 )
+border_width_bottom = 5
+border_color = Color( 0.172549, 0.172549, 0.172549, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 corner_detail = 5
-shadow_color = Color( 0, 0, 0, 0.388235 )
+shadow_color = Color( 0, 0, 0, 0.184314 )
+shadow_size = 5
+shadow_offset = Vector2( 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.223529, 0.223529, 0.223529, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 5
+border_color = Color( 0.172549, 0.172549, 0.172549, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+shadow_color = Color( 0, 0, 0, 0.184314 )
+shadow_size = 5
 shadow_offset = Vector2( 1, 1 )
 
 [resource]
 default_font = ExtResource( 1 )
-Button/colors/font_color = Color( 1, 1, 1, 1 )
-Button/fonts/font = ExtResource( 3 )
-Button/styles/hover = SubResource( 1 )
+Button/colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+Button/fonts/font = SubResource( 5 )
+Button/styles/hover = SubResource( 3 )
 Button/styles/normal = ExtResource( 2 )
+Button/styles/pressed = SubResource( 4 )
 Panel/styles/panel = ExtResource( 2 )
 PanelContainer/styles/panel = ExtResource( 2 )

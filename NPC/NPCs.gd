@@ -370,6 +370,24 @@ var NPCs = {
         "name": "Scientist",
         "character": Constants.Character.Tikan_Giko,
         "lines": []
+    },
+    "ShogiPlayer":
+    {
+        "id": "ShogiPlayer",
+        "name": "Pointy Nosed Shogi Player",
+        "character": Constants.Character.Hotsuma_Giko,
+        "lines": [
+            Utils.makeSimpleDialogue(["I hate it! I hate it! [jump]くやしい![/jump]"])
+        ]
+    },
+    "ShogiPlayer2":
+    {
+        "id": "ShogiPlayer2",
+        "name": "Immature Shogi Player",
+        "character": Constants.Character.Dokuo,
+        "lines": [
+            Utils.makeSimpleDialogue(["My real life hasn't started yet. The real me is still asleep, so that's why I'm losing."])
+        ]
     }
 
 
@@ -398,7 +416,23 @@ var ACTIVE_NPCs = {
             "x": 1,
             "y": 0,
             "lines": []
-        }
+        },
+        "ShogiPlayer":
+        {
+            "id": "ShogiPlayer",
+            "direction": Constants.Directions.DIR_UP,
+            "x": 5,
+            "y": 6,
+            "lines": []
+        },
+        "ShogiPlayer2":
+        {
+            "id": "ShogiPlayer2",
+            "direction": Constants.Directions.DIR_DOWN,
+            "x": 5,
+            "y": 8,
+            "lines": []
+        },
     },
 	"bar":
 	{

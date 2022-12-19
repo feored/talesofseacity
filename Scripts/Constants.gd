@@ -20,9 +20,9 @@ const GIKOANIM_FRONT_WALKING = "front-walking"
 const GIKOANIM_FRONT_SITTING = "front-sitting"
 const GIKOANIM_BACK_SITTING = "back-sitting"
 
-const CAMERA_MAX_X = 3840
+const CAMERA_MAX_X = 720
 const CAMERA_MIN_X = -CAMERA_MAX_X
-const CAMERA_MAX_Y = 2160
+const CAMERA_MAX_Y = 480
 const CAMERA_MIN_Y = -CAMERA_MAX_Y
 
 const TIME_TO_GHOST = 30.0
@@ -544,7 +544,7 @@ const RANDOM_GIKOS = [
 	},
 	{
 		"name" : "pablo",
-		"character": Character.Giko
+		"character": Character.Hentai_Giko
 	},
 	{
 		"name" : "Caribear",
@@ -595,7 +595,7 @@ const RANDOM_GIKOS = [
 		"character": Character.Giko
 	},
 	{
-		"name" : "cF",
+		"name" : "cF◆GLoXq//UpE",
 		"character": Character.Giko
 	},
 	{
@@ -632,7 +632,7 @@ const RANDOM_GIKOS = [
 	},
 	{
 		"name" : "Mr. B",
-		"character": Character.Giko
+		"character": Character.Giko_Hat
 	},
 	{
 		"name" : "THE DR IS A FAG",
@@ -733,6 +733,10 @@ const RANDOM_GIKOS = [
 	{
 		"name": "Kouko",
 		"character": Character.Shii_Uniform
+	},
+	{
+		"name": "ケンコンコ数◆kEnKoNko1I",
+		"character": Character.Salmon
 	}
 ]
 
@@ -804,7 +808,8 @@ const POSSIBLE_MESSAGES = [
 	"Is the tofu in that supposed to be soft and slippery?",
 	"The last time I was in Japan was for C96.",
 	"hows it goin",
-	"Hold shit for focused movement."
+	"Hold shit for focused movement.",
+	"I'M GONNA GO CALL THE WORLD POLICE"
 ]
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=11]
 [ext_resource path="res://UI/Rula.gd" type="Script" id=12]
 [ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=13]
-[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=14]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=16]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=17]
@@ -21,6 +20,39 @@
 [ext_resource path="res://UI/Notifications/Notifications.gd" type="Script" id=19]
 [ext_resource path="res://UI/Journal/Journal.gd" type="Script" id=20]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
+
+[sub_resource type="Shader" id=16]
+code = "
+shader_type canvas_item;
+
+//void fragment() {
+//    COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0);
+//}
+uniform int pixelSize = 8;
+
+void fragment()
+{
+	
+	ivec2 size = textureSize(SCREEN_TEXTURE, 0);
+	
+	int xRes = size.x;
+	int yRes = size.y;
+	
+	float xFactor = float(xRes) / float(pixelSize);
+	float yFactor = float(yRes) / float(pixelSize);
+	
+	float grid_uv_x = round(SCREEN_UV.x * xFactor) / xFactor;
+	float grid_uv_y = round(SCREEN_UV.y * yFactor) / yFactor;
+	
+	vec4 text = texture(SCREEN_TEXTURE, vec2(grid_uv_x, grid_uv_y));
+	
+	COLOR = text;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+shader_param/pixelSize = 8
 
 [sub_resource type="StyleBoxLine" id=9]
 color = Color( 0, 0, 0, 0.92549 )
@@ -51,6 +83,15 @@ script = ExtResource( 3 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+show_behind_parent = true
+material = SubResource( 17 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="FPS" type="Label" parent="UI"]
 margin_right = 50.0
@@ -257,9 +298,9 @@ script = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula"]
 margin_left = 1.0
-margin_top = 10.0
+margin_top = 1.0
 margin_right = 719.0
-margin_bottom = 470.0
+margin_bottom = 479.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -288,7 +329,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Rula"
 align = 1
@@ -307,7 +348,7 @@ expand_icon = true
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/VBoxContainer"]
 margin_top = 54.0
 margin_right = 718.0
-margin_bottom = 460.0
+margin_bottom = 478.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -315,7 +356,7 @@ scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Rula/VBoxContainer/ScrollContainer"]
 margin_right = 718.0
-margin_bottom = 406.0
+margin_bottom = 424.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -328,13 +369,13 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 708.0
-margin_bottom = 396.0
+margin_bottom = 414.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
 margin_left = 249.0
-margin_top = 93.0
+margin_top = 102.0
 margin_right = 449.0
-margin_bottom = 293.0
+margin_bottom = 302.0
 custom_constants/separation = 25
 alignment = 1
 
@@ -362,7 +403,7 @@ margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 100, 50 )
-text = "#rula"
+text = "Go"
 
 [node name="Journal" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
@@ -415,7 +456,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Journal"
 align = 1
@@ -511,7 +552,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Log"
 align = 1
@@ -606,7 +647,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Inventory"
 align = 1
@@ -772,7 +813,7 @@ drag_margin_top = 0.93
 drag_margin_right = 0.82
 drag_margin_bottom = 0.72
 script = ExtResource( 9 )
-minZoom = 0.25
+minZoom = 0.15
 maxZoom = 1.0
 zoomDuration = 0.25
 

@@ -2503,7 +2503,16 @@ var ROOMS = {
 		},
 		"needsFixedCamera":true,
 		"objects":[
-			
+			{
+				"x":8,
+				"y":3,
+				"url":"wall-with-squid.png",
+				"scale":1,
+				"offset":{
+					"x":570,
+					"y":39
+				}
+			}
 		],
 		"sit":[
 			

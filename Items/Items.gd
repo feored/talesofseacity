@@ -143,6 +143,16 @@ var ACTIVE_ENVIRONMENT = {
 	"school_ground":
 	{
 		Vector2(1,2): Utils.makeSimpleEnvironmentDialogue(["A jungle gym used by the local kids. The openings are too small for you to get inside."])
+	},
+	"jinja":
+	{
+		Vector2(5,2): Utils.makeSimpleEnvironmentDialogue(["A statue of Zonu."]),
+		Vector2(5,6): Utils.makeSimpleEnvironmentDialogue(["A statue of Zonu."])
+	},
+	"takadai":
+	{
+		Vector2(0,10): Utils.makeSimpleEnvironmentDialogue(["These coin-operated binoculars would probably offer a pristine view of Sea City's beach if you had any money."]),
+		Vector2(0,12): Utils.makeSimpleEnvironmentDialogue(["These coin-operated binoculars would probably offer a pristine view of Sea City's beach if you had any money."])
 	}
 }
 

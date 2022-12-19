@@ -70,12 +70,12 @@ func setup() -> void:
 				"type": Constants.LineType.Choice,
 				"choices": [
 					{
-						"text": "Okay. Please just get that weird-looking fluid away from me.",
+						"text": "Sure.",
 						"flags": [{"flag": "qTalkedToScientist", "type": "set", "value": true}],
 						"nextId" : "ScientistIntro5"
 					},
 					{
-						"text": "No thank you. Are you really allowed to teach here?"
+						"text": "No way! Are you really allowed to teach here?"
 					}
 				]
 			},

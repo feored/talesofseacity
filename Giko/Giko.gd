@@ -60,7 +60,7 @@ func initializeRandom(name, character) -> void:
 		
 	if !foundSeat:
 		startingTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
-	.place(startingTile, Utils.rng.randi() % Constants.Directions.size())
+	self.place(startingTile, Utils.rng.randi() % Constants.Directions.size())
 
 	
 	
