@@ -1,7 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=1]
-[ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Giko/GikoAnimation.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_fontdata.tres" type="DynamicFontData" id=4]
 
@@ -21,6 +20,12 @@ size = 58
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 72
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
 
 [node name="Giko" type="AnimatedSprite"]
 scale = Vector2( 0.125, 0.125 )
@@ -92,14 +97,14 @@ valign = 1
 [node name="TripCode" type="Label" parent="Control/ColorRect/HBox"]
 unique_name_in_owner = true
 visible = false
-margin_left = 363.0
-margin_right = 491.0
+margin_left = 324.0
+margin_right = 452.0
 margin_bottom = 82.0
 grow_horizontal = 2
 size_flags_horizontal = 7
 size_flags_vertical = 5
 custom_colors/font_color = Color( 0, 0.0431373, 0.717647, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = SubResource( 5 )
 text = "test"
 align = 1
 valign = 1

@@ -32,8 +32,8 @@ func hideAllPanels():
 		panel.hide()
 
 func showPanel(panel : Node) -> void:
-    hideAllPanels()
-    panel.show()
+	hideAllPanels()
+	panel.show()
 
 func _on_RulaBtn_pressed():
 	showPanel($"%Rula")
@@ -66,3 +66,15 @@ func _on_RulaGoBtn_pressed():
 	get_node("/root/Main").changeRoom(target)
 	
 
+
+func _process(delta):
+	var blur = false
+	for p in panels:
+		if p.visible:
+			blur = true
+			break
+	$"%pixelate".visible = blur
+	if blur:
+		get_tree().paused = true
+	else:
+		get_tree().paused = false

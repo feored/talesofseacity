@@ -41,6 +41,7 @@ var quest_stages = {
 		"id": "destroyMachine3",
 		"condition": "destroyedMachine3",
 		"completed": "moveMachine3",
+		"entry": "I pushed the machine off the edge! Time is back to normal in Sea City! Students, rejoice!",
 		"next": "final"
 	},
 	"final": {"id": "final"}

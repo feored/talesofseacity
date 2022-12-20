@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -21,6 +21,20 @@
 [ext_resource path="res://UI/Journal/Journal.gd" type="Script" id=20]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 
+[sub_resource type="Shader" id=18]
+code = "shader_type canvas_item;
+
+uniform float lod: hint_range(0.0, 5) = 1.5;
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = SubResource( 18 )
+shader_param/lod = 1.5
+
 [sub_resource type="Shader" id=16]
 code = "
 shader_type canvas_item;
@@ -28,7 +42,7 @@ shader_type canvas_item;
 //void fragment() {
 //    COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0);
 //}
-uniform int pixelSize = 4;
+uniform int pixelSize = 8;
 
 void fragment()
 {
@@ -52,7 +66,7 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = SubResource( 16 )
-shader_param/pixelSize = 4
+shader_param/pixelSize = 8
 
 [sub_resource type="StyleBoxLine" id=9]
 color = Color( 0, 0, 0, 0.92549 )
@@ -82,9 +96,21 @@ position = Vector2( 1, 1 )
 script = ExtResource( 3 )
 
 [node name="UI" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 10 )
 
-[node name="ColorRect" type="ColorRect" parent="UI"]
+[node name="blur" type="ColorRect" parent="UI"]
+unique_name_in_owner = true
+visible = false
+show_behind_parent = true
+material = SubResource( 19 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="pixelate" type="ColorRect" parent="UI"]
+unique_name_in_owner = true
 visible = false
 show_behind_parent = true
 material = SubResource( 17 )
