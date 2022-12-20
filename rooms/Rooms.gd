@@ -10,6 +10,7 @@ var currentRoomId : String
 var currentRoomWalkableTiles : Array = []
 var currentRoomScale : float = 1.0
 var currentRoomGikos : Dictionary = {}
+var currentRoomCustomBlocked : Array = []
 
 func updateGikoPosition(giko : Node, newPosition : Vector2, oldPosition : Vector2 = Constants.NULL_VECTOR) -> void:
 	## Remove old position
@@ -65,17 +66,25 @@ func updateRoomData(newRoomName : String) -> void:
 		currentRoomScale = currentRoomData["scale"]
 	else:
 		currentRoomScale = Constants.DEFAULT_SCALE
-
+	
+	currentRoomCustomBlocked.clear()
 	updateCurrentRoomWalkableTiles()
 	currentRoomGikos.clear()
 
 
 func updateCurrentRoomWalkableTiles() -> void:
 
+	currentRoomCustomBlocked.clear()
+	
 	var walkableTiles : Array = []
 	var checkingTiles : Array = []
 	var checkedTiles : Array = []
-	
+
+
+	if Items.BACKGROUND_ENVIRONMENT.has(currentRoomId):
+		for itemPosition in Items.BACKGROUND_ENVIRONMENT[currentRoomId]:
+			if Items.BACKGROUND_ENVIRONMENT[currentRoomId][itemPosition]["block"]:
+				currentRoomCustomBlocked.push_back({"x" : itemPosition.x, "y": itemPosition.y})
 	
 	for door in currentRoomData["doors"].values():
 		checkingTiles.append(Vector2(door["x"], door["y"]))
@@ -109,6 +118,10 @@ func getCurrentRoomOffset() -> Vector2:
 func isTileBlocked(tile : Vector2) -> bool:
 	if currentRoomData.has("blocked"):
 		for blockedTile in currentRoomData["blocked"]:
+			if float(blockedTile["x"]) == tile.x && float(blockedTile["y"]) == tile.y:
+				return true
+	if currentRoomCustomBlocked.size() > 0:
+		for blockedTile in currentRoomCustomBlocked:
 			if float(blockedTile["x"]) == tile.x && float(blockedTile["y"]) == tile.y:
 				return true
 	return false

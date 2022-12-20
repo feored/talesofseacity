@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tile.png-06136bff218badc6bed32b323c8eb825.stex"
+path="res://.import/front-walking-2.png-353af54aa7f3ef0ce6e1fc1bc1f28b40.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/tile.png"
-dest_files=[ "res://.import/tile.png-06136bff218badc6bed32b323c8eb825.stex" ]
+source_file="res://Characters/shobon_hat/front-walking-2.png"
+dest_files=[ "res://.import/front-walking-2.png-353af54aa7f3ef0ce6e1fc1bc1f28b40.stex" ]
 
 [params]
 

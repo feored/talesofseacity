@@ -12,10 +12,11 @@ var messages: Dictionary = {}
 
 var totalMessages = 0
 
-var playerGiko : PlayerGiko
+var playerGiko : Node
 
 var activeItems : Dictionary = {}
 var activeNPCs : Dictionary = {}
+var environmentItems : Dictionary = {}
 
 onready var dialogueManager = $"%Dialogue"
 # Declare member variables here. Examples:
@@ -95,6 +96,7 @@ func loadRoom(roomName: String) -> void:
 	loadObjects()
 	loadItems()
 	loadNPCs()
+	loadEnvironment()
 	$"%Grid".draw_grid()
 	return
 
@@ -115,14 +117,41 @@ func loadObjects() -> void:
 		var coords = Vector2(object["x"], object["y"])
 		objectSprite.z_index = Utils.getTilePosAtCoords(coords).y
 		
+func loadEnvironment() -> void:
+	environmentItems.clear()
+	if Items.BACKGROUND_ENVIRONMENT.has(Rooms.currentRoomId):
+		for itemPosition in Items.BACKGROUND_ENVIRONMENT[Rooms.currentRoomId]:
+			var itemData = Items.BACKGROUND_ENVIRONMENT[Rooms.currentRoomId][itemPosition]
+			loadEnvironmentItem(itemPosition, itemData)
+			
+
+func loadEnvironmentItem(itemPosition : Vector2, itemData : Dictionary) -> void:
+	var itemSprite = Sprite.new()
+	itemSprite.texture = load(itemData["url"])
+	itemSprite.scale = Vector2(itemData["world_scale"], itemData["world_scale"])
+	itemSprite.rotation_degrees = itemData["rotation"]
+	$"%zObjects".add_child(itemSprite)
+
+	itemSprite.position = Utils.getTilePosAtCoords(itemPosition) + itemData["offset"]
+	itemSprite.z_index = itemSprite.position.y
+	environmentItems[itemPosition] = itemSprite
+
+func removeEnvironmentItem(position: Vector2) -> void:
+	if environmentItems.has(position):
+		environmentItems[position].queue_free()
+		environmentItems.erase(position)
+	
+func replaceEnvironmentItem(position: Vector2, itemData : Dictionary) -> void:
+	removeEnvironmentItem(position)
+	loadEnvironmentItem(position, itemData)
 
 func loadItems() -> void:
 	activeItems.clear()
 	if Items.ACTIVE_ITEMS.has(Rooms.currentRoomId):
 		for item in Items.ACTIVE_ITEMS[Rooms.currentRoomId]:
 			loadItem(item)
-			
-			
+	
+				
 
 func loadItem(item : Dictionary) -> void:
 	var itemSprite = Sprite.new()

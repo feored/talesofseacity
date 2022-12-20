@@ -11,6 +11,10 @@ const NULL_VECTOR : Vector2 = Vector2(-999, -999)
 
 const ACTION_TIMEOUT = 0.25
 
+const DEFAULT_GIKO_MOVESPEED = 85
+const SLOW_GIKO_MOVESPEED = 30
+const FAST_GIKO_MOVESPEED = 300
+
 var GIKO_MOVESPEED = 85
 
 const GIKOANIM_BACK_STANDING = "back-standing"
@@ -263,23 +267,11 @@ const RANDOM_GIKOS = [
 		"character": Character.Giko
 	},
 	{
-		"name" : "issuemaker",
-		"character": Character.Nida
-	},
-	{
-		"name" : "oboron",
-		"character": Character.Baba_Shobon
-	},
-	{
-		"name" : "Tokiko",
-		"character": Character.Nida
-	},
-	{
-		"name" : "indigo",
+		"name" : "Indigo",
 		"character": Character.Hotsuma_Giko
 	},
 	{
-		"name" : "archduke",
+		"name" : "Archduke",
 		"character": Character.Nida
 	},
 	{

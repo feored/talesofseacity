@@ -28,7 +28,7 @@ shader_type canvas_item;
 //void fragment() {
 //    COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0);
 //}
-uniform int pixelSize = 8;
+uniform int pixelSize = 4;
 
 void fragment()
 {
@@ -52,7 +52,7 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = SubResource( 16 )
-shader_param/pixelSize = 8
+shader_param/pixelSize = 4
 
 [sub_resource type="StyleBoxLine" id=9]
 color = Color( 0, 0, 0, 0.92549 )

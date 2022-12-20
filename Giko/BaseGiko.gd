@@ -111,7 +111,7 @@ func setRightFlip() -> void:
 	else:
 		flip_h = false
 
-func setCharacterTexture(newCharacter) -> void:
+func setCharacterTexture(newCharacter : int) -> void:
 	var newCharacterPath = "res://Characters/" + Constants.CHARACTERS[newCharacter] + "/"
 
 	var backStanding = load(newCharacterPath + Constants.GIKOANIM_BACK_STANDING + ".png")
@@ -152,6 +152,7 @@ func setCharacterTexture(newCharacter) -> void:
 
 	frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking1)
 	frames.add_frame(Constants.GIKOANIM_FRONT_WALKING, frontWalking2)
+
 
 
 func reanimate() -> void:

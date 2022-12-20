@@ -1,6 +1,7 @@
 extends Reference
 class_name Quest
 
+var main : Node
 var currentCondition : Object = funcref(self, "")
 var currentCompleted : Object = funcref(self, "")
 

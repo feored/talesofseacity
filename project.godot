@@ -40,7 +40,8 @@ _global_script_class_icons={
 
 config/name="GikoSim"
 run/main_scene="res://Main.tscn"
-boot_splash/show_image=false
+boot_splash/image="res://UI/gikobox_logo.png"
+boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 config/icon="res://UI/gikobox_logo.png"
 

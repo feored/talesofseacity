@@ -367,7 +367,7 @@ var NPCs = {
     "Scientist":
     {
         "id": "Scientist",
-        "name": "Scientist",
+        "name": "Prof. Fibonacci",
         "character": Constants.Character.Tikan_Giko,
         "lines": []
     },
@@ -377,7 +377,7 @@ var NPCs = {
         "name": "Pointy Nosed Shogi Player",
         "character": Constants.Character.Hotsuma_Giko,
         "lines": [
-            Utils.makeSimpleDialogue(["I hate it! I hate it! [jump]くやしい![/jump]"])
+            Utils.makeSimpleDialogue(["[jump]I hate it![/jump]", " [jump]I hate it![/jump]", " [jump]くやしい![/jump]"])
         ]
     },
     "ShogiPlayer2":
@@ -388,6 +388,13 @@ var NPCs = {
         "lines": [
             Utils.makeSimpleDialogue(["My real life hasn't started yet. The real me is still asleep, so that's why I'm losing."])
         ]
+    },
+    "TeachersAssistant":
+    {
+        "id": "TeachersAssistant",
+        "name": "Teacher's Assistant",
+        "character": Constants.Character.Hotsuma_Giko,
+        "lines" : []
     }
 
 
@@ -733,9 +740,9 @@ var ACTIVE_NPCs = {
     {
         "Philosopher":{
             "id": "Philosopher",
-            "x": 8,
-            "y": 10,
-            "direction": Constants.Directions.DIR_UP,
+            "x": 0,
+            "y": 4,
+            "direction": Constants.Directions.DIR_LEFT,
             "lines": []
         }
     },

@@ -33,7 +33,10 @@ var QUEST_FLAGS = {
     "qSetSchoolyardTrap" : false,
     "qFinishedSchoolyardDogs" : false,
     ## science experiment
-    "qTalkedToScientist" : false
+    "qTalkedToScientist" : false,
+    "qInsertedChip": false,
+    "qInsertedSecondChip": false,
+    "qPushedMachine" : 0
 }
 
 var COMPLETED_QUESTS = [
@@ -88,6 +91,7 @@ var journalRefreshNeeded = false
 func _ready():
     for quest in QUESTS:
         quest["object"] = quest["script"].new()
+        quest["object"].main = get_node("/root/Main/")
         if SETUP_QUESTS && quest["object"].has_method("setup"):
             quest["object"].setup()
         quest["object"].initialize(quest["stage"])

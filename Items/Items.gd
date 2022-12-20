@@ -43,19 +43,12 @@ var ACTIVE_ITEMS = {
 }
 
 var ITEMS = {
-	"flash" : {
-		"url" : "res://Items/images/flash.png",
-		"id" : "flash",
-		"name" : "Flash",
-		"description" : "...",
-		"default_world_scale" : 1
-	},
 	"mahjong_red_dragon" : {
 		"url" : "res://Items/images/mahjong_red_dragon.png",
 		"id" : "mahjong_red_dragon",
 		"name" : "Mahjong Tile (Red Dragon)",
 		"description" : "A tile used in the game of Mahjong...",
-		"default_world_scale" : 0.1
+		"default_world_scale" : 0.1,
 	},
 	"zachu_guitar" : {
 		"url" : "res://Items/images/zachu_guitar.png",
@@ -99,18 +92,55 @@ var ITEMS = {
 		"default_world_scale": 0.03
 	},
 	"data_chip" : {
-		"url" : "res://Items/Images/bunnyseries.jpg",
+		"url" : "res://Items/Images/data_chip.png",
 		"id" : "data_chip",
 		"name" : "Data Chip",
-		"description" :"""A comic book called Bunnyseries, following the lives of anthropomorphic bunnies.
-		The description on the back says it's a 'slice of life 4koma' and that the target audience is depressed people with no friends.""",
+		"description" :"""A data chip containing instructions from the Prof.
+		It looks like a cross between a SD card and a cartridge.""",
+		"default_world_scale": 0.03
+	},
+	"data_chip_2": {
+		"url" : "res://Items/Images/data_chip.png",
+		"id" : "data_chip_2",
+		"name" : "Data Chip (New)",
+		"description" :"""Another data chip containing instructions from the Prof.
+		Hopefully this one fixes the mess caused by the first one.""",
 		"default_world_scale": 0.03
 	}
 }
 
+
+
 var INVENTORY = [
 	"sunscreen",
 ]
+
+var BACKGROUND_ENVIRONMENT = {
+	"silo":
+	{
+		Vector2(6,9) : 
+		{
+			"url" :  "res://Items/Images/machine_empty.png",
+			"world_scale" : 0.03,
+			"rotation": 0,
+			"block" : true,
+			"offset": Vector2(0, 0)
+		}
+	}
+	
+}
+
+
+func removeEnvironmentItem(roomId: String, position : Vector2) -> void:
+	if BACKGROUND_ENVIRONMENT.has(roomId):
+		if BACKGROUND_ENVIRONMENT[roomId].has(position):
+			BACKGROUND_ENVIRONMENT[roomId].erase(position)
+
+func addEnvironmentItem(roomId: String, position : Vector2, itemData : Dictionary) -> void:
+	if BACKGROUND_ENVIRONMENT.has(roomId):
+		BACKGROUND_ENVIRONMENT[roomId][position] = itemData
+	else:
+		BACKGROUND_ENVIRONMENT[roomId] = {position : itemData}
 
 var ACTIVE_ENVIRONMENT = {
 	"bar_st" :
@@ -153,6 +183,10 @@ var ACTIVE_ENVIRONMENT = {
 	{
 		Vector2(0,10): Utils.makeSimpleEnvironmentDialogue(["These coin-operated binoculars would probably offer a pristine view of Sea City's beach if you had any money."]),
 		Vector2(0,12): Utils.makeSimpleEnvironmentDialogue(["These coin-operated binoculars would probably offer a pristine view of Sea City's beach if you had any money."])
+	},
+	"silo":
+	{
+		Vector2(6,9): Utils.makeSimpleEnvironmentDialogue(["This weird machine doesn't seem to be plugged in to the power grid, but it's clearly on."])
 	}
 }
 
