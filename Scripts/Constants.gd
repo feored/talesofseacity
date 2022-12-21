@@ -24,9 +24,9 @@ const GIKOANIM_FRONT_WALKING = "front-walking"
 const GIKOANIM_FRONT_SITTING = "front-sitting"
 const GIKOANIM_BACK_SITTING = "back-sitting"
 
-const CAMERA_MAX_X = 720
-const CAMERA_MIN_X = -CAMERA_MAX_X
-const CAMERA_MAX_Y = 480
+const CAMERA_MAX_X = 540
+const CAMERA_MIN_X = -240
+const CAMERA_MAX_Y = 240
 const CAMERA_MIN_Y = -CAMERA_MAX_Y
 
 const TIME_TO_GHOST = 30.0

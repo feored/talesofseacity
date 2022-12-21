@@ -5078,6 +5078,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"busstop":{
+		"exterior": true,
 		"id":"busstop",
 		"group":"gikopoi",
 		"scale":1,
