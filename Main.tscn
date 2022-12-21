@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=11]
 [ext_resource path="res://UI/Rula.gd" type="Script" id=12]
 [ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=13]
+[ext_resource path="res://Snow.gd" type="Script" id=14]
 [ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=16]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=17]
@@ -830,6 +831,7 @@ script = ExtResource( 19 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
+position = Vector2( 0, -1 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
@@ -842,6 +844,14 @@ script = ExtResource( 9 )
 minZoom = 0.15
 maxZoom = 1.0
 zoomDuration = 0.25
+
+[node name="Snow" type="Sprite" parent="Camera2D"]
+unique_name_in_owner = true
+position = Vector2( 0, 1 )
+z_index = 4000
+z_as_relative = false
+centered = false
+script = ExtResource( 14 )
 
 [node name="Background" type="Sprite" parent="."]
 unique_name_in_owner = true

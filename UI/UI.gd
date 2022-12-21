@@ -19,13 +19,13 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("inventory"):
-		showPanel($"%Inventory") if !$"%Inventory".visible else $"%Inventory".hide()
+		_on_InventoryBtn_pressed()
 	elif event.is_action_pressed("rula"):
-		showPanel($"%Rula") if !$"%Rula".visible else $"%Rula".hide()
+		_on_RulaBtn_pressed()
 	elif event.is_action_pressed("log"):
-		showPanel($"%Log") if !$"%Log".visible else $"%Log".hide()
+		_on_LogBtn_pressed()
 	elif event.is_action_pressed("journal"):
-		showPanel($"%Journal") if !$"%Journal".visible else $"%Journal".hide()
+		_on_JournalBtn_pressed()
 	
 func hideAllPanels():
 	for panel in panels:
@@ -36,16 +36,16 @@ func showPanel(panel : Node) -> void:
 	panel.show()
 
 func _on_RulaBtn_pressed():
-	showPanel($"%Rula")
+	showPanel($"%Rula") if !$"%Rula".visible else $"%Rula".hide()
 
 func _on_InventoryBtn_pressed():
-	showPanel($"%Inventory")
+	showPanel($"%Inventory") if !$"%Inventory".visible else $"%Inventory".hide()
 
 func _on_LogBtn_pressed():
-	showPanel($"%Log")
+	showPanel($"%Log") if !$"%Log".visible else $"%Log".hide()
 	
 func _on_JournalBtn_pressed():
-	showPanel($"%Journal")
+	showPanel($"%Journal") if !$"%Journal".visible else $"%Journal".hide()
 	
 
 func _on_RulaGoBtn_pressed():
@@ -73,7 +73,7 @@ func _process(delta):
 		if p.visible:
 			blur = true
 			break
-	$"%pixelate".visible = blur
+	$"%blur".visible = blur
 	if blur:
 		get_tree().paused = true
 	else:

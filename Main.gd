@@ -6,7 +6,6 @@ const Giko = preload("res://Giko/Giko.gd")
 const PlayerGiko = preload("res://Giko/PlayerGiko.gd")
 
 var gikoPrefab = preload("res://Giko/Giko.tscn")
-var playerGikoPrefab = preload("res://Giko/PlayerGiko.tscn")
 
 var messages: Dictionary = {}
 
@@ -27,7 +26,7 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("takadai")
+	loadRoom("gym_exterior")
 	spawnRandomGikos()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
 	
@@ -88,6 +87,10 @@ func changeRoom(target):
 
 func loadRoom(roomName: String) -> void:
 	Rooms.updateRoomData(roomName)
+	if (Rooms.currentRoomData.has("exterior") && Rooms.currentRoomData["exterior"] == true):
+		$"%Snow".visible = true
+	else:
+		$"%Snow".visible = false
 	var newRoomTexture = load("res://" + Rooms.ROOMS[roomName]["backgroundImageUrl"])
 	$Background.scale = Vector2(Rooms.currentRoomScale/4, Rooms.currentRoomScale/4)
 	$Background.texture = newRoomTexture
@@ -108,11 +111,11 @@ func loadObjects() -> void:
 		objectSprite.texture = load(
 			"res://rooms/" + Rooms.currentRoomId + "/" + object["url"]
 		)
-		objectSprite.scale = Vector2(0.25, 0.25)
+		objectSprite.scale = Vector2(0.25 , 0.25) * (object["scale"] if object.has("scale") else 1)
 		$"%zObjects".add_child(objectSprite)
 		var roomOffset: Vector2 = Rooms.getCurrentRoomOffset()
 		objectSprite.position = Vector2(
-			roomOffset.x + object["offset"]["x"], roomOffset.y + object["offset"]["y"]
+			roomOffset.x + (object["offset"]["x"] * (object["scale"] if object.has("scale") else 1)) , roomOffset.y + (object["offset"]["y"] * (object["scale"] if object.has("scale") else 1))
 		)
 		var coords = Vector2(object["x"], object["y"])
 		objectSprite.z_index = Utils.getTilePosAtCoords(coords).y

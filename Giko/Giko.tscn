@@ -42,9 +42,9 @@ z_as_relative = false
 [node name="Control" type="Control" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -340.0
+margin_left = -338.809
 margin_top = -500.0
-margin_right = -300.0
+margin_right = -298.809
 margin_bottom = -478.0
 
 [node name="ColorRect" type="PanelContainer" parent="Control"]

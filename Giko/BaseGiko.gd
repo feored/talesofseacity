@@ -42,6 +42,8 @@ func setName(gikoName: String) -> void:
 		$"%TripCode".visible = true
 	else:
 		$"%Name".text = displayName
+	if self.character == Constants.Character.Shiinigami:
+		$Control.rect_position.x -= 20
 
 func checkGhost() -> void:
 	if timeSinceAction > Constants.TIME_TO_GHOST && !isGhost:

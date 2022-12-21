@@ -146,6 +146,46 @@ func isTileInBounds(tile : Vector2) -> bool:
 	return tile.x >= 0 && tile.y >= 0 && tile.x < currentBounds.x && tile.y < currentBounds.y
 
 var ROOMS = {
+	"gym_exterior": {
+		"exterior" : true,
+		"id" : "gym_exterior",
+		"scale":0.75,
+		"size":{
+			"x":14,
+			"y":15
+		},
+		"originCoordinates":{
+			"x":0,
+			"y":520
+		},
+		"spawnPoint":"right",
+		"backgroundImageUrl":"rooms/gym_exterior/background.png",
+		"objects":[
+			{
+				"x":2,
+				"y":1,
+				"offset":{
+					"x":0,
+					"y":0
+				},
+				"scale": 0.75,
+				"url":"cars.png"
+			}
+		],
+		"sit" : [],
+		"blocked" : [],
+		"forbiddenMovements" : [],
+		"doors":{
+			"right":{
+				"x":0,
+				"y":0,
+				"direction":"down",
+				"target":null
+			}
+		},
+		"streamSlotCount":0,
+		"secret":false
+	},
 	"gym" : {
 		"id" : "gym",
 		"scale":0.75,
@@ -298,7 +338,7 @@ var ROOMS = {
 			}
 		},
 		"streamSlotCount":0,
-		"secret":true
+		"secret":false
 	},
 	"bar":{
 		"id":"bar",
@@ -664,6 +704,7 @@ var ROOMS = {
 		"streamSlotCount":2
 	},
 	"admin_st":{
+		"exterior" : true,
 		"id":"admin_st",
 		"group":"gikopoi",
 		"scale":1,
@@ -1428,6 +1469,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"school_st":{
+		"exterior" : true,
 		"id":"school_st",
 		"group":"gikopoi",
 		"scale":1,
@@ -1538,6 +1580,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"bar_st":{
+		"exterior" : true,
 		"id":"bar_st",
 		"group":"gikopoi",
 		"scale":1,
@@ -1768,6 +1811,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"takadai":{
+		"exterior" : true,
 		"id":"takadai",
 		"group":"gikopoi",
 		"scale":1,
@@ -2346,6 +2390,7 @@ var ROOMS = {
 		"streamSlotCount":2
 	},
 	"silo":{
+		"exterior" : true,
 		"id":"silo",
 		"group":"gikopoipoi",
 		"scale":0.6,
@@ -3223,6 +3268,7 @@ var ROOMS = {
 		"streamSlotCount":1
 	},
 	"long_st":{
+		"exterior" : true,
 		"id":"long_st",
 		"group":"gikopoi",
 		"scale":1,
@@ -4496,6 +4542,7 @@ var ROOMS = {
 		"streamSlotCount":3
 	},
 	"jinja":{
+		"exterior" : true,
 		"id":"jinja",
 		"group":"gikopoi",
 		"scale":1,
@@ -4855,6 +4902,7 @@ var ROOMS = {
 		"hasChessboard":true
 	},
 	"cafe_st":{
+		"exterior" : true,
 		"id":"cafe_st",
 		"group":"gikopoi",
 		"scale":1,
@@ -5306,6 +5354,7 @@ var ROOMS = {
 		"forcedAnonymous":true
 	},
 	"bar_giko_square":{
+		"exterior" : true,
 		"id":"bar_giko_square",
 		"group":"bar_giko",
 		"scale":1,
@@ -7862,6 +7911,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"jinja_st":{
+		"exterior" : true,
 		"id":"jinja_st",
 		"group":"gikopoi",
 		"scale":1,
@@ -9347,6 +9397,7 @@ var ROOMS = {
 		"streamSlotCount":3
 	},
 	"idoA":{
+		"exterior" : true,
 		"id":"idoA",
 		"group":"gikopoi",
 		"scale":1,
@@ -9602,6 +9653,7 @@ var ROOMS = {
 		"streamSlotCount":1
 	},
 	"idoB":{
+		"exterior" : true,
 		"id":"idoB",
 		"group":"gikopoi",
 		"scale":1,
@@ -10419,6 +10471,7 @@ var ROOMS = {
 		"forcedAnonymous":true
 	},
 	"yatai" : {
+		"exterior" : true,
 		"id": "yatai",
 		"group": "gikopoi",
 		"scale": 1,
@@ -11956,6 +12009,7 @@ var ROOMS = {
 		"streamSlotCount":1
 	},
 	"school_ground":{
+		"exterior" : true,
 		"id":"school_ground",
 		"group":"gikopoi",
 		"scale":1,
@@ -12282,6 +12336,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"kaidan":{
+		"exterior" : true,
 		"id":"kaidan",
 		"group":"gikopoi",
 		"scale":1,
@@ -12435,6 +12490,7 @@ var ROOMS = {
 		"streamSlotCount":0
 	},
 	"seashore":{
+		"exterior" : true,
 		"id":"seashore",
 		"group":"gikopoi",
 		"scale":1,
@@ -13066,6 +13122,15 @@ var ROOMS = {
 				"target":{
 					"roomId":"densha",
 					"doorId":"top"
+				}
+			},
+			"left_bottom": {
+				"x": 0,
+				"y": 2,
+				"direction": "right",
+				"target": {
+					"roomId": "river",
+					"doorId": "right"
 				}
 			}
 		},
@@ -15212,6 +15277,107 @@ var ROOMS = {
 				"door": { "x": 0, "y": 6, "direction": "right", "target": { "roomId": "bar_giko_square", "doorId": "right" } },
 			},
 			"streamSlotCount": 1
+		},
+		"river" : {
+			"exterior" : true,
+			"id": "river",
+			"group": "gikopoipoi",
+			"variant": "christmas",
+			"scale": 0.6988,
+			"size": { "x": 9, "y": 12 },
+			"originCoordinates": { "x": 0, "y": 501 },
+			"spawnPoint" : "right",
+			"backgroundImageUrl": "rooms/river/background.8.png",
+			"objects": [
+				{
+					"x": 1,
+					"y": 7,
+					"width": 1,
+					"height": 3,
+					"scale": 0.6988,
+					"offset": { "x": 343, "y": 454 },
+					"url": "bench.8.png"
+				},
+				{
+					"x": 9,
+					"y": 0,
+					"scale": 0.6988,
+					"offset": { "x": 0, "y": 0 },
+					"url": "top.8.png"
+				},
+				{
+					"x": 1,
+					"y": 11,
+					"scale": 0.6988,
+					"offset": { "x": 0, "y": 0 },
+					"url": "backtree.8.png"
+				},
+				{ 
+					"x": 0,
+					"y": 11,
+					"scale": 1,
+					"offset": { "x": 300 , "y": 605 },
+					"url": "arrow-down.png"
+				},
+				{
+					"x": 0,
+					"y": 11,
+					"scale": 1,
+					"offset": { "x": 532 , "y": 526 },
+					"url": "arrow-right.png"
+				},
+			],
+			"objectRenderSortMethod": "diagonal_scan",
+			"sit": [
+				{ "x": 1, "y": 5 },
+				{ "x": 1, "y": 6 },
+				{ "x": 1, "y": 7 },
+				{ "x": 4, "y": 9 }
+			],
+			"blocked": [
+				{ "x": 5, "y": 0 },
+				{ "x": 5, "y": 1 },
+				{ "x": 5, "y": 2 },
+				{ "x": 5, "y": 3 },
+				{ "x": 5, "y": 4 },
+				{ "x": 6, "y": 0 },
+				{ "x": 6, "y": 1 },
+				{ "x": 6, "y": 2 },
+				{ "x": 6, "y": 3 },
+				{ "x": 6, "y": 4 },
+				{ "x": 3, "y": 6 },
+				{ "x": 3, "y": 7 },
+				{ "x": 3, "y": 8 },
+				{ "x": 3, "y": 10 },
+				{ "x": 3, "y": 9 },
+				{ "x": 3, "y": 11 },
+				{ "x": 4, "y": 6 },
+				{ "x": 4, "y": 7 },
+				{ "x": 4, "y": 8 },
+				{ "x": 4, "y": 10 },
+				{ "x": 4, "y": 11 },
+				{ "x": 1, "y": 11 },
+				{ "x": 8, "y": 9 },
+			],
+			"forbiddenMovements": [
+				{ "xFrom": 0, "yFrom": 2, "xTo": 1, "yTo": 2 },
+				{ "xFrom": 1, "yFrom": 2, "xTo": 0, "yTo": 2 },
+			],
+			"zFix" : [
+				{
+					"position" : {
+						"x" : 5, "y" : 7
+					},
+					"fix" : {
+						"x" : -1, "y" : 0 
+					}
+				}
+			],
+			"doors": {
+				"right": { "x": 8, "y": 5, "direction": "left", "target": { "roomId": "densha", "doorId": "left_bottom" } },
+				"left": { "x": 7, "y": 0, "direction": "up", "target": { "roomId": "irori", "doorId": "door" } },
+			},
+			"streamSlotCount": 1
 		}
 }
 
@@ -15263,5 +15429,6 @@ var DISPLAY_NAMES = {
 	"river": "River",
 	"irori": "Fireplace",
 	"labyrinth": "Labyrinth",
-	"gym" : "Gym"
+	"gym" : "Gym",
+	"gym_exterior": "Gym Street"
 }
