@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Quest",
 "language": "GDScript",
-"path": "res://Quests/Quest.gd"
+"path": "res://Quests/General/Quest.gd"
 } ]
 _global_script_class_icons={
 "BaseGiko": "",
@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GikoSim"
+config/name="Giko Story"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://UI/gikobox_logo.png"
 boot_splash/fullsize=false
@@ -52,8 +52,10 @@ Utils="*res://Scripts/Utils.gd"
 NPCs="*res://NPC/NPCs.gd"
 Rooms="*res://rooms/Rooms.gd"
 Items="*res://Items/Items.gd"
-Quests="*res://Quests/Quests.gd"
+Quests="*res://Quests/General/Quests.gd"
 Log="*res://Scripts/Log.gd"
+Settings="*res://Settings/Settings.gd"
+QuestUtils="*res://Quests/General/QuestUtils.gd"
 
 [display]
 

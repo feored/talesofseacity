@@ -1,12 +1,13 @@
 extends Node
 
-const Quest = preload("res://Quests/Quest.gd")
+const Quest = preload("res://Quests/General/Quest.gd")
 var shaddoxMahjongQuest = preload("res://Quests/ShaddoxMahjong.gd")
 var feedThePoorQuest = preload("res://Quests/FeedThePoor.gd")
 var findSunCreamQuest = preload("res://Quests/FindSunCream.gd")
 var bringHostessSushiQuest = preload("res://Quests/BringHostessSushi.gd")
 var schoolyardDogsQuest = preload("res://Quests/SchoolyardDogs.gd")
 var scienceExperimentQuest = preload("res://Quests/ScienceExperiment.gd")
+var blackoutQuest = preload("res://Quests/Blackout.gd")
 
 var currentQuestIndex = 0
 
@@ -36,7 +37,11 @@ var QUEST_FLAGS = {
     "qTalkedToScientist" : false,
     "qInsertedChip": false,
     "qInsertedSecondChip": false,
-    "qPushedMachine" : 0
+    "qPushedMachine" : 0,
+    ## blackout
+    "qTalkedToBarman" : false,
+    "qTalkedToEngineer" : false,
+    "qAskedForWrench" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -79,6 +84,12 @@ var QUESTS = [
         "script": scienceExperimentQuest,
         "title": "The Experiment",
         "stage": "initial"
+    },
+    {
+        "id": "Blackout",
+        "script": blackoutQuest,
+        "title": "Blackout in Sea City",
+        "stage": "initial"
     }
 ]
 
@@ -89,9 +100,10 @@ var JOURNAL = {
 var journalRefreshNeeded = false
 
 func _ready():
+    var mainNode = get_node("/root/Main/")
     for quest in QUESTS:
         quest["object"] = quest["script"].new()
-        quest["object"].main = get_node("/root/Main/")
+        quest["object"].main = mainNode
         if SETUP_QUESTS && quest["object"].has_method("setup"):
             quest["object"].setup()
         quest["object"].initialize(quest["stage"])

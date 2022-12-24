@@ -106,6 +106,21 @@ var ITEMS = {
 		"description" :"""Another data chip containing instructions from the Prof.
 		Hopefully this one fixes the mess caused by the first one.""",
 		"default_world_scale": 0.03
+	},
+	"flashlight" : {
+		"url" : "res://Items/Images/data_chip.png",
+		"id" : "flashlight",
+		"name" : "Flashlight",
+		"description" :"""A flashlight to allow you to see in the dark.
+		Useful during a blackout.""",
+		"default_world_scale": 0.03
+	},
+	"wrench": {
+		"url" : "res://Items/Images/data_chip.png",
+		"id" : "wrench",
+		"name" : "Wrench",
+		"description" :"""A wrench used by Sea City Engineers.""",
+		"default_world_scale": 0.03
 	}
 }
 
@@ -186,7 +201,7 @@ var ACTIVE_ENVIRONMENT = {
 	},
 	"silo":
 	{
-		Vector2(6,9): Utils.makeSimpleEnvironmentDialogue(["This weird machine doesn't seem to be plugged in to the power grid, but it's clearly on."])
+		Vector2(6,9): Utils.makeSimpleEnvironmentDialogue(["This weird machine doesn't seem to be plugged in to anything, but it's warm to the touch..."])
 	}
 }
 
@@ -220,6 +235,8 @@ func addActiveItem(roomId: String, itemId: String, position: Vector2, scale: flo
 		get_node("/root/Main").loadItem(newActiveItem)
 
 func addItemInventory(itemId : String) -> void:
+	if itemId == "flashlight":
+		QuestUtils.flashlight()
 	inventoryRefreshNeeded = true
 	INVENTORY.push_back(itemId)
 	get_node(Constants.NOTIFICATIONS_PATH).addItemNotification(itemId, true)

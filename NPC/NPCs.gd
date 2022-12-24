@@ -53,7 +53,14 @@ var NPCs = {
 		"id": "Muryoku",
 		"name": "Muryoku",
 		"character": Constants.Character.FunkyNaito,
-		"lines": [Utils.makeSimpleDialogue(["[jump]I hope Japan wins the world cup this time![/jump]"])]
+		"lines": [Utils.makeSimpleDialogue(["[jump]I hope Japan wins the world cup this time![/jump]"]),
+		Utils.makeSimpleDialogue(["""
+		　∧∞∧　　　┌───────
+	　　(*‘ー‘)　　 ＜　シラナイワ
+	　 　＼　< 　　　 └───/|───
+	　　　　＼.＼＿＿＿＿__／/
+	　　　　　 ＼　　　　　　　／
+	　　　　　　　∪∪￣∪∪"""])]
 	},
 	"Shaddox":
 	{
@@ -311,92 +318,151 @@ var NPCs = {
 		"character": Constants.Character.Shobon,
 		"lines" : []
 	},
-    "outOfShapeGiko": 
-    {
-        "id": "outOfShapeGiko",
-        "name": "Out of Shape Giko",
+	"outOfShapeGiko": 
+	{
+		"id": "outOfShapeGiko",
+		"name": "Out of Shape Giko",
 		"character": Constants.Character.Hungry_Giko,
 		"lines" : [
-            Utils.makeSimpleDialogue(["Huff...huff...just catching my breath."]),
-            Utils.makeSimpleDialogue(["Why are these stairs so steep?", "Even the perspective in this room is completely different."]),
-        ]
-    },
-    "Philosopher" : 
-    {
-        "id": "Philosopher",
-        "name": "Philosopher",
-        "character": Constants.Character.FunkyNaito,
-        "lines" : [
-            Utils.makeSimpleDialogue(["When the giko stares into the abyss, the abyss stares back into the giko."]),
-            Utils.makeSimpleDialogue(["Gikos are like hedgehogs looking to huddle together for warmth on a cold day around an interesting stream.",
-            "As they begin to prick one another with their quills, they are obliged to disperse."])
-        ]
-    },
-    "SwimmingSalmon" :
-    {
-        "id": "SwimmingSalmon",
-        "name": "Confused Salmon",
-        "character": Constants.Character.Salmon,
-        "lines": [Utils.makeSimpleDialogue(["Blub blub."])]
-    },
-    "SwimmingIka" :
-    {
-        "id": "SwimmingIka",
-        "name": "Ika",
-        "character": Constants.Character.Ika,
-        "lines": [Utils.makeSimpleDialogue(["Why can't I go any further than this?", "I want to go back to my people..."])]
-    },
-    "Commuter":
-    {
-        "id": "Commuter",
-        "name": "Commuter",
-        "character": Constants.Character.Tabako_Dokuo,
-        "lines" : [Utils.makeSimpleDialogue(["Getting around Sea City is a breeze since they added this train.", "Well, it will be when they add more stations, anyway."])]
-    },
-    "NewcomerGiko":
-    {
-        "id": "NewcomerGiko",
-        "name": "Lost Newcomer",
-        "character": Constants.Character.Giko,
-        "lines": [
-            Utils.makeSimpleDialogue(["What is this place?"]),
-            Utils.makeSimpleDialogue(["I think I missed the button to register an account."]),
-            Utils.makeSimpleDialogue(["How do I erase my chat bubble?"])
-        ]
-    },
-    "Scientist":
-    {
-        "id": "Scientist",
-        "name": "Prof. Fibonacci",
-        "character": Constants.Character.Tikan_Giko,
-        "lines": []
-    },
-    "ShogiPlayer":
-    {
-        "id": "ShogiPlayer",
-        "name": "Pointy Nosed Shogi Player",
-        "character": Constants.Character.Hotsuma_Giko,
-        "lines": [
-            Utils.makeSimpleDialogue(["[jump]I hate it![/jump]", " [jump]I hate it![/jump]", " [jump]くやしい![/jump]"])
-        ]
-    },
-    "ShogiPlayer2":
-    {
-        "id": "ShogiPlayer2",
-        "name": "Immature Shogi Player",
-        "character": Constants.Character.Dokuo,
-        "lines": [
-            Utils.makeSimpleDialogue(["My real life hasn't started yet. The real me is still asleep, so that's why I'm losing."])
-        ]
-    },
-    "TeachersAssistant":
-    {
-        "id": "TeachersAssistant",
-        "name": "Teacher's Assistant",
-        "character": Constants.Character.Hotsuma_Giko,
-        "lines" : []
-    }
-
+			Utils.makeSimpleDialogue(["Huff...huff...just catching my breath."]),
+			Utils.makeSimpleDialogue(["Why are these stairs so steep?", "Even the perspective in this room is completely different."]),
+		]
+	},
+	"Philosopher" : 
+	{
+		"id": "Philosopher",
+		"name": "Philosopher",
+		"character": Constants.Character.FunkyNaito,
+		"lines" : [
+			Utils.makeSimpleDialogue(["When the giko stares into the abyss, the abyss stares back into the giko."]),
+			Utils.makeSimpleDialogue(["Gikos are like hedgehogs looking to huddle together for warmth on a cold day around an interesting stream.",
+			"As they begin to prick one another with their quills, they are obliged to disperse."])
+		]
+	},
+	"SwimmingSalmon" :
+	{
+		"id": "SwimmingSalmon",
+		"name": "Confused Salmon",
+		"character": Constants.Character.Salmon,
+		"lines": [Utils.makeSimpleDialogue(["Blub blub."])]
+	},
+	"SwimmingIka" :
+	{
+		"id": "SwimmingIka",
+		"name": "Ika",
+		"character": Constants.Character.Ika,
+		"lines": [Utils.makeSimpleDialogue(["Why can't I go any further than this?", "I want to go back to my people..."])]
+	},
+	"Commuter":
+	{
+		"id": "Commuter",
+		"name": "Commuter",
+		"character": Constants.Character.Tabako_Dokuo,
+		"lines" : [Utils.makeSimpleDialogue(["Getting around Sea City is a breeze since they added this train.", "Well, it will be when they add more stations, anyway."])]
+	},
+	"NewcomerGiko":
+	{
+		"id": "NewcomerGiko",
+		"name": "Lost Newcomer",
+		"character": Constants.Character.Giko,
+		"lines": [
+			Utils.makeSimpleDialogue(["What is this place?"]),
+			Utils.makeSimpleDialogue(["I think I missed the button to register an account."]),
+			Utils.makeSimpleDialogue(["How do I erase my chat bubble?"])
+		]
+	},
+	"Scientist":
+	{
+		"id": "Scientist",
+		"name": "Prof. Fibonacci",
+		"character": Constants.Character.Tikan_Giko,
+		"lines": []
+	},
+	"ShogiPlayer":
+	{
+		"id": "ShogiPlayer",
+		"name": "Pointy Nosed Shogi Player",
+		"character": Constants.Character.Hotsuma_Giko,
+		"lines": [
+			Utils.makeSimpleDialogue(["[jump]I hate it![/jump]", " [jump]I hate it![/jump]", " [jump]くやしい![/jump]"])
+		]
+	},
+	"ShogiPlayer2":
+	{
+		"id": "ShogiPlayer2",
+		"name": "Immature Shogi Player",
+		"character": Constants.Character.Dokuo,
+		"lines": [
+			Utils.makeSimpleDialogue(["My real life hasn't started yet. The real me is still asleep, so that's why I'm losing."])
+		]
+	},
+	"TeachersAssistant":
+	{
+		"id": "TeachersAssistant",
+		"name": "Teacher's Assistant",
+		"character": Constants.Character.Hotsuma_Giko,
+		"lines" : []
+	},
+	"SiloSinger":
+	{
+		"id": "SiloSinger",
+		"name": "Shii",
+		"character": Constants.Character.Shii,
+		"lines": [Utils.makeSimpleDialogue(["♪ Under the moon, loli to issho ♪"])]
+	},
+	"AnonymousBarman":
+	{
+		"id": "AnonymousBarman",
+		"name": "Anonymous Barman",
+		"character": Constants.Character.George,
+		"lines" : []
+	},
+	"Policeman":
+	{
+		"id": "Policeman",
+		"name": "Policeman",
+		"character": Constants.Character.Tokita_Naito,
+		"lines": [Utils.makeSimpleDialogue(["Alright, move along now..."])]
+	},
+	"ShiisSong":
+	{
+		"id": "ShiisSong",
+		"name": "Shii",
+		"character": Constants.Character.Shii,
+		"lines": [
+			Utils.makeSimpleDialogue(["Wishing on a dream that seems far off", "Hoping it will come today", "Into the starlight night, foolish dreamers turn their gaze", "Waiting on a shooting star..."])
+		]
+	},
+	"ShiisSongHimawari":
+	{
+		"id":"ShiisSongHimawari",
+		"name": "Sunflower",
+		"character": Constants.Character.Himawari,
+		"lines": [
+			Utils.makeSimpleDialogue(["When the horizon darkens most", "We all need to believe there is hope..."])
+		]
+	},
+	"Engineer1":
+	{
+		"id": "Engineer1",
+		"name": "Engineer",
+		"character": Constants.Character.Chotto_Toorimasu_Yo,
+		"lines": []
+	},
+	"Engineer2":
+	{
+		"id": "Engineer2",
+		"name": "Engineer",
+		"character": Constants.Character.Chotto_Toorimasu_Yo,
+		"lines": []
+	},
+	"Engineer3":
+	{
+		"id": "Engineer3",
+		"name": "Engineer",
+		"character": Constants.Character.Chotto_Toorimasu_Yo,
+		"lines": []
+	}
 
 }
 
@@ -414,33 +480,33 @@ var ACTIVE_NPCs = {
 			"lines": []
 		}
 	},
-    "admin_st":
-    {
-        "NewcomerGiko":
-        {
-            "id": "NewcomerGiko",
-            "direction": Constants.Directions.DIR_UP,
-            "x": 1,
-            "y": 0,
-            "lines": []
-        },
-        "ShogiPlayer":
-        {
-            "id": "ShogiPlayer",
-            "direction": Constants.Directions.DIR_UP,
-            "x": 5,
-            "y": 6,
-            "lines": []
-        },
-        "ShogiPlayer2":
-        {
-            "id": "ShogiPlayer2",
-            "direction": Constants.Directions.DIR_DOWN,
-            "x": 5,
-            "y": 8,
-            "lines": []
-        },
-    },
+	"admin_st":
+	{
+		"NewcomerGiko":
+		{
+			"id": "NewcomerGiko",
+			"direction": Constants.Directions.DIR_UP,
+			"x": 1,
+			"y": 0,
+			"lines": []
+		},
+		"ShogiPlayer":
+		{
+			"id": "ShogiPlayer",
+			"direction": Constants.Directions.DIR_UP,
+			"x": 5,
+			"y": 6,
+			"lines": []
+		},
+		"ShogiPlayer2":
+		{
+			"id": "ShogiPlayer2",
+			"direction": Constants.Directions.DIR_DOWN,
+			"x": 5,
+			"y": 8,
+			"lines": []
+		},
+	},
 	"bar":
 	{
 		"zzazzachu":
@@ -472,6 +538,17 @@ var ACTIVE_NPCs = {
 			 "x": 3, 
 			 "y": 1, 
 			 "lines": []
+		}
+	},
+	"bar774":
+	{
+		"AnonymousBarman":
+		{
+			"id": "AnonymousBarman",
+			"direction": Constants.Directions.DIR_RIGHT,
+			"x": 1,
+			"y": 4,
+			"lines" : []
 		}
 	},
 	"takadai":
@@ -543,6 +620,14 @@ var ACTIVE_NPCs = {
 			"x" : 13,
 			"y" : 11,
 			"lines" : []
+		},
+		"Policeman":
+		{
+			"id": "Policeman",
+			"direction": Constants.Directions.DIR_RIGHT,
+			"x": 4,
+			"y": 7,
+			"lines" : []
 		}
 	},
 	"yoshinoya" : 
@@ -601,14 +686,14 @@ var ACTIVE_NPCs = {
 			"y": 6,
 			"lines" : []
 		},
-        "Commuter":
-        {
-            "id":"Commuter",
-            "direction": Constants.Directions.DIR_RIGHT,
-            "x": 0,
-            "y": 10,
-            "lines": []
-        }
+		"Commuter":
+		{
+			"id":"Commuter",
+			"direction": Constants.Directions.DIR_RIGHT,
+			"x": 0,
+			"y": 10,
+			"lines": []
+		}
 	},
 	"seashore" : 
 	{
@@ -620,22 +705,22 @@ var ACTIVE_NPCs = {
 			"y": 9,
 			"lines" : []
 		},
-        "SwimmingSalmon":
-        {
-            "id": "SwimmingSalmon",
-            "direction" : Constants.Directions.DIR_DOWN,
-            "x": 0,
-            "y": 9,
-            "lines" : []
-        },
-        "SwimmingIka":
-        {
-            "id":"SwimmingIka",
-            "direction": Constants.Directions.DIR_LEFT,
-            "x":0,
-            "y":4,
-            "lines":[]
-        }
+		"SwimmingSalmon":
+		{
+			"id": "SwimmingSalmon",
+			"direction" : Constants.Directions.DIR_DOWN,
+			"x": 0,
+			"y": 9,
+			"lines" : []
+		},
+		"SwimmingIka":
+		{
+			"id":"SwimmingIka",
+			"direction": Constants.Directions.DIR_LEFT,
+			"x":0,
+			"y":4,
+			"lines":[]
+		}
 	},
 	"yatai" : 
 	{
@@ -726,37 +811,45 @@ var ACTIVE_NPCs = {
 			"lines" : []
 		}
 	},
-    "kaidan" : {
-        "outOfShapeGiko" :
-        {
-            "id": "outOfShapeGiko",
+	"kaidan" : {
+		"outOfShapeGiko" :
+		{
+			"id": "outOfShapeGiko",
 			"x": 0,
 			"y": 5,
 			"direction":  Constants.Directions.DIR_UP,
 			"lines" : []
-        }
-    },
-    "silo" : 
-    {
-        "Philosopher":{
-            "id": "Philosopher",
-            "x": 0,
-            "y": 4,
-            "direction": Constants.Directions.DIR_LEFT,
-            "lines": []
-        }
-    },
-    "school":
-    {
-        "Scientist":
-        {
-            "id": "Scientist",
-            "x": 0,
-            "y": 2,
-            "direction": Constants.Directions.DIR_LEFT,
-            "lines": []
-        }
-    }
+		}
+	},
+	"silo" : 
+	{
+		"Philosopher":{
+			"id": "Philosopher",
+			"x": 0,
+			"y": 4,
+			"direction": Constants.Directions.DIR_LEFT,
+			"lines": []
+		},
+		"SiloSinger":
+		{
+			"id": "SiloSinger",
+			"x": 3,
+			"y": 6,
+			"direction": Constants.Directions.DIR_RIGHT,
+			"lines" : []
+		}
+	},
+	"school":
+	{
+		"Scientist":
+		{
+			"id": "Scientist",
+			"x": 0,
+			"y": 2,
+			"direction": Constants.Directions.DIR_LEFT,
+			"lines": []
+		}
+	}
 }
 
 
@@ -771,6 +864,9 @@ func addActiveNPC(roomId: String, NPCId: String, direction: int, position: Vecto
 	ACTIVE_NPCs[roomId][NPCId] = ({
 		"id": NPCId, "direction": direction, "x": position.x, "y": position.y, "lines": []
 	})
+
+func addStockLine(NPCId: String, content):
+	NPCs[NPCId]["lines"].push_back(content)
 
 func updateNPCPosition(roomId: String, NPCId: String, newPosition : Vector2) -> void:
 	ACTIVE_NPCs[roomId][NPCId]["x"] = newPosition.x

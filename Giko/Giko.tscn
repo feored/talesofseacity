@@ -36,7 +36,7 @@ offset = Vector2( 0, -125 )
 [node name="MessageRoot" type="Node2D" parent="."]
 position = Vector2( 250, -600 )
 scale = Vector2( 4, 4 )
-z_index = 4096
+z_index = 999
 z_as_relative = false
 
 [node name="Control" type="Control" parent="."]

@@ -7,6 +7,8 @@ const PlayerGiko = preload("res://Giko/PlayerGiko.gd")
 
 var gikoPrefab = preload("res://Giko/Giko.tscn")
 
+var lightPrefab = preload("res://Quests/Misc/Flashlight.tscn")
+
 var messages: Dictionary = {}
 
 var totalMessages = 0
@@ -17,6 +19,8 @@ var activeItems : Dictionary = {}
 var activeNPCs : Dictionary = {}
 var environmentItems : Dictionary = {}
 
+
+onready var camera = $"%Camera2D"
 onready var dialogueManager = $"%Dialogue"
 # Declare member variables here. Examples:
 # var a = 2
@@ -101,6 +105,18 @@ func loadRoom(roomName: String) -> void:
 	loadNPCs()
 	loadEnvironment()
 	$"%Grid".draw_grid()
+
+
+	## Room specific:
+
+	if roomName == "bar_giko_square":
+		if Settings.BLACKOUT:
+			var newLight = lightPrefab.instance()
+			$"%zObjects".add_child(newLight)
+			newLight.position = Utils.getTilePosAtCoords(Vector2(1, 10))
+			newLight.color = Color("ffc4c4")
+			newLight.texture_scale = 1.0
+
 	return
 
 

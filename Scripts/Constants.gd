@@ -15,7 +15,7 @@ const DEFAULT_GIKO_MOVESPEED = 85
 const SLOW_GIKO_MOVESPEED = 30
 const FAST_GIKO_MOVESPEED = 300
 
-var GIKO_MOVESPEED = 85
+
 
 const GIKOANIM_BACK_STANDING = "back-standing"
 const GIKOANIM_BACK_WALKING = "back-walking"
