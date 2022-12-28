@@ -695,6 +695,10 @@ const RANDOM_GIKOS = [
 		"character": Character.Salmon
 	},
 	{
+		"name": "◆PPppppppSI",
+		"character": Character.Dark_Naito_Walking
+	},
+	{
 		"name" : "Macbeth",
 		"character": Character.Hikki
 	},
@@ -729,6 +733,10 @@ const RANDOM_GIKOS = [
 	{
 		"name": "ケンコンコ数◆kEnKoNko1I",
 		"character": Character.Salmon
+	},
+	{
+		"name": "爽◆SK2v8l8drw",
+		"character": Character.Onigiri
 	}
 ]
 

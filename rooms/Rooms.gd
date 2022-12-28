@@ -100,6 +100,10 @@ func updateCurrentRoomWalkableTiles() -> void:
 			checkedTiles.append(potentialTile)
 	currentRoomWalkableTiles = walkableTiles
 
+func getRandomDoorInRoom() -> Dictionary:
+	return currentRoomData["doors"].keys()[ Utils.rng.randi() % currentRoomData["doors"].size()]
+
+
 func getCurrentRoomOffset() -> Vector2:
 	
 	match currentRoomData["id"]:

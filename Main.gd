@@ -19,6 +19,11 @@ var activeItems : Dictionary = {}
 var activeNPCs : Dictionary = {}
 var environmentItems : Dictionary = {}
 
+var timeElapsed = 0
+
+const DEFAULT_NEXT_GIKO_TIME = 20
+var nextGikoTime = Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5)
+
 
 onready var camera = $"%Camera2D"
 onready var dialogueManager = $"%Dialogue"
@@ -58,18 +63,28 @@ func cleanRoom() -> void:
 		$"%zObjects".remove_child(n)
 		n.queue_free()
 
-func spawnRandomGikos() -> void:
-	var spawnedGikos = []
-	for _i in range(Utils.rng.randi() % 10):
-		if Utils.rng.randf() > 0.6:
-			spawnRandomGiko("Anonymous", Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()])
-		else:
-			var randomGiko = Constants.RANDOM_GIKOS[Utils.rng.randi() % Constants.RANDOM_GIKOS.size()]
-			if randomGiko["name"] in spawnedGikos:
-				spawnRandomGiko("Anonymous", Constants.Character.Giko)
-			else:
-				spawnedGikos.push_back(randomGiko["name"])
-				spawnRandomGiko(randomGiko["name"], randomGiko["character"])
+func spawnRandomGikos(number : int = Utils.rng.randi() % 10) -> void:
+	for _i in range(number):
+		var randomGiko = getAvailableRandomGikoPair()
+		spawnRandomGiko(randomGiko[0], randomGiko[1])
+
+func getAvailableRandomGikoPair() -> Array:
+	if Utils.rng.randf() > 0.6:
+		return [
+			"Anonymous",
+			Constants.Character.values()[Utils.rng.randi() % Constants.Character.values().size()]
+		]
+	else:
+		var randomGiko = Constants.RANDOM_GIKOS[Utils.rng.randi() % Constants.RANDOM_GIKOS.size()]
+		return [randomGiko["name"], randomGiko["character"]]
+
+
+
+func spawnRandomGikoAtDoor() -> void:
+	var randomGiko = getAvailableRandomGikoPair()
+	var randomRoom = Rooms.getRandomDoorInRoom()
+	print(randomRoom)
+	spawnRandomGiko(randomGiko[0], randomGiko[1], randomRoom)
 
 
 func changeRoom(newRoom : String):
@@ -94,8 +109,12 @@ func doorChangeRoom(target):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	timeElapsed += delta
+	if timeElapsed > nextGikoTime:
+		nextGikoTime = Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5)
+		timeElapsed = 0
+		spawnRandomGikoAtDoor()
 
 
 func loadRoom(roomName: String) -> void:
@@ -109,6 +128,8 @@ func loadRoom(roomName: String) -> void:
 	$Background.texture = newRoomTexture
 	$Background.position = Rooms.getCurrentRoomOffset()
 	$"%RoomName".setNewRoom(Rooms.DISPLAY_NAMES[roomName])
+
+	timeElapsed = 0
 	
 	loadObjects()
 	loadItems()
@@ -270,12 +291,19 @@ func spawnNPCGiko(NPCData : Dictionary) -> void:
 	newGiko.initializeNPC(NPCData)
 	$"%zObjects".add_child(newGiko)
 
-func spawnRandomGiko(name : String, character : int) -> void:
+func spawnRandomGiko(name : String, character : int, door = null) -> void:
 	var newGiko = gikoPrefab.instance()
 	newGiko.set_script(Giko)
 	newGiko.initializeRandom(name, character)
 	$"%zObjects".add_child(newGiko)
-
+	if door != null:
+		newGiko.place(
+		Vector2(
+			Rooms.currentRoomData["doors"][door]["x"],
+			Rooms.currentRoomData["doors"][door]["y"]
+		),
+		Utils.roomDirectionToEnum(Rooms.currentRoomData["doors"][door]["direction"])
+	)
 
 func save() -> Dictionary:
 	return {
