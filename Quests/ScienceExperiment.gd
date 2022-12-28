@@ -100,7 +100,7 @@ func moveMachine3() -> void:
 
     NPCs.removeActiveNPC("school_rouka", "TeachersAssistant")
 
-    Settings.GIKO_MOVESPEED = Constants.DEFAULT_GIKO_MOVESPEED
+    State.GIKO_MOVESPEED = Constants.DEFAULT_GIKO_MOVESPEED
 
     self.main.dialogueManager.setLineSet(Utils.makeSimpleDialogue([
         "The machine finally tips over the edge and crashes to the ground after a very long fall."]), "")
@@ -158,7 +158,7 @@ func moveMachine1() -> void:
     Rooms.updateCurrentRoomWalkableTiles()
 
 func speedUpTime() -> void:
-    Settings.GIKO_MOVESPEED = Constants.FAST_GIKO_MOVESPEED
+    State.GIKO_MOVESPEED = Constants.FAST_GIKO_MOVESPEED
     NPCs.addQuestDialogue(
         "school",
         "Scientist",
@@ -224,7 +224,7 @@ func speedUpTime() -> void:
         }})
 
 func slowDownTime() -> void:
-    Settings.GIKO_MOVESPEED = Constants.SLOW_GIKO_MOVESPEED
+    State.GIKO_MOVESPEED = Constants.SLOW_GIKO_MOVESPEED
     
     self.main.replaceEnvironmentItem(Vector2(6,9), new_machine)
     Items.BACKGROUND_ENVIRONMENT["silo"][Vector2(6,9)] = new_machine

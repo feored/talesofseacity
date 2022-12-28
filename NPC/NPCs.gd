@@ -167,7 +167,11 @@ var NPCs = {
 		"id" : "Hacker",
 		"name" : "Hacker",
 		"character" : Constants.Character.Hikki,
-		"lines" : []
+		"lines" : [
+			Utils.makeSimpleDialogue(["From the way the code is put together, I can say it's written by a woman"]),
+			Utils.makeSimpleDialogue(["While I listen to music, I have the cognitive power to input that song as MP3 data."]),
+			Utils.makeSimpleDialogue(["Hissatsu!! Double Compile!!"])
+		]
 	},
 	"HamRadioEnthusiast" : {
 		"id" : "HamRadioEnthusiast",

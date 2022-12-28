@@ -30,9 +30,14 @@ onready var dialogueManager = $"%Dialogue"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#loadRandomRoom()
-	loadRoom("gym_exterior")
+	loadRoom("bar")
 	spawnRandomGikos()
 	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
+
+	Quests.initQuests()
+
+	$"%Menu".saveMain = funcref(self, "save")
+	$"%Menu".loadMain = funcref(self, "load")
 	
 
 	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
@@ -66,12 +71,16 @@ func spawnRandomGikos() -> void:
 				spawnedGikos.push_back(randomGiko["name"])
 				spawnRandomGiko(randomGiko["name"], randomGiko["character"])
 
-func changeRoom(target):
+
+func changeRoom(newRoom : String):
 	$"%zObjects".remove_child(playerGiko)
 	cleanRoom()
-	loadRoom(target["roomId"])
+	loadRoom(newRoom)
 	spawnRandomGikos()
 	$"%zObjects".add_child(playerGiko)
+
+func doorChangeRoom(target):
+	changeRoom(target["roomId"])
 	
 	playerGiko.place(
 		Vector2(
@@ -99,6 +108,7 @@ func loadRoom(roomName: String) -> void:
 	$Background.scale = Vector2(Rooms.currentRoomScale/4, Rooms.currentRoomScale/4)
 	$Background.texture = newRoomTexture
 	$Background.position = Rooms.getCurrentRoomOffset()
+	$"%RoomName".setNewRoom(Rooms.DISPLAY_NAMES[roomName])
 	
 	loadObjects()
 	loadItems()
@@ -110,7 +120,7 @@ func loadRoom(roomName: String) -> void:
 	## Room specific:
 
 	if roomName == "bar_giko_square":
-		if Settings.BLACKOUT:
+		if State.BLACKOUT:
 			var newLight = lightPrefab.instance()
 			$"%zObjects".add_child(newLight)
 			newLight.position = Utils.getTilePosAtCoords(Vector2(1, 10))
@@ -235,7 +245,7 @@ func spawnPlayerGiko(door: String) -> void:
 	newGiko.displayName = "Anonymous"
 
 	## prepare callbacks
-	newGiko.changeRoom = funcref(self, "changeRoom")
+	newGiko.changeRoom = funcref(self, "doorChangeRoom")
 	newGiko.removeActiveItem = funcref(self, "removeActiveItem")
 	newGiko.talkToNPC = funcref(self, "talkToNPC")
 	newGiko.talkToEnvironment = funcref(self, "talkToEnvironment")
@@ -265,3 +275,15 @@ func spawnRandomGiko(name : String, character : int) -> void:
 	newGiko.set_script(Giko)
 	newGiko.initializeRandom(name, character)
 	$"%zObjects".add_child(newGiko)
+
+
+func save() -> Dictionary:
+	return {
+		"ROOM" : Rooms.currentRoomId,
+		"PLAYER_POSITION" : Vector2(playerGiko.currentTile),
+		"PLAYER_DIRECTION" : playerGiko.currentDirection
+	}
+
+func load(save : Dictionary) -> void:
+	changeRoom(save["ROOM"])
+	playerGiko.place(save["PLAYER_POSITION"], save["PLAYER_DIRECTION"])

@@ -54,7 +54,7 @@ Rooms="*res://rooms/Rooms.gd"
 Items="*res://Items/Items.gd"
 Quests="*res://Quests/General/Quests.gd"
 Log="*res://Scripts/Log.gd"
-Settings="*res://Settings/Settings.gd"
+State="*res://Settings/State.gd"
 QuestUtils="*res://Quests/General/QuestUtils.gd"
 
 [display]
@@ -133,6 +133,11 @@ log={
 journal={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":74,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+menu={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

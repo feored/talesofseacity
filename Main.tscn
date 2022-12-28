@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -23,6 +23,10 @@
 [ext_resource path="res://UI/Menu/Menu.gd" type="Script" id=21]
 [ext_resource path="res://rooms/bar_giko_square/background.png" type="Texture" id=22]
 [ext_resource path="res://Quests/General/QuestUtils.gd" type="Script" id=23]
+[ext_resource path="res://UI/test9patch.png" type="Texture" id=24]
+[ext_resource path="res://UI/Menu/Menu.tscn" type="PackedScene" id=25]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=26]
+[ext_resource path="res://UI/RoomName.gd" type="Script" id=27]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 
 [sub_resource type="Shader" id=18]
@@ -80,6 +84,8 @@ vertical = true
 
 [sub_resource type="StyleBoxEmpty" id=13]
 
+[sub_resource type="StyleBoxEmpty" id=23]
+
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxFlat" id=7]
@@ -94,6 +100,13 @@ bg_color = Color( 1, 1, 1, 0.0941176 )
 
 [sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 1, 1, 1, 0.054902 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0, 0, 0, 0.25098 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="Curve" id=21]
 min_value = -40.0
@@ -354,35 +367,45 @@ mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
 theme = ExtResource( 4 )
+custom_styles/panel = SubResource( 23 )
 script = ExtResource( 12 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 719.0
-margin_bottom = 479.0
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Rula"]
+margin_right = 720.0
+margin_bottom = 480.0
+texture = ExtResource( 24 )
+patch_margin_left = 80
+patch_margin_top = 80
+patch_margin_right = 80
+patch_margin_bottom = 80
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/NinePatchRect"]
+margin_right = 718.0
+margin_bottom = 474.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/Rula/VBoxContainer"]
+[node name="Panel" type="Panel" parent="UI/Rula/NinePatchRect/VBoxContainer"]
 margin_right = 718.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 10 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Rula/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
 margin_right = 720.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Control" type="Control" parent="UI/Rula/VBoxContainer/Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Label" type="Label" parent="UI/Rula/VBoxContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 54.0
 margin_right = 666.0
 margin_bottom = 50.0
@@ -395,7 +418,7 @@ text = "Rula"
 align = 1
 valign = 1
 
-[node name="CloseBtn" type="Button" parent="UI/Rula/VBoxContainer/Panel/HBoxContainer"]
+[node name="CloseBtn" type="Button" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 670.0
 margin_right = 720.0
 margin_bottom = 50.0
@@ -405,18 +428,18 @@ flat = true
 icon_align = 1
 expand_icon = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/NinePatchRect/VBoxContainer"]
 margin_top = 54.0
 margin_right = 718.0
-margin_bottom = 478.0
+margin_bottom = 474.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Rula/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer"]
 margin_right = 718.0
-margin_bottom = 424.0
+margin_bottom = 420.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -425,21 +448,21 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 708.0
-margin_bottom = 414.0
+margin_bottom = 410.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
 margin_left = 249.0
-margin_top = 102.0
+margin_top = 100.0
 margin_right = 449.0
-margin_bottom = 302.0
+margin_bottom = 300.0
 custom_constants/separation = 25
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 margin_right = 200.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
@@ -448,7 +471,7 @@ text = "Room Name"
 align = 1
 valign = 1
 
-[node name="RulaRooms" type="OptionButton" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="RulaRooms" type="OptionButton" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 75.0
 margin_right = 200.0
@@ -458,7 +481,7 @@ size_flags_horizontal = 3
 align = 1
 icon_align = 1
 
-[node name="RulaGoBtn" type="Button" parent="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="RulaGoBtn" type="Button" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 200.0
@@ -862,7 +885,11 @@ margin_bottom = 540.0
 rect_min_size = Vector2( 300, 300 )
 script = ExtResource( 19 )
 
-[node name="Menu" type="PanelContainer" parent="UI"]
+[node name="Menu" parent="UI" instance=ExtResource( 25 )]
+unique_name_in_owner = true
+visible = false
+
+[node name="Menuold" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
 visible = false
 anchor_left = 0.5
@@ -880,7 +907,7 @@ size_flags_vertical = 5
 theme = ExtResource( 4 )
 script = ExtResource( 21 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menuold"]
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 959.0
@@ -889,13 +916,13 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/Menu/VBoxContainer"]
+[node name="Panel" type="Panel" parent="UI/Menuold/VBoxContainer"]
 margin_right = 958.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 10 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Menu/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Menuold/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
 anchor_top = 0.5
 anchor_right = 1.0
@@ -905,12 +932,12 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="UI/Menu/VBoxContainer/Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="UI/Menuold/VBoxContainer/Panel/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Menuold/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 54.0
 margin_right = 904.0
 margin_bottom = 50.0
@@ -923,7 +950,7 @@ text = "Menu"
 align = 1
 valign = 1
 
-[node name="CloseBtn" type="Button" parent="UI/Menu/VBoxContainer/Panel/HBoxContainer"]
+[node name="CloseBtn" type="Button" parent="UI/Menuold/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 908.0
 margin_right = 958.0
 margin_bottom = 50.0
@@ -933,7 +960,7 @@ flat = true
 icon_align = 1
 expand_icon = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Menu/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Menuold/VBoxContainer"]
 margin_top = 54.0
 margin_right = 958.0
 margin_bottom = 714.0
@@ -942,7 +969,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Menu/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Menuold/VBoxContainer/ScrollContainer"]
 margin_right = 958.0
 margin_bottom = 660.0
 rect_min_size = Vector2( 500, 0 )
@@ -954,14 +981,14 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/Menu/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="UI/Menuold/VBoxContainer/ScrollContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
 margin_bottom = 650.0
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menu/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menuold/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
 margin_left = 404.0
 margin_top = 257.0
 margin_right = 534.0
@@ -970,20 +997,53 @@ size_flags_horizontal = 3
 custom_constants/separation = 25
 alignment = 1
 
-[node name="SaveBtn" type="Button" parent="UI/Menu/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="SaveBtn" type="Button" parent="UI/Menuold/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 margin_right = 130.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 size_flags_horizontal = 7
 text = "Save"
 
-[node name="ScreenshotBtn" type="Button" parent="UI/Menu/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="ScreenshotBtn" type="Button" parent="UI/Menuold/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 75.0
 margin_right = 130.0
 margin_bottom = 125.0
 rect_min_size = Vector2( 100, 50 )
 size_flags_horizontal = 7
 text = "Take Screenshot"
+
+[node name="RoomName" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -260.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 110.0
+custom_styles/panel = SubResource( 24 )
+script = ExtResource( 27 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RoomName"]
+margin_right = 240.0
+margin_bottom = 90.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="RoomNameLabel" type="Label" parent="UI/RoomName/MarginContainer"]
+unique_name_in_owner = true
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 220.0
+margin_bottom = 70.0
+grow_horizontal = 0
+rect_min_size = Vector2( 200, 50 )
+custom_fonts/font = ExtResource( 26 )
+text = "Bar Giko Square"
+align = 1
+valign = 1
+autowrap = true
 
 [node name="Snow" type="Particles2D" parent="."]
 unique_name_in_owner = true
@@ -1036,10 +1096,10 @@ script = ExtResource( 23 )
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/RulaBtn" to="UI" method="_on_RulaBtn_pressed"]
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/LogBtn" to="UI" method="_on_LogBtn_pressed"]
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/JournalBtn" to="UI" method="_on_JournalBtn_pressed"]
-[connection signal="pressed" from="UI/Rula/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Rula/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
+[connection signal="pressed" from="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
+[connection signal="pressed" from="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
 [connection signal="pressed" from="UI/Journal/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Journal" method="_on_CloseBtn_pressed"]
 [connection signal="pressed" from="UI/Log/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Log" method="_on_CloseBtn_pressed"]
 [connection signal="pressed" from="UI/Inventory/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Inventory" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Menu/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Menu" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Menu/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/ScreenshotBtn" to="UI/Menu" method="_on_ScreenshotBtn_pressed"]
+[connection signal="pressed" from="UI/Menuold/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Menuold" method="_on_CloseBtn_pressed"]
+[connection signal="pressed" from="UI/Menuold/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/ScreenshotBtn" to="UI/Menuold" method="_on_ScreenshotBtn_pressed"]

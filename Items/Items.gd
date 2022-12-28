@@ -249,3 +249,19 @@ func removeItemInventory(itemId : String) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func save() -> Dictionary:
+    return {
+        "ACTIVE_ENVIRONMENT" : ACTIVE_ENVIRONMENT,
+        "INVENTORY" : INVENTORY,
+        "BACKGROUND_ENVIRONMENT" : BACKGROUND_ENVIRONMENT,
+        "ACTIVE_ITEMS" : ACTIVE_ITEMS
+    }
+
+func load(save : Dictionary) -> void:
+    ACTIVE_ENVIRONMENT = save["ACTIVE_ENVIRONMENT"]
+    INVENTORY = save["INVENTORY"]
+    BACKGROUND_ENVIRONMENT = save["BACKGROUND_ENVIRONMENT"]
+    ACTIVE_ITEMS = save["ACTIVE_ITEMS"]
+    inventoryRefreshNeeded = true

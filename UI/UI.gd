@@ -5,15 +5,24 @@ extends CanvasLayer
 # var a = 2
 # var b = "text"
 var panels : Array
+var paused = false
+
+onready var rulaPanel = $"%Rula"
+onready var inventoryPanel = $"%Inventory"
+onready var logPanel = $"%Log"
+onready var journalPanel = $"%Journal"
+onready var menuPanel = $"%Menu"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process_input(true)
+	
 	panels = [
-		$"%Rula",
-		$"%Inventory",
-		$"%Log",
-		$"%Journal"
+	   rulaPanel,
+	   inventoryPanel,
+	   logPanel,
+	   journalPanel,
+	   menuPanel
 	]
 
 
@@ -26,6 +35,8 @@ func _input(event):
 		_on_LogBtn_pressed()
 	elif event.is_action_pressed("journal"):
 		_on_JournalBtn_pressed()
+	elif event.is_action_pressed("menu"):
+		showPanel(menuPanel) if !menuPanel.visible else menuPanel.hide()
 	
 func hideAllPanels():
 	for panel in panels:
@@ -36,16 +47,16 @@ func showPanel(panel : Node) -> void:
 	panel.show()
 
 func _on_RulaBtn_pressed():
-	showPanel($"%Rula") if !$"%Rula".visible else $"%Rula".hide()
+	showPanel(rulaPanel) if !rulaPanel.visible else rulaPanel.hide()
 
 func _on_InventoryBtn_pressed():
-	showPanel($"%Inventory") if !$"%Inventory".visible else $"%Inventory".hide()
+	showPanel(inventoryPanel) if !inventoryPanel.visible else inventoryPanel.hide()
 
 func _on_LogBtn_pressed():
-	showPanel($"%Log") if !$"%Log".visible else $"%Log".hide()
+	showPanel(logPanel) if !logPanel.visible else logPanel.hide()
 	
 func _on_JournalBtn_pressed():
-	showPanel($"%Journal") if !$"%Journal".visible else $"%Journal".hide()
+	showPanel(journalPanel) if !journalPanel.visible else journalPanel.hide()
 	
 
 func _on_RulaGoBtn_pressed():
@@ -63,7 +74,7 @@ func _on_RulaGoBtn_pressed():
 		"doorId" : spawnPoint
 		}
 	hideAllPanels()
-	get_node("/root/Main").changeRoom(target)
+	get_node("/root/Main").doorChangeRoom(target)
 	
 
 
@@ -74,7 +85,9 @@ func _process(delta):
 			blur = true
 			break
 	$"%blur".visible = blur
-	if blur:
+	if blur && !paused:
 		get_tree().paused = true
+		paused = true
 	else:
 		get_tree().paused = false
+		paused = false

@@ -1,6 +1,6 @@
 extends Node2D
 
-const DRAW_GRID = true
+const DRAW_GRID = false
 
 
 func _ready():

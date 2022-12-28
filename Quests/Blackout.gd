@@ -65,7 +65,7 @@ func startFleeing():
 	fleeingEngineer.startFleeing(self.main.playerGiko)
 
 func earthquake():
-	Settings.BLACKOUT = true
+	State.BLACKOUT = true
 	QuestUtils.earthquake()
 	NPCs.addStockLine("AnonymousBarman", Utils.makeSimpleDialogue(["This isn't gonna be good for business..."]))
 	NPCs.addQuestDialogue("bar_giko_square", "Policeman", 

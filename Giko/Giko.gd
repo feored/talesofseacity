@@ -340,7 +340,7 @@ func process_movement(delta) -> void:
             .reanimate()
             checkDoors()
         else:
-            position += Utils.getDirectionPixels(self.currentDirection) * delta * Settings.GIKO_MOVESPEED
+            position += Utils.getDirectionPixels(self.currentDirection) * delta * State.GIKO_MOVESPEED
 
 
 

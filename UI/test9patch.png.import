@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rain_texture.png-0db2e0fc0751d42f885aa2e4479de825.stex"
+path="res://.import/test9patch.png-86c7354ff1188e60467560162a720ea2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rain_texture.png"
-dest_files=[ "res://.import/rain_texture.png-0db2e0fc0751d42f885aa2e4479de825.stex" ]
+source_file="res://UI/test9patch.png"
+dest_files=[ "res://.import/test9patch.png-86c7354ff1188e60467560162a720ea2.stex" ]
 
 [params]
 

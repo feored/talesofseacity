@@ -57,7 +57,7 @@ func process_movement(delta) -> void:
 			position += (
 				Utils.getDirectionPixels(currentDirection)
 				* delta
-				* Settings.GIKO_MOVESPEED
+				* State.GIKO_MOVESPEED
 			)
 
 func checkDoors() -> void:
