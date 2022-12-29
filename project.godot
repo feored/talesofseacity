@@ -45,6 +45,10 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 config/icon="res://UI/gikobox_logo.png"
 
+[audio]
+
+default_bus_layout="res://Audio/bus_layout.tres"
+
 [autoload]
 
 Constants="*res://Scripts/Constants.gd"

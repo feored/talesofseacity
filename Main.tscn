@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -23,7 +23,6 @@
 [ext_resource path="res://rooms/bar_giko_square/background.png" type="Texture" id=22]
 [ext_resource path="res://Quests/General/QuestUtils.gd" type="Script" id=23]
 [ext_resource path="res://UI/test9patch.png" type="Texture" id=24]
-[ext_resource path="res://UI/Menu/Menu.tscn" type="PackedScene" id=25]
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=26]
 [ext_resource path="res://UI/RoomName.gd" type="Script" id=27]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
@@ -883,10 +882,6 @@ margin_top = 240.0
 margin_bottom = 540.0
 rect_min_size = Vector2( 300, 300 )
 script = ExtResource( 19 )
-
-[node name="Menu" parent="UI" instance=ExtResource( 25 )]
-unique_name_in_owner = true
-visible = false
 
 [node name="RoomName" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true

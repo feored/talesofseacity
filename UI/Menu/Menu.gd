@@ -2,9 +2,12 @@ extends Control
 
 const SAVEPATH = "user://saves/"
 
+var audioMenuPrefab = preload("res://UI/Menu/AudioMenu/AudioMenu.tscn")
+
 ## funcrefs
-var saveMain : Object
-var loadMain : Object
+onready var main = $"/root/Main"
+
+var menuChildren = []
 
 
 # Declare member variables here. Examples:
@@ -14,7 +17,7 @@ var loadMain : Object
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+    set_process_input(true)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,12 +36,14 @@ func _ready():
 #     takeScreenshot()
 #     UINode.scale = Vector2(1, 1)
 
-
-func show():
-	visible = true
+func openAudioMenu() -> void:
+    var audioMenu = audioMenuPrefab.instance()
+    add_child(audioMenu)
+    menuChildren.push_back(audioMenu)
 
 func hide():
-	visible = false
+	#visible = false
+    queue_free()
 
 func _on_ContinueBtn_pressed():
 	hide()
@@ -63,7 +68,7 @@ func save():
 	newSave["State"] = State.save()
 	newSave["Quests"] = Quests.save()
 	newSave["Items"] = Items.save()
-	newSave["Main"] = saveMain.call_func()
+	newSave["Main"] = main.save()
 
 	commitSave(newSave, saveFilePath)
 	hide()
@@ -90,11 +95,16 @@ func loadSave(savePath : String):
 	State.load(save["State"])
 	Quests.load(save["Quests"])
 	Items.load(save["Items"])
-	loadMain.call_func(save["Main"])
+	main.load(save["Main"])
 
 	file.close()
 	
-	
+func _input(event):
+    if event.is_action_pressed("menu"):
+        if menuChildren.size() == 0:
+            queue_free()
+        else:
+            menuChildren.pop_back().queue_free()
 
 
 func _on_SaveBtn_pressed():
@@ -103,3 +113,7 @@ func _on_SaveBtn_pressed():
 
 func _on_LoadBtn_pressed():
 	loadGame()
+
+
+func _on_AudioBtn_pressed():
+	openAudioMenu()
