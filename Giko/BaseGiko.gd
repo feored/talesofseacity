@@ -188,6 +188,7 @@ func spawnMessage(text) -> void:
     self.currentMessage.setMessage(text)
     Log.addLog(self.displayName, text)
     $MessageRoot.add_child(self.currentMessage)
+    Audio.playFX(Audio.FX.Message)
 
 
 func destroyMessage() -> void:

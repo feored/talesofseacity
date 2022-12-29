@@ -737,6 +737,10 @@ const RANDOM_GIKOS = [
 	{
 		"name": "爽◆SK2v8l8drw",
 		"character": Character.Onigiri
+	},
+	{
+		"name": "くろ",
+		"character": Character.Chotto_Toorimasu_Yo
 	}
 ]
 

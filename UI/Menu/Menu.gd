@@ -70,7 +70,6 @@ func save():
 
 
 func loadGame():
-	print("Loading")
 	loadSave("%s%s.save" % [SAVEPATH, "savetest"])
 	hide()
 

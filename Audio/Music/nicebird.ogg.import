@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/nicebird.ogg-e747c3c7c4362b2d94112b63016cebcf.oggstr"
+
+[deps]
+
+source_file="res://Audio/Music/nicebird.ogg"
+dest_files=[ "res://.import/nicebird.ogg-e747c3c7c4362b2d94112b63016cebcf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

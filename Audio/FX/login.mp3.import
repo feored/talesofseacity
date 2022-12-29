@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/login.mp3-71b36f9149ff86474dbb43b3020bc963.mp3str"
+
+[deps]
+
+source_file="res://Audio/FX/login.mp3"
+dest_files=[ "res://.import/login.mp3-71b36f9149ff86474dbb43b3020bc963.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

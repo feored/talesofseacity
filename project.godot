@@ -56,6 +56,7 @@ Quests="*res://Quests/General/Quests.gd"
 Log="*res://Scripts/Log.gd"
 State="*res://Settings/State.gd"
 QuestUtils="*res://Quests/General/QuestUtils.gd"
+Audio="*res://Audio/Audio.tscn"
 
 [display]
 

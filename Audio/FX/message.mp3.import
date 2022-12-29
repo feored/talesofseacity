@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/message.mp3-c25e7e1ded203eef24e36da7b56ee76a.mp3str"
+
+[deps]
+
+source_file="res://Audio/FX/message.mp3"
+dest_files=[ "res://.import/message.mp3-c25e7e1ded203eef24e36da7b56ee76a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
