@@ -80,11 +80,7 @@ func setAuthor(NPC : String) -> void:
 func applyNodeActions(line : Dictionary) -> void:
 	if line.has("flags"):
 		for flagAction in line["flags"]:
-			match flagAction["type"]:
-				"set":
-					Quests.QUEST_FLAGS[flagAction["flag"]] = flagAction["value"]
-				"add":
-					Quests.QUEST_FLAGS[flagAction["flag"]] += flagAction["value"]
+			Quests.updateFlag(flagAction)
 	if line.has("rewards"):
 		for reward in line["rewards"]:
 			Items.addItemInventory(reward)

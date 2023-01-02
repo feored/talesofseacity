@@ -5,6 +5,7 @@ var quest_stages = {
     {
         "id": "initial",
         "condition": "talkedToCrazyBoon",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "next" : "final"
     },
     "final": {"id": "final"}

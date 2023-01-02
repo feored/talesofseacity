@@ -66,15 +66,16 @@ func _unhandled_input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    if player != null:
-        position = player.position + playerOffset
-    if isShaking:
-        if elapsedtime < shakeTime:
-            offset =  Vector2(Utils.rng.randf(), Utils.rng.randf()) * shakePower
-            elapsedtime += delta
-        else:
-            isShaking = false
-            elapsedtime = 0
+    if Rooms.loaded: 
+        if player != null:
+            position = player.position + playerOffset
+        if isShaking:
+            if elapsedtime < shakeTime:
+                offset =  Vector2(Utils.rng.randf(), Utils.rng.randf()) * shakePower
+                elapsedtime += delta
+            else:
+                isShaking = false
+                elapsedtime = 0
 
 func shake(duration : float = 0, power : float = 0):
     shakeTime = duration if duration > 0 else shakeTime

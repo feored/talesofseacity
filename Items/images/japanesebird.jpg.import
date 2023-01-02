@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/japanesebird.jpg-07a4a9963154c467b785acf252b5b374.stex"
+path="res://.import/japanesebird.jpg-59ee17c6ee04bfbcfc5470aa836f8414.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/japanesebird.jpg"
-dest_files=[ "res://.import/japanesebird.jpg-07a4a9963154c467b785acf252b5b374.stex" ]
+source_file="res://Items/Images/japanesebird.jpg"
+dest_files=[ "res://.import/japanesebird.jpg-59ee17c6ee04bfbcfc5470aa836f8414.stex" ]
 
 [params]
 

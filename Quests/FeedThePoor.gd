@@ -5,6 +5,7 @@ var quest_stages = {
     {
         "id": "initial",
         "condition": "talkedToHungryShobon",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "addClerkCorndogDialogue",
         "next" : "final"
     },

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/zachu_guitar.png-d2f324683d6a75c2ff4a2d1414bb7fae.stex"
+path="res://.import/zachu_guitar.png-df7d50cd77087998ca8d83b347740dcd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/zachu_guitar.png"
-dest_files=[ "res://.import/zachu_guitar.png-d2f324683d6a75c2ff4a2d1414bb7fae.stex" ]
+source_file="res://Items/Images/zachu_guitar.png"
+dest_files=[ "res://.import/zachu_guitar.png-df7d50cd77087998ca8d83b347740dcd.stex" ]
 
 [params]
 

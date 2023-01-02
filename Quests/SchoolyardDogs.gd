@@ -5,6 +5,7 @@ var quest_stages = {
     {
         "id": "initial",
         "condition": "setupTrap",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "placeBurger",
         "next" : "talkToShobon"
     },
@@ -12,6 +13,7 @@ var quest_stages = {
     {
         "id" : "talkToShobon",
         "condition" : "finishedSchoolyardDogs",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed" : "shobonGoesHome",
         "next": "final"
     },

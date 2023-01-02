@@ -5,7 +5,7 @@
 [ext_resource path="res://Main.gd" type="Script" id=3]
 [ext_resource path="res://UI/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://Items/InventoryDisplay.gd" type="Script" id=5]
-[ext_resource path="res://Items/images/mahjong_red_dragon.png" type="Texture" id=6]
+[ext_resource path="res://Items/Images/mahjong_red_dragon.png" type="Texture" id=6]
 [ext_resource path="res://UI/Dialogue.gd" type="Script" id=7]
 [ext_resource path="res://Items/InventoryPopup.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=9]
@@ -933,7 +933,6 @@ unique_name_in_owner = true
 position = Vector2( 0, -1 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
-smoothing_enabled = true
 smoothing_speed = 15.0
 drag_margin_left = 0.78
 drag_margin_top = 0.93

@@ -5,24 +5,28 @@ var quest_stages = {
     {
         "id": "initial",
         "condition": "needNewFish",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "addSalmonDialogue",
         "next" : "pushSalmon1"
     },
     "pushSalmon1": {
         "id": "pushSalmon1",
         "condition": "pushedSalmon1",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "moveSalmon1",
         "next": "pushSalmon2"
     },
     "pushSalmon2": {
         "id": "pushSalmon2",
         "condition": "pushedSalmon2",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "moveSalmon2",
         "next": "pushSalmon3"
     },
     "pushSalmon3": {
         "id": "pushSalmon3",
         "condition": "pushedSalmon3",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "moveSalmon3",
         "entry": "I pushed the beached salmon back into the sea! I hope he's happy there.",
         "next": "final"

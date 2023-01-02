@@ -53,14 +53,14 @@ var ACTIVE_ITEMS = {
 
 var ITEMS = {
 	"mahjong_red_dragon" : {
-		"url" : "res://Items/images/mahjong_red_dragon.png",
+		"url" : "res://Items/Images/mahjong_red_dragon.png",
 		"id" : "mahjong_red_dragon",
 		"name" : "Mahjong Tile (Red Dragon)",
 		"description" : "A tile used in the game of Mahjong...",
 		"default_world_scale" : 0.1,
 	},
 	"zachu_guitar" : {
-		"url" : "res://Items/images/zachu_guitar.png",
+		"url" : "res://Items/Images/zachu_guitar.png",
 		"id" : "zachu_guitar",
 		"name" : "Zzazzachu's Guitar",
 		"description" : """He uses it to play Twice as Nice & Half the Price by Heron.
@@ -69,7 +69,7 @@ var ITEMS = {
 		"default_world_scale" : 0.25
 	},
 	"sunscreen" : {
-		"url" : "res://Items/images/gikoscreen.png",
+		"url" : "res://Items/Images/gikoscreen.png",
 		"id" : "sunscreen",
 		"name" : "Sunscreen",
 		"description" : """A tube of GIKOSCREEN™ sunscreen, the most reputable brand of sunscreen in Sea City.
@@ -302,11 +302,13 @@ func addItemInventory(itemId : String) -> void:
 	inventoryRefreshNeeded = true
 	INVENTORY.push_back(itemId)
 	get_node(Constants.NOTIFICATIONS_PATH).addItemNotification(itemId, true)
+	Quests.checkConditions(Quests.QuestConditionType.Item)
 
 func removeItemInventory(itemId : String) -> void:
 	inventoryRefreshNeeded = true
 	INVENTORY.erase(itemId)
 	get_node(Constants.NOTIFICATIONS_PATH).addItemNotification(itemId, false)
+	Quests.checkConditions(Quests.QuestConditionType.Item)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -21,8 +21,13 @@ var environmentItems : Dictionary = {}
 
 var timeElapsed = 0
 
+
 const DEFAULT_NEXT_GIKO_TIME = 20
 var nextGikoTime = Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5)
+
+
+var adjacentRoomsThread
+var adjacentRoomsCache = []
 
 
 onready var camera = $"%Camera2D"
@@ -58,6 +63,7 @@ func cleanRoom() -> void:
 	for n in $"%zObjects".get_children():
 		$"%zObjects".remove_child(n)
 		n.queue_free()
+
 
 func spawnRandomGikos(number : int = Utils.rng.randi() % 10) -> void:
 	for _i in range(number):
@@ -101,8 +107,6 @@ func doorChangeRoom(target):
 	)
 
 
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	timeElapsed += delta
@@ -112,7 +116,17 @@ func _process(delta):
 		spawnRandomGikoAtDoor()
 
 
+func adjacentRoomsLoaded():
+	adjacentRoomsThread.wait_to_finish()
+
+func loadAdjacentRooms(adjacentRooms):
+	
+	for room in adjacentRooms:
+		adjacentRoomsCache.push_back(load(room))
+	call_deferred("adjacentRoomsLoaded")
+	
 func loadRoom(roomName: String) -> void:
+	Rooms.loaded = false
 	Rooms.updateRoomData(roomName)
 	if (Rooms.currentRoomData.has("exterior") && Rooms.currentRoomData["exterior"] == true):
 		$"%Snow".visible = true
@@ -142,6 +156,19 @@ func loadRoom(roomName: String) -> void:
 			newLight.position = Utils.getTilePosAtCoords(Vector2(1, 10))
 			newLight.color = Color("ffc4c4")
 			newLight.texture_scale = 1.0
+
+	#adjacentRoomsThread = Thread.new()
+	#adjacentRoomsCache.clear()
+
+	var adjacentRooms = []
+	for door in Rooms.currentRoomData["doors"].values():
+		if door["target"] != null:
+			adjacentRooms.push_back(
+				"res://" + Rooms.ROOMS[door["target"]["roomId"]]["backgroundImageUrl"]
+			)
+	#adjacentRoomsThread.start(self, "loadAdjacentRooms", adjacentRooms)
+
+	Rooms.loaded = true
 
 	return
 

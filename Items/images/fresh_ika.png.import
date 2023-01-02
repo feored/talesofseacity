@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fresh_ika.png-ec47057ee326a54823208f6b0a5e4814.stex"
+path="res://.import/fresh_ika.png-51b957f99e66a4bc56f51214a56b5ffd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/fresh_ika.png"
-dest_files=[ "res://.import/fresh_ika.png-ec47057ee326a54823208f6b0a5e4814.stex" ]
+source_file="res://Items/Images/fresh_ika.png"
+dest_files=[ "res://.import/fresh_ika.png-51b957f99e66a4bc56f51214a56b5ffd.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fishing_rod.png-ea76d5bc65b568961dd1f75f638a5ddb.stex"
+path="res://.import/fishing_rod.png-d92742a05ac7f030570d4cf52224e8f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/fishing_rod.png"
-dest_files=[ "res://.import/fishing_rod.png-ea76d5bc65b568961dd1f75f638a5ddb.stex" ]
+source_file="res://Items/Images/fishing_rod.png"
+dest_files=[ "res://.import/fishing_rod.png-d92742a05ac7f030570d4cf52224e8f4.stex" ]
 
 [params]
 

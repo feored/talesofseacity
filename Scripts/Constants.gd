@@ -46,7 +46,6 @@ enum ConditionType {
     NoFlag
 }
 
-
 #const GIKO_MIN_SPEED = 5
 
 enum Decisions {

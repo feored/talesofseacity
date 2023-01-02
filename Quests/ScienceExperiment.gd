@@ -6,6 +6,7 @@ var quest_stages = {
         "id": "initial",
         "condition": "talkedToScientist",
         "completed": "gotChip",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "entry" : "I met a strange teacher in the school classroom. He gave me a data chip to insert into a machine in Silo, which should..uhh...I'm not sure what it's supposed to do.",
         "next" : "slowDownTime"
     },
@@ -13,6 +14,7 @@ var quest_stages = {
     {
         "id": "slowDownTime",
         "condition": "insertedChip",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "slowDownTime",
         "entry": "I inserted the chip as instructed by the professor, and it's slowed down everyone to a crawl...I don't know what the hell is going on but I should ask him to fix it.",
         "next":  "spedUpTime"
@@ -21,6 +23,7 @@ var quest_stages = {
     {
         "id": "spedUpTime",
         "condition": "insertedSecondChip",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed" : "speedUpTime",
         "entry": "I inserted the second chip the professor gave me, and it just made things worse.",
         "next": "destroyMachine1"
@@ -28,18 +31,21 @@ var quest_stages = {
     "destroyMachine1": {
         "id": "destroyMachine1",
         "condition": "destroyedMachine1",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "moveMachine1",
         "next": "destroyMachine2"
     },
     "destroyMachine2": {
         "id": "destroyMachine2",
         "condition": "destroyedMachine2",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "moveMachine2",
         "next": "destroyMachine3"
     },
     "destroyMachine3": {
         "id": "destroyMachine3",
         "condition": "destroyedMachine3",
+        "condition_type" : Quests.QuestConditionType.Flag,
         "completed": "moveMachine3",
         "entry": "I pushed the machine off the edge! Time is back to normal in Sea City! Students, rejoice!",
         "next": "final"

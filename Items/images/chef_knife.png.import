@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/chef_knife.png-b2d8a1064f4d8fb6c0962de6cf0bf6af.stex"
+path="res://.import/chef_knife.png-04f4e333e689481bb24d5bd7a105c4db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/chef_knife.png"
-dest_files=[ "res://.import/chef_knife.png-b2d8a1064f4d8fb6c0962de6cf0bf6af.stex" ]
+source_file="res://Items/Images/chef_knife.png"
+dest_files=[ "res://.import/chef_knife.png-04f4e333e689481bb24d5bd7a105c4db.stex" ]
 
 [params]
 

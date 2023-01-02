@@ -5,6 +5,7 @@ var quest_stages = {
 	{
 		"id": "initial",
 		"condition": "talkedToBarman",
+        "condition_type" : Quests.QuestConditionType.Item,
 		"completed": "earthquake",
 		"entry" : "I was talking to the barman in Bar774 when an earthquake hit Sea City!",
 		"next" : "lookingForWrench"
@@ -13,6 +14,7 @@ var quest_stages = {
 	{
 		"id": "lookingForWrench",
 		"condition": "askedForWrench",
+        "condition_type" : Quests.QuestConditionType.Flag,
 		"completed": "startFleeing",
 		"entry": "I asked one of the engineers to give me their wrench so that the wind turbine could be fixed, but they're not giving it back... I think I have to catch them now.",
 		"next": "gotWrench"
@@ -21,6 +23,7 @@ var quest_stages = {
 	{
 		"id": "gotWrench",
 		"condition": "gotWrench",
+        "condition_type" : Quests.QuestConditionType.Flag,
 		"completed" : "stopFleeing",
 		"entry": "I caught the engineer. I should return the wrench to the engineer that's actually trying to fix the turbine now.",
 		"next": "final"

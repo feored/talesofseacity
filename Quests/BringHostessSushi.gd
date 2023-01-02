@@ -5,12 +5,14 @@ var quest_stages = {
 	{
 		"id": "initial",
 		"condition": "talkedToSushiSalaryman",
+        "condition_type" : Quests.QuestConditionType.Flag,
 		"entry" : "I've talked to the tired salaryman at the sushi vendor who's looking for some entertainment. Maybe I could find someone to liven up the place.",
 		"next" : "talkToHostess"
 	},
 	"talkToHostess" :{
 	   "id" : "talkToHostess",
 	   "condition" : "talkedToHostess",
+       "condition_type" : Quests.QuestConditionType.Flag,
 	   "entry" : "I've talked to the bored hostess in bar street. She refuses to entertain the tired salaryman as long as the sushi vendor's atmosphere and food does not improve.",
 	   "completed" :"addSushiChefDialogue",
 	   "next" : "talkToChef"
@@ -18,6 +20,7 @@ var quest_stages = {
 	"talkToChef" :{
 		"id": "talkToChef",
 		"condition" : "needSalmon",
+        "condition_type" : Quests.QuestConditionType.Flag,
 		"entry" : "It would seem the only way to revitalize the sushi place is to bring the chef some fresh fish...But where can I find fresh fish in Sea City?",
 		"completed": "addFisherDialogue",
 		"next" : "bringBackSalmon"
@@ -25,6 +28,7 @@ var quest_stages = {
 	"bringBackSalmon" : {
 		"id" : "bringBackSalmon",
 		"condition" : "broughtBackSalmon",
+        "condition_type" : Quests.QuestConditionType.Item,
 		"entry": "I have managed to acquire some fresh seafood. I should bring it back to the chef in Sushi Vendor.",
 		"completed": "addCompletedDialogue",
 		"next" : "giveFish"
@@ -32,12 +36,14 @@ var quest_stages = {
 	"giveFish": {
 		"id": "giveFish",
 		"condition": "gaveFish",
+        "condition_type" : Quests.QuestConditionType.Flag,
 		"entry": "Business is booming again at the Sushi Vendor! Maybe the hostess will accept to come now?",
 		"next": "convinceHostess"
 	},
 	"convinceHostess": {
 		"id" : "convinceHostess",
 		"condition" : "convincedHostess",
+        "condition_type" : Quests.QuestConditionType.Flag,
 		"entry": "I have convinced the hostess to entertain the lonely salaryman! I should go see how they're doing.",
 		"completed": "moveHostess",
 		"next" : "final"

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sunscreen.png-bd62162bf2599708acf0401464c1edaa.stex"
+path="res://.import/sunscreen.png-4692cf3f3c7c180b0fa9d0fd760a829a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/sunscreen.png"
-dest_files=[ "res://.import/sunscreen.png-bd62162bf2599708acf0401464c1edaa.stex" ]
+source_file="res://Items/Images/sunscreen.png"
+dest_files=[ "res://.import/sunscreen.png-4692cf3f3c7c180b0fa9d0fd760a829a.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gikoscreen.png-1b33b1e40e827823546f68c27ca9688e.stex"
+path="res://.import/gikoscreen.png-eab300eae920dd31d6b27b82645074f8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/images/gikoscreen.png"
-dest_files=[ "res://.import/gikoscreen.png-1b33b1e40e827823546f68c27ca9688e.stex" ]
+source_file="res://Items/Images/gikoscreen.png"
+dest_files=[ "res://.import/gikoscreen.png-eab300eae920dd31d6b27b82645074f8.stex" ]
 
 [params]
 
