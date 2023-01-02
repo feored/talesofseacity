@@ -93,6 +93,18 @@ func try_move(toDirection: int) -> void:
 
 
 func _input(event):
+	if State.PAUSE:
+		if event.is_action_pressed("pick_up"):
+			var frontTile = Utils.getTileCoordsInDirection(self.currentTile, self.currentDirection)
+			var gikosOnTile = Rooms.getGikosOnTile(frontTile)
+			var gikoNPC = null
+			for giko in gikosOnTile:
+				if giko != self && giko.isNPC:
+					gikoNPC = giko
+					break
+			if gikoNPC != null:
+				talkToNPC.call_func(gikoNPC.NPCID)
+		return
 	if event.is_action_pressed("ui_up", true):
 		try_move(Constants.Directions.DIR_UP)
 	elif event.is_action_pressed("ui_down", true):

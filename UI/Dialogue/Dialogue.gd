@@ -1,11 +1,12 @@
 extends MarginContainer
 
-var dialogueTextPrefab = preload("res://UI/DialogueText.tscn")
-var dialogueChoicePrefab = preload("res://UI/DialogueChoice.tscn")
+var dialogueTextPrefab = preload("res://UI/Dialogue/DialogueText.tscn")
+var dialogueChoicePrefab = preload("res://UI/Dialogue/DialogueChoice.tscn")
 
 onready var dialogueAuthor = $"%DialogueAuthor"
 onready var dialogueImage = $"%DialogueImage"
-
+onready var arrow = $"%Arrow"
+onready var dialogueAnimation = $"%DialogueAnimation"
 
 var isDialoguing = false
 
@@ -19,15 +20,20 @@ var currentStage : String
 
 var lastAuthor = ""
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+	#arrowTween.stop()
 
 func hide() -> void:
 	visible = false
-
+	State.PAUSE = false
+	
 func show() -> void:
 	visible = true
+	State.PAUSE = true
 
 func spawnLine(text : String) -> void:
 	var newDialogueLine = dialogueTextPrefab.instance()
@@ -35,6 +41,9 @@ func spawnLine(text : String) -> void:
 	newDialogueLine.setText(text)
 	currentDialogueLine = newDialogueLine
 	$"%DialogueVBox".add_child(newDialogueLine)
+	arrow.visible = true
+	dialogueAnimation.play("arrow_move")
+	
 
 func spawnChoice(text : String, id : int, visibility : bool = true) -> void:
 	var newDialogueLine = dialogueChoicePrefab.instance()
@@ -43,6 +52,7 @@ func spawnChoice(text : String, id : int, visibility : bool = true) -> void:
 	currentChoiceLines.push_back(newDialogueLine)
 	$"%DialogueVBox".add_child(newDialogueLine)
 	newDialogueLine.visible = visibility
+	arrow.visible = false
 
 
 func lineOver() -> void:
@@ -135,8 +145,7 @@ func setNextLineInSetFromChoice(choicePicked : int = 0) -> void:
 	
 func skipToNext() -> void:
 	if (currentType == Constants.LineType.Text):
-		cleanUpLines()
-		setNextLineInSet()
+		currentDialogueLine.next()
 
 func setText(newLine : Dictionary) -> void:
 	#cleanUpLines()

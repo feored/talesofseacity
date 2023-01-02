@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://UI/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://Items/InventoryDisplay.gd" type="Script" id=5]
 [ext_resource path="res://Items/Images/mahjong_red_dragon.png" type="Texture" id=6]
-[ext_resource path="res://UI/Dialogue.gd" type="Script" id=7]
+[ext_resource path="res://UI/Dialogue/Dialogue.gd" type="Script" id=7]
 [ext_resource path="res://Items/InventoryPopup.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=9]
 [ext_resource path="res://UI/UI.gd" type="Script" id=10]
@@ -20,6 +20,7 @@
 [ext_resource path="res://UI/Fonts/Arial/arial.tres" type="DynamicFont" id=18]
 [ext_resource path="res://UI/Notifications/Notifications.gd" type="Script" id=19]
 [ext_resource path="res://UI/Journal/Journal.gd" type="Script" id=20]
+[ext_resource path="res://UI/Dialogue/arrow.png" type="Texture" id=21]
 [ext_resource path="res://rooms/bar_giko_square/background.png" type="Texture" id=22]
 [ext_resource path="res://Quests/General/QuestUtils.gd" type="Script" id=23]
 [ext_resource path="res://UI/test9patch.png" type="Texture" id=24]
@@ -74,13 +75,31 @@ void fragment()
 shader = SubResource( 16 )
 shader_param/pixelSize = 8
 
-[sub_resource type="StyleBoxLine" id=9]
-color = Color( 0, 0, 0, 0.92549 )
-grow_begin = -10.0
-grow_end = -10.0
-vertical = true
-
 [sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="Animation" id=25]
+resource_name = "arrow_move"
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Arrow:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Arrow:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 25, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
 
 [sub_resource type="StyleBoxEmpty" id=23]
 
@@ -136,6 +155,7 @@ scale = 0.17
 scale_random = 0.33
 
 [node name="Main" type="Node2D"]
+pause_mode = 1
 position = Vector2( 1, 1 )
 script = ExtResource( 3 )
 
@@ -266,18 +286,18 @@ theme = ExtResource( 4 )
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 719.0
-margin_bottom = 239.0
+margin_bottom = 235.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
 margin_right = 718.0
-margin_bottom = 238.0
+margin_bottom = 234.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-margin_right = 554.0
-margin_bottom = 238.0
+margin_right = 514.0
+margin_bottom = 234.0
 rect_min_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 custom_constants/margin_right = 20
@@ -289,12 +309,12 @@ custom_constants/margin_bottom = 20
 unique_name_in_owner = true
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 534.0
-margin_bottom = 218.0
+margin_right = 494.0
+margin_bottom = 214.0
 
 [node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/DialogueVBox"]
 unique_name_in_owner = true
-margin_right = 514.0
+margin_right = 474.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 custom_colors/font_color = Color( 0.960784, 0.752941, 0.396078, 1 )
@@ -304,19 +324,19 @@ custom_fonts/font = ExtResource( 17 )
 text = "CATARP!"
 valign = 1
 
-[node name="VSeparator" type="VSeparator" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 536.0
-margin_right = 556.0
-margin_bottom = 230.0
-custom_constants/separation = 20
-custom_styles/separator = SubResource( 9 )
+[node name="Arrow" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 518.0
+margin_right = 554.0
+margin_bottom = 234.0
+texture = ExtResource( 21 )
+stretch_mode = 6
 
 [node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 558.0
 margin_right = 718.0
-margin_bottom = 238.0
+margin_bottom = 234.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 7
 size_flags_stretch_ratio = 0.15
@@ -329,18 +349,22 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 150.0
-margin_bottom = 228.0
+margin_bottom = 224.0
 custom_styles/panel = SubResource( 13 )
 
 [node name="DialogueImage" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer/PanelContainer"]
 unique_name_in_owner = true
 margin_right = 140.0
-margin_bottom = 218.0
+margin_bottom = 214.0
 size_flags_vertical = 3
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 6
 flip_h = true
+
+[node name="DialogueAnimation" type="AnimationPlayer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+anims/arrow_move = SubResource( 25 )
 
 [node name="Button" type="Button" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
 visible = false
@@ -956,6 +980,7 @@ unique_name_in_owner = true
 script = ExtResource( 2 )
 
 [node name="zObjects" type="Node2D" parent="."]
+pause_mode = 1
 unique_name_in_owner = true
 
 [node name="QuestUtils" type="Node" parent="."]

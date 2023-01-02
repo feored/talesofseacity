@@ -5,7 +5,6 @@ extends CanvasLayer
 # var a = 2
 # var b = "text"
 var panels : Array
-var paused = false
 
 var mainMenuPrefab = preload("res://UI/Menu/Menu.tscn")
 
@@ -88,9 +87,7 @@ func _process(delta):
             blur = true
             break
     $"%blur".visible = blur
-    if blur && !paused:
+    if blur:
         get_tree().paused = true
-        paused = true
     else:
         get_tree().paused = false
-        paused = false

@@ -1,0 +1,32 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://UI/Dialogue/DialogueChoice.gd" type="Script" id=1]
+[ext_resource path="res://addons/teeb.text_effects/resources/Jump.tres" type="RichTextEffect" id=2]
+[ext_resource path="res://addons/teeb.text_effects/resources/Sparkle.tres" type="RichTextEffect" id=3]
+[ext_resource path="res://addons/teeb.text_effects/resources/Woo.tres" type="RichTextEffect" id=4]
+[ext_resource path="res://addons/teeb.text_effects/resources/Cuss.tres" type="RichTextEffect" id=5]
+[ext_resource path="res://addons/teeb.text_effects/resources/Nervous.tres" type="RichTextEffect" id=6]
+[ext_resource path="res://addons/teeb.text_effects/resources/Rain.tres" type="RichTextEffect" id=7]
+[ext_resource path="res://addons/teeb.text_effects/resources/ColorMod.tres" type="RichTextEffect" id=8]
+[ext_resource path="res://addons/teeb.text_effects/resources/Number.tres" type="RichTextEffect" id=9]
+[ext_resource path="res://addons/teeb.text_effects/resources/Heart.tres" type="RichTextEffect" id=10]
+[ext_resource path="res://addons/teeb.text_effects/resources/UwU.tres" type="RichTextEffect" id=11]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=12]
+
+[node name="DialogueChoice" type="RichTextLabel"]
+unique_name_in_owner = true
+margin_top = 44.0
+margin_right = 516.0
+margin_bottom = 190.0
+size_flags_vertical = 3
+custom_fonts/italics_font = ExtResource( 12 )
+custom_fonts/normal_font = ExtResource( 12 )
+bbcode_enabled = true
+bbcode_text = "yeah [colormod color=#fffff000 freq=2]taken pictures of everything else[/colormod] in this town, [nervous]just looking around finding things that could be[/nervous] interesting pictures now. kinda hard"
+text = "yeah taken pictures of everything else in this town, just looking around finding things that could be interesting pictures now. kinda hard"
+custom_effects = [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 4 ) ]
+script = ExtResource( 1 )
+
+[connection signal="gui_input" from="." to="." method="_on_DialogueChoice_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_DialogueChoice_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_DialogueChoice_mouse_exited"]
