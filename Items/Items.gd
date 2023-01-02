@@ -151,13 +151,19 @@ var ITEMS = {
 		"name" : "Fishing Pole",
 		"description" :"""A standard fishing pole. It has seen a lot of use.""",
 		"default_world_scale": 0.03
+	},
+	"fresh_ika": {
+		"url" : "res://Items/Images/fresh_ika.png",
+		"id" : "fresh_ika",
+		"name" : "Fresh Squid",
+		"description" :"""A little squid, freshly caught in Well B. A delicacy in Sea City, often eaten with christmas cake.""",
+		"default_world_scale": 0.03
 	}
 }
 
 
 
 var INVENTORY = [ 
-	"fishing_pole"
 ]
 
 var BACKGROUND_ENVIRONMENT = {
@@ -253,16 +259,22 @@ func addEnvironmentDialogue(roomId: String, position: Vector2, dialogue: Diction
 	else:
 		ACTIVE_ENVIRONMENT[roomId] = {position : dialogue}
 
+func removeEnvironmentDialogue(roomId: String, position: Vector2) -> void:
+	ACTIVE_ENVIRONMENT[roomId].erase(position)
+
 func addEnvironmentDialogueRange(roomId: String, startPosition: Vector2, endPosition: Vector2, dialogue: Dictionary) -> void:
 	if (!ACTIVE_ENVIRONMENT.has(roomId)):
 		ACTIVE_ENVIRONMENT[roomId] = {}
 	for _i in range(endPosition.x + 1 - startPosition.x):
 		for _j in range(endPosition.y + 1 - startPosition.y):
-			print(Vector2(startPosition.x + _i, startPosition.y + _j))
 			ACTIVE_ENVIRONMENT[roomId][Vector2(startPosition.x + _i, startPosition.y + _j)] = dialogue
 
-func removeEnvironmentDialogue(roomId: String, position: Vector2) -> void:
-	ACTIVE_ENVIRONMENT[roomId].erase(position)
+
+func removeEnvironmentDialogueRange(roomId: String, startPosition: Vector2, endPosition: Vector2) -> void:
+	for _i in range(endPosition.x + 1 - startPosition.x):
+		for _j in range(endPosition.y + 1 - startPosition.y):
+			ACTIVE_ENVIRONMENT[roomId].erase(Vector2(startPosition.x + _i, startPosition.y + _j))
+			
 
 func removeActiveItemAtPosition(roomId : String, itemId: String, position: Vector2) -> void:
 	for item in ACTIVE_ITEMS[roomId]:

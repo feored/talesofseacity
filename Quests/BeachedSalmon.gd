@@ -73,20 +73,17 @@ func moveSalmon3() -> void:
 func moveSalmon2() -> void:
     var salmon = Rooms.getGikoByNpcId("SwimmingSalmon")
     if salmon != null:
-        salmon.targetTile = Vector2(0,2)
-        salmon.isTargeting = true
+        salmon.startTargetting(Vector2(0,2))
     NPCs.updateNPCPosition("seashore", "SwimmingSalmon", Vector2(0, 2))
 
 func moveSalmon1() -> void:
     var salmon = Rooms.getGikoByNpcId("SwimmingSalmon")
     if salmon != null:
-        salmon.targetTile = Vector2(1,2)
-        salmon.isTargeting = true
+        salmon.startTargetting(Vector2(1,2))
     NPCs.updateNPCPosition("seashore", "SwimmingSalmon", Vector2(1, 2))
 
 
 func addSalmonDialogue() -> void:
-    print("Added salmon dialogue")
 
     NPCs.addActiveNPC("seashore", "SwimmingSalmon", Constants.Directions.DIR_DOWN, Vector2(2,2))
 

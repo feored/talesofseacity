@@ -33,6 +33,8 @@ var QUEST_FLAGS = {
     "qSushiNeedSalmon" : false,
     "qSushiNewSalmon" : false,
     "qPushedSalmon": 0,
+    "qSushiGaveSalmon" : false,
+    "qSushiConvincedHostess" : false,
     ##SchoolyardDogs
     "qSetSchoolyardTrap" : false,
     "qFinishedSchoolyardDogs" : false,
@@ -41,7 +43,6 @@ var QUEST_FLAGS = {
     "qInsertedChip": false,
     "qInsertedSecondChip": false,
     "qPushedMachine" : 0,
-
     ## blackout
     "qTalkedToBarman" : false,
     "qTalkedToEngineer" : false,

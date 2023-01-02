@@ -271,7 +271,7 @@ var NPCs = {
 		"id" : "BoredHostess",
 		"name" : "Bored Hostess",
 		"character" : Constants.Character.Shiinigami,
-		"lines" : [Utils.makeSimpleDialogue(["This town ain't no fun anymore!"])]
+		"lines" : []
 	},
 	"CrazyTrashBoon":
 	{
@@ -467,15 +467,15 @@ var NPCs = {
 		"character": Constants.Character.Chotto_Toorimasu_Yo,
 		"lines": []
 	},
-    "WellFisher":
-    {
-        "id": "WellFisher",
-        "name": "Fisher",
-        "character": Constants.Character.Wild_Panda_Naito,
-        "lines": [
-            Utils.makeSimpleDialogue(["♪ Fish, Fish, Fish for me, Fish, Fish, Fish for you ♫"])
-        ]
-    }
+	"WellFisher":
+	{
+		"id": "WellFisher",
+		"name": "Fisher",
+		"character": Constants.Character.Wild_Panda_Naito,
+		"lines": [
+			Utils.makeSimpleDialogue(["♪ Fish, Fish, Fish for me, Fish, Fish, Fish for you ♫"])
+		]
+	}
 
 }
 
@@ -863,17 +863,17 @@ var ACTIVE_NPCs = {
 			"lines": []
 		}
 	},
-    "idoA":
-    {
-        "WellFisher":
-        {
-            "id": "WellFisher",
-            "x": 1,
-            "y": 4,
-            "direction": Constants.Directions.DIR_RIGHT,
-            "lines": []
-        }
-    }
+	"idoA":
+	{
+		"WellFisher":
+		{
+			"id": "WellFisher",
+			"x": 1,
+			"y": 4,
+			"direction": Constants.Directions.DIR_RIGHT,
+			"lines": []
+		}
+	}
 }
 
 
@@ -922,11 +922,11 @@ func addQuestDialogue(roomId : String, NPCId : String, dialogue : Dictionary) ->
 
 
 func save() -> Dictionary:
-    return {
-        "NPCs" : NPCs,
-        "ACTIVE_NPCs" : ACTIVE_NPCs
-    }
+	return {
+		"NPCs" : NPCs,
+		"ACTIVE_NPCs" : ACTIVE_NPCs
+	}
 
 func load(save : Dictionary) -> void:
-    NPCs = save["NPCs"]
-    ACTIVE_NPCs = save["ACTIVE_NPCs"]
+	NPCs = save["NPCs"]
+	ACTIVE_NPCs = save["ACTIVE_NPCs"]

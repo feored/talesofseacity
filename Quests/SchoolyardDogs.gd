@@ -38,8 +38,7 @@ func placeBurger() -> void:
     for zonuNPCID in ["WildZonu1", "WildZonu2", "WildZonu3", "WildZonu4", "WildZonu5"]:
         var zonu = Rooms.getGikoByNpcId(zonuNPCID)
         if zonu != null:
-            zonu.targetTile = Vector2(8,0)
-            zonu.isTargeting = true
+            zonu.startTargetting(Vector2(8,0))
         NPCs.updateNPCPosition("school_ground", zonuNPCID, Vector2(1, 1))
     NPCs.removeAllQuestDialogue("school_ground", "ScaredShobon")
     NPCs.addQuestDialogue("school_ground", "ScaredShobon", 

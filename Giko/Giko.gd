@@ -11,6 +11,8 @@ const MAX_NEXT_MOVE = 10
 var NPCID : String = ""
 ##var displayName : String = ""
 
+var doorInvulnerable = false
+
 var isFollowing = false
 var isTargeting = false
 var isFleeing = false
@@ -188,7 +190,7 @@ func startFleeing(giko : Object) -> void:
 func stopFleeing() -> void:
     self.isFleeing = false
 
-func target(tile: Vector2):
+func startTargetting(tile: Vector2):
     self.isTargeting = true
     targetTile = tile
     takeDecisionNow = true
@@ -350,7 +352,7 @@ func process_movement(delta) -> void:
 
 
 func checkDoors() -> void:
-    if Rooms.currentRoomData.has("doors"):
+    if !doorInvulnerable && Rooms.currentRoomData.has("doors"):
         for door in Rooms.currentRoomData["doors"].keys():
             var currentDoor = Rooms.currentRoomData["doors"][door]
             if currentDoor["target"] != null && currentDoor["x"] == self.currentTile.x && currentDoor["y"] == self.currentTile.y:
