@@ -20,6 +20,7 @@ var followTarget : Object
 
 var timeToNextDecision = 0
 var timeSinceDecision = 0
+var takeDecisionNow = false
 
 ##var currentTile = Vector2(0, 0)
 ##var currentTilePos: Vector2
@@ -174,6 +175,7 @@ func faceDirection(newDirection : int) -> void:
 func startFollowing(giko : Object) -> void:
     self.isFollowing = true
     followTarget = giko
+    takeDecisionNow = true
 
 func stopFollowing() -> void:
     self.isFollowing = false
@@ -181,6 +183,7 @@ func stopFollowing() -> void:
 func startFleeing(giko : Object) -> void:
     self.isFleeing = true
     followTarget = giko
+    takeDecisionNow = true
 
 func stopFleeing() -> void:
     self.isFleeing = false
@@ -188,6 +191,7 @@ func stopFleeing() -> void:
 func target(tile: Vector2):
     self.isTargeting = true
     targetTile = tile
+    takeDecisionNow = true
 
 func flee() -> void:
     var currentDistance = Utils.getTileDistance(self.currentTile, followTarget.currentTile)
@@ -220,7 +224,8 @@ func goToTarget() -> void:
     .move(directionToTake)
 
 func takeDecision() -> void:
-    if !self.isMoving && timeSinceDecision > timeToNextDecision:
+    if !self.isMoving && (takeDecisionNow || timeSinceDecision > timeToNextDecision):
+        takeDecisionNow = false
         self.destroyMessage()
         if isFleeing:
             flee()
@@ -362,7 +367,7 @@ func checkDoors() -> void:
 
                     .reanimate()
                 else:
-                    Rooms.removeGiko(self, self.currentTile)
+                    .disappear()
 
 
 func getRandomDirection() -> int:

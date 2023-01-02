@@ -346,7 +346,7 @@ var NPCs = {
 	"SwimmingSalmon" :
 	{
 		"id": "SwimmingSalmon",
-		"name": "Confused Salmon",
+		"name": "Beached Salmon",
 		"character": Constants.Character.Salmon,
 		"lines": [Utils.makeSimpleDialogue(["Blub blub."])]
 	},
@@ -466,7 +466,16 @@ var NPCs = {
 		"name": "Engineer",
 		"character": Constants.Character.Chotto_Toorimasu_Yo,
 		"lines": []
-	}
+	},
+    "WellFisher":
+    {
+        "id": "WellFisher",
+        "name": "Fisher",
+        "character": Constants.Character.Wild_Panda_Naito,
+        "lines": [
+            Utils.makeSimpleDialogue(["♪ Fish, Fish, Fish for me, Fish, Fish, Fish for you ♫"])
+        ]
+    }
 
 }
 
@@ -713,8 +722,8 @@ var ACTIVE_NPCs = {
 		{
 			"id": "SwimmingSalmon",
 			"direction" : Constants.Directions.DIR_DOWN,
-			"x": 0,
-			"y": 9,
+			"x": 2,
+			"y": 2,
 			"lines" : []
 		},
 		"SwimmingIka":
@@ -722,7 +731,7 @@ var ACTIVE_NPCs = {
 			"id":"SwimmingIka",
 			"direction": Constants.Directions.DIR_LEFT,
 			"x":0,
-			"y":4,
+			"y":10,
 			"lines":[]
 		}
 	},
@@ -853,7 +862,18 @@ var ACTIVE_NPCs = {
 			"direction": Constants.Directions.DIR_LEFT,
 			"lines": []
 		}
-	}
+	},
+    "idoA":
+    {
+        "WellFisher":
+        {
+            "id": "WellFisher",
+            "x": 1,
+            "y": 4,
+            "direction": Constants.Directions.DIR_RIGHT,
+            "lines": []
+        }
+    }
 }
 
 
@@ -899,3 +919,14 @@ func addQuestDialogue(roomId : String, NPCId : String, dialogue : Dictionary) ->
 		ACTIVE_NPCs[roomId][NPCId]["lines"].push_back(dialogue)
 	else:
 		print("Could not add dialogue to %s in %s because ACTIVENPC was not added yet, use addActiveNPC first." % [roomId, NPCId])
+
+
+func save() -> Dictionary:
+    return {
+        "NPCs" : NPCs,
+        "ACTIVE_NPCs" : ACTIVE_NPCs
+    }
+
+func load(save : Dictionary) -> void:
+    NPCs = save["NPCs"]
+    ACTIVE_NPCs = save["ACTIVE_NPCs"]

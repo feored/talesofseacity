@@ -103,6 +103,12 @@ func canShowChoice(choiceLine : Dictionary) -> bool:
 	elif choiceLine["condition"]["type"] == Constants.ConditionType.Item:
 		return Items.INVENTORY.has(choiceLine["condition"]["value"])
 
+	elif choiceLine["condition"]["type"] == Constants.ConditionType.NoItem:
+		return !Items.INVENTORY.has(choiceLine["condition"]["value"])
+
+	elif choiceLine["condition"]["type"] == Constants.ConditionType.NoFlag:
+		return !Quests.QUEST_FLAGS[choiceLine["condition"]["value"]]
+
 	return false
 	
 

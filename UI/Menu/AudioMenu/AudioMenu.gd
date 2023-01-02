@@ -5,13 +5,15 @@ onready var masterSlider = $"%MasterSlider"
 onready var musicSlider = $"%MusicSlider"
 onready var FXSlider = $"%FXSlider"
 
+# funcref
+var remove : Object
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    masterSlider.value = Audio.MASTER_VOLUME
-    musicSlider.value = Audio.MUSIC_VOLUME
-    FXSlider.value = Audio.FX_VOLUME
+    masterSlider.value = Audio.MASTER_VOLUME*100
+    musicSlider.value = Audio.MUSIC_VOLUME*100
+    FXSlider.value = Audio.FX_VOLUME*100
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,13 +22,13 @@ func _ready():
 
 
 func _on_BackBtn_pressed():
-    queue_free()
+    remove.call_func()
 
 func _on_FXSlider_value_changed(value:float):
-	Audio.setVolumeFX(value)
+	Audio.setVolumeFX((value/100))
 
 func _on_MusicSlider_value_changed(value:float):
-	Audio.setVolumeMusic(value)
+	Audio.setVolumeMusic((value/100))
 
 func _on_MasterSlider_value_changed(value:float):
-	Audio.setVolumeMaster(value)
+	Audio.setVolumeMaster((value/100))

@@ -11,19 +11,21 @@ var quest_stages = {
     "talkToHostess" :{
        "id" : "talkToHostess",
        "condition" : "talkedToHostess",
-       "entry" : "I've talked to the bored hostess in bar street. She refuses to entertain the tired salaryman as long as the sushi vendor's atmosphere does not improve.",
-       "next" : "talkToOldCustomer"
+       "entry" : "I've talked to the bored hostess in bar street. She refuses to entertain the tired salaryman as long as the sushi vendor's atmosphere and food does not improve.",
+       "completed" :"addSushiChefDialogue",
+       "next" : "talkToChef"
     },
-    "talkToOldCustomer" :{
+    "talkToChef" :{
         "id": "talkToOldCustomer",
-        "condition" : "gotJapaneseBirdPortrait",
-        "completed" :"addSushiChefDialogue",
-        "entry" : "I've talked to the bored hostess in bar street. She refuses to entertain the tired salaryman as long as the sushi vendor's atmosphere does not improve.",
-        "next" : "bringBackDisciple"
+        "condition" : "needSalmon",
+        "entry" : "It would seem the only way to revitalize the sushi place is to bring the chef some fresh fish...But where can I find fresh fish in Sea City?",
+        "completed": "addFisherDialogue",
+        "next" : "bringBackSalmon"
     },
-    "bringBackDisciple" : {
-        "id" : "bringBackDisciple",
-        "condition" : "broughtBackDisciple",
+    "bringBackSalmon" : {
+        "id" : "bringBackSalmon",
+        "condition" : "broughtBackSalmon",
+        "completed": "addCompletedDialogue",
         "next" : "final"
     },
     "final": {"id": "final"}
@@ -43,15 +45,90 @@ func talkedToSushiSalaryman() -> bool:
 func talkedToHostess() -> bool:
     return Quests.QUEST_FLAGS["qTalkedToHostess"]
 
-func gotJapaneseBirdPortrait() -> bool:
-    return Items.INVENTORY.has("japanese_bird_portrait")
+func needSalmon() -> bool:
+    return Quests.QUEST_FLAGS["qSushiNeedSalmon"]
 
-
-func broughtBackDisciple() -> bool:
-    return false
+func broughtBackSalmon() -> bool:
+    return Items.INVENTORY.has("salmon_steak")
 
 
 ## COMPLETED
+
+func addCompletedDialogue() -> void:
+    pass
+
+func addFisherDialogue() -> void:
+    Items.addEnvironmentDialogueRange("idoA", Vector2(2,3), Vector2(4,5), 
+        Utils.makeSimpleDialogue(["You can't fish here you fucking idiot"])
+    )
+
+    NPCs.addQuestDialogue(
+        "idoA",
+        "WellFisher",
+        {
+            "info": {"name": "Fisher", "requeue": true, "start": "start"},
+            "start":
+            {
+                "id": "start",
+                "type": Constants.LineType.Text,
+                "text": "Hey there! Why don't you have a seat and fish with me?",
+                "nextId": "fisher2"
+            },
+            "fisher2" :
+            {
+                "id" : "fisher2",
+                "type": Constants.LineType.Choice,
+                "choices" : [
+                    {
+                        "text": "I'm afraid I don't have a fishing pole...",
+                        "condition": {
+                            "type" : Constants.ConditionType.NoItem,
+                            "value" : "fishing_pole"
+                        },
+                        "nextId": "fisher3"
+                    },
+                    {
+                        "text": "Maybe later!"
+                    }
+                ]
+            },
+            "fisher3":
+            {
+                "id": "fisher3",
+                "type": Constants.LineType.Text,
+                "text": "That's unfortunate! I have a spare here I'd be willing to trade for a decent knife. I have caught so many fish, and yet I have nothing to filet them with...",
+                "nextId": "fisher4"
+            },
+            "fisher4":
+            {
+                "id": "fisher4",
+                "type": Constants.LineType.Choice,
+                "choices": 
+                [
+                    {
+                        "text": "How about this Chef's Knife? It was used by a sushi chef. [Give Knife]",
+                        "costs": ["chef_knife"],
+                        "nextId": "fisher5",
+                        "condition": {
+                            "type" : Constants.ConditionType.Item,
+                            "value" : "chef_knife"
+                        }
+                    },
+                    {
+                        "text": "Sorry, I don't have a spare knife. Good luck with the fishing.",
+                    }
+                ]
+            },
+            "fisher5":
+            {
+                "id": "fisher5",
+                "type": Constants.LineType.Text,
+                "rewards": ["fishing_pole"],
+                "text": "Perfect! Here, have this fishing pole. To start fishing, just stand in front of the well"
+            }
+        })
+
+
 
 func addSushiChefDialogue() -> void:
     NPCs.addQuestDialogue(
@@ -74,7 +151,7 @@ func addSushiChefDialogue() -> void:
                 "choices":
                 [
                     {
-                        "text": "The old customer told me a famous Chef used to work here.",
+                        "text": "Why are there so few customers here?",
                         "nextId": "SushiChef4"
                     },
                     {
@@ -88,60 +165,46 @@ func addSushiChefDialogue() -> void:
                 "id": "SushiChef3",
                 "type": Constants.LineType.Text,
                 "text":
-                "I'm doing my best! Please wait for your turn. The salmon this year is really tough."
+                "I'm doing my best! Please wait for your turn. The salmon we have left is really tough."
             },
             "SushiChef4":
             {
                 "id": "SushiChef4",
                 "type": Constants.LineType.Text,
                 "text":
-                "Ah, you must be talking about the great Bird. He unfortunately passed away in 2012, after eating some rotten spam. His health had been declining for a few years.",
+                "We've had difficulty sourcing fresh fish. Have you seen any fishermen in Sea City recently?",
                 "nextId": "SushiChef5"
             },
             "SushiChef5":
             {
                 "id": "SushiChef5",
+                "type": Constants.LineType.Choice,
+                "choices":
+                [
+                    {
+                        "text": "I see. Good luck with that.",
+                    },
+                    {
+                        "text": "Is there any way I could help you to bring in some new customers?",
+                        "nextId": "SushiChef6"
+                    }
+                ]
+            },
+            "SushiChef6":
+            {
+                "id": "SushiChef6",
                 "type": Constants.LineType.Text,
                 "text":
-                "He was teaching his Spaghetti-cooking techniques to another employee, but the poor guy didn't take the master's death well and quit the same day. All of this was before my time, but I hear he went a bit crazy..."            },
+                "If you know where to get fresh fish in this town, that'd be a great help!",
+                "flags": [{"flag": "qSushiNeedSalmon", "type": "set", "value": true}]
+            },
         })
-    
-    # NPCs.removeAllQuestDialogue("busstop", "CrazyTrashBoon")
 
-    # NPCs.addQuestDialogue(
-    # "busstop",
-    # "CrazyTrashBoon",
-    # {
-    #     "info": {"name": "CrazyTrashBoonIntro", "requeue": true, "start": "start"},
-    #     "start":
-    #     {
-    #         "id": "start",
-    #         "type": Constants.LineType.Text,
-    #         "text":
-    #         "",
-    #         "nextId": "CrazyTrashBoon2"
-    #     },
-    #     "CrazyTrashBoon2":
-    #     {
-    #         "id": "SushiChef2",
-    #         "type": Constants.LineType.Choice,
-    #         "choices":
-    #         [
-    #             {
-    #                 "text": "The old customer told me a famous Chef used to work here.",
-    #                 "nextId": "SushiChef4"
-    #             },
-    #             {
-    #                 "text": "I'm hungry. Hurry up!",
-    #                 "nextId": "SushiChef3"
-    #             }
-    #         ]
-    #     }
-    # })
 
 ## SETUP
 
 func setup() -> void:
+
     NPCs.addQuestDialogue(
         "yatai",
         "SushiTiredSalaryman",
@@ -235,7 +298,7 @@ func setup() -> void:
                 "id": "BoredHostess6",
                 "type": Constants.LineType.Text,
                 "text":
-                "Hah! Only old geezers eat there! No way!",
+                "Hah! Only old geezers eat there! No way! Besides, I heard their food isn't very good.",
                 "nextId" : "BoredHostess7"
             },
             "BoredHostess7" :
@@ -245,10 +308,10 @@ func setup() -> void:
                 "choices":
                 [
                     {
-                        "text": "Actually, there's an exciting new chef there! It's a really trendy place now.",
+                        "text": "Actually, I heard they just acquired a fresh shipment of salmon of the highest quality.",
                         "condition": {
                             "type" : Constants.ConditionType.Flag,
-                            "value" : "qSushiNewChef"
+                            "value" : "qSushiNewSalmon"
                         },
                         "nextId": "BoredHostess8"
                     },
@@ -262,7 +325,7 @@ func setup() -> void:
                 "id": "BoredHostess8",
                 "type": Constants.LineType.Text,
                 "text":
-                "Oh ho! In that case, why not whore ourselves? I'll be right there. ",
+                "Oh ho! In that case, why not whore ourselves? I'll be right there.",
                 "nextId" : "BoredHostess7"
             }
 
@@ -293,7 +356,7 @@ func setup() -> void:
             "id" : "SushiCustomerMemories3",
             "type": Constants.LineType.Text,
             "text":
-            "You know you were the only one who's spoken to me all night? I'd like you to have this picture of the old chef, as thanks for entertaining this old man.",
+            "You know you are the only one who's spoken to me all night? I'd like you to have this picture of the old chef, as thanks for entertaining this old man.",
             "rewards" : [ "japanese_bird_portrait"]
         }
         }

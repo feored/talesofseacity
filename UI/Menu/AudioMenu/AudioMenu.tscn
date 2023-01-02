@@ -89,8 +89,6 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
-min_value = -80.0
-max_value = 0.0
 step = 0.5
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer"]
@@ -116,8 +114,6 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
-min_value = -80.0
-max_value = 0.0
 step = 0.5
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer"]
@@ -143,8 +139,6 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
-min_value = -80.0
-max_value = 0.0
 step = 0.5
 
 [node name="BackBtn" type="Button" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer"]

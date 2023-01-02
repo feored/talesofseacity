@@ -41,7 +41,9 @@ enum LineType {
 
 enum ConditionType {
 	Flag,
-	Item
+	Item,
+    NoItem,
+    NoFlag
 }
 
 

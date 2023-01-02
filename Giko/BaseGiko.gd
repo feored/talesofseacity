@@ -191,6 +191,10 @@ func spawnMessage(text) -> void:
     Audio.playFX(Audio.FX.Message)
 
 
+func disappear() -> void:
+    Rooms.removeGiko(self, self.currentTile)
+    queue_free()
+
 func destroyMessage() -> void:
     self.timeSinceAction = 0
     if self.currentMessage != null:

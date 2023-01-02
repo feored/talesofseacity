@@ -39,6 +39,15 @@ var ACTIVE_ITEMS = {
 			"world_scale":0.02,
 			"rotation":0
 		}
+	],
+	"yatai" : [
+		{
+			"x": 0,
+			"y": 5,
+			"id": "chef_knife",
+			"world_scale": 0.05,
+			"rotation": 0
+		}
 	]
 }
 
@@ -121,13 +130,34 @@ var ITEMS = {
 		"name" : "Wrench",
 		"description" :"""A wrench used by Sea City Engineers.""",
 		"default_world_scale": 0.03
+	},
+	"salmon_steak": {
+		"url" : "res://Items/Images/salmon_steak.png",
+		"id" : "salmon_steak",
+		"name" : "Salmon Steak",
+		"description" :"""A fresh Salmon steak. It looks a little bit gruesome, when you consider where it came from.""",
+		"default_world_scale": 0.03
+	},
+	"chef_knife": {
+		"url" : "res://Items/Images/chef_knife.png",
+		"id" : "chef_knife",
+		"name" : "Chef's Knife",
+		"description" :"""A very sharp knife. Be careful not to cut yourself.""",
+		"default_world_scale": 0.03
+	},
+	"fishing_pole": {
+		"url" : "res://Items/Images/fishing_rod.png",
+		"id" : "fishing_pole",
+		"name" : "Fishing Pole",
+		"description" :"""A standard fishing pole. It has seen a lot of use.""",
+		"default_world_scale": 0.03
 	}
 }
 
 
 
-var INVENTORY = [
-	"sunscreen",
+var INVENTORY = [ 
+	"fishing_pole"
 ]
 
 var BACKGROUND_ENVIRONMENT = {
@@ -140,6 +170,17 @@ var BACKGROUND_ENVIRONMENT = {
 			"rotation": 0,
 			"block" : true,
 			"offset": Vector2(0, 0)
+		}
+	},
+	"idoA":
+	{
+		Vector2(2,3) : 
+		{
+			"url" :  "res://Items/Images/fishing_rod.png",
+			"world_scale" : 0.15,
+			"rotation": 0,
+			"block" : false,
+			"offset": Vector2(25, -59)
 		}
 	}
 	
@@ -156,6 +197,7 @@ func addEnvironmentItem(roomId: String, position : Vector2, itemData : Dictionar
 		BACKGROUND_ENVIRONMENT[roomId][position] = itemData
 	else:
 		BACKGROUND_ENVIRONMENT[roomId] = {position : itemData}
+	
 
 var ACTIVE_ENVIRONMENT = {
 	"bar_st" :
@@ -211,6 +253,14 @@ func addEnvironmentDialogue(roomId: String, position: Vector2, dialogue: Diction
 	else:
 		ACTIVE_ENVIRONMENT[roomId] = {position : dialogue}
 
+func addEnvironmentDialogueRange(roomId: String, startPosition: Vector2, endPosition: Vector2, dialogue: Dictionary) -> void:
+	if (!ACTIVE_ENVIRONMENT.has(roomId)):
+		ACTIVE_ENVIRONMENT[roomId] = {}
+	for _i in range(endPosition.x + 1 - startPosition.x):
+		for _j in range(endPosition.y + 1 - startPosition.y):
+			print(Vector2(startPosition.x + _i, startPosition.y + _j))
+			ACTIVE_ENVIRONMENT[roomId][Vector2(startPosition.x + _i, startPosition.y + _j)] = dialogue
+
 func removeEnvironmentDialogue(roomId: String, position: Vector2) -> void:
 	ACTIVE_ENVIRONMENT[roomId].erase(position)
 
@@ -252,16 +302,16 @@ func removeItemInventory(itemId : String) -> void:
 
 
 func save() -> Dictionary:
-    return {
-        "ACTIVE_ENVIRONMENT" : ACTIVE_ENVIRONMENT,
-        "INVENTORY" : INVENTORY,
-        "BACKGROUND_ENVIRONMENT" : BACKGROUND_ENVIRONMENT,
-        "ACTIVE_ITEMS" : ACTIVE_ITEMS
-    }
+	return {
+		"ACTIVE_ENVIRONMENT" : ACTIVE_ENVIRONMENT,
+		"INVENTORY" : INVENTORY,
+		"BACKGROUND_ENVIRONMENT" : BACKGROUND_ENVIRONMENT,
+		"ACTIVE_ITEMS" : ACTIVE_ITEMS
+	}
 
 func load(save : Dictionary) -> void:
-    ACTIVE_ENVIRONMENT = save["ACTIVE_ENVIRONMENT"]
-    INVENTORY = save["INVENTORY"]
-    BACKGROUND_ENVIRONMENT = save["BACKGROUND_ENVIRONMENT"]
-    ACTIVE_ITEMS = save["ACTIVE_ITEMS"]
-    inventoryRefreshNeeded = true
+	ACTIVE_ENVIRONMENT = save["ACTIVE_ENVIRONMENT"]
+	INVENTORY = save["INVENTORY"]
+	BACKGROUND_ENVIRONMENT = save["BACKGROUND_ENVIRONMENT"]
+	ACTIVE_ITEMS = save["ACTIVE_ITEMS"]
+	inventoryRefreshNeeded = true
