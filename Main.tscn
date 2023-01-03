@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://rooms/bar_giko_square/background.png" type="Texture" id=22]
 [ext_resource path="res://Quests/General/QuestUtils.gd" type="Script" id=23]
 [ext_resource path="res://UI/test9patch.png" type="Texture" id=24]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=25]
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=26]
 [ext_resource path="res://UI/RoomName.gd" type="Script" id=27]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
@@ -124,6 +125,16 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.0980392, 0.109804, 0.137255, 1 )
+
+[sub_resource type="DynamicFont" id=27]
+size = 72
+outline_color = Color( 0.0313726, 0.0313726, 0.0313726, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 25 )
 
 [sub_resource type="Curve" id=21]
 min_value = -40.0
@@ -939,6 +950,22 @@ text = "Bar Giko Square"
 align = 1
 valign = 1
 autowrap = true
+
+[node name="Loading" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 26 )
+
+[node name="Label" type="Label" parent="UI/Loading"]
+margin_top = 499.0
+margin_right = 1920.0
+margin_bottom = 581.0
+custom_fonts/font = SubResource( 27 )
+text = "Loading..."
+align = 1
+valign = 1
 
 [node name="Snow" type="Particles2D" parent="."]
 unique_name_in_owner = true

@@ -1,0 +1,248 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=1]
+[ext_resource path="res://UI/whitebtn.tres" type="StyleBox" id=2]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=3]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=4]
+[ext_resource path="res://UI/TitleScreen/TitleScreen.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 72
+outline_size = 1
+outline_color = Color( 0.0666667, 0.243137, 0.580392, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "scroll_background"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Background:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Background:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.5, -20.8555, -360, -0.4, 27.081, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "show_btns"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Buttons:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 780, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Buttons:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1280, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "show_title"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Title:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Title:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Title:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Title:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Buttons:rect_position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Buttons:rect_position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 1280, -0.25, 0, 0.25, 0, 1280, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 1.6 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Background:rect_position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Background:rect_position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -360, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="Background" type="TextureRect" parent="."]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 0.47, 0.47 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -331.5
+margin_top = -41.0
+margin_right = 331.5
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "Tales from Sea City"
+align = 1
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -300.0
+margin_top = -100.0
+margin_right = 300.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="PlayBtn" type="Button" parent="Buttons"]
+margin_right = 112.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.243137, 0.45098, 0.792157, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+text = "Play"
+
+[node name="LoadBtn" type="Button" parent="Buttons"]
+margin_left = 162.0
+margin_right = 275.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.243137, 0.45098, 0.792157, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+text = "Load"
+
+[node name="SettingsBtn" type="Button" parent="Buttons"]
+margin_left = 325.0
+margin_right = 437.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.243137, 0.45098, 0.792157, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+text = "Settings"
+
+[node name="QuitBtn" type="Button" parent="Buttons"]
+margin_left = 487.0
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.243137, 0.45098, 0.792157, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+text = "Quit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "show_title"
+anims/scroll_background = SubResource( 2 )
+anims/show_btns = SubResource( 3 )
+anims/show_title = SubResource( 4 )
+
+[connection signal="pressed" from="Buttons/PlayBtn" to="." method="_on_PlayBtn_pressed"]
+[connection signal="pressed" from="Buttons/LoadBtn" to="." method="_on_LoadBtn_pressed"]
+[connection signal="pressed" from="Buttons/SettingsBtn" to="." method="_on_SettingsBtn_pressed"]
+[connection signal="pressed" from="Buttons/QuitBtn" to="." method="_on_QuitBtn_pressed"]

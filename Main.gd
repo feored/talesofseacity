@@ -124,6 +124,9 @@ func loadAdjacentRooms(adjacentRooms):
 	for room in adjacentRooms:
 		adjacentRoomsCache.push_back(load(room))
 	call_deferred("adjacentRoomsLoaded")
+
+func setLoading(isLoading : bool) -> void:
+	$"%Loading".visible = isLoading
 	
 func loadRoom(roomName: String) -> void:
 	Rooms.loaded = false

@@ -1,7 +1,6 @@
 extends Node
 var blackoutPrefab = preload("res://Quests/Misc/Blackout.tscn")
 var flashlightPrefab = preload("res://Quests/Misc/Flashlight.tscn")
-onready var main = get_node("/root/Main")
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,17 +13,23 @@ func _ready():
 
 
 func blackout(blackout : bool = true) -> void:
-	if blackout:
-		var blackoutNode = blackoutPrefab.instance()
-		main.playerGiko.add_child(blackoutNode)
+	var main = get_node_or_null("/root/Main")
+	if main != null:
+		if blackout:
+			var blackoutNode = blackoutPrefab.instance()
+			main.playerGiko.add_child(blackoutNode)
 
 
 func flashlight() -> void:
-	var flashlightNode = flashlightPrefab.instance()
-	main.playerGiko.add_child(flashlightNode)
+	var main = get_node_or_null("/root/Main")
+	if main != null:
+		var flashlightNode = flashlightPrefab.instance()
+		main.playerGiko.add_child(flashlightNode)
 
 
 func earthquake() -> void:
-	var tween = create_tween()
-	main.get_node("%Camera2D").shake(5, 10)
-	tween.tween_callback(self, "blackout").set_delay(4)
+	var main = get_node_or_null("/root/Main")
+	if main != null:
+		var tween = create_tween()
+		main.get_node("%Camera2D").shake(5, 10)
+		tween.tween_callback(self, "blackout").set_delay(4)
