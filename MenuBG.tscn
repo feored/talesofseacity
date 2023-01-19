@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UI/gradient.png" type="Texture" id=1]
+[ext_resource path="res://test_texture.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.882813, 0.990387, 1, 1, 0.831818, 0.742188, 1, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+width = 8
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 2
+emission_box_extents = Vector3( 960, 540, 1 )
+flag_disable_z = true
+gravity = Vector3( 4, 4, 0 )
+angular_velocity = 1.06
+angular_velocity_random = 0.8
+orbit_velocity = 0.0
+orbit_velocity_random = 1.0
+linear_accel_random = 0.32
+tangential_accel_random = 1.0
+scale = 2.34
+scale_random = 1.0
+color_ramp = SubResource( 3 )
+hue_variation = 0.22
+hue_variation_random = 1.0
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 960, 540, 1 )
+flag_disable_z = true
+gravity = Vector3( 4, 4, 0 )
+angular_velocity = 1.06
+angular_velocity_random = 0.8
+orbit_velocity = 0.0
+orbit_velocity_random = 1.0
+linear_accel_random = 0.32
+tangential_accel_random = 1.0
+scale = 0.0
+scale_random = 0.68
+color_ramp = SubResource( 3 )
+hue_variation = 0.03
+hue_variation_random = 1.0
+
+[node name="MenuBG" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+modulate = Color( 1, 1, 1, 0.117647 )
+position = Vector2( 960, 540 )
+amount = 50
+lifetime = 5.97
+randomness = 0.54
+process_material = SubResource( 4 )
+texture = ExtResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 960, 540 )
+amount = 200
+lifetime = 5.97
+randomness = 0.54
+process_material = SubResource( 1 )
+texture = ExtResource( 2 )

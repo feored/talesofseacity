@@ -29,7 +29,6 @@ func removeGiko(giko : Node, position : Vector2) -> void:
 			currentRoomGikos[position].clear()
 		else:
 			currentRoomGikos[position].erase(giko)
-	giko.queue_free()
 
 func getTilePopulation(tile : Vector2) -> int:
 	if currentRoomGikos.has(tile):

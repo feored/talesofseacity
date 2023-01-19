@@ -1,13 +1,15 @@
-extends Control
+extends Node
 
 const SAVEPATH = "user://saves/"
 
 var audioMenuPrefab = preload("res://UI/Menu/AudioMenu/AudioMenu.tscn")
+var displayMenuPrefab = preload("res://UI/Menu/DisplayMenu/DisplayMenu.tscn")
 
 ## funcrefs
 onready var main = $"/root/Main"
+onready var menuBase = $"%MenuBase"
 
-var menuChildren = []
+onready var menuChildren = [menuBase]
 
 
 # Declare member variables here. Examples:
@@ -20,27 +22,21 @@ func _ready():
 	set_process_input(true)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-# func takeScreenshot() -> void:
-#     var screenshot = get_viewport().get_texture().get_data()
-#     screenshot.flip_y()
-#     screenshot.save_png("user://%s.png" % OS.get_unix_time())
-
-
-# func _on_ScreenshotBtn_pressed():
-#     var UINode = get_node("%UI")
-#     UINode.scale = Vector2(0, 0)
-#     takeScreenshot()
-#     UINode.scale = Vector2(1, 1)
-
 func openAudioMenu() -> void:
 	var audioMenu = audioMenuPrefab.instance()
 	audioMenu.remove = funcref(self, "quitMenu")
-	add_child(audioMenu)
+	$UI.add_child(audioMenu)
+	for m in menuChildren:
+		m.visible = false
 	menuChildren.push_back(audioMenu)
+
+func openDisplayMenu() -> void:
+	var displayMenu = displayMenuPrefab.instance()
+	displayMenu.remove = funcref(self, "quitMenu")
+	$UI.add_child(displayMenu)
+	for m in menuChildren:
+		m.visible = false
+	menuChildren.push_back(displayMenu)
 
 func hide():
 	#visible = false
@@ -66,6 +62,12 @@ func commitSave(saveVar : Dictionary, saveFilePath : String):
 func save():
 	var saveFilePath = "%s%s.save" % [SAVEPATH, "savetest"]# OS.get_unix_time()]
 	var newSave = {}
+
+	newSave["info"] = {
+		"name" : "Anonymous",
+		"room": Rooms.currentRoomId,
+		"time": OS.get_datetime()
+	}
 	newSave["State"] = State.save()
 	newSave["Quests"] = Quests.save()
 	newSave["Items"] = Items.save()
@@ -108,18 +110,20 @@ func _input(event):
 		quitMenu()
 
 func quitMenu():
-	if menuChildren.size() == 0:
+	if menuChildren.size() == 1:
 		queue_free()
 	else:
 		menuChildren.pop_back().queue_free()
+		menuChildren[-1].visible = true
 
 func _on_SaveBtn_pressed():
 	save()
 
 
-func _on_LoadBtn_pressed():
-	loadGame()
-
 
 func _on_AudioBtn_pressed():
 	openAudioMenu()
+
+
+func _on_DisplayBtn_pressed():
+	openDisplayMenu()

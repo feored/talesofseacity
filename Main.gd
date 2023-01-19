@@ -21,8 +21,10 @@ var environmentItems : Dictionary = {}
 
 var timeElapsed = 0
 
+var currentRandomGikos : Array = []
 
-const DEFAULT_NEXT_GIKO_TIME = 20
+
+const DEFAULT_NEXT_GIKO_TIME = 5
 var nextGikoTime = Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5)
 
 
@@ -60,6 +62,7 @@ func loadRandomRoom() -> void:
 
 
 func cleanRoom() -> void:
+	currentRandomGikos.clear()
 	for n in $"%zObjects".get_children():
 		$"%zObjects".remove_child(n)
 		n.queue_free()
@@ -113,8 +116,19 @@ func _process(delta):
 	if timeElapsed > nextGikoTime:
 		nextGikoTime = Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5)
 		timeElapsed = 0
-		spawnRandomGikoAtDoor()
+		if Utils.rng.randf() > 0.5:
+			spawnRandomGikoAtDoor()
+		else:
+			popRandomGiko()
 
+
+func popRandomGiko() -> void:
+	if currentRandomGikos.size() > 0:
+		var i = Utils.rng.randi() % currentRandomGikos.size()
+		if is_instance_valid(currentRandomGikos[i]):
+			currentRandomGikos[i].disappear(true)
+			currentRandomGikos.remove(i)
+		
 
 func adjacentRoomsLoaded():
 	adjacentRoomsThread.wait_to_finish()
@@ -255,34 +269,36 @@ func removeActiveItem(item : Dictionary) -> void:
 		activeItems[tile].queue_free()
 		activeItems.erase(tile)
 
-func talkToNPC(NPCId : String) -> void:
+
+func canInteract() -> bool:
 	if (dialogueManager.isDialoguing):
 		dialogueManager.skipToNext()
-		return
+		print("skippu")
+		return false
 	else:
-		if (NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId].has("lines") && NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].size() > 0):
-			var qLine = NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].pop_front()
-			dialogueManager.setLineSet(qLine, NPCId)
-			dialogueManager.show()
-			if qLine["info"]["requeue"]:
-				NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].push_back(qLine)
-		elif NPCs.NPCs[NPCId].lines.size() > 0:
-			var dialogueLine = NPCs.NPCs[NPCId].lines.pop_front()
-			NPCs.NPCs[NPCId].lines.push_back(dialogueLine)
-			dialogueManager.setLineSet(dialogueLine, NPCId)
-			dialogueManager.show()
+		print("noskip")
+		return true
+
+func talkToNPC(NPCId : String) -> void:
+	if (NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId].has("lines") && NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].size() > 0):
+		var qLine = NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].pop_front()
+		dialogueManager.setLineSet(qLine, NPCId)
+		dialogueManager.show()
+		if qLine["info"]["requeue"]:
+			NPCs.ACTIVE_NPCs[Rooms.currentRoomId][NPCId]["lines"].push_back(qLine)
+	elif NPCs.NPCs[NPCId].lines.size() > 0:
+		var dialogueLine = NPCs.NPCs[NPCId].lines.pop_front()
+		NPCs.NPCs[NPCId].lines.push_back(dialogueLine)
+		dialogueManager.setLineSet(dialogueLine, NPCId)
+		dialogueManager.show()
 
 func talkToEnvironment(tile : Vector2) -> void:
-	if (dialogueManager.isDialoguing):
-		dialogueManager.skipToNext()
-		return
-	else:
-		if (Items.ACTIVE_ENVIRONMENT.has(Rooms.currentRoomId) && Items.ACTIVE_ENVIRONMENT[Rooms.currentRoomId].has(tile)):
-			dialogueManager.setLineSet(
-				Items.ACTIVE_ENVIRONMENT[Rooms.currentRoomId][tile],
-				""
-			)
-			dialogueManager.show()
+	if (Items.ACTIVE_ENVIRONMENT.has(Rooms.currentRoomId) && Items.ACTIVE_ENVIRONMENT[Rooms.currentRoomId].has(tile)):
+		dialogueManager.setLineSet(
+			Items.ACTIVE_ENVIRONMENT[Rooms.currentRoomId][tile],
+			""
+		)
+		dialogueManager.show()
 
 func spawnPlayerGiko(door: String) -> void:
 	var newGiko = gikoPrefab.instance()
@@ -295,6 +311,7 @@ func spawnPlayerGiko(door: String) -> void:
 	newGiko.removeActiveItem = funcref(self, "removeActiveItem")
 	newGiko.talkToNPC = funcref(self, "talkToNPC")
 	newGiko.talkToEnvironment = funcref(self, "talkToEnvironment")
+	newGiko.canInteract = funcref(self, "canInteract")
 	
 	newGiko.place(
 		Vector2(
@@ -331,6 +348,7 @@ func spawnRandomGiko(name : String, character : int, door = null, playSound = fa
 	)
 	if playSound:
 		Audio.playFX(Audio.FX.Login)
+	currentRandomGikos.push_back(newGiko)
 
 func save() -> Dictionary:
 	return {

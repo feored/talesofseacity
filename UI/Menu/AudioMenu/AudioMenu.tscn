@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://UI/test9patch.png" type="Texture" id=2]
+[ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=2]
 [ext_resource path="res://UI/Menu/AudioMenu/AudioMenu.gd" type="Script" id=3]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=4]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="DynamicFont" id=2]
 size = 72
@@ -21,15 +21,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 360.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 3 )
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="PanelContainer"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-texture = ExtResource( 2 )
 patch_margin_left = 80
 patch_margin_top = 80
 patch_margin_right = 80
@@ -56,7 +64,7 @@ custom_constants/separation = 250
 margin_right = 1820.0
 margin_bottom = 82.0
 custom_fonts/font = SubResource( 2 )
-text = "Audio"
+text = "Audio Settings"
 align = 1
 valign = 1
 

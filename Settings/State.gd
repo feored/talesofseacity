@@ -3,6 +3,8 @@ extends Node
 
 var PAUSE = false
 
+
+
 var SETUP_QUESTS = true
 var GIKO_MOVESPEED = Constants.DEFAULT_GIKO_MOVESPEED
 var BLACKOUT = false

@@ -44,7 +44,7 @@ shadow_offset = Vector2( 1, 1 )
 
 [resource]
 default_font = ExtResource( 1 )
-Button/colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+Button/colors/font_color = Color( 0.2, 0.392157, 0.760784, 1 )
 Button/fonts/font = SubResource( 5 )
 Button/styles/hover = SubResource( 3 )
 Button/styles/normal = ExtResource( 2 )

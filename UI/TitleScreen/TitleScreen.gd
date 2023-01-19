@@ -15,8 +15,9 @@ func _ready():
 
 
 func _on_PlayBtn_pressed():
-	get_tree().get_root().add_child(mainScene.instance())
-	queue_free()
+	#get_tree().get_root().add_child(mainScene.instance())
+	#queue_free()
+    SceneTransition.changeScene("res://Main.tscn")
 
 func _on_LoadBtn_pressed():
 	pass

@@ -23,6 +23,7 @@ const GIKOANIM_FRONT_STANDING = "front-standing"
 const GIKOANIM_FRONT_WALKING = "front-walking"
 const GIKOANIM_FRONT_SITTING = "front-sitting"
 const GIKOANIM_BACK_SITTING = "back-sitting"
+const GIKOANIM_POP = "giko-pop"
 
 const CAMERA_MAX_X = 540
 const CAMERA_MIN_X = -240
@@ -742,7 +743,15 @@ const RANDOM_GIKOS = [
 	{
 		"name": "くろ",
 		"character": Character.Chotto_Toorimasu_Yo
-	}
+	},
+    {
+        "name": "chos",
+        "character": Character.Furoshiki_Shobon
+    },
+    {
+        "name": "Butterscotch",
+        "character": Character.Tinpopo
+    }
 ]
 
 

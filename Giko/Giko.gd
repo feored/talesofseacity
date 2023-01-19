@@ -314,20 +314,21 @@ func findSeat() -> void:
 
 
 func _process(delta):
-    ## Defines draw order
-    #$tile.	text = String(self.currentTile)
-    timeElapsed += delta
-    self.timeSinceAction += delta
-    timeSinceDecision += delta
+    if !isDead:
+        ## Defines draw order
+        #$tile.	text = String(self.currentTile)
+        timeElapsed += delta
+        self.timeSinceAction += delta
+        timeSinceDecision += delta
 
-    if timeElapsed > reactionTime:
-        checkReactions()
-        timeElapsed = 0
+        if timeElapsed > reactionTime:
+            checkReactions()
+            timeElapsed = 0
 
-    takeDecision()
+        takeDecision()
 
-    process_movement(delta)
-    .checkGhost()
+        process_movement(delta)
+        .checkGhost()
 
 
 func random_message() -> void:

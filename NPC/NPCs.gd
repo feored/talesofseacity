@@ -158,8 +158,7 @@ var NPCs = {
 		]),
 		Utils.makeSimpleDialogue([
 			"Did the guy outside tell you to try extra green onion?",
-			"He's been harassing everyone...",
-			"But I can't say he's wrong."
+			"I don't know what his problem is. You know, his story isn't even original.",
 		])
 		]
 	},
@@ -168,7 +167,7 @@ var NPCs = {
 		"name" : "Hacker",
 		"character" : Constants.Character.Hikki,
 		"lines" : [
-			Utils.makeSimpleDialogue(["From the way the code is put together, I can say it's written by a woman"]),
+			Utils.makeSimpleDialogue(["From the way the code is put together, I can say it's written by a woman."]),
 			Utils.makeSimpleDialogue(["While I listen to music, I have the cognitive power to input that song as MP3 data."]),
 			Utils.makeSimpleDialogue(["Hissatsu!! Double Compile!!"])
 		]
@@ -475,7 +474,16 @@ var NPCs = {
 		"lines": [
 			Utils.makeSimpleDialogue(["♪ Fish, Fish, Fish for me, Fish, Fish, Fish for you ♫"])
 		]
-	}
+	},
+    "FascinatedGrass":
+    {
+        "id": "FascinatedGrass",
+        "name": "Fascinated Boon",
+        "character": Constants.Character.Kaminarisama_Naito,
+        "lines": [
+            Utils.makeSimpleDialogue(["♪ Fish, Fish, Fish for me, Fish, Fish, Fish for you ♫"])
+        ]
+    }
 
 }
 
@@ -872,7 +880,15 @@ var ACTIVE_NPCs = {
 			"y": 4,
 			"direction": Constants.Directions.DIR_RIGHT,
 			"lines": []
-		}
+		},
+        "FascinatedGrass":
+        {
+            "id": "FascinatedGrass",
+            "x": 6,
+            "y": 7,
+            "direction": Constants.Directions.DIR_DOWN,
+            "lines": []
+        }
 	}
 }
 
