@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -134,6 +134,15 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 25 )
 
+[sub_resource type="Curve" id=31]
+min_value = -0.05
+max_value = 0.05
+bake_resolution = 8
+_data = [ Vector2( 0, -0.0168182 ), 0.0, 0.0, 0, 0, Vector2( 0.519608, 0.02625 ), 0.0, 0.0, 0, 0, Vector2( 0.70098, -0.0186364 ), 0.0, 0.0, 0, 0, Vector2( 0.985294, 0.00443182 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=32]
+curve = SubResource( 31 )
+
 [sub_resource type="Curve" id=21]
 min_value = -40.0
 max_value = 40.0
@@ -148,17 +157,20 @@ emission_box_extents = Vector3( 1280, 1, 1 )
 flag_disable_z = true
 direction = Vector3( 0, 50, 0 )
 spread = 14.21
-gravity = Vector3( 0, 20, 0 )
+gravity = Vector3( 0, 98, 0 )
 initial_velocity = 100.0
 angular_velocity = 200.0
 angular_velocity_random = 0.42
 orbit_velocity = 0.0
-orbit_velocity_random = 0.0
+orbit_velocity_random = 1.0
+orbit_velocity_curve = SubResource( 32 )
+linear_accel_random = 1.0
 radial_accel = -3.51
+radial_accel_random = 0.29
 tangential_accel = 14.74
 tangential_accel_random = 1.0
 tangential_accel_curve = SubResource( 28 )
-damping = 20.0
+damping = 90.0
 damping_random = 0.5
 scale = 0.17
 scale_random = 0.33
@@ -979,7 +991,7 @@ position = Vector2( 240, -720 )
 z_index = 4000
 z_as_relative = false
 amount = 500
-lifetime = 20.0
+lifetime = 10.0
 randomness = 0.71
 visibility_rect = Rect2( -960, 0, 1920, 2160 )
 process_material = SubResource( 20 )
