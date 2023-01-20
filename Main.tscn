@@ -273,7 +273,6 @@ icon_align = 1
 
 [node name="Dialogue" type="MarginContainer" parent="UI"]
 unique_name_in_owner = true
-visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -283,22 +282,19 @@ margin_top = -380.0
 margin_right = 960.0
 margin_bottom = -120.0
 rect_min_size = Vector2( 0, 80 )
-custom_constants/margin_right = 100
 custom_constants/margin_top = 10
-custom_constants/margin_left = 100
-custom_constants/margin_bottom = 10
 script = ExtResource( 7 )
 
 [node name="CenterContainer" type="CenterContainer" parent="UI/Dialogue"]
-margin_left = 100.0
 margin_top = 10.0
-margin_right = 1820.0
-margin_bottom = 250.0
+margin_right = 1920.0
+margin_bottom = 260.0
 
 [node name="DialogueContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer"]
-margin_left = 500.0
-margin_right = 1220.0
-margin_bottom = 240.0
+margin_left = 600.0
+margin_top = 5.0
+margin_right = 1320.0
+margin_bottom = 245.0
 rect_min_size = Vector2( 720, 240 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )

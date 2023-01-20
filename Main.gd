@@ -271,12 +271,11 @@ func removeActiveItem(item : Dictionary) -> void:
 
 
 func canInteract() -> bool:
+	print("Called caninteract")
 	if (dialogueManager.isDialoguing):
 		dialogueManager.skipToNext()
-		print("skippu")
 		return false
 	else:
-		print("noskip")
 		return true
 
 func talkToNPC(NPCId : String) -> void:

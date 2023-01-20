@@ -113,16 +113,18 @@ func interact() -> void:
 func _input(event):
     if event.is_action_pressed("debug"):
         get_node("/root/Main").popRandomGiko()
-    if State.PAUSE && event.is_action_pressed("interact"):
-        interact()
-    if event.is_action_pressed("ui_up", true):
-        try_move(Constants.Directions.DIR_UP)
-    elif event.is_action_pressed("ui_down", true):
-        try_move(Constants.Directions.DIR_DOWN)
-    elif event.is_action_pressed("ui_left", true):
-        try_move(Constants.Directions.DIR_LEFT)
-    elif event.is_action_pressed("ui_right", true):
-        try_move(Constants.Directions.DIR_RIGHT)
-    elif event.is_action_pressed("interact"):
-        interact()
+    if State.PAUSE:
+        if event.is_action_pressed("interact"):
+            interact()
+    else:  
+        if event.is_action_pressed("ui_up", true):
+            try_move(Constants.Directions.DIR_UP)
+        elif event.is_action_pressed("ui_down", true):
+            try_move(Constants.Directions.DIR_DOWN)
+        elif event.is_action_pressed("ui_left", true):
+            try_move(Constants.Directions.DIR_LEFT)
+        elif event.is_action_pressed("ui_right", true):
+            try_move(Constants.Directions.DIR_RIGHT)
+        elif event.is_action_pressed("interact"):
+            interact()
 
