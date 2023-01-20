@@ -163,7 +163,19 @@ var ITEMS = {
 
 
 
-var INVENTORY = [ 
+var INVENTORY = [
+    "zachu_guitar",
+    "bunny_comic",
+    "fresh_ika",
+    "fishing_pole",
+    "chef_knife",
+    "salmon_steak",
+    "flashlight",
+    "data_chip",
+    "gikoburger",
+    "japanese_bird_portrait",
+    "sunscreen",
+    "mahjong_red_dragon"
 ]
 
 var BACKGROUND_ENVIRONMENT = {

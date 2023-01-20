@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://light_mask.png" type="Texture" id=1]
+[ext_resource path="res://Assets/light_mask.png" type="Texture" id=1]
 
 [node name="Flashlight" type="Light2D"]
 unique_name_in_owner = true

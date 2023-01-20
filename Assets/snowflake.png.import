@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gikobox_logo.png-f783d910b221b8306bf3196dcc6c6def.stex"
+path="res://.import/snowflake.png-946b110f0d1db90df6b525c5c1869ec7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/gikobox_logo.png"
-dest_files=[ "res://.import/gikobox_logo.png-f783d910b221b8306bf3196dcc6c6def.stex" ]
+source_file="res://Assets/snowflake.png"
+dest_files=[ "res://.import/snowflake.png-946b110f0d1db90df6b525c5c1869ec7.stex" ]
 
 [params]
 

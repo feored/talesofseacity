@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gradient.png-81234e798205f4dedc1cbc1b06b8d2e8.stex"
+path="res://.import/furoshiki.png-38b038572b6deebdd4c02b8fb7df09a7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/gradient.png"
-dest_files=[ "res://.import/gradient.png-81234e798205f4dedc1cbc1b06b8d2e8.stex" ]
+source_file="res://UI/Assets/furoshiki.png"
+dest_files=[ "res://.import/furoshiki.png-38b038572b6deebdd4c02b8fb7df09a7.stex" ]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
-[ext_resource path="res://UI/default_theme.tres" type="Theme" id=4]
+[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://Items/InventoryDisplay.gd" type="Script" id=5]
 [ext_resource path="res://Items/Images/mahjong_red_dragon.png" type="Texture" id=6]
 [ext_resource path="res://UI/Dialogue/Dialogue.gd" type="Script" id=7]
@@ -13,8 +13,7 @@
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=11]
 [ext_resource path="res://UI/Rula.gd" type="Script" id=12]
 [ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=13]
-[ext_resource path="res://snowflake.png" type="Texture" id=14]
-[ext_resource path="res://UI/skewed_panel.tres" type="StyleBox" id=15]
+[ext_resource path="res://Assets/snowflake.png" type="Texture" id=14]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=16]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=17]
 [ext_resource path="res://UI/Fonts/Arial/arial.tres" type="DynamicFont" id=18]
@@ -28,7 +27,8 @@
 [ext_resource path="res://UI/RoomName.gd" type="Script" id=27]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 [ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=29]
-[ext_resource path="res://UI/window.tscn" type="PackedScene" id=32]
+[ext_resource path="res://UI/Assets/window.tscn" type="PackedScene" id=32]
+[ext_resource path="res://UI/Assets/window_back.tres" type="StyleBox" id=33]
 
 [sub_resource type="Shader" id=29]
 code = "shader_type canvas_item;
@@ -844,20 +844,15 @@ anchor_bottom = 0.5
 margin_left = -240.0
 margin_top = -240.0
 margin_right = 240.0
-margin_bottom = 240.0
+margin_bottom = 120.0
 mouse_filter = 1
-custom_styles/panel = ExtResource( 15 )
+theme = ExtResource( 4 )
+custom_styles/panel = ExtResource( 33 )
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryPopup"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -240.0
-margin_top = -240.0
-margin_right = 240.0
-margin_bottom = 240.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -873,7 +868,7 @@ margin_right = 480.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_vertical = 5
-custom_colors/font_color = Color( 0.960784, 0.823529, 0.462745, 1 )
+custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
 custom_fonts/font = ExtResource( 17 )
 text = "test"
 align = 1
@@ -882,13 +877,14 @@ valign = 1
 [node name="PanelContainer" type="PanelContainer" parent="UI/InventoryPopup/VBoxContainer"]
 margin_top = 54.0
 margin_right = 480.0
-margin_bottom = 265.0
+margin_bottom = 240.0
 size_flags_vertical = 3
+size_flags_stretch_ratio = 1.62
 custom_styles/panel = SubResource( 12 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/InventoryPopup/VBoxContainer/PanelContainer"]
 margin_right = 480.0
-margin_bottom = 211.0
+margin_bottom = 186.0
 custom_constants/margin_right = 0
 custom_constants/margin_top = 20
 custom_constants/margin_left = 0
@@ -898,22 +894,22 @@ custom_constants/margin_bottom = 20
 unique_name_in_owner = true
 margin_top = 20.0
 margin_right = 480.0
-margin_bottom = 191.0
+margin_bottom = 166.0
 rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 
 [node name="PanelContainer2" type="PanelContainer" parent="UI/InventoryPopup/VBoxContainer"]
-margin_top = 269.0
+margin_top = 244.0
 margin_right = 480.0
-margin_bottom = 480.0
+margin_bottom = 360.0
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 14 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/InventoryPopup/VBoxContainer/PanelContainer2"]
 margin_right = 480.0
-margin_bottom = 211.0
+margin_bottom = 116.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -924,10 +920,9 @@ unique_name_in_owner = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 470.0
-margin_bottom = 201.0
+margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-custom_colors/font_color = Color( 0.819608, 0.819608, 0.819608, 1 )
 custom_fonts/font = ExtResource( 18 )
 text = "Blablablalba who gives a fuck"
 align = 1

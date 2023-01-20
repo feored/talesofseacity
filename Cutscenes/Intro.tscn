@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://UI/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Dialogue/Dialogue.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=3]
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=4]
@@ -8,7 +8,7 @@
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=6]
 [ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=7]
 [ext_resource path="res://rooms/nerd_office/background.png" type="Texture" id=8]
-[ext_resource path="res://UI/test9patch.png" type="Texture" id=9]
+[ext_resource path="res://UI/Assets/test9patch.png" type="Texture" id=9]
 [ext_resource path="res://UI/Dialogue/arrow.png" type="Texture" id=10]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=11]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=12]

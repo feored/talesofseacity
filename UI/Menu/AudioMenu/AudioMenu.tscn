@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://UI/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=2]
 [ext_resource path="res://UI/Menu/AudioMenu/AudioMenu.gd" type="Script" id=3]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=4]

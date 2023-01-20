@@ -2,7 +2,7 @@
 
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/Notifications/Notification.gd" type="Script" id=2]
-[ext_resource path="res://UI/default_theme.tres" type="Theme" id=3]
+[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=3]
 
 [node name="Notification" type="PanelContainer"]
 margin_right = 300.0

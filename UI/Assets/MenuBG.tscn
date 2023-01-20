@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/TitleScreen/TitleCamera.gd" type="Script" id=1]
-[ext_resource path="res://UI/gradient.png" type="Texture" id=2]
-[ext_resource path="res://UI/pattern.png" type="Texture" id=3]
+[ext_resource path="res://UI/Assets/gradient.png" type="Texture" id=2]
+[ext_resource path="res://UI/Assets/pattern.png" type="Texture" id=3]
 
 [node name="MenuBG" type="Node2D"]
 

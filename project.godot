@@ -40,11 +40,11 @@ _global_script_class_icons={
 
 config/name="Giko Story"
 run/main_scene="res://Main.tscn"
-boot_splash/image="res://UI/gikobox_logo.png"
+boot_splash/image="res://UI/Assets/gikobox_logo.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-boot_splash/bg_color=Color( 0.027451, 0.0392157, 0.0862745, 1 )
-config/icon="res://UI/gikobox_logo.png"
+boot_splash/bg_color=Color( 0.129412, 0.129412, 0.129412, 1 )
+config/icon="res://UI/Assets/gikobox_logo.png"
 
 [audio]
 

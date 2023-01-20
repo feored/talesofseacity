@@ -1,12 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://UI/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Menu/Menu.gd" type="Script" id=2]
 [ext_resource path="res://UI/TitleScreen/2307.png" type="Texture" id=3]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=4]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=5]
-[ext_resource path="res://MenuBG.tscn" type="PackedScene" id=6]
-[ext_resource path="res://UI/TitleScreen/MenuBG.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/Assets/MenuBG.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
@@ -136,10 +135,8 @@ theme = ExtResource( 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Continue"
 
-[node name="Node2D" parent="." instance=ExtResource( 6 )]
+[node name="Node2D" parent="." instance=ExtResource( 7 )]
 visible = false
-
-[node name="MenuBG" parent="." instance=ExtResource( 7 )]
 
 [connection signal="pressed" from="UI/MenuBase/NinePatchRect/MarginContainer/VBoxContainer/VBoxContainer/SaveBtn" to="." method="_on_SaveBtn_pressed"]
 [connection signal="pressed" from="UI/MenuBase/NinePatchRect/MarginContainer/VBoxContainer/VBoxContainer/DisplayBtn" to="." method="_on_DisplayBtn_pressed"]
