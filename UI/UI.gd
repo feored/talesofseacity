@@ -35,11 +35,7 @@ func _input(event):
     elif event.is_action_pressed("journal"):
         _on_JournalBtn_pressed()
     elif event.is_action_pressed("menu"):
-        var menuNode = get_node_or_null("Menu")
-        if menuNode == null:
-            var mainMenu = mainMenuPrefab.instance()
-            add_child(mainMenu)
-        #SceneTransition.changeScene("res://UI/Menu/Menu.tscn")
+        SceneTransition.gameToMenu()
     
 func hideAllPanels():
     for panel in panels:
@@ -92,3 +88,6 @@ func _process(delta):
         get_tree().paused = true
     else:
         get_tree().paused = false
+
+func _on_Button_pressed():
+    _on_InventoryBtn_pressed()

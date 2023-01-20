@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -23,12 +23,12 @@
 [ext_resource path="res://UI/Dialogue/arrow.png" type="Texture" id=21]
 [ext_resource path="res://rooms/bar_giko_square/background.png" type="Texture" id=22]
 [ext_resource path="res://Quests/General/QuestUtils.gd" type="Script" id=23]
-[ext_resource path="res://UI/test9patch.png" type="Texture" id=24]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=25]
 [ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=26]
 [ext_resource path="res://UI/RoomName.gd" type="Script" id=27]
 [ext_resource path="res://UI/Log/LogViewer.gd" type="Script" id=28]
 [ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=29]
+[ext_resource path="res://UI/window.tscn" type="PackedScene" id=32]
 
 [sub_resource type="Shader" id=29]
 code = "shader_type canvas_item;
@@ -109,6 +109,12 @@ tracks/1/keys = {
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="StyleBoxEmpty" id=33]
+
+[sub_resource type="StyleBoxEmpty" id=34]
+
+[sub_resource type="StyleBoxEmpty" id=35]
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
@@ -216,71 +222,74 @@ valign = 1
 script = ExtResource( 1 )
 
 [node name="Buttons" type="MarginContainer" parent="UI"]
-margin_top = 972.0
-margin_right = 1920.0
-margin_bottom = 1052.0
-rect_min_size = Vector2( 0, 80 )
-custom_constants/margin_right = 100
-custom_constants/margin_top = 10
-custom_constants/margin_left = 100
-custom_constants/margin_bottom = 10
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -375.0
+margin_top = -50.0
+margin_right = 375.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 60 )
+custom_constants/margin_right = 15
+custom_constants/margin_left = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Buttons"]
-margin_left = 100.0
-margin_top = 10.0
-margin_right = 1820.0
-margin_bottom = 70.0
+margin_left = 15.0
+margin_right = 735.0
+margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+custom_constants/separation = 0
 alignment = 1
 
 [node name="InventoryBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_left = 585.0
-margin_right = 685.0
+margin_right = 180.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Inventory"
 icon_align = 1
 
 [node name="RulaBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_left = 735.0
-margin_right = 835.0
+margin_left = 180.0
+margin_right = 360.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "#rula"
 icon_align = 1
 
 [node name="LogBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_left = 885.0
-margin_right = 985.0
+margin_left = 360.0
+margin_right = 540.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Log"
 icon_align = 1
 
 [node name="JournalBtn" type="Button" parent="UI/Buttons/HBoxContainer"]
-margin_left = 1035.0
-margin_right = 1135.0
+margin_left = 540.0
+margin_right = 720.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 3
 theme = ExtResource( 4 )
 text = "Journal"
 icon_align = 1
 
 [node name="Dialogue" type="MarginContainer" parent="UI"]
 unique_name_in_owner = true
-anchor_left = 0.5
+visible = false
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -960.0
-margin_top = -380.0
-margin_right = 960.0
-margin_bottom = -120.0
+margin_top = -440.0
+margin_bottom = -70.0
 rect_min_size = Vector2( 0, 80 )
 custom_constants/margin_top = 10
 script = ExtResource( 7 )
@@ -288,33 +297,31 @@ script = ExtResource( 7 )
 [node name="CenterContainer" type="CenterContainer" parent="UI/Dialogue"]
 margin_top = 10.0
 margin_right = 1920.0
-margin_bottom = 260.0
+margin_bottom = 370.0
 
-[node name="DialogueContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer"]
+[node name="window" parent="UI/Dialogue/CenterContainer" instance=ExtResource( 32 )]
 margin_left = 600.0
-margin_top = 5.0
+margin_top = 60.0
 margin_right = 1320.0
-margin_bottom = 245.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 720, 240 )
-size_flags_horizontal = 3
-theme = ExtResource( 4 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 719.0
-margin_bottom = 235.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/window"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 704.0
+margin_bottom = 224.0
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
-margin_right = 718.0
-margin_bottom = 234.0
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer"]
+margin_right = 688.0
+margin_bottom = 208.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-margin_right = 514.0
-margin_bottom = 234.0
+[node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
+margin_right = 484.0
+margin_bottom = 208.0
 rect_min_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 custom_constants/margin_right = 20
@@ -322,16 +329,16 @@ custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 
-[node name="DialogueVBox" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer"]
+[node name="DialogueVBox" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/MainDialogueContainer"]
 unique_name_in_owner = true
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 494.0
-margin_bottom = 214.0
+margin_right = 464.0
+margin_bottom = 188.0
 
-[node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/DialogueVBox"]
+[node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/MainDialogueContainer/DialogueVBox"]
 unique_name_in_owner = true
-margin_right = 474.0
+margin_right = 444.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 custom_colors/font_color = Color( 0.960784, 0.752941, 0.396078, 1 )
@@ -341,19 +348,19 @@ custom_fonts/font = ExtResource( 17 )
 text = "CATARP!"
 valign = 1
 
-[node name="Arrow" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+[node name="Arrow" type="TextureRect" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 518.0
-margin_right = 554.0
-margin_bottom = 234.0
+margin_left = 488.0
+margin_right = 524.0
+margin_bottom = 208.0
 texture = ExtResource( 21 )
 stretch_mode = 6
 
-[node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+[node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 558.0
-margin_right = 718.0
-margin_bottom = 234.0
+margin_left = 528.0
+margin_right = 688.0
+margin_bottom = 208.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 7
 size_flags_stretch_ratio = 0.15
@@ -362,28 +369,28 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/InfoDialogueContainer"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 150.0
-margin_bottom = 224.0
+margin_bottom = 198.0
 custom_styles/panel = SubResource( 13 )
 
-[node name="DialogueImage" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer/PanelContainer"]
+[node name="DialogueImage" type="TextureRect" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/InfoDialogueContainer/PanelContainer"]
 unique_name_in_owner = true
 margin_right = 140.0
-margin_bottom = 214.0
+margin_bottom = 188.0
 size_flags_vertical = 3
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 6
 flip_h = true
 
-[node name="DialogueAnimation" type="AnimationPlayer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
+[node name="DialogueAnimation" type="AnimationPlayer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 anims/arrow_move = SubResource( 25 )
 
-[node name="Button" type="Button" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="UI/Dialogue/CenterContainer/window/VBoxContainer"]
 visible = false
 margin_top = 211.0
 margin_right = 718.0
@@ -409,57 +416,53 @@ theme = ExtResource( 4 )
 custom_styles/panel = SubResource( 23 )
 script = ExtResource( 12 )
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Rula"]
+[node name="window" parent="UI/Rula" instance=ExtResource( 32 )]
 margin_right = 720.0
 margin_bottom = 480.0
-texture = ExtResource( 24 )
-patch_margin_left = 80
-patch_margin_top = 80
-patch_margin_right = 80
-patch_margin_bottom = 80
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/NinePatchRect"]
-margin_right = 718.0
-margin_bottom = 474.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/window"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 704.0
+margin_bottom = 464.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/Rula/NinePatchRect/VBoxContainer"]
-margin_right = 718.0
+[node name="Panel" type="Panel" parent="UI/Rula/window/VBoxContainer"]
+margin_right = 688.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 10 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Rula/window/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 720.0
-margin_bottom = 50.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Control" type="Control" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="UI/Rula/window/VBoxContainer/Panel/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Label" type="Label" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Rula/window/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 54.0
-margin_right = 666.0
+margin_right = 634.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.247059, 0.427451, 0.776471, 1 )
 custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Rula"
 align = 1
 valign = 1
 
-[node name="CloseBtn" type="Button" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 670.0
-margin_right = 720.0
+[node name="CloseBtn" type="Button" parent="UI/Rula/window/VBoxContainer/Panel/HBoxContainer"]
+margin_left = 638.0
+margin_right = 688.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 icon = ExtResource( 11 )
@@ -467,18 +470,18 @@ flat = true
 icon_align = 1
 expand_icon = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/NinePatchRect/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/window/VBoxContainer"]
 margin_top = 54.0
-margin_right = 718.0
-margin_bottom = 474.0
+margin_right = 688.0
+margin_bottom = 448.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer"]
-margin_right = 718.0
-margin_bottom = 420.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/Rula/window/VBoxContainer/ScrollContainer"]
+margin_right = 688.0
+margin_bottom = 394.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -487,30 +490,29 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="UI/Rula/window/VBoxContainer/ScrollContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 708.0
-margin_bottom = 410.0
+margin_right = 678.0
+margin_bottom = 384.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
-margin_left = 249.0
-margin_top = 100.0
-margin_right = 449.0
-margin_bottom = 300.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/window/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
+margin_left = 234.0
+margin_top = 87.0
+margin_right = 434.0
+margin_bottom = 287.0
 custom_constants/separation = 25
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/Rula/window/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 margin_right = 200.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
-custom_fonts/font = ExtResource( 16 )
 text = "Room Name"
 align = 1
 valign = 1
 
-[node name="RulaRooms" type="OptionButton" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="RulaRooms" type="OptionButton" parent="UI/Rula/window/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 75.0
 margin_right = 200.0
@@ -520,7 +522,7 @@ size_flags_horizontal = 3
 align = 1
 icon_align = 1
 
-[node name="RulaGoBtn" type="Button" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="RulaGoBtn" type="Button" parent="UI/Rula/window/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 200.0
@@ -543,50 +545,56 @@ mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
 theme = ExtResource( 4 )
+custom_styles/panel = SubResource( 33 )
 script = ExtResource( 20 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Journal"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 719.0
-margin_bottom = 475.0
+[node name="window" parent="UI/Journal" instance=ExtResource( 32 )]
+margin_right = 720.0
+margin_bottom = 480.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Journal/window"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 704.0
+margin_bottom = 464.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/Journal/VBoxContainer"]
-margin_right = 718.0
+[node name="Panel" type="Panel" parent="UI/Journal/window/VBoxContainer"]
+margin_right = 688.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 10 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Journal/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Journal/window/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 720.0
-margin_bottom = 50.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Control" type="Control" parent="UI/Journal/VBoxContainer/Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="UI/Journal/window/VBoxContainer/Panel/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Label" type="Label" parent="UI/Journal/VBoxContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Journal/window/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 54.0
-margin_right = 666.0
+margin_right = 634.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
 custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Journal"
 align = 1
 valign = 1
 
-[node name="CloseBtn" type="Button" parent="UI/Journal/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 670.0
-margin_right = 720.0
+[node name="CloseBtn" type="Button" parent="UI/Journal/window/VBoxContainer/Panel/HBoxContainer"]
+margin_left = 638.0
+margin_right = 688.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 icon = ExtResource( 11 )
@@ -594,18 +602,18 @@ flat = true
 icon_align = 1
 expand_icon = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Journal/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Journal/window/VBoxContainer"]
 margin_top = 54.0
-margin_right = 718.0
-margin_bottom = 474.0
+margin_right = 688.0
+margin_bottom = 448.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Journal/VBoxContainer/ScrollContainer"]
-margin_right = 718.0
-margin_bottom = 420.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/Journal/window/VBoxContainer/ScrollContainer"]
+margin_right = 688.0
+margin_bottom = 394.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -614,12 +622,12 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="Quests" type="VBoxContainer" parent="UI/Journal/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="Quests" type="VBoxContainer" parent="UI/Journal/window/VBoxContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 708.0
-margin_bottom = 410.0
+margin_right = 678.0
+margin_bottom = 384.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 25
@@ -640,49 +648,56 @@ mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
 theme = ExtResource( 4 )
+custom_styles/panel = SubResource( 34 )
 script = ExtResource( 28 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Log"]
-margin_top = 5.0
+[node name="window" parent="UI/Log" instance=ExtResource( 32 )]
 margin_right = 720.0
-margin_bottom = 715.0
+margin_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Log/window"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 704.0
+margin_bottom = 704.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/Log/VBoxContainer"]
-margin_right = 720.0
+[node name="Panel" type="Panel" parent="UI/Log/window/VBoxContainer"]
+margin_right = 688.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 10 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Log/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Log/window/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 720.0
-margin_bottom = 50.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Control" type="Control" parent="UI/Log/VBoxContainer/Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="UI/Log/window/VBoxContainer/Panel/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Label" type="Label" parent="UI/Log/VBoxContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Log/window/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 54.0
-margin_right = 666.0
+margin_right = 634.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
 custom_fonts/font = ExtResource( 17 )
 custom_styles/normal = SubResource( 7 )
 text = "Log"
 align = 1
 valign = 1
 
-[node name="CloseBtn" type="Button" parent="UI/Log/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 670.0
-margin_right = 720.0
+[node name="CloseBtn" type="Button" parent="UI/Log/window/VBoxContainer/Panel/HBoxContainer"]
+margin_left = 638.0
+margin_right = 688.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 icon = ExtResource( 11 )
@@ -690,19 +705,19 @@ flat = true
 icon_align = 1
 expand_icon = true
 
-[node name="LogScroll" type="ScrollContainer" parent="UI/Log/VBoxContainer"]
+[node name="LogScroll" type="ScrollContainer" parent="UI/Log/window/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 54.0
-margin_right = 720.0
-margin_bottom = 710.0
+margin_right = 688.0
+margin_bottom = 688.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Log/VBoxContainer/LogScroll"]
-margin_right = 720.0
-margin_bottom = 656.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/Log/window/VBoxContainer/LogScroll"]
+margin_right = 688.0
+margin_bottom = 634.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -711,12 +726,12 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="LogsVBox" type="VBoxContainer" parent="UI/Log/VBoxContainer/LogScroll/MarginContainer"]
+[node name="LogsVBox" type="VBoxContainer" parent="UI/Log/window/VBoxContainer/LogScroll/MarginContainer"]
 unique_name_in_owner = true
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 710.0
-margin_bottom = 646.0
+margin_right = 678.0
+margin_bottom = 624.0
 
 [node name="Inventory" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
@@ -734,50 +749,55 @@ mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
 theme = ExtResource( 4 )
+custom_styles/panel = SubResource( 35 )
 script = ExtResource( 5 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory"]
-margin_left = 1.0
-margin_top = 10.0
-margin_right = 1279.0
-margin_bottom = 710.0
+[node name="window" parent="UI/Inventory" instance=ExtResource( 32 )]
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory/window"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1264.0
+margin_bottom = 704.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/Inventory/VBoxContainer"]
-margin_right = 1278.0
+[node name="Panel" type="Panel" parent="UI/Inventory/window/VBoxContainer"]
+margin_right = 1248.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/panel = SubResource( 11 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Inventory/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Inventory/window/VBoxContainer/Panel"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 1280.0
-margin_bottom = 50.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Control" type="Control" parent="UI/Inventory/VBoxContainer/Panel/HBoxContainer"]
+[node name="Control" type="Control" parent="UI/Inventory/window/VBoxContainer/Panel/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Label" type="Label" parent="UI/Inventory/VBoxContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Inventory/window/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 54.0
-margin_right = 1226.0
+margin_right = 1194.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
 custom_fonts/font = ExtResource( 17 )
-custom_styles/normal = SubResource( 7 )
 text = "Inventory"
 align = 1
 valign = 1
 
-[node name="CloseBtn" type="Button" parent="UI/Inventory/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 1230.0
-margin_right = 1280.0
+[node name="CloseBtn" type="Button" parent="UI/Inventory/window/VBoxContainer/Panel/HBoxContainer"]
+margin_left = 1198.0
+margin_right = 1248.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 0 )
 icon = ExtResource( 11 )
@@ -785,29 +805,29 @@ flat = true
 icon_align = 1
 expand_icon = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Inventory/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Inventory/window/VBoxContainer"]
 margin_top = 54.0
-margin_right = 1278.0
-margin_bottom = 700.0
+margin_right = 1248.0
+margin_bottom = 688.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer/ScrollContainer"]
-margin_right = 1278.0
-margin_bottom = 646.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/window/VBoxContainer/ScrollContainer"]
+margin_right = 1248.0
+margin_bottom = 634.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 50
 custom_constants/margin_left = 50
 
-[node name="InvItems" type="HFlowContainer" parent="UI/Inventory/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="InvItems" type="HFlowContainer" parent="UI/Inventory/window/VBoxContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 margin_left = 50.0
-margin_right = 1228.0
-margin_bottom = 646.0
+margin_right = 1198.0
+margin_bottom = 634.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1032,8 +1052,8 @@ script = ExtResource( 23 )
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/RulaBtn" to="UI" method="_on_RulaBtn_pressed"]
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/LogBtn" to="UI" method="_on_LogBtn_pressed"]
 [connection signal="pressed" from="UI/Buttons/HBoxContainer/JournalBtn" to="UI" method="_on_JournalBtn_pressed"]
-[connection signal="pressed" from="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
-[connection signal="pressed" from="UI/Journal/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Journal" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Log/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Log" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Inventory/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Inventory" method="_on_CloseBtn_pressed"]
+[connection signal="pressed" from="UI/Rula/window/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
+[connection signal="pressed" from="UI/Rula/window/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
+[connection signal="pressed" from="UI/Journal/window/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Journal" method="_on_CloseBtn_pressed"]
+[connection signal="pressed" from="UI/Log/window/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Log" method="_on_CloseBtn_pressed"]
+[connection signal="pressed" from="UI/Inventory/window/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Inventory" method="_on_CloseBtn_pressed"]

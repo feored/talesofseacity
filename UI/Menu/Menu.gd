@@ -6,7 +6,7 @@ var audioMenuPrefab = preload("res://UI/Menu/AudioMenu/AudioMenu.tscn")
 var displayMenuPrefab = preload("res://UI/Menu/DisplayMenu/DisplayMenu.tscn")
 
 ## funcrefs
-onready var main = $"/root/Main"
+var main
 onready var menuBase = $"%MenuBase"
 
 onready var menuChildren = [menuBase]
@@ -40,7 +40,7 @@ func openDisplayMenu() -> void:
 
 func hide():
 	#visible = false
-	queue_free()
+	SceneTransition.menuToGame()
 
 func _on_ContinueBtn_pressed():
 	hide()
@@ -111,7 +111,7 @@ func _input(event):
 
 func quitMenu():
 	if menuChildren.size() == 1:
-		queue_free()
+		hide()
 	else:
 		menuChildren.pop_back().queue_free()
 		menuChildren[-1].visible = true
