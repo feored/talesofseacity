@@ -1,3 +1,5 @@
 # gikostory
 
-for now, just a reimplementation of gikopoi but offline
+Game based on Gikopoipoi
+
+Godot 3.5
