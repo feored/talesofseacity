@@ -1,167 +1,151 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=2]
+[ext_resource path="res://UI/Menu/simpleLabel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/Menu/AudioMenu/AudioMenu.gd" type="Script" id=3]
-[ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=4]
-[ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=5]
+[ext_resource path="res://UI/Menu/titleLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/Assets/MenuBG.tscn" type="PackedScene" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="DynamicFont" id=2]
-size = 72
-outline_size = 8
-outline_color = Color( 0, 0.647059, 0.466667, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 5 )
-
-[node name="AudioMenu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="AudioMenu" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 360.0
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 7
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 3 )
+[node name="MenuBase" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -321.0
+margin_top = -540.0
+margin_right = 321.0
+margin_bottom = 540.0
+rect_min_size = Vector2( 500, 1080 )
+custom_styles/panel = SubResource( 1 )
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="PanelContainer"]
-margin_right = 1920.0
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MenuBase"]
+margin_right = 642.0
 margin_bottom = 1080.0
-patch_margin_left = 80
-patch_margin_top = 80
-patch_margin_right = 80
-patch_margin_bottom = 80
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/NinePatchRect2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
 custom_constants/margin_right = 50
 custom_constants/margin_top = 50
 custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer"]
 margin_left = 50.0
 margin_top = 50.0
-margin_right = 1870.0
+margin_right = 592.0
 margin_bottom = 1030.0
-custom_constants/separation = 250
+custom_constants/separation = 100
+alignment = 1
 
-[node name="Title" type="Label" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer"]
-margin_right = 1820.0
-margin_bottom = 82.0
-custom_fonts/font = SubResource( 2 )
-text = "Audio Settings"
-align = 1
-valign = 1
+[node name="Label2" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 237.0
+margin_right = 542.0
+margin_bottom = 294.0
+text = "sound settings"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer"]
-margin_top = 332.0
-margin_right = 1820.0
-margin_bottom = 516.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+margin_top = 394.0
+margin_right = 542.0
+margin_bottom = 593.0
 custom_constants/separation = 50
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 685.0
-margin_right = 1135.0
-margin_bottom = 28.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2"]
+margin_right = 542.0
+margin_bottom = 33.0
 size_flags_horizontal = 6
 custom_constants/separation = 50
 
-[node name="Label" type="Label" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_right = 200.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 4 )
-text = "Master Volume"
+[node name="simpleLabel" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_right = 292.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+text = "master volume"
+valign = 1
 
-[node name="MasterSlider" type="HSlider" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="MasterSlider" type="HSlider" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 250.0
-margin_right = 450.0
-margin_bottom = 28.0
+margin_left = 342.0
+margin_right = 542.0
+margin_bottom = 33.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
+size_flags_stretch_ratio = 0.0
 step = 0.5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 685.0
-margin_top = 78.0
-margin_right = 1135.0
-margin_bottom = 106.0
-size_flags_horizontal = 6
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2"]
+margin_top = 83.0
+margin_right = 542.0
+margin_bottom = 116.0
+size_flags_horizontal = 7
 custom_constants/separation = 50
 
-[node name="Label" type="Label" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 200.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 4 )
-text = "Music Volume"
+[node name="simpleLabel2" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_right = 292.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+text = "music volume"
+valign = 1
 
-[node name="MusicSlider" type="HSlider" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="MusicSlider" type="HSlider" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 250.0
-margin_right = 450.0
-margin_bottom = 28.0
+margin_left = 342.0
+margin_right = 542.0
+margin_bottom = 33.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
+size_flags_stretch_ratio = 0.0
 step = 0.5
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 685.0
-margin_top = 156.0
-margin_right = 1135.0
-margin_bottom = 184.0
-size_flags_horizontal = 6
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2"]
+margin_top = 166.0
+margin_right = 542.0
+margin_bottom = 199.0
+size_flags_horizontal = 7
 custom_constants/separation = 50
 
-[node name="Label" type="Label" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 200.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 4 )
-text = "FX Volume"
+[node name="simpleLabel3" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_right = 292.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+text = "FX volume"
+valign = 1
 
-[node name="FXSlider" type="HSlider" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="FXSlider" type="HSlider" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 250.0
-margin_right = 450.0
-margin_bottom = 28.0
+margin_left = 342.0
+margin_right = 542.0
+margin_bottom = 33.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
+size_flags_stretch_ratio = 0.0
 step = 0.5
 
-[node name="BackBtn" type="Button" parent="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer"]
-margin_left = 810.0
-margin_top = 766.0
-margin_right = 1010.0
-margin_bottom = 816.0
+[node name="BackBtn" type="Button" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+margin_left = 171.0
+margin_top = 693.0
+margin_right = 371.0
+margin_bottom = 743.0
 rect_min_size = Vector2( 200, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 theme = ExtResource( 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "Back"
+text = "back"
 
-[connection signal="value_changed" from="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MasterSlider" to="." method="_on_MasterSlider_value_changed"]
-[connection signal="value_changed" from="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
-[connection signal="value_changed" from="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/FXSlider" to="." method="_on_FXSlider_value_changed"]
-[connection signal="pressed" from="PanelContainer/NinePatchRect2/MarginContainer/VBoxContainer/BackBtn" to="." method="_on_BackBtn_pressed"]
+[node name="MenuBG" parent="." instance=ExtResource( 5 )]
+
+[connection signal="value_changed" from="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MasterSlider" to="." method="_on_MasterSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3/FXSlider" to="." method="_on_FXSlider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/BackBtn" to="." method="_on_BackBtn_pressed"]

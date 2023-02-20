@@ -1,12 +1,9 @@
-extends Control
+extends Node
 
 
 onready var masterSlider = $"%MasterSlider"
 onready var musicSlider = $"%MusicSlider"
 onready var FXSlider = $"%FXSlider"
-
-# funcref
-var remove : Object
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +19,7 @@ func _ready():
 
 
 func _on_BackBtn_pressed():
-	remove.call_func()
+	SceneTransition.xToYScene(self, Constants.MENU_SCENE_PATH)
 
 func _on_FXSlider_value_changed(value:float):
 	Audio.setVolumeFX((value/100))

@@ -2,8 +2,10 @@ extends Node
 
 
 onready var musicPlayer = $MusicPlayer
-onready var FXPlayer = $FXPlayer
 
+var fxPlayers : Array = []
+var fxPlayersAmount : int = 10
+onready var fxPlayerId : int = 0
 
 
 var bus = preload("res://Audio/bus_layout.tres")
@@ -35,7 +37,12 @@ var MUSIC_FILES = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	fxPlayerId = 0
+	for _i in range(fxPlayersAmount):
+		var fxPlayer : AudioStreamPlayer = AudioStreamPlayer.new()
+		fxPlayers.append(fxPlayer)
+		add_child(fxPlayer)
+
 
 func init():
 	setVolumeMaster(Settings.MASTER_VOLUME)
@@ -49,8 +56,9 @@ func playMusic(newTrack : int) -> void:
 	musicPlayer.play()
 
 func playFX(newFX : int) -> void:
-	FXPlayer.stream = FX_FILES[newFX]
-	FXPlayer.play()
+	fxPlayers[fxPlayerId].stream = FX_FILES[newFX]
+	fxPlayers[fxPlayerId].play()
+	fxPlayerId = (fxPlayerId + 1) % fxPlayersAmount
 
 
 func setVolumeMaster(newVolume) -> void:

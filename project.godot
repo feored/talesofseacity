@@ -39,7 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Giko Story"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://UI/TitleScreen/TitleScreen.tscn"
 boot_splash/image="res://UI/Assets/gikobox_logo.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false

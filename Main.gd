@@ -34,6 +34,12 @@ var adjacentRoomsCache = []
 
 onready var camera = $"%Camera2D"
 onready var dialogueManager = $"%Dialogue"
+
+var loadedSave = {
+	"ROOM" : "admin_st",
+	"PLAYER_POSITION" : Vector2(2, 4),
+	"PLAYER_DIRECTION" : Constants.Directions.DIR_DOWN
+}
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -41,20 +47,17 @@ onready var dialogueManager = $"%Dialogue"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#loadRandomRoom()
-	loadRoom("idoA")
+	changeRoom(loadedSave["ROOM"])
 	spawnRandomGikos()
-	spawnPlayerGiko(Rooms.currentRoomData["doors"].keys()[0])
-
+	spawnPlayerGiko(loadedSave["PLAYER_POSITION"], loadedSave["PLAYER_DIRECTION"])
 	Quests.initQuests()
-
+	
 	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
 	# 	"Welcome to Giko Story!",
 	# 	"This server is an amalgamation of the international and Japanese servers.",
 	# 	"Go explore, talk to everyone, pick up items and have fun!"
 	# ]), "")
 	# dialogueManager.show()
-
 
 func loadRandomRoom() -> void:
 	#loadRoom("admin")
@@ -299,11 +302,11 @@ func talkToEnvironment(tile : Vector2) -> void:
 		)
 		dialogueManager.show()
 
-func spawnPlayerGiko(door: String) -> void:
+func spawnPlayerGiko(position, direction) -> void:
 	var newGiko = gikoPrefab.instance()
 	newGiko.set_script(PlayerGiko)
 	newGiko.character = Constants.Character.Giko
-	newGiko.displayName = "Anonymous"
+	newGiko.displayName = State.NAME
 
 	## prepare callbacks
 	newGiko.changeRoom = funcref(self, "doorChangeRoom")
@@ -313,11 +316,8 @@ func spawnPlayerGiko(door: String) -> void:
 	newGiko.canInteract = funcref(self, "canInteract")
 	
 	newGiko.place(
-		Vector2(
-			Rooms.currentRoomData["doors"][door]["x"],
-			Rooms.currentRoomData["doors"][door]["y"]
-		),
-		Utils.roomDirectionToEnum(Rooms.currentRoomData["doors"][door]["direction"])
+		position,
+		direction
 	)
 
 	$"%zObjects".add_child(newGiko)
@@ -357,5 +357,5 @@ func save() -> Dictionary:
 	}
 
 func load(save : Dictionary) -> void:
-	changeRoom(save["ROOM"])
-	playerGiko.place(save["PLAYER_POSITION"], save["PLAYER_DIRECTION"])
+	loadedSave = save
+	

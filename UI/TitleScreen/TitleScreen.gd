@@ -15,9 +15,8 @@ func _ready():
 
 
 func _on_PlayBtn_pressed():
-	#get_tree().get_root().add_child(mainScene.instance())
-	#queue_free()
-    SceneTransition.changeScene("res://Main.tscn")
+    SceneTransition.xToY(self, SceneTransition.currentGame)
+    #SceneTransition.changeScene("res://Cutscenes/Intro.tscn")
 
 func _on_LoadBtn_pressed():
 	pass

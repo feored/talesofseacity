@@ -2,14 +2,8 @@ extends Node
 
 const SAVEPATH = "user://saves/"
 
-var audioMenuPrefab = preload("res://UI/Menu/AudioMenu/AudioMenu.tscn")
-var displayMenuPrefab = preload("res://UI/Menu/DisplayMenu/DisplayMenu.tscn")
-
 ## funcrefs
 var main
-onready var menuBase = $"%MenuBase"
-
-onready var menuChildren = [menuBase]
 
 
 # Declare member variables here. Examples:
@@ -22,25 +16,9 @@ func _ready():
 	set_process_input(true)
 
 
-func openAudioMenu() -> void:
-	var audioMenu = audioMenuPrefab.instance()
-	audioMenu.remove = funcref(self, "quitMenu")
-	$UI.add_child(audioMenu)
-	for m in menuChildren:
-		m.visible = false
-	menuChildren.push_back(audioMenu)
-
-func openDisplayMenu() -> void:
-	var displayMenu = displayMenuPrefab.instance()
-	displayMenu.remove = funcref(self, "quitMenu")
-	$UI.add_child(displayMenu)
-	for m in menuChildren:
-		m.visible = false
-	menuChildren.push_back(displayMenu)
-
 func hide():
 	#visible = false
-	SceneTransition.menuToGame()
+	SceneTransition.xToY(self, SceneTransition.currentGame)
 
 func _on_ContinueBtn_pressed():
 	hide()
@@ -110,20 +88,14 @@ func _input(event):
 		quitMenu()
 
 func quitMenu():
-	if menuChildren.size() == 1:
-		hide()
-	else:
-		menuChildren.pop_back().queue_free()
-		menuChildren[-1].visible = true
+	SceneTransition.xToY(self, SceneTransition.currentGame)
 
 func _on_SaveBtn_pressed():
 	save()
 
-
-
 func _on_AudioBtn_pressed():
-	openAudioMenu()
+	SceneTransition.xToYScene(self, Constants.AUDIOMENU_SCENE_PATH)
 
 
 func _on_DisplayBtn_pressed():
-	openDisplayMenu()
+	SceneTransition.xToYScene(self, Constants.DISPLAYMENU_SCENE_PATH)

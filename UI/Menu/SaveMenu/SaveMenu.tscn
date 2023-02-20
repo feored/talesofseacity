@@ -1,88 +1,114 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://UI/TitleScreen/2307.png" type="Texture" id=2]
-[ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI/Menu/titleLabel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Assets/MenuBG.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=5]
 [ext_resource path="res://UI/Menu/SaveMenu/Save.tscn" type="PackedScene" id=6]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 size = 72
-outline_size = 8
-outline_color = Color( 0, 0.647059, 0.466667, 1 )
+outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 5 )
 
-[node name="SaveMenu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="SaveMenu" type="Node2D"]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 360.0
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 7
+[node name="MenuBG" parent="." instance=ExtResource( 3 )]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 3 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-margin_right = 1920.0
-margin_bottom = 1080.0
-custom_constants/margin_right = 200
+[node name="MenuBase" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -493.5
+margin_right = 250.0
+margin_bottom = 493.5
+rect_min_size = Vector2( 500, 0 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MenuBase"]
+margin_right = 500.0
+margin_bottom = 987.0
+custom_constants/margin_right = 50
 custom_constants/margin_top = 50
-custom_constants/margin_left = 200
+custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-margin_left = 200.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer"]
+margin_left = 50.0
 margin_top = 50.0
-margin_right = 1720.0
-margin_bottom = 1030.0
-custom_constants/separation = 200
-
-[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-margin_right = 1520.0
-margin_bottom = 82.0
-custom_fonts/font = SubResource( 2 )
-text = "Save"
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 282.0
-margin_right = 1520.0
-margin_bottom = 356.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 224.0
-margin_bottom = 74.0
-custom_constants/separation = 50
+margin_right = 450.0
+margin_bottom = 937.0
+custom_constants/separation = 100
 alignment = 1
 
-[node name="Save" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_left = 0.0
-margin_right = 224.0
-margin_bottom = 74.0
-
-[node name="BackBtn" type="Button" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 200.0
-margin_top = -100.0
+[node name="Label" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 0.0
 margin_right = 400.0
-margin_bottom = -50.0
+margin_bottom = 57.0
+text = "save"
+
+[node name="Title" type="Label" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+visible = false
+margin_right = 443.0
+margin_bottom = 82.0
+custom_colors/font_color_shadow = Color( 0, 0.505882, 0.866667, 1 )
+custom_constants/shadow_offset_x = 3
+custom_fonts/font = SubResource( 2 )
+text = "Sea City Tale"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+margin_top = 157.0
+margin_right = 400.0
+margin_bottom = 737.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Save" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_right = 400.0
+
+[node name="Save2" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_top = 120.0
+margin_right = 400.0
+margin_bottom = 220.0
+
+[node name="Save3" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_top = 240.0
+margin_right = 400.0
+margin_bottom = 340.0
+
+[node name="Save4" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_top = 360.0
+margin_right = 400.0
+margin_bottom = 460.0
+
+[node name="Save5" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_top = 480.0
+margin_right = 400.0
+margin_bottom = 580.0
+
+[node name="BackBtn" type="Button" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+margin_left = 100.0
+margin_top = 837.0
+margin_right = 300.0
+margin_bottom = 887.0
 rect_min_size = Vector2( 200, 50 )
 size_flags_horizontal = 4
-size_flags_vertical = 2
+size_flags_vertical = 5
 theme = ExtResource( 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "Back"
-
-[connection signal="pressed" from="BackBtn" to="." method="_on_BackBtn_pressed"]
+text = "back"

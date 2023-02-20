@@ -1,10 +1,7 @@
-extends Control
+extends Node
 
 
 onready var fullScreen = $"%FullScreenSlider"
-
-# funcref
-var remove : Object
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,4 +18,4 @@ func _on_FullScreenSlider_toggled(button_pressed:bool):
 	OS.window_fullscreen = button_pressed
 
 func _on_BackBtn_pressed():
-	remove.call_func()
+	SceneTransition.xToYScene(self, Constants.MENU_SCENE_PATH)

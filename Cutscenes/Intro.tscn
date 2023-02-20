@@ -1,19 +1,25 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://UI/Dialogue/Dialogue.gd" type="Script" id=2]
+[ext_resource path="res://Assets/devlounge.jpg" type="Texture" id=1]
+[ext_resource path="res://Characters/zonu/front-standing.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=3]
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=4]
-[ext_resource path="res://UI/Rula.gd" type="Script" id=5]
-[ext_resource path="res://UI/Icons/cross.png" type="Texture" id=6]
-[ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=7]
-[ext_resource path="res://rooms/nerd_office/background.png" type="Texture" id=8]
-[ext_resource path="res://UI/Assets/test9patch.png" type="Texture" id=9]
-[ext_resource path="res://UI/Dialogue/arrow.png" type="Texture" id=10]
-[ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=11]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_fontdata.tres" type="DynamicFontData" id=5]
+[ext_resource path="res://addons/teeb.text_effects/resources/Woo.tres" type="RichTextEffect" id=6]
+[ext_resource path="res://addons/teeb.text_effects/resources/Nervous.tres" type="RichTextEffect" id=7]
+[ext_resource path="res://addons/teeb.text_effects/resources/Number.tres" type="RichTextEffect" id=8]
+[ext_resource path="res://addons/teeb.text_effects/resources/Heart.tres" type="RichTextEffect" id=9]
+[ext_resource path="res://addons/teeb.text_effects/resources/Jump.tres" type="RichTextEffect" id=10]
+[ext_resource path="res://addons/teeb.text_effects/resources/Sparkle.tres" type="RichTextEffect" id=11]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Cutscenes/Intro.gd" type="Script" id=13]
 [ext_resource path="res://Characters/chotto_toorimasu_yo/front-standing.png" type="Texture" id=14]
+[ext_resource path="res://addons/teeb.text_effects/resources/UwU.tres" type="RichTextEffect" id=15]
+[ext_resource path="res://addons/teeb.text_effects/resources/Cuss.tres" type="RichTextEffect" id=16]
+[ext_resource path="res://addons/teeb.text_effects/resources/Rain.tres" type="RichTextEffect" id=17]
+[ext_resource path="res://addons/teeb.text_effects/resources/ColorMod.tres" type="RichTextEffect" id=18]
+[ext_resource path="res://Cutscenes/VNText.gd" type="Script" id=19]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font_big.tres" type="DynamicFont" id=20]
 
 [sub_resource type="Shader" id=18]
 code = "shader_type canvas_item;
@@ -62,38 +68,15 @@ void fragment()
 shader = SubResource( 16 )
 shader_param/pixelSize = 8
 
-[sub_resource type="StyleBoxEmpty" id=21]
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0, 0, 0, 0.498039 )
 
-[sub_resource type="Animation" id=22]
-resource_name = "arrow_move"
-loop = true
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("Arrow:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Arrow:rect_position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 25, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.5, 1 )
-}
-
-[sub_resource type="StyleBoxEmpty" id=23]
-
-[sub_resource type="StyleBoxEmpty" id=24]
-
-[sub_resource type="StyleBoxFlat" id=25]
-bg_color = Color( 0, 0, 0, 0 )
+[sub_resource type="DynamicFont" id=22]
+size = 40
+use_mipmaps = true
+use_filter = true
+extra_spacing_bottom = 20
+font_data = ExtResource( 5 )
 
 [node name="Cutscene" type="Node2D"]
 script = ExtResource( 13 )
@@ -132,272 +115,77 @@ align = 1
 valign = 1
 script = ExtResource( 4 )
 
-[node name="Dialogue" type="MarginContainer" parent="UI"]
-unique_name_in_owner = true
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
 visible = false
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -960.0
-margin_top = -380.0
-margin_right = 960.0
-margin_bottom = -120.0
-rect_min_size = Vector2( 0, 80 )
-custom_constants/margin_right = 100
-custom_constants/margin_top = 10
-custom_constants/margin_left = 100
-custom_constants/margin_bottom = 10
-script = ExtResource( 2 )
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/Dialogue"]
 margin_left = 100.0
-margin_top = 10.0
+margin_top = 50.0
 margin_right = 1820.0
-margin_bottom = 250.0
+margin_bottom = 1030.0
 
-[node name="DialogueContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer"]
-margin_left = 500.0
-margin_right = 1220.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 720, 240 )
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer"]
+margin_left = 700.0
+margin_top = 425.0
+margin_right = 1020.0
+margin_bottom = 555.0
+custom_constants/separation = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 719.0
-margin_bottom = 235.0
-size_flags_vertical = 3
+[node name="NameEnter" type="LineEdit" parent="UI/CenterContainer/VBoxContainer"]
+margin_right = 320.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 320, 50 )
+custom_fonts/font = ExtResource( 20 )
+max_length = 25
+placeholder_text = "Anonymous"
+placeholder_alpha = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
-margin_right = 718.0
-margin_bottom = 234.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Button" type="Button" parent="UI/CenterContainer/VBoxContainer"]
+margin_left = 110.0
+margin_top = 90.0
+margin_right = 210.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 100, 40 )
+size_flags_horizontal = 6
+text = "Confirm"
 
-[node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-margin_right = 514.0
-margin_bottom = 234.0
-rect_min_size = Vector2( 240, 0 )
-size_flags_horizontal = 3
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-
-[node name="DialogueVBox" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer"]
+[node name="VNContainer" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 494.0
-margin_bottom = 214.0
-
-[node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/MainDialogueContainer/DialogueVBox"]
-unique_name_in_owner = true
-margin_right = 474.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
-custom_colors/font_color = Color( 0.960784, 0.752941, 0.396078, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 11 )
-text = "CATARP!"
-valign = 1
-
-[node name="Arrow" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-margin_left = 518.0
-margin_right = 554.0
-margin_bottom = 234.0
-texture = ExtResource( 10 )
-stretch_mode = 6
-
-[node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-margin_left = 558.0
-margin_right = 718.0
-margin_bottom = 234.0
-rect_min_size = Vector2( 160, 0 )
-size_flags_horizontal = 7
-size_flags_stretch_ratio = 0.15
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 150.0
-margin_bottom = 224.0
-custom_styles/panel = SubResource( 21 )
-
-[node name="DialogueImage" type="TextureRect" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer/InfoDialogueContainer/PanelContainer"]
-unique_name_in_owner = true
-margin_right = 140.0
-margin_bottom = 214.0
-size_flags_vertical = 3
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-flip_h = true
-
-[node name="DialogueAnimation" type="AnimationPlayer" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-anims/arrow_move = SubResource( 22 )
-
-[node name="Button" type="Button" parent="UI/Dialogue/CenterContainer/DialogueContainer/VBoxContainer"]
-visible = false
-margin_top = 211.0
-margin_right = 718.0
-margin_bottom = 234.0
-text = "Skip"
-
-[node name="Rula" type="PanelContainer" parent="UI"]
-unique_name_in_owner = true
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -360.0
-margin_top = -240.0
-margin_right = 360.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 720, 480 )
-mouse_filter = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-theme = ExtResource( 1 )
-custom_styles/panel = SubResource( 23 )
-script = ExtResource( 5 )
+margin_left = -860.0
+margin_top = -490.0
+margin_right = 860.0
+margin_bottom = 490.0
+rect_min_size = Vector2( 1720, 980 )
+custom_styles/panel = SubResource( 21 )
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Rula"]
-margin_right = 720.0
-margin_bottom = 480.0
-texture = ExtResource( 9 )
-patch_margin_left = 80
-patch_margin_top = 80
-patch_margin_right = 80
-patch_margin_bottom = 80
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+[node name="MarginContainer" type="MarginContainer" parent="UI/VNContainer"]
+margin_right = 1720.0
+margin_bottom = 980.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 50
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/NinePatchRect"]
-margin_right = 718.0
-margin_bottom = 474.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Panel" type="Panel" parent="UI/Rula/NinePatchRect/VBoxContainer"]
-margin_right = 718.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-custom_styles/panel = SubResource( 24 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 720.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-
-[node name="Control" type="Control" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 0 )
-
-[node name="Label" type="Label" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 54.0
-margin_right = 666.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-custom_fonts/font = ExtResource( 11 )
-custom_styles/normal = SubResource( 25 )
-text = "Rula"
-align = 1
-valign = 1
-
-[node name="CloseBtn" type="Button" parent="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 670.0
-margin_right = 720.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 0 )
-icon = ExtResource( 6 )
-flat = true
-icon_align = 1
-expand_icon = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Rula/NinePatchRect/VBoxContainer"]
-margin_top = 54.0
-margin_right = 718.0
-margin_bottom = 474.0
-mouse_filter = 1
-size_flags_horizontal = 3
-size_flags_vertical = 3
-scroll_horizontal_enabled = false
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer"]
-margin_right = 718.0
-margin_bottom = 420.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 708.0
-margin_bottom = 410.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer"]
-margin_left = 249.0
-margin_top = 100.0
-margin_right = 449.0
-margin_bottom = 300.0
-custom_constants/separation = 25
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 200.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-custom_fonts/font = ExtResource( 12 )
-text = "Room Name"
-align = 1
-valign = 1
-
-[node name="RulaRooms" type="OptionButton" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="VNText" type="RichTextLabel" parent="UI/VNContainer/MarginContainer"]
 unique_name_in_owner = true
-margin_top = 75.0
-margin_right = 200.0
-margin_bottom = 125.0
-rect_min_size = Vector2( 200, 50 )
-size_flags_horizontal = 3
-align = 1
-icon_align = 1
-
-[node name="RulaGoBtn" type="Button" parent="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 150.0
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 100, 50 )
-text = "Go"
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 1700.0
+margin_bottom = 930.0
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 22 )
+bbcode_enabled = true
+custom_effects = [ ExtResource( 7 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 17 ), ExtResource( 11 ), ExtResource( 15 ), ExtResource( 6 ) ]
+script = ExtResource( 19 )
 
 [node name="Background" type="Sprite" parent="."]
 unique_name_in_owner = true
-position = Vector2( -1198, -777 )
-scale = Vector2( 0.7, 0.7 )
+position = Vector2( -482, -273 )
+scale = Vector2( 0.25, 0.25 )
 z_index = -1024
-texture = ExtResource( 8 )
+texture = ExtResource( 1 )
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -414,8 +202,17 @@ script = ExtResource( 3 )
 maxZoom = 0.5
 zoomDuration = 0.25
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="bif" type="Sprite" parent="."]
+unique_name_in_owner = true
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -200, 6 )
+scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 14 )
 
-[connection signal="pressed" from="UI/Rula/NinePatchRect/VBoxContainer/Panel/HBoxContainer/CloseBtn" to="UI/Rula" method="_on_CloseBtn_pressed"]
-[connection signal="pressed" from="UI/Rula/NinePatchRect/VBoxContainer/ScrollContainer/MarginContainer/CenterContainer/VBoxContainer/RulaGoBtn" to="UI" method="_on_RulaGoBtn_pressed"]
+[node name="maf" type="Sprite" parent="."]
+unique_name_in_owner = true
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 239, -2 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 2 )
+flip_h = true

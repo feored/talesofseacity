@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Fonts/MSPGothic/MS PGothic.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=7]
+size = 56
+outline_color = Color( 0.719727, 0.719727, 0.719727, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Label" type="Label"]
+margin_top = 55.0
+margin_right = 327.0
+margin_bottom = 112.0
+custom_colors/font_color_shadow = Color( 0, 0.254902, 1, 0.423529 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 7 )
+text = "settings"
+align = 1
+valign = 1
