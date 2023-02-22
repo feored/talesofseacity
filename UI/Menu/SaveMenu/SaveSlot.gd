@@ -27,12 +27,18 @@ func initData(inSlot: int, inSaveInfo : Dictionary):
 func displayData():
 	slotNumber.text = "%s" % (slot+1)
 	if saveInfo.values().size() < 1:
+		print("displaying empty still")
+		print(saveInfo)
 		displayEmpty()
 	else:
 		nameLabel.text = saveInfo["name"]
 		roomLabel.text = saveInfo["room"]
 		dateLabel.text = "%s/%s/%s" % [saveInfo["time"]["year"], saveInfo["time"]["month"], saveInfo["time"]["day"]]
 		timeLabel.text = "%s:%s:%s" % [saveInfo["time"]["hour"], saveInfo["time"]["minute"], saveInfo["time"]["second"]]
+		nameLabel.visible = true
+		roomLabel.visible = true
+		dateLabel.visible = true
+		timeLabel.visible = true
 
 func _on_Button_pressed():
 	selected.call_func(self.slot)

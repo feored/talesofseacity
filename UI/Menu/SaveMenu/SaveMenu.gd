@@ -57,7 +57,6 @@ func save():
 	newSave["NPCs"] = NPCs.save()
 
 	commitSave(newSave, saveFilePath)
-	hide()
 
 func commitSave(saveVar : Dictionary, saveFilePath : String):
 	var directory = Directory.new();

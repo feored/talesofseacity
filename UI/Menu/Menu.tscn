@@ -155,7 +155,7 @@ text = "continue"
 visible = false
 
 [connection signal="pressed" from="UI/MenuBase/MarginContainer/VBoxContainer/VBoxContainer/SaveBtn" to="." method="_on_SaveBtn_pressed"]
-[connection signal="pressed" from="UI/MenuBase/MarginContainer/VBoxContainer/VBoxContainer/LoadBtn" to="." method="_on_SaveBtn_pressed"]
+[connection signal="pressed" from="UI/MenuBase/MarginContainer/VBoxContainer/VBoxContainer/LoadBtn" to="." method="_on_LoadBtn_pressed"]
 [connection signal="pressed" from="UI/MenuBase/MarginContainer/VBoxContainer/VBoxContainer/DisplayBtn" to="." method="_on_DisplayBtn_pressed"]
 [connection signal="pressed" from="UI/MenuBase/MarginContainer/VBoxContainer/VBoxContainer/AudioBtn" to="." method="_on_AudioBtn_pressed"]
 [connection signal="pressed" from="UI/MenuBase/MarginContainer/VBoxContainer/ContinueBtn" to="." method="_on_ContinueBtn_pressed"]

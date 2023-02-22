@@ -182,7 +182,7 @@ func checkConditionsQuest(questId : String) -> void:
 			questObject.initialize(quest["stage"])
 
 func initQuests() -> void:
-	var mainNode = get_node("/root/Main/")
+	var mainNode = SceneTransition.currentGame
 	for id in QUESTS:
 		QUEST_SCRIPTS[id]["object"] = QUEST_SCRIPTS[id]["script"].new()
 		QUEST_SCRIPTS[id]["object"].main = mainNode

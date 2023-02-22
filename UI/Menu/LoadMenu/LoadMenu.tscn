@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/Menu/titleLabel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Assets/MenuBG.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Menu/LoadMenu/LoadMenu.gd" type="Script" id=4]
+[ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 72
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.87451, 0.87451, 0.87451, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.666667, 0.666667, 0.666667, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.113725, 0.113725, 0.113725, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="LoadMenu" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="MenuBG" parent="." instance=ExtResource( 3 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MenuBase" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -351.0
+margin_top = -493.5
+margin_right = 351.0
+margin_bottom = 493.5
+rect_min_size = Vector2( 500, 0 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MenuBase"]
+margin_right = 702.0
+margin_bottom = 987.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 652.0
+margin_bottom = 937.0
+custom_constants/separation = 100
+alignment = 1
+
+[node name="Label" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 215.0
+margin_right = 602.0
+margin_bottom = 272.0
+text = "load menu"
+
+[node name="Title" type="Label" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+visible = false
+margin_top = 281.0
+margin_right = 602.0
+margin_bottom = 363.0
+custom_colors/font_color_shadow = Color( 0, 0.505882, 0.866667, 1 )
+custom_constants/shadow_offset_x = 3
+custom_fonts/font = SubResource( 2 )
+text = "Sea City Tale"
+align = 1
+valign = 1
+
+[node name="SaveSlots" type="HBoxContainer" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 372.0
+margin_right = 602.0
+margin_bottom = 372.0
+custom_constants/separation = 76
+
+[node name="LoadButton" type="Button" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 472.0
+margin_right = 602.0
+margin_bottom = 522.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 3 )
+disabled = true
+text = "load"
+
+[node name="BackBtn" type="Button" parent="CanvasLayer/MenuBase/MarginContainer/VBoxContainer"]
+margin_left = 201.0
+margin_top = 622.0
+margin_right = 401.0
+margin_bottom = 672.0
+rect_min_size = Vector2( 200, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+theme = ExtResource( 1 )
+text = "back"
+
+[connection signal="pressed" from="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/LoadButton" to="." method="_on_LoadButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuBase/MarginContainer/VBoxContainer/BackBtn" to="." method="_on_BackBtn_pressed"]

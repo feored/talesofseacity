@@ -47,10 +47,8 @@ var loadedSave = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	changeRoom(loadedSave["ROOM"])
-	spawnRandomGikos()
-	spawnPlayerGiko(loadedSave["PLAYER_POSITION"], loadedSave["PLAYER_DIRECTION"])
 	Quests.initQuests()
+	gameContinue()
 	
 	# dialogueManager.setLineSet(Utils.makeSimpleDialogue([
 	# 	"Welcome to Giko Story!",
@@ -58,6 +56,12 @@ func _ready():
 	# 	"Go explore, talk to everyone, pick up items and have fun!"
 	# ]), "")
 	# dialogueManager.show()
+
+
+func gameContinue():
+	changeRoom(loadedSave["ROOM"])
+	spawnRandomGikos()
+	spawnPlayerGiko(loadedSave["PLAYER_POSITION"], loadedSave["PLAYER_DIRECTION"])
 
 func loadRandomRoom() -> void:
 	#loadRoom("admin")
@@ -142,8 +146,6 @@ func loadAdjacentRooms(adjacentRooms):
 		adjacentRoomsCache.push_back(load(room))
 	call_deferred("adjacentRoomsLoaded")
 
-func setLoading(isLoading : bool) -> void:
-	$"%Loading".visible = isLoading
 	
 func loadRoom(roomName: String) -> void:
 	Rooms.loaded = false
