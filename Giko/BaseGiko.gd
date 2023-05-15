@@ -218,3 +218,96 @@ func destroyMessage() -> void:
 		self.currentMessage.delete()
 		self.currentMessage = null
 	
+
+
+func findEmptySeat(nearest = false) -> Vector2:
+	if (!Rooms.currentRoomData.has("sit") or Rooms.currentRoomData["sit"].size() < 1):
+		return self.currentTile
+
+	var emptySeats = []
+	for seat in Rooms.currentRoomData["sit"]:
+		var currentSeat = Vector2(seat["x"], seat["y"])
+		if (Rooms.getTilePopulation(currentSeat) == 0):
+			emptySeats.push_back(currentSeat)
+	
+	if emptySeats.size() == 0:
+		return self.currentTile
+	
+	if nearest:
+		var closestEmptySeat = emptySeats[0]
+		var closestDiff = Utils.getTileDistance(self.currentTile, closestEmptySeat)
+		for currentSeat in emptySeats:
+			if (Rooms.getTilePopulation(currentSeat) == 0):
+				var diff = Utils.getTileDistance(self.currentTile, currentSeat)
+				if diff < closestDiff:
+					closestEmptySeat = currentSeat
+					closestDiff = diff
+		return closestEmptySeat
+	else:
+		return emptySeats[Utils.rng.randi() % emptySeats.size()]
+
+
+
+func findSeat() -> void:
+
+	var randomSeat = findEmptySeat()
+	var pathToSeat = findPathToTile(randomSeat)
+
+	if (pathToSeat.size() < 1):
+		return
+
+	var firstTile = pathToSeat[0]
+	var firstTileDirection = Vector2(firstTile.x - self.currentTile.x, firstTile.y - self.currentTile.y)
+	var directionToTake = Utils.getDirectionFromVector(firstTileDirection)
+	move(directionToTake)
+	return
+
+
+func findPathToTile(destination : Vector2) -> Array:
+	##A* pathfinding
+	var openTiles = {}
+
+	var cameFrom = {}
+	var costSoFar = {}
+
+	cameFrom[self.currentTile] = null
+	costSoFar[self.currentTile] = 0
+
+	openTiles[self.currentTile] = 0
+
+	while openTiles.size() > 0:
+		var examiningTile = openTiles.keys()[0]
+		for tileData in openTiles.keys():
+			if openTiles[tileData] < openTiles[examiningTile]:
+				examiningTile = tileData
+
+		openTiles.erase(examiningTile)
+
+		if examiningTile == destination:
+			break
+
+		for nextTile in Utils.getValidNearbyTiles(examiningTile):
+			var newCost = costSoFar[examiningTile] + 1
+			if (!(costSoFar.has(nextTile)) or newCost < costSoFar[nextTile]):
+				costSoFar[nextTile] = newCost
+				var f = newCost + Utils.getTileDistance(nextTile, destination)
+				openTiles[nextTile] = f
+				cameFrom[nextTile] = examiningTile
+
+	
+	## reconstruct path
+
+	if ( !(cameFrom.has(destination))):
+		return []
+	var path = []
+	var current = destination
+	while current != self.currentTile:
+		path.push_back(current)
+		current = cameFrom[current]
+	path.invert()
+
+	return path
+
+func faceDirection(newDirection : int) -> void:
+	self.currentDirection = newDirection
+	reanimate()

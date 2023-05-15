@@ -9,6 +9,7 @@ var schoolyardDogsQuest = preload("res://Quests/SchoolyardDogs.gd")
 var scienceExperimentQuest = preload("res://Quests/ScienceExperiment.gd")
 var blackoutQuest = preload("res://Quests/Blackout.gd")
 var beachedSalmonQuest = preload("res://Quests/BeachedSalmon.gd")
+var denshaOtoko = preload("res://Quests/DenshaOtoko.gd")
 
 var currentQuestIndex = 0
 var ENABLED = false
@@ -20,7 +21,8 @@ const TOTAL_TIME_QUEST_CYCLE = 0.25
 enum QuestConditionType {
 	Flag,
 	Item
-	Position,
+	PlayerPosition,
+    Room,
 	None
 }
 
@@ -53,7 +55,9 @@ var QUEST_FLAGS = {
 	## blackout
 	"qTalkedToBarman" : false,
 	"qTalkedToEngineer" : false,
-	"qAskedForWrench" : false
+	"qAskedForWrench" : false,
+    ## densha otoko
+    "qTalkedToCommuter" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -92,7 +96,11 @@ var QUEST_SCRIPTS = {
 	"Beached_Salmon":
 	{
 		"script": beachedSalmonQuest
-	}
+	},
+    "Densha_Otoko":
+    {
+        "script": denshaOtoko
+    }
 
 }
 
@@ -136,7 +144,12 @@ var QUESTS = {
 		"id": "Beached_Salmon",
 		"title": "Beached Salmon",
 		"stage": "initial"
-	}
+	},
+    "Densha_Otoko": {
+        "id": "Densha_Otoko",
+        "title": "Train Man",
+        "stage": "initial"
+    }
 }
 
 var JOURNAL = {

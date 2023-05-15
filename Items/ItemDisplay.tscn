@@ -1,7 +1,13 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://UI/Assets/window_back.tres" type="StyleBox" id=1]
 [ext_resource path="res://Items/ItemDisplay.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.627451, 0.627451, 0.627451, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="ImageTexture" id=2]
 
@@ -10,14 +16,12 @@ margin_right = 120.0
 margin_bottom = 120.0
 mouse_filter = 2
 mouse_default_cursor_shape = 2
-custom_styles/panel = ExtResource( 1 )
+custom_styles/panel = SubResource( 3 )
 script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 116.0
-margin_bottom = 116.0
+margin_right = 120.0
+margin_bottom = 120.0
 rect_min_size = Vector2( 100, 100 )
 mouse_filter = 0
 texture = SubResource( 2 )

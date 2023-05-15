@@ -74,7 +74,10 @@ func _ready():
 
 
 func _on_BackBtn_pressed():
-	SceneTransition.xToYScene(self, Constants.MENU_SCENE_PATH)
+    if SceneTransition.titleScreen:
+        SceneTransition.xToYScene(self, Constants.TITLESCREEN_SCENE_PATH)
+    else:
+	    SceneTransition.xToYScene(self, Constants.MENU_SCENE_PATH)
 
 
 func _on_LoadButton_pressed():

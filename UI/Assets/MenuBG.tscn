@@ -17,7 +17,7 @@ script = ExtResource( 1 )
 motion_scale = Vector2( 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
-modulate = Color( 0.054902, 0.0745098, 0.109804, 1 )
+modulate = Color( 0.129412, 0.137255, 0.160784, 1 )
 texture = ExtResource( 2 )
 centered = false
 region_rect = Rect2( 0, 0, 1920, 1080 )

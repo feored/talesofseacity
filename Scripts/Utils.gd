@@ -170,3 +170,6 @@ static func makeSimpleEnvironmentDialogue(description : Array, canPickup : bool 
         baseDialogue[lastLineId]["nextId"] = lastChoice["id"]
         baseDialogue[lastChoice["id"]] = lastChoice
     return baseDialogue
+
+func getRandomDirection() -> int:
+    return Constants.Directions.values()[Utils.rng.randi() % Constants.Directions.size()]

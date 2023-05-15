@@ -18,6 +18,7 @@ margin_right = 77.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Author : "
 
 [node name="Message" type="RichTextLabel" parent="HBoxContainer"]
@@ -28,6 +29,7 @@ margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
 bbcode_enabled = true
 bbcode_text = "This is a complete message as an example for the log."
 text = "This is a complete message as an example for the log."

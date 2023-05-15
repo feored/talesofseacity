@@ -40,6 +40,7 @@ enum LineType {
 	Choice
 }
 
+### CONDITION TYPES TO HELP BRANCH DIALOGUES, UNRELATED TO QUEST CONDITIONS
 enum ConditionType {
 	Flag,
 	Item,
@@ -55,6 +56,15 @@ enum Decisions {
 	CHANGEDIRECTION,
 	TALK,
 	MOVESOMEWHERE
+}
+
+enum Actions {
+    MOVE,
+    FACE,
+    IDLE,
+    TALK,
+    FOLLOW,
+    FLEE
 }
 
 
@@ -751,6 +761,10 @@ const RANDOM_GIKOS = [
     {
         "name": "Butterscotch",
         "character": Character.Tinpopo
+    },
+    {
+        "name": "漢",
+        "character": Character.Golden_Furoshiki
     }
 ]
 
@@ -830,7 +844,7 @@ const POSSIBLE_MESSAGES = [
 
 const NOTIFICATIONS_PATH = "/root/Main/UI/Notifications"
 
-
+const TITLESCREEN_SCENE_PATH = "res://UI/TitleScreen/TitleScreen.tscn"
 const MENU_SCENE_PATH = "res://UI/Menu/Menu.tscn"
 const AUDIOMENU_SCENE_PATH = "res://UI/Menu/AudioMenu/AudioMenu.tscn"
 const DISPLAYMENU_SCENE_PATH = "res://UI/Menu/DisplayMenu/DisplayMenu.tscn"

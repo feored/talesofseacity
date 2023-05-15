@@ -12,10 +12,10 @@
 
 [resource]
 default_font = ExtResource( 1 )
-Button/colors/font_color = Color( 0.262745, 0.454902, 0.827451, 1 )
-Button/colors/font_color_focus = Color( 0.105882, 0.164706, 0.415686, 1 )
-Button/colors/font_color_hover = Color( 0.406494, 0.563258, 0.867188, 1 )
-Button/colors/font_color_pressed = Color( 0.0862745, 0.145098, 0.392157, 1 )
+Button/colors/font_color = Color( 0.827451, 0.501961, 0.262745, 1 )
+Button/colors/font_color_focus = Color( 0.746094, 0.410125, 0.163208, 1 )
+Button/colors/font_color_hover = Color( 0.980469, 0.706733, 0.505554, 1 )
+Button/colors/font_color_pressed = Color( 0.558594, 0.30964, 0.122192, 1 )
 Button/fonts/font = ExtResource( 3 )
 Button/styles/hover = SubResource( 2 )
 Button/styles/normal = SubResource( 3 )

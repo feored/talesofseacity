@@ -199,10 +199,10 @@ var NPCs = {
 			])
 		]
 	},
-	"TrainSchoolgirl" :
+	"TrainFemaleCommuter" :
 	{
-		"id" : "TrainSchoolgirl",
-		"name" : "Schoolgirl",
+		"id" : "TrainFemaleCommuter",
+		"name" : "Female Commuter",
 		"character": Constants.Character.Shii_Uniform,
 		"lines" : [
 			Utils.makeSimpleDialogue([
@@ -361,7 +361,10 @@ var NPCs = {
 		"id": "Commuter",
 		"name": "Commuter",
 		"character": Constants.Character.Tabako_Dokuo,
-		"lines" : [Utils.makeSimpleDialogue(["Getting around Sea City is a breeze since they added this train.", "Well, it will be when they add more stations, anyway."])]
+		"lines" : [
+            Utils.makeSimpleDialogue(["Getting around Sea City has been a breeze since they added this train."]),
+            Utils.makeSimpleDialogue(["Ever noticed that one of the stops is actually a bus stop?"])
+        ]
 	},
 	"NewcomerGiko":
 	{
@@ -483,6 +486,13 @@ var NPCs = {
         "lines": [
             Utils.makeSimpleDialogue(["♪ Fish, Fish, Fish for me, Fish, Fish, Fish for you ♫"])
         ]
+    },
+    "TrainDrunk":
+    {
+        "id": "TrainDrunk",
+        "name": "Violent Drunkard",
+        "character" : Constants.Character.Naito_Yurei,
+        "lines": []
     }
 
 }
@@ -699,9 +709,9 @@ var ACTIVE_NPCs = {
 			"y": 6,
 			"lines" : []
 		},
-		"TrainSchoolgirl" : 
+		"TrainFemaleCommuter" : 
 		{
-			"id" : "TrainSchoolgirl",
+			"id" : "TrainFemaleCommuter",
 			"direction" : Constants.Directions.DIR_RIGHT,
 			"x": 0,
 			"y": 6,

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var titleScreen = true
+
 var menuPrefab = preload("res://UI/Menu/Menu.tscn")
 var gamePrefab = preload("res://Main.tscn")
 

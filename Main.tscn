@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://UI/fpscounter.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Grid.gd" type="Script" id=2]
@@ -6,20 +6,19 @@
 [ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://Items/InventoryDisplay.gd" type="Script" id=5]
 [ext_resource path="res://Items/Images/mahjong_red_dragon.png" type="Texture" id=6]
-[ext_resource path="res://UI/Dialogue/Dialogue.gd" type="Script" id=7]
+[ext_resource path="res://UI/Dialogue/Dialogue.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Items/InventoryPopup.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/ZoomingCamera2D.gd" type="Script" id=9]
 [ext_resource path="res://UI/UI.gd" type="Script" id=10]
 [ext_resource path="res://UI/Icons/cross.png" type="Texture" id=11]
 [ext_resource path="res://UI/Rula.gd" type="Script" id=12]
-[ext_resource path="res://Characters/furoshiki/front-standing.png" type="Texture" id=13]
+[ext_resource path="res://UI/Fonts/MSPGothic/MS PGothic.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://Assets/snowflake.png" type="Texture" id=14]
+[ext_resource path="res://UI/Fonts/MSPGothic/mspgothic_font.tres" type="DynamicFont" id=15]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_font.tres" type="DynamicFont" id=16]
-[ext_resource path="res://UI/Fonts/Arial/arialbold_font_big.tres" type="DynamicFont" id=17]
-[ext_resource path="res://UI/Fonts/Arial/arial.tres" type="DynamicFont" id=18]
+[ext_resource path="res://UI/Assets/skewed_panel.tres" type="StyleBox" id=17]
 [ext_resource path="res://UI/Notifications/Notifications.gd" type="Script" id=19]
 [ext_resource path="res://UI/Journal/Journal.gd" type="Script" id=20]
-[ext_resource path="res://UI/Dialogue/arrow.png" type="Texture" id=21]
 [ext_resource path="res://rooms/bar_giko_square/background.png" type="Texture" id=22]
 [ext_resource path="res://Quests/General/QuestUtils.gd" type="Script" id=23]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=25]
@@ -77,49 +76,57 @@ void fragment()
 shader = SubResource( 30 )
 shader_param/pixelSize = 8
 
-[sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="Animation" id=25]
-resource_name = "arrow_move"
-loop = true
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("Arrow:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Arrow:rect_position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 25, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.5, 1 )
-}
-
 [sub_resource type="StyleBoxEmpty" id=23]
 
 [sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="DynamicFont" id=40]
+size = 24
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 8
+font_data = ExtResource( 13 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0, 0, 0 )
 
 [sub_resource type="StyleBoxEmpty" id=33]
 
+[sub_resource type="DynamicFont" id=41]
+size = 24
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 8
+font_data = ExtResource( 13 )
+
 [sub_resource type="StyleBoxEmpty" id=34]
+
+[sub_resource type="DynamicFont" id=39]
+size = 24
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 8
+font_data = ExtResource( 13 )
 
 [sub_resource type="StyleBoxEmpty" id=35]
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
+[sub_resource type="DynamicFont" id=37]
+size = 24
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 8
+font_data = ExtResource( 13 )
+
 [sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 1, 1, 1, 0.0941176 )
+
+[sub_resource type="DynamicFont" id=38]
+size = 32
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 13 )
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
@@ -280,120 +287,8 @@ theme = ExtResource( 4 )
 text = "Journal"
 icon_align = 1
 
-[node name="Dialogue" type="MarginContainer" parent="UI"]
-unique_name_in_owner = true
+[node name="Dialogue" parent="UI" instance=ExtResource( 7 )]
 visible = false
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -440.0
-margin_bottom = -70.0
-rect_min_size = Vector2( 0, 80 )
-custom_constants/margin_top = 10
-script = ExtResource( 7 )
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/Dialogue"]
-margin_top = 10.0
-margin_right = 1920.0
-margin_bottom = 370.0
-
-[node name="window" parent="UI/Dialogue/CenterContainer" instance=ExtResource( 32 )]
-margin_left = 600.0
-margin_top = 60.0
-margin_right = 1320.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 720, 240 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/window"]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 704.0
-margin_bottom = 224.0
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer"]
-margin_right = 688.0
-margin_bottom = 208.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="MainDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
-margin_right = 484.0
-margin_bottom = 208.0
-rect_min_size = Vector2( 240, 0 )
-size_flags_horizontal = 3
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-
-[node name="DialogueVBox" type="VBoxContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/MainDialogueContainer"]
-unique_name_in_owner = true
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 464.0
-margin_bottom = 188.0
-
-[node name="DialogueAuthor" type="Label" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/MainDialogueContainer/DialogueVBox"]
-unique_name_in_owner = true
-margin_right = 444.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
-custom_colors/font_color = Color( 0.960784, 0.752941, 0.396078, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 17 )
-text = "CATARP!"
-valign = 1
-
-[node name="Arrow" type="TextureRect" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-margin_left = 488.0
-margin_right = 524.0
-margin_bottom = 208.0
-texture = ExtResource( 21 )
-stretch_mode = 6
-
-[node name="InfoDialogueContainer" type="MarginContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-margin_left = 528.0
-margin_right = 688.0
-margin_bottom = 208.0
-rect_min_size = Vector2( 160, 0 )
-size_flags_horizontal = 7
-size_flags_stretch_ratio = 0.15
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/InfoDialogueContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 150.0
-margin_bottom = 198.0
-custom_styles/panel = SubResource( 13 )
-
-[node name="DialogueImage" type="TextureRect" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer/InfoDialogueContainer/PanelContainer"]
-unique_name_in_owner = true
-margin_right = 140.0
-margin_bottom = 188.0
-size_flags_vertical = 3
-texture = ExtResource( 13 )
-expand = true
-stretch_mode = 6
-flip_h = true
-
-[node name="DialogueAnimation" type="AnimationPlayer" parent="UI/Dialogue/CenterContainer/window/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-anims/arrow_move = SubResource( 25 )
-
-[node name="Button" type="Button" parent="UI/Dialogue/CenterContainer/window/VBoxContainer"]
-visible = false
-margin_top = 211.0
-margin_right = 718.0
-margin_bottom = 234.0
-text = "Skip"
 
 [node name="Rula" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
@@ -451,10 +346,10 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_colors/font_color = Color( 0.247059, 0.427451, 0.776471, 1 )
-custom_fonts/font = ExtResource( 17 )
+custom_colors/font_color = Color( 0.941176, 0.635294, 0.054902, 1 )
+custom_fonts/font = SubResource( 40 )
 custom_styles/normal = SubResource( 7 )
-text = "Rula"
+text = "#rula"
 align = 1
 valign = 1
 
@@ -506,6 +401,7 @@ alignment = 1
 margin_right = 200.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Room Name"
 align = 1
 valign = 1
@@ -517,6 +413,7 @@ margin_right = 200.0
 margin_bottom = 125.0
 rect_min_size = Vector2( 200, 50 )
 size_flags_horizontal = 3
+custom_styles/normal = ExtResource( 17 )
 align = 1
 icon_align = 1
 
@@ -525,7 +422,7 @@ margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 100, 50 )
-text = "Go"
+text = "GO"
 
 [node name="Journal" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
@@ -583,8 +480,8 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
-custom_fonts/font = ExtResource( 17 )
+custom_colors/font_color = Color( 0.972549, 0.682353, 0.12549, 1 )
+custom_fonts/font = SubResource( 41 )
 custom_styles/normal = SubResource( 7 )
 text = "Journal"
 align = 1
@@ -686,10 +583,10 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
-custom_fonts/font = ExtResource( 17 )
+custom_colors/font_color = Color( 0.956863, 0.705882, 0.105882, 1 )
+custom_fonts/font = SubResource( 39 )
 custom_styles/normal = SubResource( 7 )
-text = "Log"
+text = "log"
 align = 1
 valign = 1
 
@@ -787,9 +684,9 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
-custom_fonts/font = ExtResource( 17 )
-text = "Inventory"
+custom_colors/font_color = Color( 1, 0.847059, 0.219608, 1 )
+custom_fonts/font = SubResource( 37 )
+text = "inventory"
 align = 1
 valign = 1
 
@@ -866,8 +763,8 @@ margin_right = 480.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_vertical = 5
-custom_colors/font_color = Color( 0.254902, 0.435294, 0.780392, 1 )
-custom_fonts/font = ExtResource( 17 )
+custom_colors/font_color = Color( 0.967773, 0.665898, 0.132313, 1 )
+custom_fonts/font = SubResource( 38 )
 text = "test"
 align = 1
 valign = 1
@@ -921,7 +818,8 @@ margin_right = 470.0
 margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-custom_fonts/font = ExtResource( 18 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 15 )
 text = "Blablablalba who gives a fuck"
 align = 1
 valign = 1
