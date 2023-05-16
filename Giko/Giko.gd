@@ -289,7 +289,7 @@ func checkDoors() -> void:
 
 					.reanimate()
 				else:
-					.disappear()
+					SceneTransition.currentGame.removeRandomGiko(self.get_instance_id())
 
 
 func freeze() -> void:
