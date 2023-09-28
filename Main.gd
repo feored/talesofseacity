@@ -122,13 +122,12 @@ func doorChangeRoom(target):
 func _process(delta):
 	timeElapsed += delta
 	if timeElapsed > nextGikoTime:
-		nextGikoTime = 0.05  #Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5))
+		nextGikoTime = Utils.rng.randfn(DEFAULT_NEXT_GIKO_TIME, 5)
 		timeElapsed = 0
 		if Utils.rng.randf() > 0.5:
 			spawnRandomGikoAtDoor()
 		else:
 			popRandomGiko()
-		print("total gikos = " + String(currentRandomGikos.size()))
 
 
 func popRandomGiko() -> void:
@@ -292,7 +291,6 @@ func removeActiveItem(item: Dictionary) -> void:
 
 
 func canInteract() -> bool:
-	print("Called caninteract")
 	if dialogueManager.isDialoguing:
 		dialogueManager.skipToNext()
 		return false

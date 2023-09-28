@@ -19,6 +19,8 @@ var refreshActionsTimer = 0.5
 var actionQueue = []
 var currentActionTimeElapsed = 0
 
+var hasReactions = false
+
 
 func initializeAction(newAction) -> void:
 	currentActionTimeElapsed = 0
@@ -85,7 +87,7 @@ func flee(targetGiko) -> void:
 
 
 func follow(targetGiko) -> void:
-	var pathToTarget = findPathToTile(targetGiko.currentTile)
+	var pathToTarget = Utils.findPathToTile(self.currentTile, targetGiko.currentTile)
 
 	if pathToTarget.size() < 1:
 		#self.isFollowing = false
@@ -100,7 +102,7 @@ func follow(targetGiko) -> void:
 
 
 func goToTarget(targetTile) -> void:
-	var pathToTarget = findPathToTile(targetTile)
+	var pathToTarget = Utils.findPathToTile(self.currentTile, targetTile)
 
 	if pathToTarget.size() < 1:
 		return
@@ -165,15 +167,8 @@ func processCurrentAction() -> void:
 
 func _process(delta):
 	if !isDead && !isFrozen:
-		## Defines draw order
-		#$tile.	text = String(self.currentTile)
-
-		### NO reactions for action queue giko
-		# timeElapsed += delta
-
-		# if timeElapsed > reactionTime:
-		#     checkReactions()
-		#     timeElapsed = 0
+		if hasReactions:
+			checkReactions()
 
 		currentActionTimeElapsed += delta
 

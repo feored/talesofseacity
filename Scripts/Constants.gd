@@ -765,6 +765,18 @@ const RANDOM_GIKOS = [
     {
         "name": "漢",
         "character": Character.Golden_Furoshiki
+    },
+    {
+        "name": "AI",
+        "character": Character.Giko
+    },
+    {
+        "name": "クリフト",
+        "character": Character.Nida
+    },
+    {
+        "name": "wav",
+        "character": Character.Hikki
     }
 ]
 

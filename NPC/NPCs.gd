@@ -11,57 +11,6 @@ func _ready():
 
 
 var NPCs = {
-	"catarp":
-	{
-		"id": "catarp",
-		"name": "CATARP!",
-		"character": Constants.Character.Uzukumari,
-		"lines":
-		[
-			Utils.makeSimpleDialogue(["TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER TIGER"])
-		]
-	},
-	"caribear":
-	{
-		"id": "caribear",
-		"name": "caribear",
-		"character": Constants.Character.Wild_Panda_Naito,
-		"lines": [
-			Utils.makeSimpleDialogue(["Let's listen to something on my turntable!"])
-		]
-	},
-	"zzazzachu":
-	{
-		"id": "zzazzachu",
-		"name": "zzazzachu",
-		"character": Constants.Character.Shii_Pianica,
-		"lines":
-		[
-			Utils.makeSimpleDialogue([
-				"I could either [nervous]propose marriage[/nervous] or take a dump on the floor in front of you.",
-				"[heart]For you? I give you a sweet little kiss on the forehead![/heart]",
-				"Good luck on thy travels. Return here to restore your hp by getting your dink sunked."
-			]),
-			Utils.makeSimpleDialogue([
-				"Just heat some oil of your choice in a pan, grit your teeth, man up, and put your hands in the oil.",
-				"Leave to crisp, then crunch: battered fingers!"
-			])
-		]
-	},
-	"Muryoku":
-	{
-		"id": "Muryoku",
-		"name": "Muryoku",
-		"character": Constants.Character.FunkyNaito,
-		"lines": [Utils.makeSimpleDialogue(["[jump]I hope Japan wins the world cup this time![/jump]"]),
-		Utils.makeSimpleDialogue(["""
-		　∧∞∧　　　┌───────
-	　　(*‘ー‘)　　 ＜　シラナイワ
-	　 　＼　< 　　　 └───/|───
-	　　　　＼.＼＿＿＿＿__／/
-	　　　　　 ＼　　　　　　　／
-	　　　　　　　∪∪￣∪∪"""])]
-	},
 	"Shaddox":
 	{
 		"id": "Shaddox",
@@ -326,10 +275,7 @@ var NPCs = {
 		"id": "outOfShapeGiko",
 		"name": "Out of Shape Giko",
 		"character": Constants.Character.Hungry_Giko,
-		"lines" : [
-			Utils.makeSimpleDialogue(["Huff...huff...just catching my breath."]),
-			Utils.makeSimpleDialogue(["Why are these stairs so steep?", "Even the perspective in this room is completely different."]),
-		]
+		"lines" : []
 	},
 	"Philosopher" : 
 	{
@@ -500,16 +446,6 @@ var NPCs = {
 var ACTIVE_NPCs = {
 	"admin":
 	{
-		"catarp":
-		{"id": "catarp", "direction": Constants.Directions.DIR_RIGHT, "x": 7, "y": 3, "qLines": []},
-		"caribear":
-		{
-			"id": "caribear",
-			"direction": Constants.Directions.DIR_LEFT,
-			"x": 10,
-			"y": 3,
-			"lines": []
-		}
 	},
 	"admin_st":
 	{
@@ -540,14 +476,6 @@ var ACTIVE_NPCs = {
 	},
 	"bar":
 	{
-		"zzazzachu":
-		{
-			"id": "zzazzachu",
-			"direction": Constants.Directions.DIR_RIGHT,
-			"x": 3,
-			"y": 2,
-			"lines": []
-		}
 	},
 	"bar_st" :
 	{
@@ -562,14 +490,6 @@ var ACTIVE_NPCs = {
 	},
 	"izakaya774":
 	{
-		"Muryoku":
-		{
-			"id": "Muryoku", 
-			"direction": Constants.Directions.DIR_UP,
-			 "x": 3, 
-			 "y": 1, 
-			 "lines": []
-		}
 	},
 	"bar774":
 	{
@@ -839,16 +759,6 @@ var ACTIVE_NPCs = {
 			"x": 4,
 			"y": 4,
 			"direction":  Constants.Directions.DIR_DOWN,
-			"lines" : []
-		}
-	},
-	"kaidan" : {
-		"outOfShapeGiko" :
-		{
-			"id": "outOfShapeGiko",
-			"x": 0,
-			"y": 5,
-			"direction":  Constants.Directions.DIR_UP,
 			"lines" : []
 		}
 	},

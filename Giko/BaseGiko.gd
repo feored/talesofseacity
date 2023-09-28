@@ -251,7 +251,7 @@ func findEmptySeat(nearest = false) -> Vector2:
 func findSeat() -> void:
 
 	var randomSeat = findEmptySeat()
-	var pathToSeat = findPathToTile(randomSeat)
+	var pathToSeat = Utils.findPathToTile(self.currentTile, randomSeat)
 
 	if (pathToSeat.size() < 1):
 		return
@@ -263,50 +263,6 @@ func findSeat() -> void:
 	return
 
 
-func findPathToTile(destination : Vector2) -> Array:
-	##A* pathfinding
-	var openTiles = {}
-
-	var cameFrom = {}
-	var costSoFar = {}
-
-	cameFrom[self.currentTile] = null
-	costSoFar[self.currentTile] = 0
-
-	openTiles[self.currentTile] = 0
-
-	while openTiles.size() > 0:
-		var examiningTile = openTiles.keys()[0]
-		for tileData in openTiles.keys():
-			if openTiles[tileData] < openTiles[examiningTile]:
-				examiningTile = tileData
-
-		openTiles.erase(examiningTile)
-
-		if examiningTile == destination:
-			break
-
-		for nextTile in Utils.getValidNearbyTiles(examiningTile):
-			var newCost = costSoFar[examiningTile] + 1
-			if (!(costSoFar.has(nextTile)) or newCost < costSoFar[nextTile]):
-				costSoFar[nextTile] = newCost
-				var f = newCost + Utils.getTileDistance(nextTile, destination)
-				openTiles[nextTile] = f
-				cameFrom[nextTile] = examiningTile
-
-	
-	## reconstruct path
-
-	if ( !(cameFrom.has(destination))):
-		return []
-	var path = []
-	var current = destination
-	while current != self.currentTile:
-		path.push_back(current)
-		current = cameFrom[current]
-	path.invert()
-
-	return path
 
 func faceDirection(newDirection : int) -> void:
 	self.currentDirection = newDirection

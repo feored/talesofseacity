@@ -104,6 +104,13 @@ func updateCurrentRoomWalkableTiles() -> void:
 func getRandomDoorInRoom() -> Dictionary:
 	return currentRoomData["doors"].keys()[ Utils.rng.randi() % currentRoomData["doors"].size()]
 
+func getFirstWalkableDoorInRoom(startTile) -> Dictionary:
+	for door in currentRoomData["doors"].values():
+		var doorTile = Vector2(door["x"], door["y"])
+		if Utils.findPathToTile(startTile, doorTile).size() > 0:
+			return door
+	return {}
+
 
 func getCurrentRoomOffset() -> Vector2:
 	

@@ -130,7 +130,7 @@ func flee() -> void:
 			.move(dir)
 
 func follow() -> void:
-	var pathToTarget = findPathToTile(followTarget.currentTile)
+	var pathToTarget = Utils.findPathToTile(self.currentTile, followTarget.targetTile)
 
 	if (pathToTarget.size() < 1):
 		#self.isFollowing = false
@@ -142,7 +142,7 @@ func follow() -> void:
 	.move(directionToTake)
 
 func goToTarget() -> void:
-	var pathToTarget = findPathToTile(targetTile)
+	var pathToTarget = Utils.findPathToTile(self.currentTile, targetTile)
 
 	if (pathToTarget.size() < 1):
 		self.isTargeting = false
@@ -208,7 +208,7 @@ func moveRandom() -> void:
 	timeToNextDecision = Utils.rng.randfn(0.75, 0.25)
 
 	var randomWalkableTile = Rooms.currentRoomWalkableTiles[Utils.rng.randi() % Rooms.currentRoomWalkableTiles.size()]
-	var pathToSeat = findPathToTile(randomWalkableTile)
+	var pathToSeat = Utils.findPathToTile(self.currentTile, targetTile)
 
 	if (pathToSeat.size() < 1):
 		return

@@ -134,11 +134,11 @@ font_data = ExtResource( 13 )
 bg_color = Color( 1, 1, 1, 0.054902 )
 
 [sub_resource type="StyleBoxFlat" id=24]
-bg_color = Color( 0, 0, 0, 0.25098 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+bg_color = Color( 0.392157, 0.392157, 0.392157, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="DynamicFont" id=27]
 size = 72
@@ -837,29 +837,27 @@ script = ExtResource( 19 )
 
 [node name="RoomName" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -120.0
-margin_top = 150.0
-margin_right = 120.0
-margin_bottom = 240.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -220.0
+margin_bottom = 70.0
 custom_styles/panel = SubResource( 24 )
 script = ExtResource( 27 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/RoomName"]
-margin_right = 240.0
-margin_bottom = 90.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+margin_right = 220.0
+margin_bottom = 70.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
 
 [node name="RoomNameLabel" type="Label" parent="UI/RoomName/MarginContainer"]
 unique_name_in_owner = true
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 220.0
-margin_bottom = 70.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 210.0
+margin_bottom = 60.0
 grow_horizontal = 0
 rect_min_size = Vector2( 200, 50 )
 custom_fonts/font = ExtResource( 26 )

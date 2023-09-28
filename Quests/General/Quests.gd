@@ -10,6 +10,7 @@ var scienceExperimentQuest = preload("res://Quests/ScienceExperiment.gd")
 var blackoutQuest = preload("res://Quests/Blackout.gd")
 var beachedSalmonQuest = preload("res://Quests/BeachedSalmon.gd")
 var denshaOtoko = preload("res://Quests/DenshaOtoko.gd")
+var helpGikoExercise = preload("res://Quests/HelpGikoExercise.gd")
 
 var currentQuestIndex = 0
 var ENABLED = false
@@ -22,8 +23,8 @@ enum QuestConditionType {
 	Flag,
 	Item
 	PlayerPosition,
-    Room,
-	None
+	Room,
+	Custom
 }
 
 var QUEST_FLAGS = {
@@ -56,8 +57,10 @@ var QUEST_FLAGS = {
 	"qTalkedToBarman" : false,
 	"qTalkedToEngineer" : false,
 	"qAskedForWrench" : false,
-    ## densha otoko
-    "qTalkedToCommuter" : false
+	## densha otoko
+	"qTalkedToCommuter" : false,
+	## HelpGikoExercise
+	"qTalkedToOosGiko" : false
 }
 
 var COMPLETED_QUESTS = [
@@ -97,10 +100,14 @@ var QUEST_SCRIPTS = {
 	{
 		"script": beachedSalmonQuest
 	},
-    "Densha_Otoko":
-    {
-        "script": denshaOtoko
-    }
+	"Densha_Otoko":
+	{
+		"script": denshaOtoko
+	},
+	"HelpGikoExercise":
+	{
+		"script": helpGikoExercise
+	}
 
 }
 
@@ -145,11 +152,16 @@ var QUESTS = {
 		"title": "Beached Salmon",
 		"stage": "initial"
 	},
-    "Densha_Otoko": {
-        "id": "Densha_Otoko",
-        "title": "Train Man",
-        "stage": "initial"
-    }
+	"Densha_Otoko": {
+		"id": "Densha_Otoko",
+		"title": "Train Man",
+		"stage": "initial"
+	},
+	"HelpGikoExercise": {
+		"id": "HelpGikoExercise",
+		"title": "Help Giko Exercise",
+		"stage": "initial"
+	}
 }
 
 var JOURNAL = {

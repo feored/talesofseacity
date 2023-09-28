@@ -1,18 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/TitleScreen/seacitytitle.png" type="Texture" id=1]
 [ext_resource path="res://UI/Assets/default_theme.tres" type="Theme" id=2]
 [ext_resource path="res://UI/Fonts/Arial/arialbold_fontdata.tres" type="DynamicFontData" id=3]
-[ext_resource path="res://Characters/giko/front-standing.png" type="Texture" id=4]
 [ext_resource path="res://UI/TitleScreen/TitleScreen.gd" type="Script" id=5]
 [ext_resource path="res://UI/Assets/MenuBG.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/Assets/postcard.png" type="Texture" id=7]
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 1, 1, 1, 0.290196 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 24
+[sub_resource type="DynamicFont" id=5]
+size = 48
+outline_color = Color( 0.0313726, 0.0313726, 0.0313726, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 3 )
@@ -68,84 +65,44 @@ tracks/1/keys = {
 resource_name = "show_title"
 length = 2.0
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("CanvasLayer/Title:modulate:r")
+tracks/0/path = NodePath("CanvasLayer/Buttons:rect_position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath("CanvasLayer/Title:modulate:g")
+tracks/1/path = NodePath("CanvasLayer/Buttons:rect_position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
+"points": PoolRealArray( 1280, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
 }
 tracks/2/type = "bezier"
-tracks/2/path = NodePath("CanvasLayer/Title:modulate:b")
+tracks/2/path = NodePath("CanvasLayer/Background:rect_position:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
 }
 tracks/3/type = "bezier"
-tracks/3/path = NodePath("CanvasLayer/Title:modulate:a")
+tracks/3/path = NodePath("CanvasLayer/Background:rect_position:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1 )
-}
-tracks/4/type = "bezier"
-tracks/4/path = NodePath("CanvasLayer/Buttons:rect_position:x")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/5/type = "bezier"
-tracks/5/path = NodePath("CanvasLayer/Buttons:rect_position:y")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"points": PoolRealArray( 1280, -0.25, 0, 0.25, 0, 1280, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 1.6 )
-}
-tracks/6/type = "bezier"
-tracks/6/path = NodePath("CanvasLayer/Background:rect_position:x")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/7/type = "bezier"
-tracks/7/path = NodePath("CanvasLayer/Background:rect_position:y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -360, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1 )
+"times": PoolRealArray( 0, 0.5 )
 }
 
 [node name="TitleScreen" type="Node2D"]
@@ -169,9 +126,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -331.5
-margin_top = 20.0
+margin_top = 200.0
 margin_right = 331.5
-margin_bottom = 370.001
+margin_bottom = 550.001
 custom_constants/separation = 50
 alignment = 1
 
@@ -215,7 +172,7 @@ theme = ExtResource( 2 )
 text = "quit"
 
 [node name="Title" type="TextureRect" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0 )
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -177.0
@@ -227,42 +184,18 @@ rect_scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 stretch_mode = 6
 
-[node name="giko" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
+[node name="TitleText" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -340.0
-margin_right = 150.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 0, 400 )
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/giko"]
-margin_right = 300.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 300, 0 )
-custom_styles/panel = SubResource( 5 )
-
-[node name="Label" type="Label" parent="CanvasLayer/giko/PanelContainer"]
-margin_right = 300.0
-margin_bottom = 28.0
-custom_colors/font_color = Color( 0.054902, 0.0196078, 0.690196, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Tales of Sea City"
+margin_left = -250.0
+margin_top = 250.0
+margin_right = 250.0
+margin_bottom = 200.0
+custom_fonts/font = SubResource( 5 )
+text = "Tales
+From
+Sea City"
 align = 1
-valign = 1
-
-[node name="gikoImage" type="TextureRect" parent="CanvasLayer/giko"]
-margin_top = 32.0
-margin_right = 300.0
-margin_bottom = 400.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
