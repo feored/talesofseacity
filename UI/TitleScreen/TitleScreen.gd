@@ -15,14 +15,17 @@ func _ready():
 
 
 func _on_PlayBtn_pressed():
-    SceneTransition.xToY(self, SceneTransition.currentGame)
-    #SceneTransition.changeScene("res://Cutscenes/Intro.tscn")
+	#SceneTransition.xToY(self, SceneTransition.currentGame)
+	SceneTransition.changeScene("res://Cutscenes/Intro.tscn")
+
 
 func _on_LoadBtn_pressed():
 	SceneTransition.xToYScene(self, Constants.LOADMENU_SCENE_PATH)
-	
+
+
 func _on_SettingsBtn_pressed():
 	SceneTransition.xToYScene(self, Constants.MENU_SCENE_PATH)
+
 
 func _on_QuitBtn_pressed():
 	get_tree().quit()

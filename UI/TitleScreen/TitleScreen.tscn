@@ -192,9 +192,7 @@ margin_top = 250.0
 margin_right = 250.0
 margin_bottom = 200.0
 custom_fonts/font = SubResource( 5 )
-text = "Tales
-From
-Sea City"
+text = "Tales of Sea City"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

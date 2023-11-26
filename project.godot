@@ -44,7 +44,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Giko Story"
+config/name="Tales of Sea City"
 run/main_scene="res://UI/TitleScreen/TitleScreen.tscn"
 boot_splash/image="res://UI/Assets/gikobox_logo.png"
 boot_splash/fullsize=false
