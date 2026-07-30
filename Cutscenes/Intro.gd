@@ -5,10 +5,12 @@ extends Node2D
 # var b = "text"
 
 const SHOW_TIMER = 0.5
+const HIGHLIGHT_TIMER = 0.2
+const INACTIVE_CHARACTER_COLOR = Color(0.35, 0.35, 0.35, 1)
 
 onready var textBox = get_node("%VNText")
 
-enum VN { NewPage, ShowChar, HideChar, FlipChar, SwitchToNode }
+enum VN { Dialogue, NewPage, ShowChar, HideChar, FlipChar, SwitchToNode }
 
 onready var bifChar = get_node("%bif")
 onready var mafChar = get_node("%maf")
@@ -16,38 +18,39 @@ onready var mafChar = get_node("%maf")
 onready var vn_characters = {"bif": bifChar, "maf": mafChar}
 
 var vn_script = [
-	"The developer lounge is rather busy today, I think to myself as I come in.",
-	"Usually, there are only ghosts at this time of the day.",
-	"There are two people sitting at the table in front of me, and they seem to be deep in conversation.",
-	"I guess I'll sit with them.",
+	{"instruction": VN.Dialogue, "speaker": null, "text": "The developer lounge is unusually busy today."},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "Most days, it's just me and the ghosts."},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "Two people are sitting at the table, and they seem to be deep in conversation."},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "I guess I'll sit with them."},
 	{
 		"instruction": VN.NewPage,
 	},
 	{"instruction": VN.ShowChar, "character": "bif"},
-	'"Well, I guess we\'ll have to fix that too...Have you opened an issue?"',
+	{"instruction": VN.Dialogue, "speaker": "bif", "text": '"Well, I guess we\'ll have to fix that too...Have you opened an issue?"'},
 	{"instruction": VN.ShowChar, "character": "maf"},
-	'"Not yet, I\'m still busy working on fixing the spin glitch."',
-	"As they continue talking about things I don't understand, it dawns on me that these two are the admins of this place. Why do they look so miserable?",
-	"They're too busy with their conversation to notice me, so I keep listening in.",
+	{"instruction": VN.Dialogue, "speaker": "maf", "text": '"Not yet, I\'m still busy working on fixing the spin glitch."'},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "I only understand about half of what they’re saying, but it seems like they're the admins of this place."},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "They look exhausted."},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "They're too busy with their conversation to notice me, so I keep listening."},
 	{
 		"instruction": VN.NewPage,
 	},
-	'"Have you heard? Apparently, someone started a rival site because they were unhappy with the way we do things."',
-	'"No, but I wish them well. At least then I could focus on translating this obscure Famicom wrestling game."',
-	"Ding, a bell rings.",
-	'"What\'s that?"',
-	'"Another request to add animations."',
-	'"I really need a break..."',
+	{"instruction": VN.Dialogue, "speaker": "maf", "text": '"Did you hear? Someone started a rival site. Apparently, they weren’t happy with how we run things."'},
+	{"instruction": VN.Dialogue, "speaker": "bif", "text": '"No, but good for them. Maybe now I can get back to translating Super Fire Prowrestling Special..."'},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "A notification bell chimes."},
+	{"instruction": VN.Dialogue, "speaker": "bif", "text": '"What was that?"'},
+	{"instruction": VN.Dialogue, "speaker": "maf", "text": '"Another request to implement animations."'},
+	{"instruction": VN.Dialogue, "speaker": "bif", "text": '"I really need a break..."'},
 	{
 		"instruction": VN.NewPage,
 	},
-	"They turn their attention to me.",
+	{"instruction": VN.Dialogue, "speaker": null, "text": "Iccanobif finally notices me."},
 	{"instruction": VN.FlipChar, "character": "bif"},
-	"I have a bad feeling about this.",
-	'"I have an idea."',
-	'"What if we got someone to help us solve some of the problems in Sea City?"',
-	'"They stare at me intently."',
-	'"Good luck, Anonymous."',
+	{"instruction": VN.Dialogue, "speaker": null, "text": "I have a bad feeling about this."},
+	{"instruction": VN.Dialogue, "speaker": "bif", "text": '"Wait. I have an idea."'},
+	{"instruction": VN.Dialogue, "speaker": "bif", "text": '"What if we found someone else to deal with some of Sea City’s problems?"'},
+	{"instruction": VN.Dialogue, "speaker": null, "text": "They both stare at me."},
+	{"instruction": VN.Dialogue, "speaker": "maf", "text": '"Good luck, Anonymous."'},
 ]
 
 var script_index = -1
@@ -71,7 +74,10 @@ func _input(event):
 func interpret_instruction(instruction: Dictionary):
 	var instructionType = instruction["instruction"]
 	match instructionType:
+		VN.Dialogue:
+			showDialogue(instruction)
 		VN.NewPage:
+			setActiveSpeaker(null)
 			textBox.clear()
 			next()
 		VN.ShowChar:
@@ -80,6 +86,9 @@ func interpret_instruction(instruction: Dictionary):
 			showCharacter(instruction["character"], false)
 		VN.FlipChar:
 			flipCharacter(instruction["character"], true)
+		_:
+			push_error("Unknown VN instruction: " + str(instructionType))
+			next()
 
 
 func showCharacter(character: String, show: bool):
@@ -102,15 +111,43 @@ func flipCharacter(character: String, flip: bool):
 	tween.tween_callback(self, "next")
 
 
+func setActiveSpeaker(speaker) -> void:
+	if speaker != null && !vn_characters.has(speaker):
+		push_error("Unknown VN speaker: " + str(speaker))
+		speaker = null
+	for character in vn_characters:
+		var targetColor = Color.white
+		if speaker != null && character != speaker:
+			targetColor = INACTIVE_CHARACTER_COLOR
+		# Keep characters that have not entered the scene transparent.
+		targetColor.a = vn_characters[character].modulate.a
+		var tween = create_tween()
+		tween.tween_property(
+			vn_characters[character], "modulate", targetColor, HIGHLIGHT_TIMER
+		)
+
+
+func showDialogue(instruction: Dictionary) -> void:
+	if !instruction.has("text") || typeof(instruction["text"]) != TYPE_STRING:
+		push_error("VN dialogue instructions require string text")
+		next()
+		return
+	var speaker = instruction.get("speaker", null)
+	if speaker != null && typeof(speaker) != TYPE_STRING:
+		push_error("VN dialogue speakers must be a character id or null")
+		speaker = null
+	setActiveSpeaker(speaker)
+	textBox.addText(instruction["text"])
+
+
 func skip():
 	if script_index >= vn_script.size():
 		return
-	var currentType = typeof(vn_script[script_index])
-	match currentType:
-		TYPE_STRING:
-			textBox.next()
-		TYPE_DICTIONARY:
-			next()
+	var currentInstruction = vn_script[script_index]
+	if currentInstruction["instruction"] == VN.Dialogue:
+		textBox.next()
+	else:
+		next()
 
 
 func next():
@@ -120,12 +157,7 @@ func next():
 	if script_index >= vn_script.size():
 		end()
 		return
-	var nextType = typeof(vn_script[script_index])
-	match nextType:
-		TYPE_STRING:
-			textBox.addText(vn_script[script_index])
-		TYPE_DICTIONARY:
-			interpret_instruction(vn_script[script_index])
+	interpret_instruction(vn_script[script_index])
 
 
 func setName():

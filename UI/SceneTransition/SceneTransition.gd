@@ -30,6 +30,10 @@ func xToY(xNode, yNode):
 	else:
 		xNode.queue_free()
 	get_tree().root.add_child(yNode)
+	# Scenes added directly to the root are not registered as the current scene
+	# automatically. Keep SceneTree in sync so a later change_scene() removes
+	# this scene instead of leaving it visible underneath the next one.
+	get_tree().current_scene = yNode
 	$AnimationPlayer.play_backwards()
 
 func xToYScene(xNode, yScene):
